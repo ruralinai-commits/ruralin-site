@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Rural IN — Trigo · Radar Agro Semanal · 27-30 Abr 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0805;--bg2:#13100a;--bg3:#1c1810;--bg4:#251f15;--border:#2a2419;--border2:#3d3424;--accent:#854d0e;--accent2:#a16207;--accent3:#ca8a04;--wheat:#fef3c7;--wheat2:#fde68a;--wheat3:#fcd34d;--gold:#eab308;--gold2:#facc15;--text:#f3ead8;--text2:#c4b59a;--text3:#867862;--up:#22c55e;--upDark:#15803d;--dn:#ef4444;--dnDark:#b91c1c;--nt:#eab308;--blue:#3b82f6;--purple:#a855f7;--orange:#f97316;--cyan:#06b6d4;--teal:#14b8a6;--pink:#ec4899;--lime:#84cc16;--r:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 1000px 700px at 10% 15%,rgba(161,98,7,.08),transparent),radial-gradient(ellipse 800px 600px at 90% 85%,rgba(202,138,4,.05),transparent),radial-gradient(ellipse 600px 500px at 50% 50%,rgba(234,179,8,.03),transparent);pointer-events:none;z-index:0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+/* NAV */
+.nav{background:rgba(19,16,10,.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:12px 0;position:sticky;top:0;z-index:100}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between}
+.nav-left{display:flex;align-items:center;gap:14px}
+.nav-logo-img{height:42px;width:auto;border-radius:8px}
+.nav-logo{font-weight:900;font-size:1.2rem}
+.nav-logo .r{color:var(--wheat3)}
+.nav-logo .i{color:#22c55e}
+.nav-badge{background:linear-gradient(135deg,#451a03,#854d0e);border:1px solid rgba(252,211,77,.4);padding:5px 14px;border-radius:20px;font-size:.7rem;font-weight:800;color:var(--wheat);letter-spacing:.6px;box-shadow:0 0 20px rgba(161,98,7,.3)}
+.nav-back{color:var(--text3);font-size:.8rem;text-decoration:none;transition:color .2s}
+.nav-back:hover{color:var(--wheat3)}
+
+/* HERO */
+.hero{padding:54px 0 40px;position:relative;text-align:left}
+.hero::after{content:'';position:absolute;bottom:0;left:0;width:240px;height:3px;background:linear-gradient(90deg,var(--accent2),var(--wheat3),transparent)}
+.hero-top{display:flex;align-items:center;gap:22px;margin-bottom:16px}
+.hero-icon-wrap{position:relative;width:84px;height:84px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(161,98,7,.25),transparent 70%);border-radius:50%}
+.hero-icon{font-size:3.6rem;filter:drop-shadow(0 6px 18px rgba(161,98,7,.5))}
+.hero-texts h1{font-size:2.4rem;font-weight:900;letter-spacing:-1.2px;line-height:1.1}
+.hero-texts h1 .hl{background:linear-gradient(135deg,#a16207,#ca8a04,#eab308,#fcd34d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-texts .sub{font-size:.9rem;color:var(--text2);margin-top:6px;font-weight:500}
+.hero-bar{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;border-radius:22px;font-size:.72rem;font-weight:700;border:1px solid;backdrop-filter:blur(8px)}
+.chip.up{color:var(--up);border-color:rgba(34,197,94,.3);background:rgba(34,197,94,.08)}
+.chip.dn{color:var(--dn);border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.08)}
+.chip.nt{color:var(--nt);border-color:rgba(234,179,8,.3);background:rgba(234,179,8,.08)}
+.chip.bl{color:var(--blue);border-color:rgba(59,130,246,.3);background:rgba(59,130,246,.08)}
+.chip.pu{color:var(--purple);border-color:rgba(168,85,247,.3);background:rgba(168,85,247,.08)}
+.chip.or{color:var(--orange);border-color:rgba(249,115,22,.3);background:rgba(249,115,22,.08)}
+.chip.wh{color:var(--wheat3);border-color:rgba(252,211,77,.3);background:rgba(252,211,77,.08)}
+
+/* ALERTS */
+.alert{border-radius:var(--r);padding:18px 22px;margin-bottom:14px;display:flex;align-items:flex-start;gap:14px;border:1px solid;font-size:.85rem;line-height:1.75;color:var(--text2);position:relative;overflow:hidden}
+.alert::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px}
+.alert strong{color:var(--text)}
+.alert .ai{font-size:1.4rem;flex-shrink:0;margin-top:1px}
+.alert.green{background:linear-gradient(90deg,rgba(34,197,94,.08),rgba(34,197,94,.02));border-color:rgba(34,197,94,.25)}
+.alert.green::before{background:var(--up)}
+.alert.red{background:linear-gradient(90deg,rgba(239,68,68,.08),rgba(239,68,68,.02));border-color:rgba(239,68,68,.25)}
+.alert.red::before{background:var(--dn)}
+.alert.amber{background:linear-gradient(90deg,rgba(234,179,8,.08),rgba(234,179,8,.02));border-color:rgba(234,179,8,.25)}
+.alert.amber::before{background:var(--nt)}
+.alert.blue{background:linear-gradient(90deg,rgba(59,130,246,.08),rgba(59,130,246,.02));border-color:rgba(59,130,246,.25)}
+.alert.blue::before{background:var(--blue)}
+.alert.purple{background:linear-gradient(90deg,rgba(168,85,247,.08),rgba(168,85,247,.02));border-color:rgba(168,85,247,.25)}
+.alert.purple::before{background:var(--purple)}
+.alert.cyan{background:linear-gradient(90deg,rgba(6,182,212,.1),rgba(6,182,212,.02));border-color:rgba(6,182,212,.3)}
+.alert.cyan::before{background:var(--cyan)}
+.alert.orange{background:linear-gradient(90deg,rgba(249,115,22,.1),rgba(249,115,22,.02));border-color:rgba(249,115,22,.3)}
+.alert.orange::before{background:var(--orange)}
+.alert.wheat{background:linear-gradient(90deg,rgba(202,138,4,.13),rgba(252,211,77,.04));border-color:rgba(252,211,77,.3)}
+.alert.wheat::before{background:var(--wheat3)}
+
+/* KPIs */
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin:24px 0}
+.kpi{background:linear-gradient(160deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:14px;padding:16px 18px;position:relative;overflow:hidden;transition:all .25s ease}
+.kpi:hover{transform:translateY(-3px);border-color:var(--border2);box-shadow:0 12px 30px rgba(0,0,0,.4)}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--border2)}
+.kpi.up::before{background:linear-gradient(90deg,var(--up),var(--lime))}
+.kpi.dn::before{background:linear-gradient(90deg,var(--dn),var(--orange))}
+.kpi.nt::before{background:linear-gradient(90deg,var(--nt),var(--wheat3))}
+.kpi.bl::before{background:linear-gradient(90deg,var(--blue),var(--cyan))}
+.kpi.pu::before{background:linear-gradient(90deg,var(--purple),var(--pink))}
+.kpi.or::before{background:linear-gradient(90deg,var(--orange),var(--wheat3))}
+.kpi.wh::before{background:linear-gradient(90deg,var(--accent2),var(--wheat3))}
+.kpi-lb{font-size:.6rem;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3);margin-bottom:5px;font-weight:700}
+.kpi-val{font-size:1.18rem;font-weight:900;letter-spacing:-.5px;line-height:1.2}
+.kpi-val.up{color:var(--up)}
+.kpi-val.dn{color:var(--dn)}
+.kpi-val.nt{color:var(--nt)}
+.kpi-val.bl{color:var(--blue)}
+.kpi-val.pu{color:var(--purple)}
+.kpi-val.or{color:var(--orange)}
+.kpi-val.wh{color:var(--wheat3)}
+.kpi-sub{font-size:.66rem;color:var(--text3);margin-top:3px;font-weight:500}
+
+/* DIVIDER */
+.dv{height:1px;background:linear-gradient(90deg,transparent,var(--border2) 20%,var(--accent2) 50%,var(--border2) 80%,transparent);margin:36px 0}
+
+/* SECTION TITLE */
+.stitle{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.stitle .icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.stitle h2{font-size:1.18rem;font-weight:800;letter-spacing:-.3px}
+.stitle h2 span{color:var(--text2);font-weight:400;font-size:.85rem;margin-left:4px}
+
+/* COMMENTS */
+.co{border-radius:var(--r);padding:20px 24px;margin-bottom:14px;border-left:4px solid;font-size:.85rem;color:var(--text2);line-height:1.85;position:relative;background:linear-gradient(90deg,var(--bg2),var(--bg3))}
+.co strong{color:var(--text)}
+.co h4{font-size:.98rem;font-weight:800;margin-bottom:10px;letter-spacing:-.2px}
+.co.up{border-color:var(--up)}.co.up h4{color:var(--up)}
+.co.dn{border-color:var(--dn)}.co.dn h4{color:var(--dn)}
+.co.nt{border-color:var(--nt)}.co.nt h4{color:var(--nt)}
+.co.bl{border-color:var(--blue)}.co.bl h4{color:var(--blue)}
+.co.or{border-color:var(--orange)}.co.or h4{color:var(--orange)}
+.co.pu{border-color:var(--purple)}.co.pu h4{color:var(--purple)}
+.co.cy{border-color:var(--cyan)}.co.cy h4{color:var(--cyan)}
+.co.wh{border-color:var(--wheat3)}.co.wh h4{color:var(--wheat3)}
+
+/* CHART */
+.chart-box{background:linear-gradient(160deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:var(--r);padding:22px 24px;margin-bottom:14px;overflow:hidden;transition:border-color .2s}
+.chart-box:hover{border-color:var(--border2)}
+.chart-box h3{font-size:.9rem;color:var(--text);margin-bottom:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+.chart-box h3 .ch-tag{margin-left:auto;font-size:.62rem;font-weight:700;padding:2px 10px;border-radius:10px;background:rgba(202,138,4,.18);color:var(--wheat3);letter-spacing:.5px}
+.chart-wrap{position:relative;height:290px;overflow:hidden}
+
+/* GRIDS */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:800px){.grid2,.grid3{grid-template-columns:1fr}}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--border);margin-bottom:14px;background:var(--bg2)}
+table{width:100%;border-collapse:collapse;font-size:.78rem}
+thead th{background:linear-gradient(180deg,var(--bg3),var(--bg4));padding:12px 14px;text-align:center;font-weight:800;color:var(--text2);font-size:.66rem;text-transform:uppercase;letter-spacing:.9px;border-bottom:1px solid var(--border)}
+tbody td{padding:10px 12px;border-bottom:1px solid rgba(42,36,25,.5);text-align:center}
+tbody tr:hover{background:rgba(202,138,4,.05)}
+.td-name{text-align:left!important;font-weight:700;white-space:nowrap}
+.td-up{color:var(--up);font-weight:800}
+.td-dn{color:var(--dn);font-weight:800}
+.td-nt{color:var(--nt);font-weight:800}
+
+/* THERMOMETER */
+.thermo{margin:14px 0}
+.thermo h4{font-size:.84rem;color:var(--text);margin-bottom:10px;font-weight:700}
+.th-bar{height:14px;border-radius:7px;position:relative;box-shadow:inset 0 1px 4px rgba(0,0,0,.4)}
+.th-marker{position:absolute;top:-6px;width:4px;height:26px;background:#fff;border-radius:2px;transform:translateX(-50%);box-shadow:0 0 12px rgba(255,255,255,.6)}
+.th-lb{display:flex;justify-content:space-between;font-size:.66rem;color:var(--text3);margin-top:6px;font-weight:600}
+
+/* CARDS */
+.card{background:linear-gradient(160deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:var(--r);padding:22px 26px;margin-bottom:14px;transition:border-color .2s}
+.card:hover{border-color:var(--border2)}
+
+/* OPINION */
+.opinion{background:linear-gradient(135deg,rgba(161,98,7,.15),rgba(252,211,77,.05),rgba(161,98,7,.02));border:1px solid rgba(252,211,77,.3);border-radius:var(--r);padding:30px 32px;margin:26px 0;position:relative;overflow:hidden}
+.opinion::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent2),var(--wheat3),var(--accent2))}
+.opinion h3{font-size:1.08rem;font-weight:800;color:var(--wheat3);margin-bottom:12px;letter-spacing:-.2px}
+.opinion p{font-size:.88rem;color:var(--text2);line-height:1.9;margin-bottom:12px}
+.opinion p strong{color:var(--text)}
+.opinion .scenarios{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.opinion .sc{padding:14px 16px;border-radius:10px;border:1px solid;background:rgba(0,0,0,.3)}
+.opinion .sc.up{border-color:rgba(34,197,94,.3)}
+.opinion .sc.nt{border-color:rgba(234,179,8,.3)}
+.opinion .sc.dn{border-color:rgba(239,68,68,.3)}
+.opinion .sc h5{font-size:.78rem;font-weight:800;margin-bottom:6px}
+.opinion .sc.up h5{color:var(--up)}
+.opinion .sc.nt h5{color:var(--nt)}
+.opinion .sc.dn h5{color:var(--dn)}
+.opinion .sc p{font-size:.74rem;line-height:1.6;margin:0}
+@media(max-width:700px){.opinion .scenarios{grid-template-columns:1fr}}
+.opinion .sig{margin-top:18px;padding-top:14px;border-top:1px solid rgba(252,211,77,.2);font-size:.78rem;color:var(--text3);font-style:italic;display:flex;align-items:center;gap:8px}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--border);padding:42px 0;text-align:center;margin-top:36px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.5))}
+.footer-brand{font-size:1.5rem;font-weight:900;margin-bottom:12px}
+.footer-brand .r{color:var(--wheat3)}
+.footer-brand .i{color:#22c55e}
+.footer p{font-size:.78rem;color:var(--text3);line-height:1.8}
+.footer-credits{margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+.footer-credits h4{font-size:.92rem;color:var(--wheat3);font-weight:700;margin-bottom:6px}
+.footer-credits .name{font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:2px}
+.footer-credits .title{font-size:.78rem;color:var(--wheat2);font-weight:600;margin-bottom:8px}
+.footer-credits .desc{font-size:.74rem;color:var(--text2);line-height:1.7;max-width:540px;margin:0 auto 12px}
+.footer-credits .contact{font-size:.74rem;color:var(--text3)}
+.footer-credits .contact a{color:var(--wheat3);text-decoration:none}
+.footer-credits .contact a:hover{text-decoration:underline}
+
+/* BIG NUMBERS */
+.bignum-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}
+.bignum{background:linear-gradient(160deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:14px;padding:20px 18px;text-align:center;position:relative;overflow:hidden}
+.bignum::after{content:'';position:absolute;top:-50%;right:-30%;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(161,98,7,.12),transparent 70%)}
+.bignum .v{font-size:1.7rem;font-weight:900;letter-spacing:-1px;line-height:1;margin-bottom:6px;position:relative;z-index:1}
+.bignum .v.up{color:var(--up)}
+.bignum .v.dn{color:var(--dn)}
+.bignum .v.nt{color:var(--nt)}
+.bignum .v.bl{color:var(--blue)}
+.bignum .v.or{color:var(--orange)}
+.bignum .v.wh{color:var(--wheat3)}
+.bignum .l{font-size:.72rem;color:var(--text2);font-weight:600;position:relative;z-index:1}
+.bignum .s{font-size:.66rem;color:var(--text3);margin-top:3px}
+@media(max-width:700px){.bignum-row{grid-template-columns:repeat(2,1fr)}}
+
+@media(max-width:600px){
+  .hero-top{flex-direction:column;text-align:center;gap:12px}
+  .hero-texts h1{font-size:1.65rem}
+  .nav .wrap{flex-direction:column;gap:10px}
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1"></script>
+</head>
+<body>
+
+<nav class="nav"><div class="wrap"><div class="nav-left"><img src="https://ruralinrv.github.io/ruralin/logo.png" alt="Rural IN" class="nav-logo-img" onerror="this.style.display='none'"><div class="nav-logo"><span class="r">Rural</span> <span class="i">IN</span></div><div class="nav-badge">🌾 TRIGO</div></div><a href="portal-30-04.html" class="nav-back">← Voltar ao Portal</a></div></nav>
+
+<div class="wrap">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-top">
+    <div class="hero-icon-wrap"><span class="hero-icon">🌾</span></div>
+    <div class="hero-texts">
+      <h1><span class="hl">Trigo</span> · Radar Semanal</h1>
+      <div class="sub">Semana 27–30 Abril 2026 (curta · feriado 1º Mai) · CEPEA · CBOT · CONAB · Deral · Safras · Abitrigo · USDA · Bolsa Cereais Buenos Aires</div>
+    </div>
+  </div>
+  <div class="hero-bar">
+    <span class="chip up">📈 CEPEA PR: R$ 1.342,67/t (+4,49% mês)</span>
+    <span class="chip up">🚀 CEPEA RS: +9,39% mês — DESTAQUE!</span>
+    <span class="chip up">🌍 CBOT: MÁX. 2 ANOS! US$ 6,57/bu</span>
+    <span class="chip dn">🇧🇷 CONAB safra 26: −16% · 6,616 mi t</span>
+    <span class="chip or">🌧️ Seca EUA · trigo inverno crítico</span>
+    <span class="chip pu">🏦 Selic: 14,75% → 14,50%</span>
+  </div>
+</section>
+
+<!-- BIG NUMBERS -->
+<div class="bignum-row">
+  <div class="bignum"><div class="v up">R$ 1.342,67</div><div class="l">CEPEA PR · 30/04 (R$/t)</div><div class="s">+4,49% mês · firme</div></div>
+  <div class="bignum"><div class="v up">R$ 1.260,96</div><div class="l">CEPEA RS · 30/04 (R$/t)</div><div class="s">+9,39% mês · DESTAQUE!</div></div>
+  <div class="bignum"><div class="v wh">US$ 6,3675</div><div class="l">CBOT Jul/26 · fech. 30/04</div><div class="s">−2,49% · MÁX. desde jun/24!</div></div>
+  <div class="bignum"><div class="v dn">6,616 mi t</div><div class="l">Safra BR 26 (CONAB)</div><div class="s">−16% vs 25 · grave!</div></div>
+</div>
+
+<!-- ALERTAS -->
+<div class="alert wheat">
+  <span class="ai">🌾</span>
+  <div><strong style="color:var(--wheat3)">SEMANA HISTÓRICA: CBOT ATINGIU MÁXIMA EM QUASE 2 ANOS! +R$ 50/t no PR no mês!</strong><br>
+  <strong>CBOT Jul/26 fech. 30/04:</strong> US$ 6,3675/bu (−2,49% no dia, mas <strong>MAIOR valor desde 06/06/2024!</strong>). Quarta-feira (29/04) chegou a US$ 6,57/bu. <strong>CEPEA Paraná 30/04:</strong> R$ 1.342,67/t (+0,33% sem · +4,49% mês). <strong>CEPEA RS 30/04:</strong> R$ 1.260,96/t (+9,39% mês — destaque absoluto!). Movimento sustentado por: <strong>seca crítica nas Grandes Planícies (EUA)</strong> + oferta restrita BR + cautela vendedora + tensões logísticas Mar Negro. Granar: "<em>Esse pessimismo com a safra deve continuar, já que as previsões meteorológicas indicam pouca chuva nas Grandes Planícies.</em>"</div>
+</div>
+
+<div class="alert red">
+  <span class="ai">📉</span>
+  <div><strong style="color:var(--dn)">SAFRA BR 2026 EM COLAPSO: −16% (CONAB)! ÁREA RS −20% · PR −6%!</strong><br>
+  <strong>CONAB 7º levantamento (14/04):</strong> Safra BR 2026 reduzida para <strong>6,616 mi t</strong> (−16% vs 25 · revisão de −4,2% só vs março). <strong>RS:</strong> 925,5 mil ha (−20%) · 2,7 mi t (−24,5%!). <strong>PR (Deral):</strong> 775,6 mil ha (−6% · MENOR PLANTIO DESDE 2000!) · 2,53 mi t (−12%). <strong>Safras &amp; Mercado:</strong> 6,855 mi t · área 1,985 mi ha (−15,5%). <strong>Hamilton Jardim (Farsul):</strong> "<em>Descapitalização do produtor, dificuldade de crédito, seguro agrícola insuficiente — cenário de redução drástica de área cultivada no próximo inverno.</em>" Rentabilidade fraca + clima ruim + competição com soja/milho/cevada.</div>
+</div>
+
+<div class="alert green">
+  <span class="ai">📈</span>
+  <div><strong style="color:var(--up)">FÍSICO INTERNO BR EM FORTE ALTA! Negócios pontuais "da mão para a boca"</strong><br>
+  <strong>RS — Mercado FOB interior:</strong> R$ 1.260-1.300/t (compradores) vs R$ 1.350-1.400/t (vendedores). <strong>Panambi:</strong> Saca produtor passou de R$ 59,00 para <strong>R$ 62,04 (+5,15%)</strong>!<br>
+  <strong>SC:</strong> Trigo gaúcho a R$ 1.300/t FOB · catarinense também R$ 1.300 · paranaense em SC a R$ 1.400.<br>
+  <strong>PR:</strong> Negócios entre R$ 1.350-1.380/t FOB · ofertas em R$ 1.400-1.450/t · vendedores firmes.<br>
+  <strong>Disponibilidade RS:</strong> ~260 mil t (insuficiente até a próxima colheita em outubro!) → <strong>NECESSIDADE DE IMPORTAÇÕES forte na entressafra!</strong> <strong>Cobertura dos moinhos:</strong> apenas até meados de maio.</div>
+</div>
+
+<div class="alert blue">
+  <span class="ai">🇦🇷</span>
+  <div><strong style="color:var(--blue)">ARGENTINA COM SAFRA RECORDE 25/26: 24 MI T! Mas Brasil ainda dependerá de importações</strong><br>
+  <strong>Bolsa de Cereais de Buenos Aires:</strong> Argentina 25/26 = <strong>24 milhões de toneladas</strong> (vs 18 mi em 24/25 = <strong>+33,3%!</strong>) — <strong>RECORDE histórico!</strong><br>
+  <strong>Drivers:</strong> aumento de área + clima favorável + produtividade superior.<br>
+  <strong>Brasil dependência externa:</strong> Consumo interno 12-13 mi t · Produção 7-8 mi t · <strong>USDA projeta importações BR 25/26 em 7,3 mi t</strong> (Argentina · Paraguai · EUA · Canadá).<br>
+  <strong>Rubens Barbosa (Abitrigo):</strong> "<em>Brasil não tem problema de abastecimento. Se houver redução da produção, a gente importa. Há oferta de trigo no mercado internacional.</em>"<br>
+  <strong>Ironia:</strong> Argentina recorde + Brasil deficitário = preços internos pagos por moinhos brasileiros não vão cair tanto quanto seria esperado, pois <strong>câmbio + frete + taxação</strong> sustentam paridade.</div>
+</div>
+
+<div class="alert orange">
+  <span class="ai">🌧️</span>
+  <div><strong style="color:var(--orange)">SECA SEVERA NAS GRANDES PLANÍCIES DOS EUA! Trigo de Inverno em estado crítico</strong><br>
+  <strong>USDA — Trigo de inverno EUA:</strong> 30% das lavouras em condições boas/excelentes (vs 49% ano anterior!) — <strong>queda de 19 pontos!</strong><br>
+  <strong>Granar:</strong> "<em>As previsões meteorológicas indicam pouca chuva nas Grandes Planícies, principal região produtora americana. O pessimismo com a safra deve continuar.</em>" Falta de chuva nas Grandes Planícies do norte também afeta plantio do trigo de primavera (mais lento que ano passado).<br>
+  <strong>Resultado prático:</strong> CBOT em rali · fundos abrindo posições compradas · trigo está sendo o <strong>destaque positivo</strong> dentre os grãos (vs soja e milho lateralizados/baixistas).<br>
+  <strong>Risco:</strong> Se chuvas chegarem rápido, CBOT pode corrigir 10-15% rapidamente. Hoje, é tudo prêmio climático.</div>
+</div>
+
+<div class="alert amber">
+  <span class="ai">⚠️</span>
+  <div><strong style="color:var(--nt)">DIVERGÊNCIA REGIONAL BR! Por Que RS subiu MUITO mais que PR?</strong><br>
+  <strong>RS:</strong> +9,39% no mês · disponibilidade super apertada (260 mil t) · qualidade melhor concentrada na entressafra · vendedores firmes pedindo R$ 1.350-1.400/t.<br>
+  <strong>PR:</strong> +4,49% no mês · estoques mais confortáveis · industrialização local mais ativa · mais próximo do Paraguai (importação fácil).<br>
+  <strong>SC:</strong> Acompanha RS · maior parte da oferta local vem do RS via cabotagem.<br>
+  <strong>SP:</strong> R$ 1.291,83/t (média fev) · perfil de panificação fina premium.<br><br>
+  <strong>Spread RS-PR:</strong> R$ 81,71/t (PR mais caro). Mas em maio/junho, com chegada da nova safra brasileira mais cedo no PR, esse spread pode se inverter rapidamente.</div>
+</div>
+
+<div class="alert purple">
+  <span class="ai">🏦</span>
+  <div><strong style="color:var(--purple)">EVENTO MACRO: COPOM CORTOU SELIC PARA 14,50%! Dólar mín. 2 anos</strong><br>
+  Banco Central reduziu Selic em <strong>0,25 p.p.</strong> (29/04). <strong>Dólar:</strong> R$ 4,9523 (mín. 2 anos!). <strong>Para o triticultor:</strong> dólar fraco é <strong>fator MISTO</strong> — barateia importações de Argentina/Paraguai (pressão baixista nos preços internos), mas também encarece insumos (fertilizantes precificados em US$). <strong>Selic menor:</strong> custo de capital de giro mais barato (essencial para safra de inverno em vias de plantio!). Triticultores se beneficiam ainda mais que outros grãos por terem custos de plantio mais altos relativamente ao preço.</div>
+</div>
+
+<div class="dv"></div>
+
+<!-- KPIs DETALHADOS -->
+<div class="stitle"><div class="icon" style="background:linear-gradient(135deg,#451a03,#854d0e)">📊</div><h2>Indicadores-Chave <span>— CEPEA · CBOT · Safras · Argentina · Macro</span></h2></div>
+
+<div class="kpi-row">
+  <div class="kpi up"><div class="kpi-lb">CEPEA PR 30/04</div><div class="kpi-val up">R$ 1.342,67/t</div><div class="kpi-sub">+0,33% sem · +4,49% mês</div></div>
+  <div class="kpi up"><div class="kpi-lb">CEPEA RS 30/04</div><div class="kpi-val up">R$ 1.260,96/t</div><div class="kpi-sub">+9,39% mês · DESTAQUE!</div></div>
+  <div class="kpi wh"><div class="kpi-lb">CBOT Jul/26 30/04</div><div class="kpi-val wh">US$ 6,3675/bu</div><div class="kpi-sub">−2,49% · MÁX. 2 ANOS!</div></div>
+  <div class="kpi wh"><div class="kpi-lb">CBOT 29/04 alta</div><div class="kpi-val wh">US$ 6,57/bu</div><div class="kpi-sub">+280 pts · ralí</div></div>
+  <div class="kpi wh"><div class="kpi-lb">CBOT Set/26</div><div class="kpi-val wh">US$ 6,70/bu</div><div class="kpi-sub">29/04 · curva crescente</div></div>
+  <div class="kpi dn"><div class="kpi-lb">CONAB Safra 2026</div><div class="kpi-val dn">6,616 mi t</div><div class="kpi-sub">−16% vs 25 · grave</div></div>
+  <div class="kpi dn"><div class="kpi-lb">RS Safra 2026</div><div class="kpi-val dn">2,7 mi t</div><div class="kpi-sub">−24,5%! · CONAB</div></div>
+  <div class="kpi dn"><div class="kpi-lb">PR Safra 2026 (Deral)</div><div class="kpi-val dn">2,53 mi t</div><div class="kpi-sub">−12% · mín. desde 2000</div></div>
+  <div class="kpi dn"><div class="kpi-lb">Área RS 26/27</div><div class="kpi-val dn">925,5 mil ha</div><div class="kpi-sub">−20% · CONAB</div></div>
+  <div class="kpi dn"><div class="kpi-lb">Área PR 26/27</div><div class="kpi-val dn">775,6 mil ha</div><div class="kpi-sub">−6% · Deral</div></div>
+  <div class="kpi up"><div class="kpi-lb">Argentina 25/26</div><div class="kpi-val up">24 mi t</div><div class="kpi-sub">RECORDE! +33,3%</div></div>
+  <div class="kpi or"><div class="kpi-lb">EUA Trigo Inv. (boa)</div><div class="kpi-val or">30%</div><div class="kpi-sub">vs 49% ano ant. · seca!</div></div>
+  <div class="kpi bl"><div class="kpi-lb">Importações BR 25/26</div><div class="kpi-val bl">7,3 mi t</div><div class="kpi-sub">USDA · 50% do consumo!</div></div>
+  <div class="kpi up"><div class="kpi-lb">RS exp. 25/26</div><div class="kpi-val up">1,73 mi t</div><div class="kpi-sub">97% dos embarques BR!</div></div>
+  <div class="kpi pu"><div class="kpi-lb">Selic 29/04</div><div class="kpi-val pu">14,50% a.a.</div><div class="kpi-sub">↓ 0,25 p.p. · CORTE</div></div>
+  <div class="kpi dn"><div class="kpi-lb">Dólar 30/04</div><div class="kpi-val dn">R$ 4,9523</div><div class="kpi-sub">−1,00% · mín. 2 anos</div></div>
+</div>
+
+<div class="dv"></div>
+
+<!-- COTAÇÕES SEMANA -->
+<div class="stitle"><div class="icon" style="background:linear-gradient(135deg,#451a03,#92400e)">📍</div><h2>Cotações da Semana <span>— CEPEA, CBOT e Físico FOB · 27 a 30 Abril 2026</span></h2></div>
+
+<div class="tbl-wrap">
+<table>
+<thead><tr><th>Indicador</th><th>27/04</th><th>28/04</th><th>29/04</th><th>30/04</th><th>Var. Sem</th><th>Var. Mês</th></tr></thead>
+<tbody>
+<tr><td class="td-name">🌾 CEPEA Paraná (R$/t)</td><td>R$ 1.338,20</td><td>R$ 1.340,34</td><td>R$ 1.343,57</td><td class="td-up">R$ 1.342,67</td><td class="td-up">+0,33%</td><td class="td-up">+4,49%</td></tr>
+<tr><td class="td-name">🌾 CEPEA Rio Grande do Sul (R$/t)</td><td>R$ 1.269,96</td><td>R$ 1.275,64</td><td>R$ 1.275,64</td><td class="td-dn">R$ 1.260,96</td><td class="td-dn">−0,71%</td><td class="td-up">+9,39%</td></tr>
+<tr><td class="td-name">📊 CBOT Mai/26 (¢/bu)</td><td>~620</td><td>~625</td><td class="td-up">649,0</td><td class="td-dn">~640</td><td class="td-up">+3,2%</td><td class="td-up">+10,3%</td></tr>
+<tr><td class="td-name">📊 CBOT Jul/26 (¢/bu)</td><td>~625</td><td>~635</td><td class="td-up">657,0</td><td class="td-dn">636,75</td><td class="td-up">+1,9%</td><td class="td-up">+7,7%</td></tr>
+<tr><td class="td-name">📊 CBOT Set/26 (¢/bu)</td><td>~640</td><td>~650</td><td class="td-up">670,0</td><td class="td-dn">~655</td><td class="td-up">+2,3%</td><td class="td-up">+8,4%</td></tr>
+<tr><td class="td-name">📍 Físico FOB RS (R$/t)</td><td colspan="3">R$ 1.260-1.300 (compra) · R$ 1.350-1.400 (venda)</td><td class="td-up">~R$ 1.330</td><td class="td-up">+1,5%</td><td class="td-up">+12%</td></tr>
+<tr><td class="td-name">📍 Físico FOB PR (R$/t)</td><td colspan="3">R$ 1.350-1.380 FOB · R$ 1.380-1.400 CIF</td><td class="td-up">~R$ 1.380</td><td class="td-up">+0,7%</td><td class="td-up">+14%</td></tr>
+<tr><td class="td-name">📍 Saca produtor Panambi-RS</td><td colspan="3">R$ 59,00 (início abril) → R$ 62,04 (22/abr)</td><td class="td-up">~R$ 62,50</td><td class="td-up">+0,7%</td><td class="td-up">+5,15%</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="dv"></div>
+
+<!-- 6 GRÁFICOS -->
+<div class="stitle"><div class="icon" style="background:linear-gradient(135deg,#451a03,#854d0e)">📈</div><h2>Análise Gráfica <span>— 6 perspectivas · CEPEA · CBOT · Safra · Argentina · BR x Mundo · Importações</span></h2></div>
+
+<div class="grid2">
+  <div class="chart-box">
+    <h3>📊 CEPEA PR vs RS — Trajetória Diária <span class="ch-tag">Abr/26 · R$/t</span></h3>
+    <div class="chart-wrap"><canvas id="ch1"></canvas></div>
+  </div>
+  <div class="chart-box">
+    <h3>🌍 CBOT Trigo — Curva Forward <span class="ch-tag">29/04 · ¢/bu</span></h3>
+    <div class="chart-wrap"><canvas id="ch2"></canvas></div>
+  </div>
+</div>
+
+<div class="grid2">
+  <div class="chart-box">
+    <h3>🇧🇷 Safra BR Trigo — Histórico CONAB <span class="ch-tag">mi t · 6 safras</span></h3>
+    <div class="chart-wrap"><canvas id="ch3"></canvas></div>
+  </div>
+  <div class="chart-box">
+    <h3>🇦🇷 Brasil x Argentina — Produção 26 <span class="ch-tag">mi t</span></h3>
+    <div class="chart-wrap"><canvas id="ch4"></canvas></div>
+  </div>
+</div>
+
+<div class="grid2">
+  <div class="chart-box">
+    <h3>🚢 Brasil — Balança Trigo 25/26 <span class="ch-tag">USDA · mi t</span></h3>
+    <div class="chart-wrap"><canvas id="ch5"></canvas></div>
+  </div>
+  <div class="chart-box">
+    <h3>📐 Áreas Cultivadas BR 26/27 — Estados <span class="ch-tag">mil ha · Var. %</span></h3>
+    <div class="chart-wrap"><canvas id="ch6"></canvas></div>
+  </div>
+</div>
+
+<div class="dv"></div>
+
+<!-- ANÁLISE -->
+<div class="stitle"><div class="icon" style="background:linear-gradient(135deg,#854d0e,#a16207)">🔍</div><h2>Análise Aprofundada <span>— A grande virada do trigo em 2026</span></h2></div>
+
+<div class="co wh">
+  <h4>🌾 A Tese Central: Trigo é A Surpresa Positiva da Semana entre os Grãos!</h4>
+  <p><strong>Enquanto soja e milho lateralizam e café cai, o trigo se destaca com o maior rali entre os grãos:</strong><br>
+  ▸ <strong>CEPEA RS:</strong> +9,39% no mês (destaque absoluto entre todos os grãos!)<br>
+  ▸ <strong>CEPEA PR:</strong> +4,49% no mês<br>
+  ▸ <strong>CBOT Jul/26:</strong> Atingiu MAIOR valor desde junho de 2024!<br>
+  ▸ <strong>Saiu de R$ 1.150/t (fev) para R$ 1.343/t (PR)</strong> = +16,8% em 2 meses!<br><br>
+  <strong>Por que está subindo?</strong><br>
+  ▸ <strong>Seca severa nas Grandes Planícies dos EUA</strong> (apenas 30% das lavouras boas/excelentes vs 49% ano anterior!) → CBOT em rali<br>
+  ▸ <strong>Quebra estrutural da safra brasileira:</strong> CONAB −16% · RS −24,5% · PR −12%<br>
+  ▸ <strong>Disponibilidade interna apertada</strong> · RS com apenas 260 mil t para abastecer até outubro<br>
+  ▸ <strong>Petróleo elevado</strong> aumenta custo de fretes (especialmente importação Argentina/Paraguai)<br>
+  ▸ <strong>Produtores capitalizados</strong> e firmes na venda · "da mão para a boca"<br>
+  ▸ <strong>Tensões geopolíticas no Mar Negro</strong> afetam logística Rússia/Ucrânia<br><br>
+  <strong>Notícias Agrícolas:</strong> "<em>Mercado internacional avança novamente e coloca o produtor brasileiro diante de novas decisões de comercialização.</em>" <strong>Momento de janela aberta para vender estoques remanescentes.</strong></p>
+</div>
+
+<div class="co dn">
+  <h4>📉 Safra BR 2026 em Colapso: Menor Plantio do PR Desde 2000!</h4>
+  <p><strong>O recuo da área é um dos mais expressivos da história recente do trigo brasileiro:</strong><br>
+  ▸ <strong>CONAB 7º levantamento:</strong> 6,616 mi t (−16% a/a)<br>
+  ▸ <strong>RS:</strong> 925,5 mil ha (−20%) · 2,7 mi t (−24,5%!)<br>
+  ▸ <strong>PR (Deral):</strong> 775,6 mil ha (−6% · MENOR DESDE ANO 2000!) · 2,53 mi t<br>
+  ▸ <strong>SC:</strong> −18,2% na área<br>
+  ▸ <strong>SP:</strong> −13,6% na área<br>
+  ▸ <strong>Em 4 anos:</strong> Área plantada do trigo recuou MAIS DE 40%!<br><br>
+  <strong>Causas (Hamilton Jardim · Farsul):</strong><br>
+  ▸ <strong>Descapitalização</strong> dos produtores<br>
+  ▸ <strong>Dificuldade de crédito</strong><br>
+  ▸ <strong>Seguro agrícola insuficiente</strong> e ineficiente<br>
+  ▸ <strong>Competição com soja, milho safrinha e cevada</strong><br>
+  ▸ <strong>Riscos climáticos elevados</strong> (geadas, excesso de chuva, granizo)<br>
+  ▸ <strong>Preços baixos em ciclos anteriores</strong> que destruíram confiança<br><br>
+  <strong>Carlos Hugo Godinho (Deral):</strong> "<em>O milho safrinha vem ganhando espaço sobre o trigo há muito tempo, porque ele tem preços que acabam compensando, principalmente nas regiões norte e oeste do PR.</em>"</p>
+</div>
+
+<div class="co bl">
+  <h4>🇦🇷 Argentina com Safra RECORDE: 24 mi t! Mas Brasil Continua Deficitário</h4>
+  <p><strong>O grande paradoxo da América do Sul em trigo 2026:</strong><br>
+  ▸ <strong>Argentina 25/26:</strong> 24 mi t — <strong>RECORDE absoluto!</strong> (vs 18 mi em 24/25 = +33,3%)<br>
+  ▸ <strong>Brasil 25/26 (atual):</strong> 8,02 mi t<br>
+  ▸ <strong>Brasil 2026 (próxima):</strong> apenas 6,616 mi t (CONAB)<br>
+  ▸ <strong>Consumo BR:</strong> 12-13 mi t<br>
+  ▸ <strong>Déficit BR:</strong> ~5-6 mi t a importar<br>
+  ▸ <strong>Importações projetadas USDA:</strong> 7,3 mi t (50% do consumo!)<br><br>
+  <strong>Origens das importações brasileiras:</strong><br>
+  ▸ <strong>Argentina</strong> (principal · pagamento em peso/dólar · proximidade)<br>
+  ▸ <strong>Paraguai</strong> (entrada por rodovia · cresce a participação)<br>
+  ▸ <strong>EUA</strong> (qualidade premium para panificação fina)<br>
+  ▸ <strong>Canadá</strong> (durum/trigos especiais)<br><br>
+  <strong>Por que preço interno BR não cai apesar da Argentina recorde?</strong><br>
+  ▸ <strong>Câmbio:</strong> Real valorizado (R$ 4,9523) reduz arbitragem<br>
+  ▸ <strong>Frete elevado</strong> com petróleo alto (Brent acima US$ 95)<br>
+  ▸ <strong>Taxação</strong> sobre o trigo importado (adicional)<br>
+  ▸ <strong>Seguro</strong> mais caro com tensões geopolíticas<br>
+  ▸ <strong>Logística portuária</strong> com gargalos pontuais</p>
+</div>
+
+<div class="co or">
+  <h4>🌧️ Seca nos EUA: O Coringa Climático que Está Movimentando o Mercado</h4>
+  <p><strong>O grande fator altista do mês:</strong><br>
+  ▸ <strong>USDA — Trigo de inverno EUA:</strong> 30% das lavouras em condições boas/excelentes<br>
+  ▸ <strong>Comparação:</strong> 49% no mesmo período do ano anterior (queda de 19 pontos!)<br>
+  ▸ <strong>Grandes Planícies:</strong> Pouca chuva prevista · cenário pessimista<br>
+  ▸ <strong>Trigo de primavera:</strong> Plantio mais lento que ano anterior por falta de chuva<br><br>
+  <strong>Granar:</strong> "<em>O recuo nos preços (30/04) pode ser considerado pontual, pois o principal fator que impulsionou permanece: as péssimas condições da safra de trigo de inverno nos EUA.</em>"<br><br>
+  <strong>Como isso afeta o Brasil?</strong><br>
+  ▸ <strong>CBOT em rali</strong> = paridade de importação sobe<br>
+  ▸ <strong>Argentina alinha preços</strong> ao mercado internacional · seu trigo fica mais caro<br>
+  ▸ <strong>Moinhos brasileiros</strong> precisam pagar mais pela importação<br>
+  ▸ <strong>Trigo doméstico ganha competitividade</strong> · físico interno valoriza<br><br>
+  <strong>Risco a monitorar:</strong> Se chegarem chuvas em maio nas Grandes Planícies, CBOT pode corrigir 10-15% rapidamente · prêmio climático evapora. Acompanhe Commodity Weather Group e USDA Crop Progress semanais.</p>
+</div>
+
+<div class="co up">
+  <h4>📍 RS é a Estrela Regional: +9,39% no mês · Disponibilidade Crítica!</h4>
+  <p><strong>O Rio Grande do Sul foi o destaque absoluto entre as praças:</strong><br>
+  ▸ <strong>CEPEA RS:</strong> +9,39% no mês (vs +4,49% PR)<br>
+  ▸ <strong>Saca em Panambi:</strong> R$ 59,00 → R$ 62,04 (+5,15%)<br>
+  ▸ <strong>Disponibilidade RS:</strong> apenas 260 mil t para abastecer até outubro!<br>
+  ▸ <strong>Cobertura dos moinhos:</strong> apenas até meados de maio<br>
+  ▸ <strong>Vendedores firmes:</strong> pedem R$ 1.350-1.400/t<br><br>
+  <strong>Por que o RS está mais valorizado?</strong><br>
+  ▸ <strong>RS é o líder na exportação BR de trigo:</strong> 1,73 mi t (97% do total nacional!) · 1,729 mi t para mercado externo + 190 mil t cabotagem<br>
+  ▸ <strong>Qualidade superior</strong> · trigo gaúcho é o referencial para moinhos do CO/Sudeste/NE<br>
+  ▸ <strong>Logística:</strong> Porto de Rio Grande competitivo<br>
+  ▸ <strong>Histórico:</strong> Maior produtor nacional há ~5 anos<br><br>
+  <strong>Comparativo de praças (R$/t):</strong><br>
+  ▸ PR: R$ 1.342,67 · RS: R$ 1.260,96 · spread R$ 81,71<br>
+  ▸ <strong>Mas:</strong> Em maio, com nova safra entrando no PR antes do RS, esse spread vai se inverter naturalmente.</p>
+</div>
+
+<div class="co cy">
+  <h4>📊 ABITRIGO: Brasil Importa 50% do Que Consome — É O Trigo o Calcanhar de Aquiles</h4>
+  <p><strong>A grande verdade incômoda da cadeia tritícola brasileira:</strong><br>
+  ▸ <strong>Produção BR 25/26:</strong> ~7,7 mi t (USDA)<br>
+  ▸ <strong>Consumo BR:</strong> 12-13 mi t<br>
+  ▸ <strong>Déficit estrutural:</strong> 5-6 mi t/ano<br>
+  ▸ <strong>Importações 25/26:</strong> 7,3 mi t (USDA) — equivale a <strong>~58% do consumo!</strong><br>
+  ▸ <strong>Em 4 anos:</strong> Área plantada caiu mais de 40%!<br><br>
+  <strong>Rubens Barbosa (Abitrigo):</strong> "<em>Brasil não tem problema de abastecimento. Se houver redução da produção, a gente importa. Há oferta de trigo no mercado internacional, então isso não é uma preocupação. O que preocupa é o custo. Houve taxação sobre o trigo importado, e o petróleo, frete e seguro estão pesando.</em>"<br><br>
+  <strong>Concentração regional:</strong><br>
+  ▸ <strong>Sul (RS+PR+SC):</strong> 85% da produção<br>
+  ▸ <strong>RS:</strong> 44% · <strong>PR:</strong> 35%<br>
+  ▸ <strong>Cerrado:</strong> Pequena participação · trigo irrigado especial<br><br>
+  <strong>Implicação prática para o produtor:</strong> Mercado interno é <strong>estruturalmente comprador</strong>. Se você produz trigo, sempre tem comprador (moinhos). O risco é o <strong>preço relativo</strong> vs o que se importa de Argentina/Paraguai. Por isso câmbio + frete são mais importantes que safra brasileira para a formação do preço interno.</p>
+</div>
+
+<div class="co pu">
+  <h4>🏦 Macro: Selic, Câmbio e o Ciclo de Plantio do Trigo 2026/27</h4>
+  <p><strong>Decisão Copom (29/04):</strong> Selic cortada 0,25 p.p. para 14,50% a.a.<br>
+  <strong>Dólar:</strong> R$ 4,9523 (mín. 2 anos)<br><br>
+  <strong>Para o triticultor:</strong><br>
+  ▸ <strong>Plantio em curso:</strong> PR começa em abril/maio · RS em maio/julho<br>
+  ▸ <strong>Selic menor:</strong> Custo de capital de giro mais barato (essencial!)<br>
+  ▸ <strong>Trigo é cultura cara:</strong> custos de fertilizantes/sementes/defensivos pesam mais<br>
+  ▸ <strong>Selic baixa</strong> + <strong>preços altos</strong> = pode <strong>estimular plantio adicional</strong> nas próximas semanas<br><br>
+  <strong>Dólar fraco:</strong><br>
+  ▸ ✓ Importações ficam mais baratas → pressiona preço interno (negativo p/produtor)<br>
+  ▸ ✗ Mas reduz custo de fertilizantes (positivo)<br>
+  ▸ Ironia: dólar fraco beneficia o consumidor de pão (preço estável), mas penaliza o triticultor que enfrenta custo dolarizado e preço com paridade externa.<br><br>
+  <strong>Estratégia:</strong> Quem está plantando agora deve aproveitar Selic 14,50% para travar capital de giro, e considerar hedge cambial parcial (pode ser via NDF ou contrato futuro) para os 4-6 meses até a colheita.</p>
+</div>
+
+<div class="dv"></div>
+
+<!-- TERMÔMETROS -->
+<div class="stitle"><div class="icon" style="background:linear-gradient(135deg,#854d0e,#a16207)">🌡️</div><h2>Termômetros do Mercado <span>— Pressões e Vetores</span></h2></div>
+
+<div class="grid3">
+  <div class="card">
+    <div class="thermo"><h4>📈 Preço CEPEA</h4>
+      <div class="th-bar" style="background:linear-gradient(90deg,var(--dn),var(--nt),var(--up))"><div class="th-marker" style="left:78%"></div></div>
+      <div class="th-lb"><span>Fraco</span><span>Médio</span><span>Forte</span></div>
+      <p style="font-size:.78rem;color:var(--up);margin-top:8px;font-weight:700">⬆ FORTE</p>
+      <p style="font-size:.74rem;color:var(--text2);margin-top:4px">RS +9,39% mês · PR +4,49%. Físico apertado!</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="thermo"><h4>🌍 CBOT Chicago</h4>
+      <div class="th-bar" style="background:linear-gradient(90deg,var(--dn),var(--nt),var(--up))"><div class="th-marker" style="left:85%"></div></div>
+      <div class="th-lb"><span>Baixo</span><span>Médio</span><span>Alto</span></div>
+      <p style="font-size:.78rem;color:var(--up);margin-top:8px;font-weight:700">⬆ MUITO ALTO</p>
+      <p style="font-size:.74rem;color:var(--text2);margin-top:4px">MÁX. 2 ANOS! Seca EUA + tensões.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="thermo"><h4>🌧️ Clima EUA</h4>
+      <div class="th-bar" style="background:linear-gradient(90deg,var(--up),var(--nt),var(--dn))"><div class="th-marker" style="left:80%"></div></div>
+      <div class="th-lb"><span>Bom</span><span>Médio</span><span>Crítico</span></div>
+      <p style="font-size:.78rem;color:var(--dn);margin-top:8px;font-weight:700">⚠ CRÍTICO</p>
+      <p style="font-size:.74rem;color:var(--text2);margin-top:4px">30% boa/exc (vs 49% a/a). Grandes Planícies secas.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="thermo"><h4>🇧🇷 Safra BR 2026</h4>
+      <div class="th-bar" style="background:linear-gradient(90deg,var(--up),var(--nt),var(--dn))"><div class="th-marker" style="left:80%"></div></div>
+      <div class="th-lb"><span>Forte</span><span>Médio</span><span>Fraca</span></div>
+      <p style="font-size:.78rem;color:var(--dn);margin-top:8px;font-weight:700">⬇ MUITO FRACA</p>
+      <p style="font-size:.74rem;color:var(--text2);margin-top:4px">−16% · RS −24,5% · PR mín. 2000!</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="thermo"><h4>🚢 Argentina</h4>
+      <div class="th-bar" style="background:linear-gradient(90deg,var(--dn),var(--nt),var(--up))"><div class="th-marker" style="left:90%"></div></div>
+      <div class="th-lb"><span>Fraca</span><span>Média</span><span>Recorde</span></div>
+      <p style="font-size:.78rem;color:var(--up);margin-top:8px;font-weight:700">⬆ RECORDE!</p>
+      <p style="font-size:.74rem;color:var(--text2);margin-top:4px">24 mi t · +33,3% · histórico!</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="thermo"><h4>💵 Câmbio (Dólar)</h4>
+      <div class="th-bar" style="background:linear-gradient(90deg,var(--up),var(--nt),var(--dn))"><div class="th-marker" style="left:25%"></div></div>
+      <div class="th-lb"><span>Forte ($)</span><span>Médio</span><span>Fraco ($)</span></div>
+      <p style="font-size:.78rem;color:var(--dn);margin-top:8px;font-weight:700">⬇ DÓLAR FRACO</p>
+      <p style="font-size:.74rem;color:var(--text2);margin-top:4px">R$ 4,9523. Barateia importação · pressão limitada.</p>
+    </div>
+  </div>
+</div>
+
+<div class="dv"></div>
+
+<!-- OPINIÃO -->
+<div class="opinion">
+  <h3>🎯 Opinião do Analista — Trigo é A Surpresa Positiva da Semana entre os Grãos!</h3>
+
+  <p><strong>Em uma semana em que soja e milho lateralizam e café cai, o trigo é a estrela silenciosa: CEPEA RS atingiu +9,39% no mês, CBOT alcançou MAIOR valor desde junho de 2024, e a CONAB confirmou colapso da safra brasileira (−16%, RS −24,5%, PR no menor plantio desde 2000!). A combinação de SECA SEVERA NOS EUA (30% lavouras boas vs 49% ano anterior!) + ÁREA BR EM COLAPSO + ARGENTINA RECORDE PARA EXPORTAR está criando um cenário de paridade externa elevada que sustenta os preços internos. Quem ainda tem trigo armazenado da safra 2025 está em momento histórico para vender.</strong></p>
+
+  <p><strong>Semana 27-30/abr (curta · feriado 1º Mai) — Em síntese:</strong><br>
+  ▸ <strong>CEPEA Paraná:</strong> R$ 1.342,67/t (+0,33% sem · +4,49% mês)<br>
+  ▸ <strong>CEPEA RS:</strong> R$ 1.260,96/t (+9,39% mês — DESTAQUE!)<br>
+  ▸ <strong>CBOT Jul/26:</strong> US$ 6,3675/bu (MÁX. 2 ANOS!)<br>
+  ▸ <strong>CONAB safra 2026:</strong> 6,616 mi t (−16% a/a)<br>
+  ▸ <strong>RS:</strong> 925,5 mil ha (−20%) · 2,7 mi t (−24,5%)<br>
+  ▸ <strong>Argentina:</strong> 24 mi t (RECORDE +33,3%)<br>
+  ▸ <strong>Selic:</strong> Cortada para 14,50%<br>
+  ▸ <strong>Dólar:</strong> R$ 4,9523 (mín. 2 anos)</p>
+
+  <p><strong>Recomendações estratégicas:</strong></p>
+
+  <p><strong>1. SE TEM TRIGO 2025 ARMAZENADO: VENDA AGORA!</strong> R$ 1.342/t no PR e R$ 1.260/t no RS são patamares <strong>excelentes</strong>. Em fevereiro estava em R$ 1.150-1.170/t. <strong>Capture o prêmio de +15-17% nos últimos 60 dias!</strong> Vendendo 70-80% do estoque agora você garante margem. Segure 20-30% só se acreditar em escalada da seca americana.</p>
+
+  <p><strong>2. SE ESTÁ PLANTANDO 2026: PROTEJA O CUSTO E TRAVE PREÇO!</strong> Plantio começou no PR e começa em maio no RS. Aproveitando: (a) Selic 14,50% para capital de giro mais barato; (b) Pré-fixar venda via contratos a termo (R$ 1.200-1.250/t para outubro/novembro é razoável); (c) Hedge cambial parcial via NDF para custo de fertilizantes. <strong>Em ano de quebra anunciada, prêmio é alto — mas risco climático também!</strong></p>
+
+  <p><strong>3. ATENÇÃO À ARGENTINA EM JULHO/AGOSTO!</strong> Argentina vai ter 24 mi t (RECORDE) para escoar. Em julho/agosto, navios argentinos chegam ao Sul do BR competindo diretamente com a colheita brasileira. <strong>Quem armazenar até essa janela pode sofrer pressão de preços.</strong> Estratégia: vender 50% no momento da colheita (out/nov 2026) e manter 50% para janeiro/março 2027 quando estoques argentinos diminuem.</p>
+
+  <p><strong>4. RS É A PRAÇA-ESTRELA · MAS ATENÇÃO À ENTRADA DO PR!</strong> RS subiu 9,39% no mês por escassez extrema. Mas a partir de meados de maio, novo trigo do PR começa a chegar e pode pressionar o RS via cabotagem. <strong>Quem está no RS deve vender agora, antes da nova safra do PR entrar.</strong> Spread RS-PR pode se inverter rapidamente.</p>
+
+  <p><strong>5. CBOT É O CORINGA — MAS CUIDADO COM A REVERSÃO!</strong> US$ 6,57/bu é alta histórica. <strong>Se chuvas chegarem nas Grandes Planícies em maio</strong>, CBOT pode corrigir para US$ 5,80-6,00/bu (−10 a −12%) rapidamente. Esse fator é o maior risco de curto prazo. <strong>Acompanhe USDA Crop Progress semanais</strong> e <strong>previsões do Commodity Weather Group</strong>. Não fique 100% comprado em CBOT futuro.</p>
+
+  <p><strong>6. NÃO IGNORE A IMPORTAÇÃO!</strong> Brasil importa 50% do que consome (7,3 mi t/ano). Câmbio + frete + taxação determinam se trigo argentino chega a R$ 1.250 ou R$ 1.350/t no PR. <strong>Acompanhe paridade de importação</strong> · se ficar acima de R$ 1.400/t, trigo brasileiro tem espaço para subir mais. Se ficar abaixo de R$ 1.200/t, pressão imediata.</p>
+
+  <p><strong>7. ESTRATÉGIA DE LONGO PRAZO: TRIGO DE QUALIDADE COMPENSA!</strong> Os 50% importados são, em sua maioria, trigo de panificação fina (alta proteína · alta força · gluten alto). Quem investe em variedades de QUALIDADE no Sul (FPS, BRS, IPR séries melhoradoras) consegue prêmio de R$ 50-100/t sobre o trigo "bicapacho". <strong>Trigo é uma cultura que recompensa quem investe em manejo e variedade certificada.</strong> Não é commodity simples.</p>
+
+  <div class="scenarios">
+    <div class="sc up">
+      <h5>🟢 Cenário Altista</h5>
+      <p>Seca EUA persiste + ataque ao Mar Negro + dólar a R$ 5,30 → <strong>CEPEA PR R$ 1.450-1.500/t</strong>. Probabilidade: ~30%</p>
+    </div>
+    <div class="sc nt">
+      <h5>🟡 Cenário Neutro</h5>
+      <p>Chuvas EUA mistas + Argentina recorde + dólar lateral → <strong>CEPEA PR R$ 1.250-1.380/t até a colheita</strong>. Probabilidade: ~50%</p>
+    </div>
+    <div class="sc dn">
+      <h5>🔴 Cenário Baixista</h5>
+      <p>Chuvas EUA salvam safra + dólar abaixo R$ 4,80 + safra BR melhor que CONAB → <strong>CEPEA PR R$ 1.100-1.200/t</strong>. Probabilidade: ~20%</p>
+    </div>
+  </div>
+
+  <div class="sig">📅 Análise Rural IN · Quinta-feira, 30/Abr/2026 · Semana curta (feriado 1º Mai) · Maio é o mês decisivo do plantio brasileiro!</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer"><div class="wrap">
+  <div class="footer-brand"><span class="r">Rural</span> <span class="i">IN</span></div>
+  <p>Radar Agro Semanal · Trigo · Semana 27–30 Abril 2026<br>
+  Fontes: CEPEA/ESALQ · CBOT/CME Group · CONAB · Deral-PR · Safras &amp; Mercado · Abitrigo · USDA · Bolsa de Cereais de Buenos Aires · IMEA · Farsul · Granar · TF Agroeconômica · FGV Agro · Banco Central · COPOM · Globo Rural · Notícias Agrícolas · CNN Brasil · Forbes Agro · Sindustrigo</p>
+  <div class="footer-credits">
+    <h4>Análise e Construção</h4>
+    <div class="name">Dr. Sidney Souza</div>
+    <div class="title">Economista e Adm. Agrícola — Estrategista Econômico do Produtor</div>
+    <div class="desc">Especialista em economia da fazenda e gestão de risco no agro<br>Transformamos dados da fazenda em decisões econômicas<br>Ajudamos produtores a entender se o mercado sustenta seu negócio</div>
+    <div class="contact">📧 <a href="mailto:sidneyagro@gmail.com">sidneyagro@gmail.com</a> · 📱 <a href="tel:+5564992266886">(64) 9 9226-6886</a> · 📸 <a href="https://instagram.com/ruralin.ai" target="_blank">@ruralin.ai</a></div>
+  </div>
+  <p style="margin-top:18px"><em>⚠️ Material informativo. Não constitui recomendação de investimento. Consulte profissionais habilitados.</em></p>
+</div></footer>
+
+</div>
+
+<script>
+const gc='rgba(42,36,25,.5)';
+const tt={backgroundColor:'rgba(19,16,10,.97)',borderColor:'#3d3424',borderWidth:1,titleFont:{size:11,weight:'700'},bodyFont:{size:10},padding:10,cornerRadius:8};
+
+// CH1: CEPEA PR vs RS trajetória
+new Chart(document.getElementById('ch1').getContext('2d'),{
+  type:'line',
+  data:{
+    labels:['09/04','10/04','13/04','14/04','15/04','16/04','17/04','20/04','22/04','23/04','24/04','27/04','28/04','29/04','30/04'],
+    datasets:[
+      {label:'CEPEA Paraná (R$/t)',data:[1292.20,1296.92,1315.01,1313.87,1321.27,1329.31,1329.31,1339.61,1342.19,1338.21,1335.79,1338.20,1340.34,1343.57,1342.67],
+        borderColor:'#ca8a04',backgroundColor:'rgba(202,138,4,.12)',borderWidth:3,fill:false,tension:.3,pointRadius:3,pointBackgroundColor:'#ca8a04'},
+      {label:'CEPEA RS (R$/t)',data:[1152.50,1160.00,1175.00,1187.50,1198.00,1210.00,1218.00,1230.00,1240.00,1244.00,1260.04,1269.96,1275.64,1275.64,1260.96],
+        borderColor:'#fcd34d',backgroundColor:'rgba(252,211,77,.10)',borderWidth:3,fill:false,tension:.3,pointRadius:3,pointBackgroundColor:'#fcd34d'}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:true,position:'top',labels:{color:'#c4b59a',font:{size:9,weight:'600'},boxWidth:14,padding:8}},
+      tooltip:tt,
+      annotation:{annotations:{
+        rs:{type:'label',xValue:14,yValue:1290,content:['🚀 RS +9,39%!','Destaque mês'],font:{size:9,weight:'bold'},color:'#22c55e',backgroundColor:'rgba(34,197,94,.13)',padding:4}
+      }}
+    },
+    scales:{y:{min:1140,max:1360,grid:{color:gc},ticks:{callback:function(v){return'R$ '+v.toFixed(0)},font:{size:9,weight:'600'},color:'#c4b59a'}},x:{grid:{display:false},ticks:{font:{size:8,weight:'700'},color:'#c4b59a',maxRotation:0}}}
+  }
+});
+
+// CH2: Curva forward CBOT
+new Chart(document.getElementById('ch2').getContext('2d'),{
+  type:'line',
+  data:{
+    labels:['Mai/26','Jul/26','Set/26','Dez/26','Mar/27'],
+    datasets:[{label:'CBOT (¢/bu)',data:[649,657,670,678,682],
+      borderColor:'#facc15',backgroundColor:'rgba(250,204,21,.18)',borderWidth:3,fill:true,tension:.35,pointRadius:5,pointBackgroundColor:'#facc15',pointBorderColor:'#fef3c7',pointBorderWidth:2}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:tt,
+      annotation:{annotations:{
+        rec:{type:'label',xValue:0,yValue:638,content:['🚀 MÁX. 2 ANOS!','Seca EUA'],font:{size:9,weight:'bold'},color:'#ef4444',backgroundColor:'rgba(239,68,68,.13)',padding:4},
+        sp:{type:'label',xValue:4,yValue:690,content:['📈 Contango','curva crescente'],font:{size:9,weight:'bold'},color:'#22c55e',backgroundColor:'rgba(34,197,94,.13)',padding:4}
+      }}
+    },
+    scales:{y:{min:635,max:695,grid:{color:gc},ticks:{callback:function(v){return v.toFixed(0)+' ¢'},font:{size:9,weight:'600'},color:'#c4b59a'}},x:{grid:{display:false},ticks:{font:{size:10,weight:'700'},color:'#c4b59a'}}}
+  }
+});
+
+// CH3: Histórico safra BR
+new Chart(document.getElementById('ch3').getContext('2d'),{
+  type:'bar',
+  data:{
+    labels:['2021','2022','2023','2024','2025','2026 (proj.)'],
+    datasets:[{label:'mi t',data:[7.86,9.55,10.55,8.10,8.02,6.616],
+      backgroundColor:function(c){
+        if(c.dataIndex===5)return 'rgba(239,68,68,.6)';
+        if(c.dataIndex===2)return 'rgba(34,197,94,.55)';
+        return 'rgba(202,138,4,.4)';
+      },
+      borderColor:function(c){
+        if(c.dataIndex===5)return '#ef4444';
+        if(c.dataIndex===2)return '#22c55e';
+        return '#ca8a04';
+      },
+      borderWidth:2,borderRadius:7}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:tt,
+      annotation:{annotations:{
+        rec:{type:'label',xValue:5,yValue:7.8,content:['📉 −16% a/a!','RS −24,5%'],font:{size:9,weight:'bold'},color:'#ef4444',backgroundColor:'rgba(239,68,68,.13)',padding:5}
+      }}
+    },
+    scales:{y:{min:6,max:11,grid:{color:gc},ticks:{callback:function(v){return v.toFixed(1)+' mi t'},font:{size:9,weight:'600'},color:'#c4b59a'}},x:{grid:{display:false},ticks:{font:{size:10,weight:'700'},color:'#c4b59a'}}}
+  }
+});
+
+// CH4: Brasil x Argentina
+new Chart(document.getElementById('ch4').getContext('2d'),{
+  type:'bar',
+  data:{
+    labels:['Argentina 24/25','Argentina 25/26','Brasil 25/26','Brasil 2026'],
+    datasets:[{label:'mi t',data:[18.0,24.0,8.02,6.616],
+      backgroundColor:['rgba(59,130,246,.45)','rgba(34,197,94,.6)','rgba(202,138,4,.5)','rgba(239,68,68,.55)'],
+      borderColor:['#3b82f6','#22c55e','#ca8a04','#ef4444'],
+      borderWidth:2,borderRadius:7}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:tt,
+      annotation:{annotations:{
+        rec:{type:'label',xValue:1,yValue:25.5,content:['🏆 RECORDE!','+33,3%'],font:{size:9,weight:'bold'},color:'#22c55e',backgroundColor:'rgba(34,197,94,.13)',padding:4},
+        br:{type:'label',xValue:3,yValue:8.2,content:['📉 −16%','crítico!'],font:{size:9,weight:'bold'},color:'#ef4444',backgroundColor:'rgba(239,68,68,.13)',padding:4}
+      }}
+    },
+    scales:{y:{min:0,max:27,grid:{color:gc},ticks:{callback:function(v){return v+' mi t'},font:{size:9,weight:'600'},color:'#c4b59a'}},x:{grid:{display:false},ticks:{font:{size:9,weight:'700'},color:'#c4b59a'}}}
+  }
+});
+
+// CH5: Balança trigo BR (waterfall style)
+new Chart(document.getElementById('ch5').getContext('2d'),{
+  type:'bar',
+  data:{
+    labels:['Produção 25/26','Importações','Consumo Total','Exportações','Estoque Final'],
+    datasets:[{label:'mi t',data:[7.7,7.3,12.5,1.73,0.77],
+      backgroundColor:['rgba(202,138,4,.55)','rgba(239,68,68,.6)','rgba(168,85,247,.55)','rgba(34,197,94,.55)','rgba(59,130,246,.5)'],
+      borderColor:['#ca8a04','#ef4444','#a855f7','#22c55e','#3b82f6'],
+      borderWidth:2,borderRadius:7}]
+  },
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:tt,
+      annotation:{annotations:{
+        imp:{type:'label',xValue:9.5,yValue:1,content:['⚠️ 50%!','do consumo'],font:{size:9,weight:'bold'},color:'#ef4444',backgroundColor:'rgba(239,68,68,.13)',padding:4}
+      }}
+    },
+    scales:{x:{min:0,max:14,grid:{color:gc},ticks:{callback:function(v){return v+' mi t'},font:{size:9,weight:'600'},color:'#c4b59a'}},y:{grid:{display:false},ticks:{font:{size:9,weight:'700'},color:'#c4b59a'}}}
+  }
+});
+
+// CH6: Áreas estaduais BR 26/27
+new Chart(document.getElementById('ch6').getContext('2d'),{
+  type:'bar',
+  data:{
+    labels:['RS','PR','SC','SP','MG/Cerrado'],
+    datasets:[{label:'mil ha',data:[925.5,775.6,165,75,50],
+      backgroundColor:['rgba(239,68,68,.6)','rgba(249,115,22,.55)','rgba(234,179,8,.5)','rgba(34,197,94,.45)','rgba(168,85,247,.45)'],
+      borderColor:['#ef4444','#f97316','#eab308','#22c55e','#a855f7'],
+      borderWidth:2,borderRadius:6}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{...tt,callbacks:{label:function(c){
+      const v=['−20%','−6% (mín. 2000!)','−18,2%','−13,6%','+5%'];
+      return c.label+': '+c.parsed.y+' mil ha · '+v[c.dataIndex];
+    }}},
+      annotation:{annotations:{
+        rs:{type:'label',xValue:0,yValue:980,content:['📉 RS −20%','Maior queda'],font:{size:9,weight:'bold'},color:'#ef4444',backgroundColor:'rgba(239,68,68,.13)',padding:4},
+        pr:{type:'label',xValue:1,yValue:830,content:['📉 PR −6%','MÍN. 2000!'],font:{size:9,weight:'bold'},color:'#f97316',backgroundColor:'rgba(249,115,22,.13)',padding:4}
+      }}
+    },
+    scales:{y:{min:0,max:1050,grid:{color:gc},ticks:{callback:function(v){return v+' mil'},font:{size:9,weight:'600'},color:'#c4b59a'}},x:{grid:{display:false},ticks:{font:{size:10,weight:'700'},color:'#c4b59a'}}}
+  }
+});
+</script>
+</body>
+</html>
