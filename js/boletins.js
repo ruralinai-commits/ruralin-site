@@ -36,7 +36,7 @@ window.BOLETINS = [
 
   {
     arquivo: "info-junho-15-19.html",
-    data: "15 a 19 de junho de 2026",
+    data: "15 a 19 jun. 2026",
     titulo: "Boletim de Mercado — Soja, Milho e Boi",
     resumo: "Panorama da semana, leitura de câmbio e clima e os principais pontos de atenção para a comercialização da safra.",
     categoria: "Boletim"
@@ -79,36 +79,50 @@ window.BOLETINS = [
 
   {
     arquivo: "soja-30-04.html",
-    data: "30 abr. 2026",
+    data: "27 a 30 abr. 2026",
     titulo: "Relatório de Soja",
     categoria: "Relatório"
   },
 
   {
     arquivo: "milho-30-04.html",
-    data: "30 abr. 2026",
+    data: "27 a 30 abr. 2026",
     titulo: "Relatório de Milho",
     categoria: "Relatório"
   },
 
   {
     arquivo: "trigo-30-04.html",
-    data: "30 abr. 2026",
+    data: "27 a 30 abr. 2026",
     titulo: "Relatório de Trigo",
     categoria: "Relatório"
   },
 
   {
     arquivo: "algodao-30-04.html",
-    data: "30 abr. 2026",
+    data: "27 a 30 abr. 2026",
     titulo: "Relatório de Algodão",
     categoria: "Relatório"
   },
 
   {
     arquivo: "cafe-30-04.html",
-    data: "30 abr. 2026",
+    data: "27 a 30 abr. 2026",
     titulo: "Relatório de Café",
+    categoria: "Relatório"
+  }
+
+  {
+    arquivo: "radar-macro-geo-maio-2026.html",
+    data: "Maio 2026",
+    titulo: "Radar Geopolítico & Macroeconômico",
+    categoria: "Radar"
+  }
+
+  {
+    arquivo: "rel-pensar-27-03.html",
+    data: "Maio. 2026",
+    titulo: "Relatório de Opinião",
     categoria: "Relatório"
   }
 
