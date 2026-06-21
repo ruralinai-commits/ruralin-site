@@ -102,6 +102,42 @@
     #boletim .boletim-cta p { font-size: 1.1rem; margin: 0; opacity: .9; }
     #boletim .boletim-cta i { color: #25D366; margin-right: .4rem; }
 
+    /* Abas por categoria */
+    #boletim .relatorio-tabs {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem;
+      margin-bottom: 1.8rem;
+    }
+    #boletim .tab-btn {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.15);
+      color: #e8f3ea; opacity: .85;
+      font-family: inherit; font-size: .9rem; font-weight: 600;
+      padding: .5rem 1.1rem; border-radius: 30px; cursor: pointer;
+      transition: background .2s ease, border-color .2s ease, opacity .2s ease;
+    }
+    #boletim .tab-btn:hover { opacity: 1; border-color: rgba(76,175,80,.6); }
+    #boletim .tab-btn.ativo { background: #4CAF50; border-color: #4CAF50; color: #fff; opacity: 1; }
+
+    /* Paginação */
+    #boletim .relatorio-paginacao {
+      display: flex; justify-content: center; align-items: center;
+      flex-wrap: wrap; gap: .4rem; margin-top: 2.2rem;
+    }
+    #boletim .pg-btn {
+      min-width: 38px; height: 38px; padding: 0 .6rem;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.15);
+      color: #e8f3ea; font-family: inherit; font-size: .9rem; font-weight: 600;
+      border-radius: 10px; cursor: pointer;
+      transition: background .2s ease, border-color .2s ease;
+    }
+    #boletim .pg-btn:hover:not(:disabled) { border-color: rgba(76,175,80,.6); }
+    #boletim .pg-btn.ativo { background: #4CAF50; border-color: #4CAF50; color: #fff; }
+    #boletim .pg-btn:disabled { opacity: .35; cursor: default; }
+
+    #boletim .relatorio-vazio { text-align: center; opacity: .6; padding: 2rem 0; grid-column: 1 / -1; }
+
     @media (max-width: 600px) {
       #boletim .relatorio-destaque-body h3 { font-size: 1.3rem; }
     }
@@ -287,7 +323,9 @@
       <!-- Preenchido automaticamente a partir de js/boletins.js -->
       <div id="boletim-destaque"></div>
       <h4 class="relatorio-subtitulo" id="boletim-subtitulo" data-aos="fade-up" style="display:none;">Edições anteriores</h4>
+      <div class="relatorio-tabs" id="boletim-tabs"></div>
       <div class="relatorio-grid" id="boletim-anteriores"></div>
+      <div class="relatorio-paginacao" id="boletim-paginacao"></div>
 
       <div class="boletim-cta" data-aos="fade-up">
         <p><i class="fab fa-whatsapp"></i> Quer receber o boletim toda semana direto no seu WhatsApp?</p>
@@ -470,54 +508,139 @@
   <!-- Lista de boletins (este é o arquivo que você edita toda semana) -->
   <script src="js/boletins.js"></script>
 
-  <!-- Monta a seção de boletins automaticamente a partir da lista acima -->
+  <!-- Monta a seção de boletins automaticamente: destaque + abas + paginação -->
   <script>
     (function () {
       var lista = window.BOLETINS || [];
       var destaqueEl = document.getElementById('boletim-destaque');
-      var anterioresEl = document.getElementById('boletim-anteriores');
+      var tabsEl = document.getElementById('boletim-tabs');
+      var gridEl = document.getElementById('boletim-anteriores');
+      var pagEl = document.getElementById('boletim-paginacao');
       var subtituloEl = document.getElementById('boletim-subtitulo');
-      if (!destaqueEl || !anterioresEl) return;
+      var secaoEl = document.getElementById('boletim');
+      if (!destaqueEl || !gridEl) return;
+
+      var POR_PAGINA = 8;
+      var ORDEM = ['Boletim', 'Insumos', 'Radar', 'Relatório'];
+      var LABELS = { 'Boletim': 'Boletins', 'Insumos': 'Insumos', 'Radar': 'Radares', 'Relatório': 'Relatórios', 'Relatorio': 'Relatórios' };
 
       function escapar(t) {
-        return String(t == null ? '' : t)
-          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       }
-      function icone(tipo) {
-        return tipo === 'insumos' ? 'fa-cart-shopping' : 'fa-calendar-day';
+      function categoria(b) { return (b.categoria || b.tipo || 'Boletim'); }
+      function icone(b) {
+        var c = categoria(b).toLowerCase();
+        if (c.indexOf('insumo') > -1) return 'fa-cart-shopping';
+        if (c.indexOf('radar') > -1) return 'fa-chart-line';
+        if (c.indexOf('relat') > -1) return 'fa-file-lines';
+        return 'fa-calendar-day';
       }
 
       if (!lista.length) {
-        destaqueEl.innerHTML = '<p style="text-align:center;opacity:.7;">Em breve, o primeiro boletim.</p>';
+        destaqueEl.innerHTML = '<p class="relatorio-vazio">Em breve, o primeiro boletim.</p>';
         return;
       }
 
-      // Primeiro item = edição atual (destaque)
+      // Destaque = primeiro item da lista (o mais recente)
       var d = lista[0];
       destaqueEl.innerHTML =
         '<a href="relatorios/' + escapar(d.arquivo) + '" class="relatorio-destaque">' +
           '<div class="relatorio-destaque-tag"><i class="fas fa-bolt"></i> Edição atual</div>' +
           '<div class="relatorio-destaque-body">' +
-            '<span class="relatorio-data"><i class="fas ' + icone(d.tipo) + '"></i> ' + escapar(d.data) + '</span>' +
+            '<span class="relatorio-data"><i class="fas ' + icone(d) + '"></i> ' + escapar(d.data) + '</span>' +
             '<h3>' + escapar(d.titulo) + '</h3>' +
             (d.resumo ? '<p>' + escapar(d.resumo) + '</p>' : '') +
             '<span class="relatorio-link">Ler boletim completo <i class="fas fa-arrow-right"></i></span>' +
           '</div>' +
         '</a>';
 
-      // Demais itens = edições anteriores
       var anteriores = lista.slice(1);
-      if (anteriores.length) {
-        if (subtituloEl) subtituloEl.style.display = '';
-        anterioresEl.innerHTML = anteriores.map(function (b) {
-          return '<a href="relatorios/' + escapar(b.arquivo) + '" class="relatorio-card">' +
-                   '<span class="relatorio-data"><i class="fas ' + icone(b.tipo) + '"></i> ' + escapar(b.data) + '</span>' +
-                   '<h3>' + escapar(b.titulo) + '</h3>' +
-                   '<span class="relatorio-link">Ler edição <i class="fas fa-arrow-right"></i></span>' +
-                 '</a>';
-        }).join('');
+      if (!anteriores.length) return; // só existe o destaque
+      if (subtituloEl) subtituloEl.style.display = '';
+
+      // Categorias presentes (na ordem definida; desconhecidas vão pro fim)
+      var presentes = [];
+      anteriores.forEach(function (b) {
+        var c = categoria(b);
+        if (presentes.indexOf(c) === -1) presentes.push(c);
+      });
+      presentes.sort(function (a, b) {
+        var ia = ORDEM.indexOf(a); if (ia === -1) ia = 99;
+        var ib = ORDEM.indexOf(b); if (ib === -1) ib = 99;
+        return ia - ib;
+      });
+      var abas = (presentes.length > 1) ? ['Todos'].concat(presentes) : presentes;
+
+      var estado = { aba: abas[0], pagina: 1 };
+
+      function filtradas() {
+        return estado.aba === 'Todos'
+          ? anteriores
+          : anteriores.filter(function (b) { return categoria(b) === estado.aba; });
       }
 
+      function cardHTML(b) {
+        return '<a href="relatorios/' + escapar(b.arquivo) + '" class="relatorio-card">' +
+                 '<span class="relatorio-data"><i class="fas ' + icone(b) + '"></i> ' + escapar(b.data) + '</span>' +
+                 '<h3>' + escapar(b.titulo) + '</h3>' +
+                 '<span class="relatorio-link">Ler edição <i class="fas fa-arrow-right"></i></span>' +
+               '</a>';
+      }
+
+      function renderTabs() {
+        if (abas.length < 2) { tabsEl.innerHTML = ''; return; }
+        tabsEl.innerHTML = abas.map(function (a) {
+          var rotulo = (a === 'Todos') ? 'Todos' : (LABELS[a] || a);
+          return '<button type="button" class="tab-btn' + (a === estado.aba ? ' ativo' : '') + '" data-aba="' + escapar(a) + '">' + escapar(rotulo) + '</button>';
+        }).join('');
+        Array.prototype.forEach.call(tabsEl.querySelectorAll('.tab-btn'), function (btn) {
+          btn.addEventListener('click', function () {
+            estado.aba = btn.getAttribute('data-aba');
+            estado.pagina = 1;
+            renderTabs(); renderGrid();
+          });
+        });
+      }
+
+      function renderGrid() {
+        var itens = filtradas();
+        var totalPaginas = Math.max(1, Math.ceil(itens.length / POR_PAGINA));
+        if (estado.pagina > totalPaginas) estado.pagina = totalPaginas;
+        var inicio = (estado.pagina - 1) * POR_PAGINA;
+        var pagina = itens.slice(inicio, inicio + POR_PAGINA);
+
+        gridEl.innerHTML = pagina.length
+          ? pagina.map(cardHTML).join('')
+          : '<p class="relatorio-vazio">Nenhum informe nesta categoria.</p>';
+
+        renderPaginacao(totalPaginas);
+      }
+
+      function renderPaginacao(totalPaginas) {
+        if (totalPaginas <= 1) { pagEl.innerHTML = ''; return; }
+        var html = '';
+        html += '<button type="button" class="pg-btn" data-pg="prev"' + (estado.pagina === 1 ? ' disabled' : '') + '><i class="fas fa-angle-left"></i></button>';
+        for (var i = 1; i <= totalPaginas; i++) {
+          html += '<button type="button" class="pg-btn' + (i === estado.pagina ? ' ativo' : '') + '" data-pg="' + i + '">' + i + '</button>';
+        }
+        html += '<button type="button" class="pg-btn" data-pg="next"' + (estado.pagina === totalPaginas ? ' disabled' : '') + '><i class="fas fa-angle-right"></i></button>';
+        pagEl.innerHTML = html;
+
+        Array.prototype.forEach.call(pagEl.querySelectorAll('.pg-btn'), function (btn) {
+          if (btn.disabled) return;
+          btn.addEventListener('click', function () {
+            var v = btn.getAttribute('data-pg');
+            if (v === 'prev') estado.pagina = Math.max(1, estado.pagina - 1);
+            else if (v === 'next') estado.pagina = Math.min(totalPaginas, estado.pagina + 1);
+            else estado.pagina = parseInt(v, 10);
+            renderGrid();
+            if (subtituloEl) subtituloEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        });
+      }
+
+      renderTabs();
+      renderGrid();
       if (window.AOS && typeof window.AOS.refresh === 'function') window.AOS.refresh();
     })();
   </script>
