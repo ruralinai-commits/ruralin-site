@@ -21,6 +21,13 @@
 window.BOLETINS = [
 
   {
+    arquivo: "info-insumos-26-27.html",
+    data: "Informativo de Insumos",
+    titulo: "Panorama de preços e disponibilidade de insumos",
+    tipo: "insumos"
+  },
+
+  {
     arquivo: "info-junho-15-19.html",
     data: "Semana de 15 a 19 de junho de 2026",
     titulo: "Soja em recuperação e milho pressionado pela safrinha",
@@ -36,10 +43,38 @@ window.BOLETINS = [
   },
 
   {
-    arquivo: "info-insumos-26-27.html",
-    data: "Informativo de Insumos",
-    titulo: "Panorama de preços e disponibilidade de insumos",
-    tipo: "insumos"
-  }
+    arquivo: "algodao-30-04.html",
+    data: "30 abr. 2026",
+    titulo: "Relatório do Algodão",
+    tipo: "mercado"
+  },
 
+  {
+    arquivo: "cafe-30-04.html",
+    data: "30 abr. 2026",
+    titulo: "Relatório do Café",
+    tipo: "mercado"
+  },
+
+  {
+    arquivo: "milho-30-04.html",
+    data: "30 abr. 2026",
+    titulo: "Relatório do Milho",
+    tipo: "mercado"
+  },
+
+  {
+    arquivo: "soja-30-04.html",
+    data: "30 abr. 2026",
+    titulo: "Relatório da Soja",
+    tipo: "mercado"
+  },
+
+  {
+    arquivo: "trigo-30-04.html",
+    data: "30 abr. 2026",
+    titulo: "Relatório do Trigo",
+    tipo: "mercado"
+  },
+  
 ];
