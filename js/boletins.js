@@ -124,6 +124,6 @@ window.BOLETINS = [
     data: "Maio. 2026",
     titulo: "Relatório de Opinião",
     categoria: "Relatório"
-  },
+  }
 
 ];
