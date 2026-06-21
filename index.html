@@ -272,13 +272,9 @@
   <!-- ==================================================================== -->
   <!-- BOLETIM SEMANAL DE MERCADO                                           -->
   <!--                                                                      -->
-  <!-- COMO PUBLICAR UM NOVO BOLETIM A CADA SEMANA:                         -->
-  <!-- 1) Duplique o arquivo "relatorios/relatorio-modelo.html" e renomeie  -->
-  <!--    com a data, ex.: "relatorios/2026-06-27-boletim.html".            -->
-  <!-- 2) Edite o conteúdo do novo arquivo (datas, soja, milho, etc.).      -->
-  <!-- 3) Aqui embaixo: mova o DESTAQUE atual para "Edições anteriores"     -->
-  <!--    (copiando o bloco-modelo indicado) e atualize o DESTAQUE com a    -->
-  <!--    edição nova. Só isso. Nada de banco de dados.                     -->
+  <!-- ESTA SEÇÃO SE ATUALIZA SOZINHA. Você NÃO edita nada aqui.            -->
+  <!-- Para publicar um boletim novo, edite apenas o arquivo                -->
+  <!-- "js/boletins.js" (adicione uma entrada no topo da lista).            -->
   <!-- ==================================================================== -->
   <section id="boletim" class="section section-dark">
     <div class="container">
@@ -288,36 +284,10 @@
         <p>Toda semana, nossa equipe analisa os mercados de soja e milho e traduz os dados em informações estratégicas para a sua comercialização. Acesse o boletim atual e as edições anteriores.</p>
       </div>
 
-      <!-- DESTAQUE: edição atual (troque o link, a data, o título e o resumo a cada semana) -->
-      <a href="relatorios/info-junho-15-19.html" class="relatorio-destaque" data-aos="fade-up">
-        <div class="relatorio-destaque-tag"><i class="fas fa-bolt"></i> Edição atual</div>
-        <div class="relatorio-destaque-body">
-          <span class="relatorio-data"><i class="fas fa-calendar-day"></i> Semana de 15 a 19 de junho de 2026</span>
-          <h3>Soja em recuperação e milho pressionado pela safrinha</h3>
-          <p>Panorama da semana, leitura de câmbio e clima e os principais pontos de atenção para quem está definindo a comercialização da safra.</p>
-          <span class="relatorio-link">Ler boletim completo <i class="fas fa-arrow-right"></i></span>
-        </div>
-      </a>
-
-      <!-- EDIÇÕES ANTERIORES -->
-      <h4 class="relatorio-subtitulo" data-aos="fade-up">Edições anteriores</h4>
-      <div class="relatorio-grid">
-
-        <!-- ▼▼▼ BLOCO-MODELO: copie e cole este bloco para cada nova edição ▼▼▼ -->
-        <a href="relatorios/info-junho-08-12.html" class="relatorio-card" data-aos="fade-up">
-          <span class="relatorio-data"><i class="fas fa-calendar-day"></i> 08 a 12 jun. 2026</span>
-          <h3>Exportações aquecidas sustentam os preços da soja</h3>
-          <span class="relatorio-link">Ler edição <i class="fas fa-arrow-right"></i></span>
-        </a>
-        <!-- ▲▲▲ fim do bloco-modelo ▲▲▲ -->
-
-        <a href="relatorios/info-insumos-26-27.html" class="relatorio-card" data-aos="fade-up" data-aos-delay="50">
-          <span class="relatorio-data"><i class="fas fa-cart-shopping"></i> Informativo de Insumos</span>
-          <h3>Panorama de preços e disponibilidade de insumos</h3>
-          <span class="relatorio-link">Ler edição <i class="fas fa-arrow-right"></i></span>
-        </a>
-
-      </div>
+      <!-- Preenchido automaticamente a partir de js/boletins.js -->
+      <div id="boletim-destaque"></div>
+      <h4 class="relatorio-subtitulo" id="boletim-subtitulo" data-aos="fade-up" style="display:none;">Edições anteriores</h4>
+      <div class="relatorio-grid" id="boletim-anteriores"></div>
 
       <div class="boletim-cta" data-aos="fade-up">
         <p><i class="fab fa-whatsapp"></i> Quer receber o boletim toda semana direto no seu WhatsApp?</p>
@@ -400,6 +370,7 @@
         <div class="case-card" data-aos="fade-up" data-aos-delay="450"><i class="fas fa-map-marker-alt"></i><h4>Fazenda Água Rica</h4><span>Doverlândia - GO</span></div>
         <div class="case-card" data-aos="fade-up" data-aos-delay="500"><i class="fas fa-map-marker-alt"></i><h4>Fazenda Reta das Cotias II</h4><span>Aparecida do Rio Negro - TO</span></div>
         <div class="case-card" data-aos="fade-up" data-aos-delay="550"><i class="fas fa-map-marker-alt"></i><h4>Grupo Mineto</h4><span>Cristalina - GO</span></div>
+        <div class="case-card" data-aos="fade-up" data-aos-delay="600"><i class="fas fa-map-marker-alt"></i><h4>Fazenda Bela Vista</h4><span>Indiara - GO</span></div>
       </div>
     </div>
   </section>
@@ -495,5 +466,60 @@
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script src="js/script.js"></script>
+
+  <!-- Lista de boletins (este é o arquivo que você edita toda semana) -->
+  <script src="js/boletins.js"></script>
+
+  <!-- Monta a seção de boletins automaticamente a partir da lista acima -->
+  <script>
+    (function () {
+      var lista = window.BOLETINS || [];
+      var destaqueEl = document.getElementById('boletim-destaque');
+      var anterioresEl = document.getElementById('boletim-anteriores');
+      var subtituloEl = document.getElementById('boletim-subtitulo');
+      if (!destaqueEl || !anterioresEl) return;
+
+      function escapar(t) {
+        return String(t == null ? '' : t)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+      function icone(tipo) {
+        return tipo === 'insumos' ? 'fa-cart-shopping' : 'fa-calendar-day';
+      }
+
+      if (!lista.length) {
+        destaqueEl.innerHTML = '<p style="text-align:center;opacity:.7;">Em breve, o primeiro boletim.</p>';
+        return;
+      }
+
+      // Primeiro item = edição atual (destaque)
+      var d = lista[0];
+      destaqueEl.innerHTML =
+        '<a href="relatorios/' + escapar(d.arquivo) + '" class="relatorio-destaque">' +
+          '<div class="relatorio-destaque-tag"><i class="fas fa-bolt"></i> Edição atual</div>' +
+          '<div class="relatorio-destaque-body">' +
+            '<span class="relatorio-data"><i class="fas ' + icone(d.tipo) + '"></i> ' + escapar(d.data) + '</span>' +
+            '<h3>' + escapar(d.titulo) + '</h3>' +
+            (d.resumo ? '<p>' + escapar(d.resumo) + '</p>' : '') +
+            '<span class="relatorio-link">Ler boletim completo <i class="fas fa-arrow-right"></i></span>' +
+          '</div>' +
+        '</a>';
+
+      // Demais itens = edições anteriores
+      var anteriores = lista.slice(1);
+      if (anteriores.length) {
+        if (subtituloEl) subtituloEl.style.display = '';
+        anterioresEl.innerHTML = anteriores.map(function (b) {
+          return '<a href="relatorios/' + escapar(b.arquivo) + '" class="relatorio-card">' +
+                   '<span class="relatorio-data"><i class="fas ' + icone(b.tipo) + '"></i> ' + escapar(b.data) + '</span>' +
+                   '<h3>' + escapar(b.titulo) + '</h3>' +
+                   '<span class="relatorio-link">Ler edição <i class="fas fa-arrow-right"></i></span>' +
+                 '</a>';
+        }).join('');
+      }
+
+      if (window.AOS && typeof window.AOS.refresh === 'function') window.AOS.refresh();
+    })();
+  </script>
 </body>
 </html>
