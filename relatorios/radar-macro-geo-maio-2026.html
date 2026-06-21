@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar Macro & Geopolítica | Maio 2026 + Perspectivas Junho | Rural IN</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --amarelo:#1e3a5f;--amarelo-l:#3d6494;--amarelo-xl:#bcd2e8;--amarelo-pale:#eef4fa;
+  --verde-s:#1a5c2a;--verde-l:#2d9e5f;--verde-xl:#52b788;
+  --marrom:#0d1b2e;--marrom-l:#1e3a5f;
+  --cinza-esc:#111827;--cinza:#374151;--cinza-l:#6b7280;--cinza-xl:#f9fafb;
+  --azul:#1e40af;--azul-l:#3b82f6;
+  --vermelho:#991b1b;--vermelho-l:#ef4444;
+  --laranja:#c2410c;--laranja-l:#f97316;
+  --ouro:#d4a017;
+  --bg:#fafaf7;--sombra:0 4px 20px rgba(0,0,0,.08);--sombra2:0 8px 40px rgba(0,0,0,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--cinza);font-size:15px;line-height:1.6}
+.header{background:linear-gradient(135deg,#07101d 0%,var(--marrom-l) 50%,var(--amarelo-l) 100%);position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.h-top{max-width:1100px;margin:0 auto;padding:32px 24px 26px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;position:relative;z-index:1}
+.logo-w{display:flex;align-items:center;gap:16px}
+.logo-svg{width:66px;height:66px;flex-shrink:0;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
+.logo-txt h1{font-family:'Playfair Display',serif;font-size:2.0rem;font-weight:900;line-height:1.05;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.3)}
+.logo-txt .sub{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--amarelo-xl);margin-top:5px}
+.h-meta{text-align:right}
+.h-meta .ed{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.h-meta .dt{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--amarelo-xl);font-weight:700;margin-top:4px}
+.h-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;justify-content:flex-end}
+.h-badge{font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:4px 10px;border-radius:20px;font-weight:700}
+.hb-up{background:rgba(34,197,94,.25);color:#4ade80;border:1px solid rgba(74,222,128,.4)}
+.hb-dn{background:rgba(239,68,68,.2);color:#f87171;border:1px solid rgba(248,113,113,.4)}
+.hb-nt{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.ticker{background:var(--cinza-esc);padding:11px 20px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;border-top:3px solid var(--ouro)}
+.ticker span{font-family:'JetBrains Mono',monospace;font-size:.76rem;color:#e5e7eb;font-weight:600}
+.ticker .sep{color:rgba(255,255,255,.2)}.t-nt{color:var(--amarelo-l)!important}
+.hl-strip{background:linear-gradient(135deg,#07101d,#0d1b2e);padding:18px 24px;text-align:center;border-bottom:2px solid var(--ouro)}
+.hl-strip .hs-inner{max-width:1100px;margin:0 auto}
+.hl-strip h2{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;font-weight:700}
+.hl-strip p{font-size:.85rem;color:rgba(255,255,255,.6);margin-top:5px}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+.section{padding:44px 0 32px}
+.sec-title{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.sec-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;background:var(--amarelo-l)}
+.sec-title h2{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--marrom-l);font-weight:700}
+.sec-title .ln{flex:1;height:2px;background:linear-gradient(90deg,var(--amarelo-l),transparent)}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--amarelo-l),transparent)}
+.placar{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:24px}
+.p-card{background:#fff;border-radius:14px;padding:18px 16px;box-shadow:var(--sombra);position:relative;overflow:hidden}
+.p-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.p-card.up::before{background:linear-gradient(90deg,#16a34a,#4ade80)}
+.p-card.dn::before{background:linear-gradient(90deg,#dc2626,#f87171)}
+.p-card.nt::before{background:linear-gradient(90deg,var(--amarelo),var(--amarelo-l))}
+.p-lbl{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--cinza-l);margin-bottom:5px}
+.p-val{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--cinza-esc);line-height:1}
+.p-sub{font-size:.74rem;color:var(--cinza-l);margin-top:5px}
+.p-var{font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;margin-top:5px}
+.v-up{color:#16a34a}.v-dn{color:#dc2626}.v-nt{color:var(--amarelo)}
+.p-src{font-size:.63rem;color:#ccc;margin-top:6px}
+.termometros{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:16px;margin-bottom:24px}
+.termo{background:#fff;border-radius:14px;padding:20px 16px;box-shadow:var(--sombra);text-align:center}
+.termo h4{font-family:'JetBrains Mono',monospace;font-size:.67rem;letter-spacing:1px;text-transform:uppercase;color:var(--cinza-l);margin-bottom:12px}
+.termo-body{display:flex;flex-direction:column;align-items:center;gap:8px}
+.termo-gauge{width:110px;height:70px}.termo-gauge svg{width:110px;height:70px}
+.termo-val{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--cinza-esc);margin-top:2px}
+.termo-desc{font-size:.75rem;color:var(--cinza-l);text-align:center;line-height:1.4}
+.chart-card{background:#fff;border-radius:14px;padding:22px;box-shadow:var(--sombra);margin-bottom:20px}
+.chart-card h3{font-family:'Playfair Display',serif;font-size:1rem;color:var(--marrom-l);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #f3f4f6}
+.chart-card .nf{font-size:.69rem;color:#bbb;font-style:italic;margin-top:8px}
+.abox{background:#fff;border-radius:14px;padding:22px 24px;box-shadow:var(--sombra);margin-bottom:18px;border-left:5px solid var(--amarelo-l)}
+.abox.verde{border-left-color:var(--verde-l)}.abox.vermelho{border-left-color:var(--vermelho-l)}.abox.azul{border-left-color:var(--azul-l)}
+.abox h3{font-family:'Playfair Display',serif;color:var(--marrom-l);font-size:1.05rem;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.abox.verde h3{color:var(--verde-s)}.abox.vermelho h3{color:var(--vermelho)}.abox.azul h3{color:var(--azul)}
+.abox p{color:var(--cinza);line-height:1.8;font-size:.9rem}.abox p+p{margin-top:8px}
+.al{border-radius:12px;padding:14px 18px;margin-bottom:14px;display:flex;align-items:flex-start;gap:12px;border:1px solid}
+.al.yellow{background:var(--amarelo-pale);border-color:rgba(30,58,95,.25)}
+.al.red{background:#fef2f2;border-color:rgba(239,68,68,.3)}
+.al.green{background:#f0fdf4;border-color:rgba(34,197,94,.3)}
+.al.blue{background:#eff6ff;border-color:rgba(59,130,246,.3)}
+.al .ai{font-size:1.4rem;flex-shrink:0;margin-top:1px}
+.al .at h4{font-size:.88rem;font-weight:700;margin-bottom:3px}
+.al.yellow .at h4{color:var(--marrom-l)}.al.red .at h4{color:var(--vermelho)}.al.green .at h4{color:var(--verde-s)}.al.blue .at h4{color:var(--azul)}
+.al .at p{font-size:.82rem;color:var(--cinza-l);line-height:1.6}
+.scen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:20px}
+.sc{border-radius:14px;padding:20px;border:2px solid}
+.sc.opt{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-color:#16a34a}
+.sc.neu{background:linear-gradient(135deg,#eef4fa,var(--amarelo-xl));border-color:var(--amarelo)}
+.sc.pes{background:linear-gradient(135deg,#fef2f2,#fee2e2);border-color:#dc2626}
+.sc-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.sc-dot{width:12px;height:12px;border-radius:50%}
+.sc.opt .sc-dot{background:#16a34a}.sc.neu .sc-dot{background:var(--amarelo)}.sc.pes .sc-dot{background:#dc2626}
+.sc h4{font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700}
+.sc.opt h4{color:#166534}.sc.neu h4{color:var(--marrom-l)}.sc.pes h4{color:var(--vermelho)}
+.sc ul{list-style:none;font-size:.83rem;color:var(--cinza);line-height:1.85}
+.sc ul li{display:flex;align-items:flex-start;gap:6px}.sc ul li::before{content:'›';font-weight:700;flex-shrink:0}
+.sc-prob{font-family:'JetBrains Mono',monospace;font-size:.7rem;margin-top:10px;padding:6px 10px;border-radius:6px;text-align:center;font-weight:700}
+.sc.opt .sc-prob{background:#dcfce7;color:#166534}.sc.neu .sc-prob{background:var(--amarelo-xl);color:var(--marrom-l)}.sc.pes .sc-prob{background:#fee2e2;color:var(--vermelho)}
+.geo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-bottom:20px}
+.geo-card{background:#fff;border-radius:12px;padding:16px;box-shadow:var(--sombra);display:flex;gap:12px;align-items:flex-start}
+.geo-flag{font-size:1.6rem;flex-shrink:0}
+.geo-info h5{font-weight:700;font-size:.85rem;color:var(--cinza-esc);margin-bottom:3px}
+.geo-info p{font-size:.78rem;color:var(--cinza-l);line-height:1.55}
+.geo-status{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.62rem;padding:2px 8px;border-radius:10px;margin-top:4px;font-weight:700}
+.gs-up{background:#dcfce7;color:#16a34a}.gs-dn{background:#fee2e2;color:#dc2626}.gs-nt{background:var(--amarelo-xl);color:var(--marrom-l)}
+.price-termo{background:#fff;border-radius:14px;padding:24px;box-shadow:var(--sombra);margin-bottom:20px}
+.price-termo h3{font-family:'Playfair Display',serif;font-size:1rem;color:var(--marrom-l);margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid #f3f4f6}
+.pt-bar{margin-bottom:14px}
+.pt-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:.82rem}
+.pt-label .pl-name{font-weight:600;color:var(--cinza)}
+.pt-label .pl-val{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.85rem}
+.pt-track{height:16px;background:#f3f4f6;border-radius:8px;overflow:hidden;position:relative}
+.pt-fill{height:100%;border-radius:8px;position:relative}
+.pt-marker{position:absolute;top:-4px;height:24px;width:3px;background:var(--cinza-esc);border-radius:2px;transform:translateX(-50%)}
+.pt-scale{display:flex;justify-content:space-between;margin-top:4px;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--cinza-l)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.percepcao{background:linear-gradient(135deg,#07101d,var(--marrom-l));border-radius:16px;padding:32px;margin-bottom:20px;color:#fff}
+.percepcao h3{font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:14px;color:var(--amarelo-xl)}
+.percepcao p{font-size:.9rem;line-height:1.85;color:rgba(255,255,255,.85)}.percepcao p+p{margin-top:10px}
+.percepcao .quote{border-left:3px solid var(--ouro);padding-left:16px;font-style:italic;margin-top:16px;color:var(--amarelo-xl);font-size:.92rem}
+.footer{background:var(--cinza-esc);color:#fff;padding:52px 24px 32px}
+.fi{max-width:1100px;margin:0 auto}
+.ft{display:flex;align-items:flex-start;gap:32px;flex-wrap:wrap;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:24px}
+.fl .brand{font-family:'Playfair Display',serif;font-size:1.85rem;font-weight:900;color:var(--amarelo-l)}
+.fl .brand span{color:#fff}.fl .tag{font-size:.78rem;color:rgba(255,255,255,.45);font-style:italic;margin-top:4px}
+.fc h4{font-family:'Playfair Display',serif;color:var(--amarelo-l);font-size:1.1rem;margin-bottom:8px}
+.fc p{font-size:.82rem;color:rgba(255,255,255,.7);line-height:1.9}.fc a{color:var(--amarelo-l);text-decoration:none}
+.fb{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255,255,.27);letter-spacing:.8px;text-align:center;line-height:1.8}
+.hl{background:linear-gradient(transparent 60%,rgba(212,160,23,.4) 60%)}
+.badge-neon{font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:5px 14px;border-radius:20px;font-weight:700;display:inline-block;margin:3px}
+.bn-gold{background:rgba(212,160,23,.12);color:#9a7411;border:1px solid var(--ouro)}
+.bn-dn{background:rgba(239,68,68,.12);color:#dc2626;border:1px solid rgba(248,113,113,.5)}
+.bn-green{background:rgba(34,197,94,.12);color:#16a34a;border:1px solid rgba(74,222,128,.5)}
+.bn-blue{background:rgba(59,130,246,.12);color:#1e40af;border:1px solid rgba(147,197,253,.6)}
+@media(max-width:720px){.g2{grid-template-columns:1fr}.logo-txt h1{font-size:1.45rem}.h-top{flex-direction:column;align-items:flex-start}.h-meta{text-align:left}.h-badges{justify-content:flex-start}.ft{flex-direction:column}.p-val{font-size:1.3rem}.sec-title h2{font-size:1.2rem}.hl-strip h2{font-size:1.15rem}}
+@media print{body{background:#fff}.header,.footer,.percepcao,.hl-strip{-webkit-print-color-adjust:exact;print-color-adjust:exact}.section{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="h-top">
+    <div class="logo-w">
+      <svg class="logo-svg" viewBox="0 0 66 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="66" height="66" rx="13" fill="#d4a017"/>
+        <text x="7" y="40" font-family="Georgia,serif" font-size="26" font-weight="900" fill="#0d1b2e">RI</text>
+        <rect x="6" y="46" width="54" height="3" rx="1.5" fill="#0d1b2e" opacity=".7"/>
+        <text x="6" y="60" font-family="Arial,sans-serif" font-size="7.5" font-weight="700" fill="#0d1b2e" letter-spacing="2">RURAL IN</text>
+      </svg>
+      <div class="logo-txt"><h1>Radar Macro &amp; Geopolítica</h1><div class="sub">Análise Mensal · Maio 2026 · Rural IN</div></div>
+    </div>
+    <div class="h-meta">
+      <div class="ed">PhD em Estratégia · Geopolítica · Macroeconomia</div>
+      <div class="dt">Fechamento Maio 2026</div>
+      <div class="h-badges">
+        <span class="h-badge hb-dn">Brent: US$ 92,6 (−19% mês)</span>
+        <span class="h-badge hb-up">Dólar: R$ 5,03 (−15% ano)</span>
+        <span class="h-badge hb-nt">Selic: 14,5%</span>
+      </div>
+    </div>
+  </div>
+  <div class="ticker">
+    <span>🛢️ <span class="t-nt">Brent:</span> <strong>US$ 92,56/bbl</strong></span>
+    <span class="sep">|</span>
+    <span>🛢️ <span class="t-nt">WTI:</span> <strong>≈US$ 88/bbl</strong></span>
+    <span class="sep">|</span>
+    <span>💵 <span class="t-nt">Dólar:</span> <strong>R$ 5,03</strong></span>
+    <span class="sep">|</span>
+    <span>🏦 <span class="t-nt">Selic:</span> <strong>14,5%</strong></span>
+    <span class="sep">|</span>
+    <span>🇺🇸 <span class="t-nt">Fed:</span> <strong>3,50–3,75%</strong></span>
+    <span class="sep">|</span>
+    <span>📈 <span class="t-nt">IPCA 12m:</span> <strong>~4,4%</strong></span>
+    <span class="sep">|</span>
+    <span>⚓ <span class="t-nt">Ormuz:</span> <strong>cessar-fogo frágil</strong></span>
+  </div>
+</header>
+
+<div class="hl-strip"><div class="hs-inner">
+  <h2>🌐 Fechamento de Maio 2026 + Perspectivas para Junho</h2>
+  <p>O petróleo desaba 19% com esperança de paz · Ormuz no centro do tabuleiro · real forte aperta a margem do exportador · a guerra que move câmbio, custo e inflação</p>
+</div></div>
+
+<div class="container">
+
+<!-- SEÇÃO 1: PLACAR -->
+<section class="section">
+  <div class="sec-title"><div class="sec-icon">💰</div><h2>Placar Macro — Fechamento Maio 2026</h2><div class="ln"></div></div>
+  <div class="placar">
+    <div class="p-card dn"><div class="p-lbl">Brent (petróleo)</div><div class="p-val">US$ 92,6</div><div class="p-sub">por barril (29/mai)</div><div class="p-var v-dn">▼ −19% no mês (pior desde 2020)</div><div class="p-src">Fonte: ICE / TradingEconomics</div></div>
+    <div class="p-card dn"><div class="p-lbl">WTI (petróleo EUA)</div><div class="p-val">≈US$ 88</div><div class="p-sub">por barril</div><div class="p-var v-dn">▼ recuo com cessar-fogo</div><div class="p-src">Fonte: NYMEX</div></div>
+    <div class="p-card up"><div class="p-lbl">Dólar / Real</div><div class="p-val">R$ 5,03</div><div class="p-sub">USD/BRL (29/mai)</div><div class="p-var v-up">▼ −15% no ano (real forte)</div><div class="p-src">Fonte: Banco Central / B3</div></div>
+    <div class="p-card nt"><div class="p-lbl">Selic (Brasil)</div><div class="p-val">14,5%</div><div class="p-sub">a.a. — cortes em mar e abr</div><div class="p-var v-nt">◆ ciclo de queda lento</div><div class="p-src">Fonte: Copom / BCB</div></div>
+    <div class="p-card nt"><div class="p-lbl">Fed Funds (EUA)</div><div class="p-val">3,50–3,75%</div><div class="p-sub">a.a. — em pausa</div><div class="p-var v-nt">◆ Trump pressiona por cortes</div><div class="p-src">Fonte: Federal Reserve</div></div>
+    <div class="p-card dn"><div class="p-lbl">IPCA — 12 meses</div><div class="p-val">~4,4%</div><div class="p-sub">Focus 2026: ~4,86%</div><div class="p-var v-dn">▲ acima da meta (3%)</div><div class="p-src">Fonte: IBGE / Focus-BCB</div></div>
+  </div>
+
+  <div class="price-termo">
+    <h3>🌡️ Termômetro Macro — onde estão petróleo, câmbio e risco</h3>
+    <div class="pt-bar"><div class="pt-label"><span class="pl-name">🛢️ Brent (posição na régua de 2026)</span><span class="pl-val" style="color:#d97706">US$ 92,6</span></div>
+      <div class="pt-track"><div class="pt-fill" style="width:50%;background:linear-gradient(90deg,#16a34a,#f59e0b)"></div><div class="pt-marker" style="left:35%"></div></div>
+      <div class="pt-scale"><span>US$ 70 (pré-guerra)</span><span style="font-weight:700;color:var(--cinza)">caiu, mas acima do normal</span><span>US$ 140 (pico)</span></div></div>
+    <div class="pt-bar"><div class="pt-label"><span class="pl-name">💵 Dólar (real forte)</span><span class="pl-val" style="color:#16a34a">R$ 5,03</span></div>
+      <div class="pt-track"><div class="pt-fill" style="width:20%;background:linear-gradient(90deg,#16a34a,#84cc16)"></div><div class="pt-marker" style="left:50%"></div></div>
+      <div class="pt-scale"><span>R$ 5,00 (piso)</span><span style="font-weight:700;color:var(--cinza)">real no ponto mais forte do ano</span><span>R$ 6,00</span></div></div>
+    <div class="pt-bar"><div class="pt-label"><span class="pl-name">⚓ Risco geopolítico (Ormuz)</span><span class="pl-val" style="color:#dc2626">ALTO</span></div>
+      <div class="pt-track"><div class="pt-fill" style="width:72%;background:linear-gradient(90deg,#f59e0b,#dc2626)"></div></div>
+      <div class="pt-scale"><span>baixo</span><span style="font-weight:700;color:var(--cinza)">cessar-fogo frágil, não finalizado</span><span>alto</span></div></div>
+    <div style="margin-top:10px;padding:12px;background:#f9fafb;border-radius:8px;font-size:.78rem;color:var(--cinza-l)">
+      <strong style="color:var(--marrom-l)">Leitura:</strong> o mês foi de <strong>distensão no preço, mas não no risco</strong>. O petróleo desabou com a esperança de paz, e o real está no ponto mais forte do ano. Para o produtor, é uma <strong>tesoura</strong>: real forte derruba a receita em reais da exportação, enquanto o petróleo em queda alivia custo (diesel, frete, fertilizante).
+    </div>
+  </div>
+
+  <div class="chart-card"><h3>📉 Brent em Maio 2026 (US$/bbl) — Do Pico ao Tombo</h3>
+    <canvas id="chartMaio" height="95"></canvas>
+    <p class="nf">Fonte: ICE/TradingEconomics. Pico em 5/mai (US$114,44) com violência em Ormuz; tombo no fim do mês com cessar-fogo. Série de referência. Elaboração: Rural IN.</p></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SEÇÃO 2: FATOS -->
+<section class="section">
+  <div class="sec-title"><div class="sec-icon">📰</div><h2>Os 6 Fatos Macro/Geo que Moveram Maio</h2><div class="ln"></div></div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px;margin-bottom:20px">
+    <div class="al green"><div class="ai">🕊️</div><div class="at"><h4>1. Petróleo desaba 19% com esperança de paz</h4><p>O Brent caiu de US$ 114 (5/mai) para <strong>US$ 92,56</strong> (29/mai) — o pior mês desde a pandemia. EUA e Irã "quase acordaram" um MoU de 60 dias para pausar hostilidades, com a promessa de reabrir Ormuz.</p></div></div>
+    <div class="al red"><div class="ai">⚓</div><div class="at"><h4>2. Ormuz: o gargalo de 1/5 da energia global</h4><p>O Estreito de Ormuz movimenta <strong>cerca de 20% do petróleo e LNG do mundo</strong>. Durante a guerra ficou praticamente fechado. Analistas alertam: a reabertura será lenta e parcial — minas a limpar, infraestrutura danificada, estoques esvaziados.</p></div></div>
+    <div class="al yellow"><div class="ai">🤝</div><div class="at"><h4>3. Cessar-fogo frágil e não finalizado</h4><p>O acordo prevê trégua de 60 dias e limpeza de minas em 30, mas <strong>Trump ainda não aprovou os termos</strong> e o vice JD Vance ponderou que não há certeza de quando — ou se — o acordo será fechado. Ceticismo "inevitável" dos investidores.</p></div></div>
+    <div class="al green"><div class="ai">💵</div><div class="at"><h4>4. Real forte apesar da guerra</h4><p>O dólar caiu para <strong>R$ 5,03 (−15% no ano)</strong>. Mesmo com o conflito, o Brasil se beneficia da condição de exportador de commodities e da Selic alta, que atrai capital. O real está no ponto mais forte de 2026.</p></div></div>
+    <div class="al yellow"><div class="ai">🏦</div><div class="at"><h4>5. Selic cai a 14,5%, mas a inflação resiste</h4><p>O Copom cortou em março e abril (de 15%), mas a inflação segue acima da meta (~4,4% em 12 meses; Focus 4,86% p/ 2026), <strong>pressionada por combustíveis e alimentos</strong> da guerra. O petróleo em queda agora abre espaço para mais cortes.</p></div></div>
+    <div class="al blue"><div class="ai">🌍</div><div class="at"><h4>6. OPEP+ e AIE reagem ao choque</h4><p>A OPEP+ elevou cotas de produção e a <strong>AIE liberou 400 milhões de barris</strong> de estoques estratégicos — a maior resposta a uma disrupção da história do mercado de petróleo. Saudita perdeu ~600 mil bpd de capacidade por ataques.</p></div></div>
+  </div>
+  <div class="chart-card"><h3>📊 Petróleo × Câmbio em 2026 — A Dança Inversa</h3>
+    <canvas id="chartAnual" height="95"></canvas>
+    <p class="nf">Fonte: ICE, Banco Central. O petróleo disparou com a guerra enquanto o real se fortalecia — duas forças que se cruzam na conta do produtor. Médias mensais de referência. Elaboração: Rural IN.</p></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SEÇÃO 3: ANÁLISE -->
+<section class="section">
+  <div class="sec-title"><div class="sec-icon">🔬</div><h2>Análise Macro + Geopolítica — Dupla Visão</h2><div class="ln"></div></div>
+  <div class="termometros">
+    <div class="termo"><h4>Risco geopolítico</h4><div class="termo-body">
+      <svg viewBox="0 0 100 60" class="termo-gauge"><defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#16a34a"/><stop offset="50%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#ef4444"/></linearGradient></defs>
+      <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="url(#g1)" stroke-width="10" stroke-linecap="round"/><line x1="50" y1="50" x2="69" y2="27" stroke="#1e1e2e" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="5" fill="#1e1e2e"/></svg>
+      <div class="termo-val">72 / 100</div><div class="termo-desc">Cessar-fogo frágil; Ormuz ainda não reaberto de fato</div></div></div>
+    <div class="termo"><h4>Petróleo (Brent)</h4><div class="termo-body">
+      <svg viewBox="0 0 100 60" class="termo-gauge"><defs><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#16a34a"/><stop offset="50%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#ef4444"/></linearGradient></defs>
+      <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="url(#g2)" stroke-width="10" stroke-linecap="round"/><line x1="50" y1="50" x2="55" y2="20" stroke="#1e1e2e" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="5" fill="#1e1e2e"/></svg>
+      <div class="termo-val">55 / 100</div><div class="termo-desc">Caiu forte, mas segue acima do pré-guerra; risco de repique</div></div></div>
+    <div class="termo"><h4>Força do Real</h4><div class="termo-body">
+      <svg viewBox="0 0 100 60" class="termo-gauge"><defs><linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#ef4444"/><stop offset="50%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#16a34a"/></linearGradient></defs>
+      <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="url(#g3)" stroke-width="10" stroke-linecap="round"/><line x1="50" y1="50" x2="61" y2="22" stroke="#1e1e2e" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="5" fill="#1e1e2e"/></svg>
+      <div class="termo-val">62 / 100</div><div class="termo-desc">Real no ponto mais forte do ano — bom p/ custo, ruim p/ receita</div></div></div>
+    <div class="termo"><h4>Inflação (Brasil)</h4><div class="termo-body">
+      <svg viewBox="0 0 100 60" class="termo-gauge"><defs><linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#16a34a"/><stop offset="50%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#ef4444"/></linearGradient></defs>
+      <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="url(#g4)" stroke-width="10" stroke-linecap="round"/><line x1="50" y1="50" x2="57" y2="21" stroke="#1e1e2e" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="5" fill="#1e1e2e"/></svg>
+      <div class="termo-val">58 / 100</div><div class="termo-desc">~4,4% em 12m, acima da meta; petróleo em queda alivia à frente</div></div></div>
+    <div class="termo"><h4>Aperto monetário (Selic)</h4><div class="termo-body">
+      <svg viewBox="0 0 100 60" class="termo-gauge"><defs><linearGradient id="g5" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#16a34a"/><stop offset="50%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#ef4444"/></linearGradient></defs>
+      <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="url(#g5)" stroke-width="10" stroke-linecap="round"/><line x1="50" y1="50" x2="71" y2="29" stroke="#1e1e2e" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="5" fill="#1e1e2e"/></svg>
+      <div class="termo-val">75 / 100</div><div class="termo-desc">Selic 14,5% ainda muito restritiva; encarece custeio e carrego</div></div></div>
+    <div class="termo"><h4>Incerteza global</h4><div class="termo-body">
+      <svg viewBox="0 0 100 60" class="termo-gauge"><defs><linearGradient id="g6" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#16a34a"/><stop offset="50%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#ef4444"/></linearGradient></defs>
+      <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="url(#g6)" stroke-width="10" stroke-linecap="round"/><line x1="50" y1="50" x2="64" y2="23" stroke="#1e1e2e" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="5" fill="#1e1e2e"/></svg>
+      <div class="termo-val">65 / 100</div><div class="termo-desc">Guerra, tarifas EUA-China e Fed sob pressão política</div></div></div>
+  </div>
+
+  <div class="g2">
+    <div class="abox vermelho">
+      <h3>🌐 Análise Geopolítica — A Guerra Manda no Tabuleiro</h3>
+      <p><strong>Oriente Médio:</strong> a guerra EUA-Israel-Irã foi o fato dominante de 2026. Levou o Brent de ~US$70 a US$140 (pico de março, maior desde 2008) e fechou Ormuz, por onde passa ~20% da energia mundial.</p>
+      <p><strong>Cessar-fogo:</strong> o acordo de maio derrubou o preço, mas é frágil — não foi aprovado por Trump e a reabertura física de Ormuz será lenta (minas, infraestrutura, estoques).</p>
+      <p><strong>Outras frentes:</strong> Rússia-Ucrânia (4 anos) e a disputa tarifária EUA-China seguem no radar. <span class="hl">A volatilidade é o novo normal: o preço pode reverter em dias a cada manchete do Golfo.</span></p>
+    </div>
+    <div class="abox azul">
+      <h3>📊 Análise Macroeconômica — A Tesoura do Produtor</h3>
+      <p><strong>Câmbio:</strong> o real forte (R$5,03) é o fato mais importante para o agro. Reduz a receita em reais de quem exporta grãos — mas barateia a importação de fertilizante e insumo.</p>
+      <p><strong>Juros:</strong> Selic em 14,5% (em queda lenta) mantém o custo financeiro alto; o Fed parado em 3,5–3,75% sob pressão de Trump. O diferencial de juros sustenta o real forte.</p>
+      <p><strong>Inflação:</strong> resiste acima da meta pela energia/alimentos. <span class="hl">O petróleo em queda no fim de maio é a melhor notícia macro do mês</span> — abre caminho para mais cortes de Selic e alívio de custo.</p>
+    </div>
+  </div>
+
+  <div class="chart-card"><h3>🛢️ A Jornada do Brent em 2026 (US$/bbl) — Da Paz à Guerra e de Volta</h3>
+    <canvas id="chartJornada" height="80"></canvas>
+    <p class="nf">Fonte: ICE/TradingEconomics. Pré-guerra ~US$70 → pico de março US$140 (maior desde 2008) → US$114 em 5/mai → US$92,6 no fim de maio. Elaboração: Rural IN.</p></div>
+  <div class="chart-card"><h3>⚓ O Peso do Estreito de Ormuz no Fluxo Global de Energia</h3>
+    <canvas id="chartOrmuz" height="75"></canvas>
+    <p class="nf">Cerca de 20% do petróleo e do LNG do mundo passam por Ormuz — o gargalo que liga a guerra ao preço do diesel na fazenda. Fonte: AIE. Elaboração: Rural IN.</p></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SEÇÃO 4: GEOPOLÍTICA -->
+<section class="section">
+  <div class="sec-title"><div class="sec-icon">🗺️</div><h2>O Mapa do Risco — Conflitos e Pontos de Atenção</h2><div class="ln"></div></div>
+  <div class="geo-grid">
+    <div class="geo-card"><div class="geo-flag">🇮🇷</div><div class="geo-info"><h5>Irã / Estreito de Ormuz</h5><p>Epicentro. Guerra EUA-Israel-Irã desde fev/26 fechou ~20% da energia global. Cessar-fogo de maio é frágil e a reabertura, lenta. Cada manchete mexe no Brent — e no diesel, frete e adubo do produtor.</p><span class="geo-status gs-dn">Decisivo</span></div></div>
+    <div class="geo-card"><div class="geo-flag">🇷🇺</div><div class="geo-info"><h5>Rússia & Ucrânia</h5><p>Guerra em seu 4º ano. Afeta trigo, milho, energia e fertilizantes (Rússia suspendeu exportações de adubo). Segue como fonte estrutural de risco de oferta.</p><span class="geo-status gs-nt">Estrutural</span></div></div>
+    <div class="geo-card"><div class="geo-flag">🇨🇳</div><div class="geo-info"><h5>China — Comércio & Demanda</h5><p>Acordo com os EUA prevê ~US$17 bi em compras agrícolas (tarifa de 10% ainda vigente). É o maior comprador do agro brasileiro e segura fertilizantes até agosto. Decisiva para soja, algodão e milho.</p><span class="geo-status gs-nt">Comprador-chave</span></div></div>
+    <div class="geo-card"><div class="geo-flag">🇺🇸</div><div class="geo-info"><h5>EUA — Fed e Política</h5><p>Fed parado em 3,5–3,75%, sob pressão de Trump por cortes (e investigação contra Powell). A trajetória do dólar global e dos juros americanos define o fluxo de capital para emergentes como o Brasil.</p><span class="geo-status gs-nt">Monitorar</span></div></div>
+    <div class="geo-card"><div class="geo-flag">🛢️</div><div class="geo-info"><h5>OPEP+ e Energia</h5><p>OPEP+ elevou cotas e a AIE liberou 400 mi de barris — maior resposta da história a uma disrupção. A oferta extra e o cessar-fogo derrubaram o preço, mas a capacidade saudita segue reduzida.</p><span class="geo-status gs-nt">Alívio parcial</span></div></div>
+    <div class="geo-card"><div class="geo-flag">🌦️</div><div class="geo-info"><h5>Clima — El Niño</h5><p>Probabilidade alta (mai–jul): mais chuva no Sul e menos no Norte/Nordeste. Afeta trigo, plantio de inverno e a logística. O risco climático soma-se ao geopolítico no preço dos alimentos.</p><span class="geo-status gs-nt">Atenção</span></div></div>
+  </div>
+  <div class="chart-card"><h3>💵 Câmbio (R$/US$) em 2026 — O Real no Ponto Mais Forte do Ano</h3>
+    <canvas id="chartCambio" height="75"></canvas>
+    <p class="nf">O real se valorizou de R$5,95 (jan) para R$5,03 (mai), sustentado por Selic alta e saldo comercial. Fonte: Banco Central. Elaboração: Rural IN.</p></div>
+  <div class="chart-card"><h3>🏦 Juros e Inflação em 2026 (% a.a.) — Selic, IPCA e Fed</h3>
+    <canvas id="chartJuros" height="80"></canvas>
+    <p class="nf">Selic em queda (de 15% para 14,5%), IPCA resistindo acima da meta e Fed em pausa. Fonte: BCB, IBGE, Federal Reserve. Elaboração: Rural IN.</p></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SEÇÃO 5: PERSPECTIVAS JUNHO -->
+<section class="section">
+  <div class="sec-title"><div class="sec-icon">🔭</div><h2>Perspectivas para Junho 2026 — Cenários</h2><div class="ln"></div></div>
+  <div style="margin-bottom:16px;display:flex;flex-wrap:wrap;gap:8px">
+    <span class="badge-neon bn-gold">🛢️ Brent: US$ 78–115/bbl</span>
+    <span class="badge-neon bn-green">💵 Dólar: R$ 4,90–5,30</span>
+    <span class="badge-neon bn-blue">🏦 Copom de junho: viés de corte</span>
+    <span class="badge-neon bn-dn">⚓ Ormuz: o gatilho de tudo</span>
+    <span class="badge-neon bn-gold">🇺🇸 Fed e tarifas no radar</span>
+  </div>
+  <div class="scen-grid">
+    <div class="sc pes"><div class="sc-header"><div class="sc-dot"></div><h4>🔴 Cenário de Escalada</h4></div>
+      <ul><li><span>Cessar-fogo falha; Ormuz segue fechado</span></li><li><span>Brent volta a US$ 105–115/bbl</span></li><li><span>Inflação e custos (diesel/adubo) sobem</span></li><li><span>Aversão a risco pode enfraquecer o real</span></li><li><span>Copom trava os cortes de Selic</span></li></ul>
+      <div class="sc-prob">Prob. 30% — Guerra reacende</div></div>
+    <div class="sc neu"><div class="sc-header"><div class="sc-dot"></div><h4>🟡 Cenário Base (mais provável)</h4></div>
+      <ul><li><span>Cessar-fogo frágil, mas segura</span></li><li><span>Brent US$ 88–95/bbl; Ormuz reabre devagar</span></li><li><span>Real firme (R$ 5,00–5,15)</span></li><li><span>Selic segue caindo lentamente</span></li><li><span>Inflação cede aos poucos</span></li></ul>
+      <div class="sc-prob">Prob. 45% — Distensão gradual</div></div>
+    <div class="sc opt"><div class="sc-header"><div class="sc-dot"></div><h4>🟢 Cenário de Distensão</h4></div>
+      <ul><li><span>Paz firme; Ormuz reabre de fato</span></li><li><span>Brent recua a US$ 78–85/bbl</span></li><li><span>Alívio forte de inflação e custos</span></li><li><span>Espaço p/ cortes mais rápidos de Selic</span></li><li><span>Dólar pode oscilar com fluxo global</span></li></ul>
+      <div class="sc-prob">Prob. 25% — Paz consolidada</div></div>
+  </div>
+  <div class="chart-card"><h3>🎯 Projeção do Brent para Junho 2026 — Cenários (US$/bbl)</h3>
+    <canvas id="chartProjecao" height="85"></canvas>
+    <p class="nf">Elaboração: Rural IN — Dr. Sidney Souza. Faixas por cenário, conforme a evolução do conflito e a reabertura de Ormuz.</p></div>
+  <div class="percepcao">
+    <h3>🧭 Percepção do Analista para Junho — Dr. Sidney Souza</h3>
+    <p>A macroeconomia e a geopolítica são o <span class="hl" style="background:linear-gradient(transparent 60%,rgba(212,160,23,.5) 60%)">clima que paira sobre todas as lavouras</span>. Não importa o quão boa esteja a safra: se o petróleo, o câmbio e os juros virarem contra, a margem evapora. Em 2026, esses três fatores estão sendo escritos por uma só caneta — a da guerra no Oriente Médio.</p>
+    <p>Maio trouxe a primeira boa notícia macro do ano: o petróleo desabou 19% com a esperança de paz. Isso importa diretamente para o produtor por três canais — <strong>diesel, frete e fertilizante</strong> —, que devem aliviar nas próximas semanas, e por um canal indireto, a <strong>inflação</strong>, que pode abrir espaço para o Copom acelerar os cortes de Selic. Petróleo mais barato é custo menor e juro menor à frente.</p>
+    <p>Mas há uma tesoura. O mesmo ambiente que derrubou o petróleo também fortaleceu o real (R$5,03, o mais forte do ano). Para quem exporta grãos, isso é uma faca: a soja, o algodão e o café valem menos em reais quando o dólar cai. <strong>O alívio de custo vem junto com a perda de receita</strong> — e cada produtor precisa fazer essa conta líquida na sua porteira.</p>
+    <p>Minha leitura para junho é de <strong>distensão gradual com risco binário</strong>. O cenário mais provável é o petróleo entre US$88–95 e o real firme. Mas o tabuleiro é frágil: o cessar-fogo não foi assinado por Trump, e Ormuz não reabriu de fato. Uma manchete ruim do Golfo pode jogar o Brent de volta aos US$110 em dias. Por isso, a palavra de ordem é <strong>gestão de risco dos dois lados</strong> — não apostar tudo nem na paz, nem na guerra.</p>
+    <div class="quote">"O produtor que só olha o preço do grão está vendo metade do jogo. Em 2026, a outra metade — talvez a mais importante — está em Ormuz, no Fed e na cotação do dólar. Quem entende a macro antecipa o movimento; quem ignora, só reage quando a conta já chegou."</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SEÇÃO 6: RECOMENDAÇÕES -->
+<section class="section">
+  <div class="sec-title"><div class="sec-icon">✅</div><h2>O que o Produtor Deve Ter no Radar — Próximas Semanas</h2><div class="ln"></div></div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:24px">
+    <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:var(--sombra);border-top:4px solid var(--ouro)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:1.5rem">💱</span><h4 style="font-family:'Playfair Display',serif;font-size:.98rem;color:var(--marrom-l)">Travar câmbio nos repiques</h4></div>
+      <p style="font-size:.84rem;color:var(--cinza);line-height:1.75">Com o real forte corroendo a receita do exportador, use as <strong>altas pontuais do dólar</strong> (geradas por sustos geopolíticos) para travar a paridade da venda via contratos a termo/NDF. Não torça pela guerra — mas esteja pronto para capturar o dólar quando ele subir.</p></div>
+    <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:var(--sombra);border-top:4px solid #16a34a">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:1.5rem">⛽</span><h4 style="font-family:'Playfair Display',serif;font-size:.98rem;color:var(--verde-s)">Aproveitar o petróleo em queda</h4></div>
+      <p style="font-size:.84rem;color:var(--cinza);line-height:1.75">Petróleo mais barato tende a baixar <strong>diesel, frete e fertilizante</strong> nas próximas semanas. É janela para antecipar compra de insumo e travar custo logístico da próxima safra. Se a paz se consolidar, o alívio é real; aproveite enquanto dura.</p></div>
+    <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:var(--sombra);border-top:4px solid var(--vermelho-l)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:1.5rem">🛡️</span><h4 style="font-family:'Playfair Display',serif;font-size:.98rem;color:var(--vermelho)">Gestão de risco binária</h4></div>
+      <p style="font-size:.84rem;color:var(--cinza);line-height:1.75">O cenário é de "paz ou escalada", com pouco meio-termo. Não concentre a decisão num único desfecho: escalone vendas e compras, mantenha caixa e considere proteção (opções) para os dois lados. Cenário binário pede <strong>hedge, não aposta</strong>.</p></div>
+    <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:var(--sombra);border-top:4px solid var(--azul-l)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:1.5rem">📡</span><h4 style="font-family:'Playfair Display',serif;font-size:.98rem;color:var(--azul)">O que monitorar em junho</h4></div>
+      <p style="font-size:.84rem;color:var(--cinza);line-height:1.75"><strong>1.</strong> Reabertura efetiva do Estreito de Ormuz.<br><strong>2.</strong> Copom de junho (sinalização de corte da Selic).<br><strong>3.</strong> Fed e a pressão política sobre Powell.<br><strong>4.</strong> Tarifas e compras da China.<br><strong>5.</strong> WASDE (11/jun) e o clima (El Niño).</p></div>
+  </div>
+
+  <div class="chart-card"><h3>🚦 Semáforo Macro & Geopolítico — Fechamento de Maio 2026</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:12px">
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px"><span style="width:12px;height:12px;border-radius:50%;background:#f59e0b;flex-shrink:0"></span><div><strong style="font-size:.85rem">Brent</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">US$92,6 — caiu, mas volátil</span></div></div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px"><span style="width:12px;height:12px;border-radius:50%;background:#ef4444;flex-shrink:0"></span><div><strong style="font-size:.85rem">Ormuz</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">cessar-fogo frágil — risco alto</span></div></div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px"><span style="width:12px;height:12px;border-radius:50%;background:#f59e0b;flex-shrink:0"></span><div><strong style="font-size:.85rem">Dólar / Real</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">R$5,03 — bom custo, ruim receita</span></div></div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px"><span style="width:12px;height:12px;border-radius:50%;background:#f59e0b;flex-shrink:0"></span><div><strong style="font-size:.85rem">Selic</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">14,5% — caindo devagar</span></div></div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px"><span style="width:12px;height:12px;border-radius:50%;background:#f59e0b;flex-shrink:0"></span><div><strong style="font-size:.85rem">IPCA</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">~4,4% — acima da meta</span></div></div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px"><span style="width:12px;height:12px;border-radius:50%;background:#16a34a;flex-shrink:0"></span><div><strong style="font-size:.85rem">Petróleo (custo)</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">queda alivia diesel/adubo</span></div></div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px"><span style="width:12px;height:12px;border-radius:50%;background:#f59e0b;flex-shrink:0"></span><div><strong style="font-size:.85rem">Fed</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">3,5–3,75% — em pausa</span></div></div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px"><span style="width:12px;height:12px;border-radius:50%;background:#ef4444;flex-shrink:0"></span><div><strong style="font-size:.85rem">Risco geopolítico</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">alto — guerra não acabou</span></div></div>
+    </div>
+  </div>
+
+  <div class="abox azul" style="margin-top:8px">
+    <h3>⚠️ Por que olhar para os conflitos atuais?</h3>
+    <p>Porque o campo de batalha no Golfo chega à porteira da fazenda por <strong>quatro canais diretos</strong>: <strong>(1) petróleo</strong> → diesel, frete e secagem; <strong>(2) fertilizante</strong> → a ureia disparou 50% e o Brasil importa &gt;80% do que usa; <strong>(3) câmbio</strong> → a aversão a risco move o dólar, que multiplica ou divide o preço em reais; e <strong>(4) inflação/juros</strong> → energia cara pressiona o IPCA e trava a queda da Selic, encarecendo o custeio.</p>
+    <p>Ignorar a geopolítica é dirigir olhando só o velocímetro, sem ver a estrada. <span class="hl">O produtor que acompanha Ormuz, o Fed e o câmbio toma decisões de compra e venda com semanas de antecedência</span> — e é isso que separa quem protege a margem de quem apenas torce.</p>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<footer class="footer">
+  <div class="fi">
+    <div class="ft">
+      <div class="fl"><div class="brand">Rural<span> IN</span></div><div class="tag">Inteligência Econômica para o Produtor Rural</div>
+        <p style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:10px;max-width:260px;line-height:1.7">Transformamos dados da fazenda em decisões econômicas. Ajudamos produtores a entender se o mercado sustenta seu negócio.</p></div>
+      <div class="fc"><h4>Análise e Construção</h4>
+        <p><strong>Dr. Sidney Souza</strong><br>Economista e Adm. Agrícola<br>Estrategista Econômico do Produtor<br>Especialista em economia da fazenda e gestão de risco no agro<br>Transformamos dados da fazenda em decisões econômicas<br>Ajudamos produtores a entender se o mercado sustenta seu negócio<br><br>
+        🌐 <a href="https://ruralinai-commits.github.io/ruralin-site/" target="_blank">ruralinai-commits.github.io/ruralin-site</a><br>📱 @ruralin.ai<br>✉ <a href="mailto:sidneyagro@gmail.com">sidneyagro@gmail.com</a><br>📞 (64) 9 9226-6886</p></div>
+    </div>
+    <div class="fb">
+      RADAR MACRO &amp; GEOPOLÍTICA · EDIÇÃO MAIO 2026 + PERSPECTIVAS JUNHO · RURAL IN · TODOS OS DIREITOS RESERVADOS<br>
+      ANÁLISE COM CARÁTER INFORMATIVO E ESTRATÉGICO. NÃO CONSTITUI RECOMENDAÇÃO FORMAL DE INVESTIMENTO.<br>
+      FONTES: ICE · NYMEX · BANCO CENTRAL · IBGE · FOCUS/BCB · FEDERAL RESERVE · AIE · OPEP+ · TRADINGECONOMICS · CNBC · REUTERS · GOLDMAN SACHS
+    </div>
+  </div>
+</footer>
+
+<script>
+Chart.defaults.color='#6b7280';Chart.defaults.borderColor='rgba(0,0,0,.06)';
+Chart.defaults.font.family="'Inter',system-ui,sans-serif";
+const am='#1e3a5f',amL='#3d6494',verde='#16a34a',verm='#dc2626',azul='#1e40af',azulL='#3b82f6',ouro='#d4a017';
+
+new Chart(document.getElementById('chartMaio'),{type:'line',
+ data:{labels:['01/05','05/05','08/05','12/05','15/05','19/05','22/05','26/05','29/05'],
+  datasets:[{label:'Brent (US$/bbl)',data:[110,114.44,108,102,99,97,95,93,92.56],
+   borderColor:am,backgroundColor:'rgba(30,58,95,.10)',borderWidth:3,tension:.3,fill:true,pointRadius:4}]},
+ options:{responsive:true,plugins:{legend:{position:'top',labels:{usePointStyle:true,padding:14}},
+  tooltip:{callbacks:{label:c=>'US$ '+c.raw+'/bbl'}}},
+  scales:{y:{min:85,ticks:{callback:v=>'US$ '+v},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false}}}}});
+
+new Chart(document.getElementById('chartAnual'),{type:'line',
+ data:{labels:['Jan','Fev','Mar','Abr','Mai/26'],
+  datasets:[
+   {label:'Brent (US$/bbl)',data:[72,88,118,104,96],borderColor:am,backgroundColor:'rgba(30,58,95,.10)',borderWidth:3,tension:.3,fill:true,pointRadius:5,yAxisID:'y'},
+   {label:'USD/BRL',data:[5.95,5.78,5.62,5.20,5.03],borderColor:verde,backgroundColor:'rgba(22,163,74,.05)',borderWidth:2.5,tension:.3,fill:false,pointRadius:4,yAxisID:'y2',borderDash:[6,3]}]},
+ options:{responsive:true,interaction:{mode:'index',intersect:false},
+  plugins:{legend:{position:'top',labels:{usePointStyle:true,padding:14}}},
+  scales:{y:{position:'left',min:60,ticks:{callback:v=>'US$ '+v},grid:{color:'rgba(0,0,0,.04)'}},
+   y2:{position:'right',min:4.8,max:6.2,ticks:{callback:v=>'R$ '+v.toFixed(2)},grid:{display:false}}}}});
+
+new Chart(document.getElementById('chartJornada'),{type:'bar',
+ data:{labels:['Pré-guerra (jan)','Pico (mar)','Pico maio (5/5)','Fim de maio'],
+  datasets:[{label:'Brent (US$/bbl)',data:[72,140,114.44,92.56],
+   backgroundColor:['rgba(22,163,74,.6)','rgba(220,38,38,.85)','rgba(245,158,11,.8)','rgba(30,58,95,.8)'],borderRadius:6}]},
+ options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'US$ '+c.raw+'/bbl'}}},
+  scales:{y:{ticks:{callback:v=>'US$ '+v},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false}}}}});
+
+new Chart(document.getElementById('chartOrmuz'),{type:'doughnut',
+ data:{labels:['Passa por Ormuz (~20%)','Outras rotas (~80%)'],
+  datasets:[{data:[20,80],backgroundColor:['rgba(220,38,38,.8)','rgba(30,58,95,.55)'],borderWidth:2,borderColor:'#fff'}]},
+ options:{responsive:true,plugins:{legend:{position:'right',labels:{usePointStyle:true,padding:12}},tooltip:{callbacks:{label:c=>c.label+': '+c.raw+'%'}}}}});
+
+new Chart(document.getElementById('chartCambio'),{type:'line',
+ data:{labels:['Jan','Fev','Mar','Abr','Mai/26'],
+  datasets:[
+   {label:'USD/BRL',data:[5.95,5.78,5.62,5.20,5.03],borderColor:azulL,backgroundColor:'rgba(59,130,246,.08)',borderWidth:3,tension:.35,fill:true,pointRadius:5},
+   {label:'Piso crítico R$5,00',data:[5,5,5,5,5],borderColor:'#dc2626',borderWidth:2,borderDash:[6,3],pointRadius:0,fill:false}]},
+ options:{responsive:true,interaction:{mode:'index',intersect:false},
+  plugins:{legend:{position:'top',labels:{usePointStyle:true,padding:14}}},
+  scales:{y:{min:4.5,max:6.5,ticks:{callback:v=>'R$ '+v.toFixed(2)},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false}}}}});
+
+new Chart(document.getElementById('chartJuros'),{type:'line',
+ data:{labels:['Jan','Fev','Mar','Abr','Mai/26'],
+  datasets:[
+   {label:'Selic (%)',data:[15,15,14.75,14.5,14.5],borderColor:am,backgroundColor:'rgba(30,58,95,.06)',borderWidth:3,tension:.2,fill:false,pointRadius:5},
+   {label:'IPCA 12m (%)',data:[4.0,3.9,4.1,4.37,4.4],borderColor:verm,backgroundColor:'rgba(220,38,38,.05)',borderWidth:2.5,tension:.3,fill:false,pointRadius:4},
+   {label:'Fed Funds (%)',data:[3.75,3.625,3.625,3.625,3.625],borderColor:azulL,borderWidth:2.5,tension:.2,fill:false,pointRadius:4,borderDash:[6,3]}]},
+ options:{responsive:true,interaction:{mode:'index',intersect:false},
+  plugins:{legend:{position:'top',labels:{usePointStyle:true,padding:14}}},
+  scales:{y:{min:0,max:16,ticks:{callback:v=>v+'%'},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false}}}}});
+
+new Chart(document.getElementById('chartProjecao'),{type:'bar',
+ data:{labels:['1ª sem jun','2ª sem jun','3ª sem jun','4ª sem jun'],
+  datasets:[
+   {label:'Escalada',data:[100,105,108,112],backgroundColor:'rgba(220,38,38,.6)',borderRadius:6},
+   {label:'Base',data:[92,90,93,91],backgroundColor:'rgba(30,58,95,.8)',borderRadius:6},
+   {label:'Distensão',data:[85,82,80,78],backgroundColor:'rgba(22,163,74,.6)',borderRadius:6}]},
+ options:{responsive:true,plugins:{legend:{position:'top',labels:{usePointStyle:true,padding:14}},
+  tooltip:{callbacks:{label:c=>c.dataset.label+': US$ '+c.raw+'/bbl'}}},
+  scales:{y:{min:70,ticks:{callback:v=>'US$ '+v},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false}}}}});
+</script>
+</body>
+</html>
