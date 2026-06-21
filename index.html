@@ -31,6 +31,81 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/style.css" />
+
+  <!-- CSS da seção Boletim de Mercado (isolado, não interfere no style.css) -->
+  <style>
+    #boletim .relatorio-destaque,
+    #boletim .relatorio-card { display: block; text-decoration: none; color: inherit; }
+
+    #boletim .relatorio-destaque {
+      margin: 0 auto 3rem;
+      max-width: 860px;
+      background: linear-gradient(135deg, rgba(76,175,80,.14), rgba(255,255,255,.04));
+      border: 1px solid rgba(76,175,80,.35);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    #boletim .relatorio-destaque:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+      border-color: rgba(76,175,80,.7);
+    }
+    #boletim .relatorio-destaque-tag {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: #4CAF50; color: #fff;
+      font-weight: 700; font-size: .8rem; letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: .55rem 1.1rem; margin: 0;
+    }
+    #boletim .relatorio-destaque-body { padding: 1.6rem 2rem 2rem; }
+    #boletim .relatorio-destaque-body h3 { font-size: 1.6rem; margin: .6rem 0 .8rem; line-height: 1.25; }
+    #boletim .relatorio-destaque-body p { opacity: .85; margin-bottom: 1.2rem; }
+
+    #boletim .relatorio-subtitulo {
+      text-align: center; font-size: 1.05rem; letter-spacing: .03em;
+      text-transform: uppercase; opacity: .7; margin: 0 0 1.6rem;
+    }
+
+    #boletim .relatorio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+    #boletim .relatorio-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 14px;
+      padding: 1.4rem 1.5rem;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    #boletim .relatorio-card:hover {
+      transform: translateY(-4px);
+      background: rgba(76,175,80,.1);
+      border-color: rgba(76,175,80,.5);
+    }
+    #boletim .relatorio-card h3 { font-size: 1.12rem; margin: .5rem 0 1rem; line-height: 1.3; }
+
+    #boletim .relatorio-data {
+      display: inline-flex; align-items: center; gap: .45rem;
+      font-size: .82rem; font-weight: 600; opacity: .75;
+    }
+    #boletim .relatorio-link {
+      display: inline-flex; align-items: center; gap: .5rem;
+      color: #4CAF50; font-weight: 700; font-size: .92rem;
+    }
+
+    #boletim .boletim-cta {
+      margin-top: 3rem; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 1rem;
+    }
+    #boletim .boletim-cta p { font-size: 1.1rem; margin: 0; opacity: .9; }
+    #boletim .boletim-cta i { color: #25D366; margin-right: .4rem; }
+
+    @media (max-width: 600px) {
+      #boletim .relatorio-destaque-body h3 { font-size: 1.3rem; }
+    }
+  </style>
 </head>
 <body>
 
@@ -46,6 +121,7 @@
           <li><a href="#sobre">Sobre</a></li>
           <li><a href="#solucoes">Soluções</a></li>
           <li><a href="#segmentos">Segmentos</a></li>
+          <li><a href="#boletim">Mercado</a></li>
           <li><a href="#como-funciona">Como funciona</a></li>
           <li><a href="#cases">Cases</a></li>
           <li><a href="#contato" class="btn-nav">Fale conosco</a></li>
@@ -148,6 +224,12 @@
           <h3>Inteligência em Compras de Insumos</h3>
           <p>Conectamos produtores e fornecedores para negociações mais estratégicas e competitivas. Utilizamos inteligência de mercado, planejamento financeiro e poder de escala para buscar as melhores condições na aquisição de insumos, sempre alinhadas à gestão da propriedade.</p>
         </div>
+
+        <div class="solucao-card" data-aos="fade-up" data-aos-delay="700">
+          <div class="solucao-icon"><i class="fas fa-chart-column"></i></div>
+          <h3>Inteligência de Mercado</h3>
+          <p>Monitoramento e análises dos mercados de soja e milho, com informações estratégicas para apoiar decisões de comercialização, gestão de riscos e proteção de margens, transformando dados em resultados para a fazenda.</p>
+        </div>
       </div>
 
       <div class="solucoes-cta" data-aos="fade-up">
@@ -183,6 +265,69 @@
           <h3>Confinamentos</h3>
           <p>Controle de lotes, conversão alimentar, GMD, custo do quilo produzido e análise econômica detalhada por ciclo.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================================== -->
+  <!-- BOLETIM SEMANAL DE MERCADO                                           -->
+  <!--                                                                      -->
+  <!-- COMO PUBLICAR UM NOVO BOLETIM A CADA SEMANA:                         -->
+  <!-- 1) Duplique o arquivo "relatorios/relatorio-modelo.html" e renomeie  -->
+  <!--    com a data, ex.: "relatorios/2026-06-27-boletim.html".            -->
+  <!-- 2) Edite o conteúdo do novo arquivo (datas, soja, milho, etc.).      -->
+  <!-- 3) Aqui embaixo: mova o DESTAQUE atual para "Edições anteriores"     -->
+  <!--    (copiando o bloco-modelo indicado) e atualize o DESTAQUE com a    -->
+  <!--    edição nova. Só isso. Nada de banco de dados.                     -->
+  <!-- ==================================================================== -->
+  <section id="boletim" class="section section-dark">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section-tag light">Inteligência de Mercado</span>
+        <h2>Boletim Semanal de Mercado</h2>
+        <p>Toda semana, nossa equipe analisa os mercados de soja e milho e traduz os dados em informações estratégicas para a sua comercialização. Acesse o boletim atual e as edições anteriores.</p>
+      </div>
+
+      <!-- DESTAQUE: edição atual (troque o link, a data, o título e o resumo a cada semana) -->
+      <a href="relatorios/2026-06-20-boletim.html" class="relatorio-destaque" data-aos="fade-up">
+        <div class="relatorio-destaque-tag"><i class="fas fa-bolt"></i> Edição atual</div>
+        <div class="relatorio-destaque-body">
+          <span class="relatorio-data"><i class="fas fa-calendar-day"></i> Semana de 16 a 20 de junho de 2026</span>
+          <h3>Soja em recuperação e milho pressionado pela safrinha</h3>
+          <p>Panorama da semana, leitura de câmbio e clima e os principais pontos de atenção para quem está definindo a comercialização da safra.</p>
+          <span class="relatorio-link">Ler boletim completo <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <!-- EDIÇÕES ANTERIORES -->
+      <h4 class="relatorio-subtitulo" data-aos="fade-up">Edições anteriores</h4>
+      <div class="relatorio-grid">
+
+        <!-- ▼▼▼ BLOCO-MODELO: copie e cole este bloco para cada nova edição ▼▼▼ -->
+        <a href="relatorios/2026-06-13-boletim.html" class="relatorio-card" data-aos="fade-up">
+          <span class="relatorio-data"><i class="fas fa-calendar-day"></i> 09 a 13 jun. 2026</span>
+          <h3>Exportações aquecidas sustentam os preços da soja</h3>
+          <span class="relatorio-link">Ler edição <i class="fas fa-arrow-right"></i></span>
+        </a>
+        <!-- ▲▲▲ fim do bloco-modelo ▲▲▲ -->
+
+        <a href="relatorios/2026-06-06-boletim.html" class="relatorio-card" data-aos="fade-up" data-aos-delay="50">
+          <span class="relatorio-data"><i class="fas fa-calendar-day"></i> 02 a 06 jun. 2026</span>
+          <h3>Clima no Centro-Oeste mexe com o milho da safrinha</h3>
+          <span class="relatorio-link">Ler edição <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+        <a href="relatorios/2026-05-30-boletim.html" class="relatorio-card" data-aos="fade-up" data-aos-delay="100">
+          <span class="relatorio-data"><i class="fas fa-calendar-day"></i> 26 a 30 mai. 2026</span>
+          <h3>Dólar e Chicago ditam o ritmo das negociações</h3>
+          <span class="relatorio-link">Ler edição <i class="fas fa-arrow-right"></i></span>
+        </a>
+
+      </div>
+
+      <div class="boletim-cta" data-aos="fade-up">
+        <p><i class="fab fa-whatsapp"></i> Quer receber o boletim toda semana direto no seu WhatsApp?</p>
+        <a href="https://wa.me/5564992266886?text=Ol%C3%A1!%20Quero%20receber%20o%20boletim%20semanal%20de%20mercado%20da%20RURALIN." target="_blank" class="btn btn-primary">Receber boletim no WhatsApp</a>
       </div>
     </div>
   </section>
@@ -322,6 +467,7 @@
           <li><a href="#sobre">Sobre</a></li>
           <li><a href="#solucoes">Soluções</a></li>
           <li><a href="#segmentos">Segmentos</a></li>
+          <li><a href="#boletim">Boletim de Mercado</a></li>
           <li><a href="#cases">Cases</a></li>
           <li><a href="#contato">Contato</a></li>
         </ul>
