@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informativo de Insumos · Fertilizantes, Defensivos e Biológicos · Ruralin.AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --papel:#F4F0E6;--papel-2:#ECE6D7;--tinta:#18231C;--tinta-suave:#415045;
+    --verde:#1E5638;--verde-claro:#2C7A4B;--ocre:#C28A2C;--ocre-escuro:#9A6A1C;
+    --barro:#B8462E;--petroleo:#15585E;--linha:#D8D0BD;--linha-forte:#C3B89E;
+    --sombra:0 1px 2px rgba(24,35,28,.06),0 8px 28px rgba(24,35,28,.07);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--papel);color:var(--tinta);font-family:'Inter',system-ui,sans-serif;line-height:1.55;font-size:16px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  .mono{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums}
+  .alta{color:var(--verde-claro)}.baixa{color:var(--barro)}.neutro{color:var(--petroleo)}
+
+  header.top{background:radial-gradient(120% 140% at 85% -20%, rgba(194,138,44,.18), transparent 55%),linear-gradient(165deg,#16271D 0%,#1E5638 130%);color:#F4F0E6;padding:38px 0 30px;border-bottom:3px solid var(--ocre)}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ocre);margin:0 0 14px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+  .eyebrow .pill{border:1px solid rgba(194,138,44,.5);border-radius:999px;padding:3px 11px;color:#EBDcc0}
+  h1.title{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(28px,5.2vw,50px);line-height:1.04;margin:0 0 14px;letter-spacing:-.01em}
+  h1.title em{font-style:italic;color:var(--ocre)}
+  .thesis{font-size:clamp(15px,2.4vw,18px);max-width:66ch;color:#E3DDCC;margin:0}
+  .periodo{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 26px;align-items:baseline;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#CFC7B2;border-top:1px solid rgba(244,240,230,.18);padding-top:16px}
+  .periodo b{color:#fff;font-weight:600}
+
+  section{padding:46px 0}
+  section + section{border-top:1px solid var(--linha)}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin:0 0 6px}
+  .sec-num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ocre-escuro);font-weight:600;padding-top:6px}
+  h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(23px,3.6vw,32px);margin:0;letter-spacing:-.01em;line-height:1.1}
+  .sec-sub{color:var(--tinta-suave);margin:4px 0 26px;font-size:15px;max-width:68ch}
+
+  .grid-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .card{background:#FBF8F0;border:1px solid var(--linha);border-radius:14px;padding:18px 18px 16px;box-shadow:var(--sombra);display:flex;flex-direction:column;gap:9px}
+  .card .lbl{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--tinta-suave);display:flex;justify-content:space-between;align-items:center;gap:6px}
+  .card .lbl .tag{font-size:10px;padding:2px 7px;border-radius:6px;background:var(--papel-2);color:var(--tinta-suave);letter-spacing:.04em;white-space:nowrap}
+  .card .val{font-family:'IBM Plex Mono',monospace;font-size:25px;font-weight:600;letter-spacing:-.01em;line-height:1}
+  .card .unit{font-size:12px;color:var(--tinta-suave);font-weight:400;font-family:'Inter',sans-serif}
+  .card .delta{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500}
+  .therm{margin-top:4px}
+  .therm .scale{position:relative;height:9px;border-radius:6px;background:linear-gradient(90deg,var(--barro) 0%,#D9B36A 50%,var(--verde-claro) 100%);opacity:.85}
+  .therm .mark{position:absolute;top:-4px;width:3px;height:17px;border-radius:2px;background:var(--tinta);box-shadow:0 0 0 2px #FBF8F0}
+  .therm .ends{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.04em;color:var(--tinta-suave);margin-top:5px;text-transform:uppercase}
+  .vies{font-size:12.5px;font-weight:600;margin-top:2px}
+
+  .asset{display:grid;grid-template-columns:1.05fr 1fr;gap:30px;align-items:start}
+  .chart-card{background:#FBF8F0;border:1px solid var(--linha);border-radius:14px;padding:16px 16px 12px;box-shadow:var(--sombra)}
+  .chart-card .chead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;gap:10px}
+  .chart-card .chead .t{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-suave)}
+  .chart-box{position:relative;height:240px}
+  .chart-box.tall{height:280px}
+  .chart-box canvas{position:absolute;inset:0;width:100%!important;height:100%!important}
+  .chart-foot{font-size:11px;color:var(--tinta-suave);margin:8px 2px 2px;font-family:'IBM Plex Mono',monospace}
+  .analise p{margin:0 0 13px;font-size:15px}
+  .analise p strong{color:var(--verde)}
+  .tagline{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ocre-escuro);font-weight:600;margin:0 0 8px}
+
+  /* horizontes curto/médio/longo */
+  .horizon{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 4px}
+  .hz{border-radius:11px;padding:14px 15px;border:1px solid var(--linha);background:#FBF8F0}
+  .hz h4{margin:0 0 6px;font-size:12px;font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--petroleo);display:flex;align-items:center;gap:7px}
+  .hz p{margin:0;font-size:13.5px;color:var(--tinta-suave)}
+  .hz .ico{width:9px;height:9px;border-radius:50%;background:var(--ocre)}
+
+  .cenarios{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
+  .cen{border-radius:11px;padding:13px 14px;font-size:13.5px;border:1px solid var(--linha)}
+  .cen h4{margin:0 0 6px;font-size:12px;font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:7px}
+  .cen p{margin:0;color:var(--tinta-suave)}
+  .cen.bull{background:rgba(44,122,75,.08);border-color:rgba(44,122,75,.28)}.cen.bull h4{color:var(--verde-claro)}
+  .cen.base{background:rgba(21,88,94,.07);border-color:rgba(21,88,94,.26)}.cen.base h4{color:var(--petroleo)}
+  .cen.bear{background:rgba(184,70,46,.08);border-color:rgba(184,70,46,.26)}.cen.bear h4{color:var(--barro)}
+  .dot{width:8px;height:8px;border-radius:50%;flex:none}
+
+  /* janela de compra matriz */
+  .janela{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:8px}
+  .jt{background:#FBF8F0;border:1px solid var(--linha);border-radius:12px;padding:14px;border-top:4px solid var(--linha-forte)}
+  .jt.go{border-top-color:var(--verde-claro)}.jt.wait{border-top-color:var(--barro)}.jt.mid{border-top-color:var(--ocre)}
+  .jt .nome{font-family:'Fraunces',serif;font-size:17px;font-weight:600;margin:0 0 2px}
+  .jt .sinal{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.04em;margin-bottom:8px;text-transform:uppercase}
+  .jt.go .sinal{color:var(--verde-claro)}.jt.wait .sinal{color:var(--barro)}.jt.mid .sinal{color:var(--ocre-escuro)}
+  .jt p{margin:0;font-size:12.5px;color:var(--tinta-suave)}
+
+  .agenda{display:grid;grid-template-columns:1.15fr 1fr;gap:28px;align-items:start}
+  .timeline{list-style:none;margin:0;padding:0}
+  .timeline li{position:relative;padding:0 0 20px 30px;border-left:2px solid var(--linha-forte)}
+  .timeline li:last-child{border-left-color:transparent;padding-bottom:0}
+  .timeline li::before{content:"";position:absolute;left:-7px;top:3px;width:12px;height:12px;border-radius:50%;background:var(--papel);border:2px solid var(--ocre)}
+  .timeline li.hot::before{background:var(--barro);border-color:var(--barro);box-shadow:0 0 0 4px rgba(184,70,46,.18)}
+  .timeline .when{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ocre-escuro);font-weight:600}
+  .timeline .what{font-weight:600;margin:2px 0 2px;font-size:15px}
+  .timeline .desc{font-size:13.5px;color:var(--tinta-suave)}
+  .macro-card{background:#FBF8F0;border:1px solid var(--linha);border-radius:14px;padding:18px 20px;box-shadow:var(--sombra);margin-bottom:14px}
+  .macro-card h4{margin:0 0 6px;font-family:'Fraunces',serif;font-size:18px;font-weight:600}
+  .macro-card p{margin:0;font-size:14px;color:var(--tinta-suave)}
+  .macro-card .stat{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--tinta)}
+
+  .bio-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+  .bio-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+  .bstat{background:#FBF8F0;border:1px solid var(--linha);border-radius:12px;padding:14px 15px}
+  .bstat .n{font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:var(--verde)}
+  .bstat .d{font-size:12px;color:var(--tinta-suave);margin-top:2px}
+
+  .sintese{background:linear-gradient(160deg,#16271D,#1E5638);color:#F0EBDC;border-radius:18px;padding:32px clamp(20px,4vw,40px);box-shadow:var(--sombra)}
+  .sintese h2{color:#fff}.sintese .sec-sub{color:#CFC7B2}
+  .sintese .read{font-size:15.5px;max-width:74ch}.sintese .read strong{color:var(--ocre)}
+  .acao-produtor{margin-top:24px;border-top:1px solid rgba(244,240,230,.16);padding-top:18px}
+  .acao-produtor .t{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ocre);margin-bottom:10px}
+  .acao-produtor ul{margin:0;padding-left:18px;font-size:14.5px;color:#E6E0D0}
+  .acao-produtor li{margin-bottom:7px}
+
+  .nota{font-size:12px;color:var(--tinta-suave);background:var(--papel-2);border:1px solid var(--linha);border-radius:10px;padding:14px 16px;margin-top:30px;line-height:1.5}
+  footer.cred{background:#16271D;color:#E6E0D0;padding:38px 0 30px;border-top:3px solid var(--ocre)}
+  .cred-grid{display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;align-items:flex-start}
+  .cred .name{font-family:'Fraunces',serif;font-size:24px;font-weight:600;color:#fff;margin:0 0 2px}
+  .cred .role{color:var(--ocre);font-weight:600;font-size:14px;margin:0}
+  .cred .desc{font-size:13.5px;color:#CFC7B2;max-width:48ch;margin:6px 0 0}
+  .cred .tagit{font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:#E6E0D0;margin:14px 0 0}
+  .cred .contatos{font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:2;text-align:right}
+  .cred .contatos a{color:#E6E0D0;text-decoration:none;border-bottom:1px solid rgba(194,138,44,.45)}
+  .cred .assin{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ocre);margin-bottom:18px}
+
+  @media (max-width:880px){
+    .grid-cards{grid-template-columns:repeat(2,1fr)}
+    .asset{grid-template-columns:1fr;gap:22px}
+    .horizon{grid-template-columns:1fr}
+    .cenarios{grid-template-columns:1fr}
+    .janela{grid-template-columns:repeat(2,1fr)}
+    .agenda{grid-template-columns:1fr;gap:22px}
+    .bio-grid{grid-template-columns:1fr;gap:20px}
+  }
+  @media (max-width:560px){
+    section{padding:36px 0}
+    .grid-cards{grid-template-columns:1fr}
+    .janela{grid-template-columns:1fr}
+    .bio-stats{grid-template-columns:1fr 1fr}
+    .cred-grid{flex-direction:column}.cred .contatos{text-align:left}
+    .periodo{font-size:12px;gap:8px 18px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">
+      <span class="pill">Informativo de Insumos</span>
+      <span>Mesa de Risco do Produtor</span>
+      <span>Ruralin.AI</span>
+    </p>
+    <h1 class="title">Insumos da safra <em>26/27</em>:<br>quando comprar e quando esperar</h1>
+    <p class="thesis">Fertilizantes, defensivos e biológicos sob a lente do produtor. A ureia despencou com a trégua geopolítica, os fosfatados seguem caros, o potássio está em bom patamar e os biológicos crescem blindados do câmbio. O recado: a janela de compra para a 26/27 está aberta — mas pede tática, não pressa.</p>
+    <div class="periodo">
+      <span>Semana de <b>22 a 26 de junho de 2026</b></span>
+      <span>Foco: planejamento da safra 26/27</span>
+      <span>Cerrado · Goiás</span>
+    </div>
+  </div>
+</header>
+
+<!-- 01 TERMÔMETRO -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Termômetro dos insumos</h2></div>
+    <p class="sec-sub">Preço atual (CFR Brasil) e a leitura da janela de compra para a 26/27. A barra vai de <b>esperar</b> (preço caro/desfavorável) a <b>aproveitar</b> (bom momento para travar).</p>
+    <div class="grid-cards">
+      <div class="card">
+        <div class="lbl">Ureia (N) <span class="tag">CFR US$/t</span></div>
+        <div class="val">445<span class="unit"> US$</span></div>
+        <div class="delta alta">▼ caiu de ~US$ 710 (pico abr)</div>
+        <div class="therm"><div class="scale"><span class="mark" style="left:67%"></span></div><div class="ends"><span>Esperar</span><span>Aproveitar</span></div></div>
+        <div class="vies alta">Janela: favorável</div>
+      </div>
+      <div class="card">
+        <div class="lbl">Fosfatados · MAP (P) <span class="tag">CFR US$/t</span></div>
+        <div class="val">~820<span class="unit"> US$</span></div>
+        <div class="delta baixa">▲ pressionado · enxofre em máxima</div>
+        <div class="therm"><div class="scale"><span class="mark" style="left:30%"></span></div><div class="ends"><span>Esperar</span><span>Aproveitar</span></div></div>
+        <div class="vies baixa">Janela: desfavorável</div>
+      </div>
+      <div class="card">
+        <div class="lbl">Cloreto Potássio (K) <span class="tag">CFR US$/t</span></div>
+        <div class="val">405<span class="unit"> US$</span></div>
+        <div class="delta neutro">≈ estável · patamar histórico bom</div>
+        <div class="therm"><div class="scale"><span class="mark" style="left:60%"></span></div><div class="ends"><span>Esperar</span><span>Aproveitar</span></div></div>
+        <div class="vies alta">Janela: boa p/ travar</div>
+      </div>
+      <div class="card">
+        <div class="lbl">Defensivos <span class="tag">índice/câmbio</span></div>
+        <div class="val">Equil.<span class="unit"> </span></div>
+        <div class="delta neutro">⟷ mandado pelo câmbio</div>
+        <div class="therm"><div class="scale"><span class="mark" style="left:50%"></span></div><div class="ends"><span>Esperar</span><span>Aproveitar</span></div></div>
+        <div class="vies neutro">Janela: neutra</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 FERTILIZANTES -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Fertilizantes — a ureia alivia, o fósforo persiste</h2></div>
+    <p class="sec-sub">O movimento da semana confirma um descolamento entre nutrientes: o nitrogênio corrigiu forte com a distensão geopolítica, enquanto os fosfatados resistem nas máximas e o potássio segue firme e comportado.</p>
+    <div class="asset">
+      <div class="chart-card">
+        <div class="chead"><span class="t">Preço CFR Brasil · US$/tonelada · 2026</span></div>
+        <div class="chart-box tall"><canvas id="chFert"></canvas></div>
+        <div class="chart-foot">Trajetória aproximada (CFR). Fontes: Itaú BBA, StoneX, CNN/Argus, Farmnews.</div>
+      </div>
+      <div class="analise">
+        <p class="tagline">Leitura fundamentalista</p>
+        <p>A <strong>ureia</strong> recuou cerca de US$ 360/t desde o fim de abril e voltou para <strong>~US$ 445/t CFR</strong>, devolvendo o prêmio de guerra: pesaram a trégua EUA–Irã, o retorno parcial da China às exportações e os estoques no Golfo. É o grande alívio do momento para o produtor.</p>
+        <p>Os <strong>fosfatados (MAP)</strong> são a contramão: seguem perto de <strong>US$ 820/t CFR</strong>, sustentados pelo enxofre em máxima histórica, pela restrição chinesa e pela demanda firme — a principal pressão de custo da 26/27. O <strong>KCl</strong> fica estável em ~US$ 405/t, em patamar considerado historicamente bom. Como 85–90% do consumo é importado, o <strong>câmbio manda</strong>: o dólar firme após o Fed limita o repasse da queda da ureia ao real.</p>
+        <p class="tagline">Leitura grafista</p>
+        <p>Ureia rompeu o topo e voltou à base do canal; MAP em <strong>platô alto</strong> (sem sinal de reversão); KCl em leve tendência de alta, bem-comportado.</p>
+        <div class="horizon">
+          <div class="hz"><h4><span class="ico"></span>Curto prazo</h4><p>Ureia em alívio, mas com risco de repique se a Índia voltar com tenders ou a Rússia (que suspendeu nitrato de amônio por 30 dias) restringir mais.</p></div>
+          <div class="hz"><h4><span class="ico"></span>Médio prazo</h4><p>Demanda Brasil + Índia sustenta preços no plantio 26/27; fosfatados apertados e risco logístico em Paranaguá. Margens só melhoram a partir do 2º sem/2027.</p></div>
+          <div class="hz"><h4><span class="ico"></span>Longo prazo</h4><p>Plano Nacional de Fertilizantes mira reduzir a dependência externa a 50% até 2050 (Fafen-SE/BA em 2026); efeito gradual.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 RELAÇÃO DE TROCA -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Relação de troca — o poder de compra na ponta do lápis</h2></div>
+    <p class="sec-sub">Quantas sacas de soja o produtor entrega por tonelada de fertilizante. Em 2026 a conta piorou frente a 2025 — mas a recente queda da ureia já começou a aliviar o nitrogênio.</p>
+    <div class="asset">
+      <div class="chart-card">
+        <div class="chead"><span class="t">Sacas de soja por tonelada · 2025 vs 2026</span></div>
+        <div class="chart-box"><canvas id="chBarter"></canvas></div>
+        <div class="chart-foot">Pontos médios de faixas estimadas (Itaú BBA/CNN). Ureia já melhora com o recuo recente.</div>
+      </div>
+      <div class="analise">
+        <p class="tagline">O que os números dizem</p>
+        <p>Para o <strong>MAP</strong>, a relação saltou de ~27 para <strong>~33 sacas/t</strong>; para a <strong>ureia</strong>, de ~30 para ~38 no pico (já recuando com a queda do produto); e para o <strong>KCl</strong>, de ~20 para ~23. São algumas das piores relações dos últimos anos — mas o Brasil ainda leva vantagem sobre outros países, porque câmbio e preço das commodities jogam a favor (Rabobank).</p>
+        <p>Mesmo assim, as entregas devem bater <strong>recorde (~47 Mt em 2026)</strong>: o produtor compra porque precisa, ajustando o pacote e o momento.</p>
+        <p class="tagline">Leitura do estrategista</p>
+        <p>Relação de troca ruim não é sinal de "não comprar" — é sinal de <strong>escalonar, diversificar fontes e travar nas janelas de recuo</strong>, com câmbio e barter monitorados de perto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 DEFENSIVOS -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Defensivos químicos — equilíbrio com pontos de atenção</h2></div>
+    <p class="sec-sub">Ao contrário dos fertilizantes, o mercado de defensivos está mais equilibrado e previsível. O fator dominante é o câmbio; o gatilho de risco é a China e o frete.</p>
+    <div class="asset">
+      <div class="chart-card">
+        <div class="chead"><span class="t">Defensivos · vetores de preço</span></div>
+        <div class="chart-box"><canvas id="chDef"></canvas></div>
+        <div class="chart-foot">Variação anual de referência (FAESP/CNA-Esalq; AEGRO/AgroPages).</div>
+      </div>
+      <div class="analise">
+        <p class="tagline">Leitura fundamentalista</p>
+        <p>Os tempos de glifosato acima de R$ 100/litro ficaram para trás: princípios ativos chineses seguem em <strong>mínimas</strong>, e a China deve manter preços estáveis em 2026 (política "anti-involução"). Ainda assim, há pressões pontuais: o <strong>glifosato</strong> sobe sazonalmente (pico de exportação chinesa para a América do Sul entre junho e agosto), e ativos como <strong>imidacloprid</strong> e alguns herbicidas acumulam altas anuais expressivas. O <strong>frete de contêiner</strong> em alta e o fósforo amarelo na China (rota do glifosato) acendem o alerta.</p>
+        <p>Destaque favorável: o <strong>tebuconazol</strong> oferece boa relação de troca; já clorotalonil e mancozeb ficaram menos favoráveis.</p>
+        <p class="tagline">Leitura para a 26/27</p>
+        <p>Cenário de <strong>equilíbrio</strong>, com o câmbio como fator-chave. A estratégia é comprar nas janelas de dólar mais baixo, escalonar e caprichar na eficiência de aplicação — defensivo caro exige produto certo e momento certo.</p>
+        <div class="cenarios">
+          <div class="cen bull"><h4><span class="dot" style="background:var(--verde-claro)"></span>A favor</h4><p>Oferta chinesa ampla e ativos em mínimas seguram preços.</p></div>
+          <div class="cen base"><h4><span class="dot" style="background:var(--petroleo)"></span>Base</h4><p>Câmbio define o custo; altas pontuais e sazonais.</p></div>
+          <div class="cen bear"><h4><span class="dot" style="background:var(--barro)"></span>Atenção</h4><p>Frete e fósforo amarelo pressionam herbicidas no 2º sem.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 BIOLÓGICOS -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Biológicos — o insumo que não depende do dólar</h2></div>
+    <p class="sec-sub">O grande trunfo estratégico da 26/27: produzido majoritariamente no Brasil (mais de 90% da matéria-prima nacional), o setor está praticamente blindado das tensões cambiais e geopolíticas que mexem com fertilizantes e químicos.</p>
+    <div class="bio-grid">
+      <div class="chart-card">
+        <div class="chead"><span class="t">Mercado de bioinsumos no Brasil · R$ bilhões</span></div>
+        <div class="chart-box"><canvas id="chBio"></canvas></div>
+        <div class="chart-foot">Fontes: CropLife Brasil, ANPII Bio, FGVAgro. *2030 projetado.</div>
+      </div>
+      <div>
+        <p class="analise" style="margin:0 0 6px"><span class="tagline">Por que olhar com atenção</span></p>
+        <p style="font-size:14.5px;margin:0 0 10px;color:var(--tinta-suave)">O setor movimentou cerca de <strong style="color:var(--verde)">R$ 6 bilhões</strong> na última safra e cresce ~20% ao ano — quatro vezes a média global. A adoção já chega a <strong style="color:var(--verde)">26% da área</strong>, e o Brasil é um dos três maiores mercados do mundo. Inoculantes e biodefensivos lideram; soja e milho concentram 85% do uso.</p>
+        <div class="bio-stats">
+          <div class="bstat"><div class="n">+17%</div><div class="d">consumo projetado em 2026 (ANPII Bio)</div></div>
+          <div class="bstat"><div class="n">~90%</div><div class="d">da matéria-prima é nacional → blindado do câmbio</div></div>
+          <div class="bstat"><div class="n">26%</div><div class="d">de adoção média por área (safra 24/25)</div></div>
+          <div class="bstat"><div class="n">R$ 9 bi</div><div class="d">tamanho projetado até 2030</div></div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:13.5px;color:var(--tinta-suave);margin-top:18px;max-width:80ch">No manejo integrado (químico + biológico), o produtor não escolhe lado — escolhe o que aumenta a produtividade e <strong style="color:var(--verde)">reduz custo</strong> num momento de margem apertada. Custo médio em torno de US$ 23/ha, com a vantagem de não sofrer o repasse imediato do dólar.</p>
+  </div>
+</section>
+
+<!-- 06 JANELA DE COMPRA 26/27 -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Posicionamento 26/27 — a janela de compra</h2></div>
+    <p class="sec-sub">A janela principal de fertilizantes (abr–jun) está se encerrando, e o Brasil entrou cauteloso: até abril, menos de 50% do volume da 26/27 havia sido comprado (Argus), abaixo dos 60%+ do ano anterior. Some-se o risco de El Niño severo (&gt;90%) no plantio e possível corte de 15% na oferta de fosfatados. O recado: garantir volume mínimo agora e escalonar o resto.</p>
+    <div class="janela">
+      <div class="jt go">
+        <div class="nome">Ureia</div>
+        <div class="sinal">● Aproveitar recuos</div>
+        <p>Preço corrigiu forte. Travar parte agora protege contra repique (Índia/Rússia).</p>
+      </div>
+      <div class="jt go">
+        <div class="nome">Potássio (KCl)</div>
+        <div class="sinal">● Travar</div>
+        <p>Patamar histórico bom e estável. Produto mais procurado para fixação antecipada.</p>
+      </div>
+      <div class="jt wait">
+        <div class="nome">Fosfatados</div>
+        <div class="sinal">● Escalonar / mínimo</div>
+        <p>Caro e pressionado. Comprar o essencial, avaliar SSP/TSP e aguardar recuos — sem deixar p/ a última hora.</p>
+      </div>
+      <div class="jt mid">
+        <div class="nome">Defensivos</div>
+        <div class="sinal">● Câmbio manda</div>
+        <p>Comprar nas janelas de dólar baixo; escalonar. Atenção ao glifosato sazonal.</p>
+      </div>
+      <div class="jt go">
+        <div class="nome">Biológicos</div>
+        <div class="sinal">● Estrutural</div>
+        <p>Decisão mais agronômica que financeira. Aliado de custo e blindado do câmbio.</p>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--tinta-suave);margin-top:18px;max-width:82ch">⚠️ <strong style="color:var(--barro)">Risco logístico:</strong> compras atrasadas podem congestionar os portos (sobretudo Paranaguá) na janela de entrega. Quem espera demais arrisca pagar mais caro <em>e</em> enfrentar pior disponibilidade.</p>
+  </div>
+</section>
+
+<!-- 07 RADAR -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">07</span><h2>Radar dos próximos dois dias</h2></div>
+    <p class="sec-sub">Segunda (22) e terça (23) são de digestão da Super Quarta da semana passada: dólar firme (encarece o insumo importado) e petróleo baixo (alivia gás/ureia e frete) puxam para lados opostos.</p>
+    <div class="agenda">
+      <ul class="timeline">
+        <li class="hot">
+          <div class="when">Segunda · 22/06</div>
+          <div class="what">Dólar firme pós-Fed pressiona o insumo</div>
+          <div class="desc">Com o dólar na máxima de 1 ano, o repasse da queda internacional da ureia ao preço em reais fica limitado. Câmbio segue como o fator nº 1 do custo.</div>
+        </li>
+        <li>
+          <div class="when">Terça · 23/06</div>
+          <div class="what">Petróleo baixo ajuda nitrogenados</div>
+          <div class="desc">O acordo EUA–Irã derrubou o petróleo e o gás natural — matéria-prima da ureia — favorecendo o alívio nos nitrogenados e no frete (mas o diesel ainda repercute altas recentes).</div>
+        </li>
+        <li>
+          <div class="when">Na semana</div>
+          <div class="what">Tenders da Índia e política da China</div>
+          <div class="desc">Novos leilões de ureia da Índia podem reverter o alívio. A restrição chinesa de fosfatados e a suspensão russa de nitrato de amônio (30 dias) seguem no radar de oferta.</div>
+        </li>
+        <li>
+          <div class="when">Fim do mês</div>
+          <div class="what">IPCA-15, PCE (EUA) e USDA (30/06)</div>
+          <div class="desc">Inflação e juros definem o câmbio; o relatório do USDA mexe com os grãos e, por tabela, com a relação de troca dos insumos.</div>
+        </li>
+      </ul>
+      <div>
+        <div class="macro-card">
+          <h4>Câmbio: o fator nº 1</h4>
+          <p>Fed duro deixou o dólar firme (<span class="stat">~R$ 5,11</span>, máxima de 1 ano). Como o insumo é importado, dólar alto encarece — mesmo com a queda lá fora.</p>
+        </div>
+        <div class="macro-card">
+          <h4>Geopolítica & energia</h4>
+          <p>Acordo <span class="stat">EUA–Irã</span> derrubou petróleo e gás, aliviando a ureia. Mas <span class="stat">Rússia</span> (nitrato) e <span class="stat">China</span> (fosfatados) seguem restringindo oferta.</p>
+        </div>
+        <div class="macro-card">
+          <h4>Clima: El Niño</h4>
+          <p>Probabilidade <span class="stat">&gt;90%</span> de El Niño severo no plantio da 26/27 — reforça a urgência de garantir insumo e planejar a janela.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 SÍNTESE -->
+<section>
+  <div class="wrap">
+    <div class="sintese">
+      <div class="sec-head"><span class="sec-num" style="color:var(--ocre)">08</span><h2>Leitura do estrategista</h2></div>
+      <p class="sec-sub">O fio condutor e o que fazer na porteira para dentro.</p>
+      <p class="read">A semana traz um respiro no <strong>nitrogênio</strong> — a ureia devolveu o prêmio de guerra — mas o <strong>fósforo</strong> continua sendo o vilão de custo da 26/27, e o <strong>dólar firme</strong> pós-Fed segura o repasse da queda ao bolso do produtor. O Brasil chegou cauteloso à janela de compra (menos da metade comprado até abril), com El Niño e gargalo logístico no horizonte. A leitura não é de pânico nem de euforia: é de <strong>tática</strong>. Travar ureia e potássio nos bons momentos, comprar o fósforo essencial e escalonar o resto, usar o câmbio a favor nos defensivos e abraçar os <strong>biológicos</strong> como a peça que reduz custo sem depender do dólar. Quem domina o <em>timing</em> da compra sai na frente de quem só reage ao preço.</p>
+      <div class="acao-produtor">
+        <div class="t">O que fazer esta semana</div>
+        <ul>
+          <li><b>Garanta o volume mínimo</b> da 26/27 agora — a janela abr–jun está fechando e o risco logístico/El Niño é real.</li>
+          <li><b>Ureia e KCl:</b> aproveite o bom momento para travar parte, fixando em reais e protegendo do câmbio.</li>
+          <li><b>Fosfatados:</b> compre o essencial, avalie trocar MAP por SSP/TSP e escalone o restante aguardando recuos.</li>
+          <li><b>Defensivos:</b> compre nas janelas de dólar mais baixo; reforce manejo integrado com <b>biológicos</b> para cortar custo sem perder eficiência.</li>
+          <li><b>Monitore</b> câmbio, tenders da Índia e relação de troca (barter) — são os gatilhos que abrem ou fecham a janela.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="nota">
+      <b>Notas metodológicas e fontes.</b> Preços em US$/t referem-se a cotações CFR Brasil aproximadas, compiladas de relatórios de mercado; as trajetórias dos gráficos são ilustrativas da tendência e podem variar por fornecedor, porto e fórmula. Relações de troca usam pontos médios de faixas estimadas. Conteúdo informativo e educacional — não constitui recomendação de compra, venda ou aplicação de insumos; decisões de adubação devem partir de análise de solo e recomendação agronômica. Fontes: Consultoria Agro Itaú BBA, StoneX, Argus, Rabobank, Safras & Mercado, CNN Brasil, CropLife Brasil, ANPII Bio, FGVAgro, FAESP/CNA-Esalq, Sistema FAEP, Farmnews e Agrolink. Elaborado em 22/06/2026.
+    </div>
+  </div>
+</section>
+
+<footer class="cred">
+  <div class="wrap">
+    <div class="assin">Análise e Construção</div>
+    <div class="cred-grid">
+      <div>
+        <p class="name">Dr. Sidney Souza</p>
+        <p class="role">Economista e Adm. Agrícola</p>
+        <p class="role">Estrategista Econômico do Produtor</p>
+        <p class="desc">Especialista em economia da fazenda e gestão de risco no agro.</p>
+        <p class="desc">Transformamos dados da fazenda em decisões econômicas.</p>
+        <p class="desc">Ajudamos produtores a entender se o mercado sustenta seu negócio.</p>
+        <p class="tagit">“Do dado ao caixa da fazenda.”</p>
+      </div>
+      <div class="contatos">
+        <div><a href="https://ruralinai-commits.github.io/ruralin-site/" target="_blank" rel="noopener">ruralin-site</a></div>
+        <div>@ruralin.ai</div>
+        <div><a href="mailto:sidneyagro@gmail.com">sidneyagro@gmail.com</a></div>
+        <div>(64) 9 9226-6886</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const sub='#415045', grid='rgba(195,184,158,.35)';
+  const verde='#2C7A4B', barro='#B8462E', petro='#15585E', ocre='#C28A2C';
+  Chart.defaults.font.family="'IBM Plex Mono', monospace";
+  Chart.defaults.font.size=11;
+  Chart.defaults.color=sub;
+
+  const meses=['Jan','Fev','Mar','Abr','Mai','Jun'];
+
+  /* Fertilizantes: ureia, MAP, KCl (CFR US$/t) */
+  new Chart(document.getElementById('chFert'),{type:'line',
+    data:{labels:meses,datasets:[
+      {label:'Ureia',data:[412,450,600,710,560,445],borderColor:ocre,backgroundColor:'transparent',borderWidth:2.6,pointRadius:3,pointHoverRadius:5,pointBackgroundColor:'#FBF8F0',pointBorderColor:ocre,pointBorderWidth:2,tension:.3},
+      {label:'MAP',data:[640,700,850,840,830,820],borderColor:barro,backgroundColor:'transparent',borderWidth:2.6,pointRadius:3,pointHoverRadius:5,pointBackgroundColor:'#FBF8F0',pointBorderColor:barro,pointBorderWidth:2,tension:.3},
+      {label:'KCl',data:[360,370,383,395,400,405],borderColor:petro,backgroundColor:'transparent',borderWidth:2.6,pointRadius:3,pointHoverRadius:5,pointBackgroundColor:'#FBF8F0',pointBorderColor:petro,pointBorderWidth:2,tension:.3},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{intersect:false,mode:'index'},
+      plugins:{legend:{position:'top',labels:{usePointStyle:true,pointStyleWidth:18,boxHeight:6,padding:14,color:sub,font:{size:11}}},
+        tooltip:{backgroundColor:'#18231C',padding:10,callbacks:{label:(t)=>t.dataset.label+': US$ '+t.parsed.y}}},
+      scales:{x:{grid:{display:false},border:{color:grid},ticks:{color:sub}},
+        y:{grid:{color:grid},border:{display:false},ticks:{color:sub,callback:(v)=>'US$ '+v}}},
+      animation:{duration:800}}});
+
+  /* Relação de troca: barter 2025 vs 2026 (sacas soja/t) */
+  new Chart(document.getElementById('chBarter'),{type:'bar',
+    data:{labels:['MAP','KCl','Ureia'],datasets:[
+      {label:'2025',data:[27.5,20,30],backgroundColor:'rgba(21,88,94,.55)',borderColor:petro,borderWidth:1,borderRadius:5},
+      {label:'2026',data:[33,23,38],backgroundColor:'rgba(184,70,46,.65)',borderColor:barro,borderWidth:1,borderRadius:5},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'top',labels:{usePointStyle:true,pointStyleWidth:16,boxHeight:8,padding:14,color:sub,font:{size:11}}},
+        tooltip:{backgroundColor:'#18231C',padding:10,callbacks:{label:(t)=>t.dataset.label+': ~'+t.parsed.y+' sacas/t'}}},
+      scales:{x:{grid:{display:false},border:{color:grid},ticks:{color:sub,font:{size:12}}},
+        y:{grid:{color:grid},border:{display:false},ticks:{color:sub,callback:(v)=>v+' sc'},title:{display:true,text:'sacas de soja / tonelada',color:sub,font:{size:10}}}},
+      animation:{duration:800}}});
+
+  /* Defensivos: variação anual de referência (%) */
+  new Chart(document.getElementById('chDef'),{type:'bar',
+    data:{labels:['Glifosato','Imidacloprid','Herbicidas (índice)','Inseticidas (índice)','Tebuconazol'],
+      datasets:[{data:[108,135,11.5,8.9,-12],
+        backgroundColor:(c)=>c.raw>=0?'rgba(184,70,46,.65)':'rgba(44,122,75,.65)',
+        borderColor:(c)=>c.raw>=0?barro:verde,borderWidth:1,borderRadius:5}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'#18231C',padding:10,callbacks:{label:(t)=>(t.parsed.x>=0?'+':'')+t.parsed.x+'% a.a. (ref.)'}}},
+      scales:{x:{grid:{color:grid},border:{display:false},ticks:{color:sub,callback:(v)=>v+'%'}},
+        y:{grid:{display:false},border:{color:grid},ticks:{color:sub,font:{size:10.5}}}},
+      animation:{duration:800}}});
+
+  /* Biológicos: mercado R$ bi */
+  new Chart(document.getElementById('chBio'),{type:'bar',
+    data:{labels:['21/22','22/23','23/24','24/25','2030*'],
+      datasets:[{data:[3.5,4.3,5.0,6.0,9.0],
+        backgroundColor:['rgba(44,122,75,.45)','rgba(44,122,75,.55)','rgba(44,122,75,.65)','rgba(44,122,75,.78)','rgba(194,138,44,.7)'],
+        borderColor:(c)=>c.dataIndex===4?ocre:verde,borderWidth:1,borderRadius:6}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'#18231C',padding:10,callbacks:{label:(t)=>'R$ '+t.parsed.y.toFixed(1).replace('.',',')+' bi'+(t.dataIndex===4?' (proj.)':'')}}},
+      scales:{x:{grid:{display:false},border:{color:grid},ticks:{color:sub}},
+        y:{grid:{color:grid},border:{display:false},ticks:{color:sub,callback:(v)=>'R$ '+v+' bi'}}},
+      animation:{duration:800}}});
+</script>
+</body>
+</html>
