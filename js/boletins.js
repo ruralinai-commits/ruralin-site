@@ -110,20 +110,20 @@ window.BOLETINS = [
     data: "27 a 30 abr. 2026",
     titulo: "Relatório de Café",
     categoria: "Relatório"
-  }
+  },
 
   {
     arquivo: "radar-macro-geo-maio-2026.html",
     data: "Maio 2026",
     titulo: "Radar Geopolítico & Macroeconômico",
     categoria: "Radar"
-  }
+  },
 
   {
     arquivo: "rel-pensar-27-03.html",
     data: "Maio. 2026",
     titulo: "Relatório de Opinião",
     categoria: "Relatório"
-  }
+  },
 
 ];
