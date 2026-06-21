@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar Agro da Soja | Maio 2026 + Perspectivas Junho | Rural IN</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --amarelo:#e6a817;--amarelo-l:#f5c842;--amarelo-xl:#fde68a;--amarelo-pale:#fffbeb;
+  --verde-s:#1a5c2a;--verde-l:#2d9e5f;--verde-xl:#52b788;
+  --marrom:#4a2c00;--marrom-l:#7c4e00;
+  --cinza-esc:#1e1e2e;--cinza:#374151;--cinza-l:#6b7280;--cinza-xl:#f9fafb;
+  --azul:#1e40af;--azul-l:#3b82f6;
+  --vermelho:#991b1b;--vermelho-l:#ef4444;
+  --laranja:#c2410c;--laranja-l:#f97316;
+  --bg:#fafaf7;
+  --sombra:0 4px 20px rgba(0,0,0,.08);
+  --sombra2:0 8px 40px rgba(0,0,0,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--cinza);font-size:15px;line-height:1.6}
+
+/* ── HEADER ── */
+.header{background:linear-gradient(135deg,#1a1200 0%,var(--marrom-l) 40%,var(--amarelo) 100%);position:relative;overflow:hidden;padding:0}
+.header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.h-top{max-width:1100px;margin:0 auto;padding:32px 24px 26px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;position:relative;z-index:1}
+.logo-w{display:flex;align-items:center;gap:16px}
+.logo-svg{width:66px;height:66px;flex-shrink:0;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
+.logo-txt h1{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;line-height:1;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.3)}
+.logo-txt .sub{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--amarelo-xl);margin-top:5px}
+.h-meta{text-align:right}
+.h-meta .ed{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.h-meta .dt{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--amarelo-xl);font-weight:700;margin-top:4px}
+.h-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;justify-content:flex-end}
+.h-badge{font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:4px 10px;border-radius:20px;font-weight:700}
+.hb-up{background:rgba(34,197,94,.25);color:#4ade80;border:1px solid rgba(74,222,128,.4)}
+.hb-dn{background:rgba(239,68,68,.2);color:#f87171;border:1px solid rgba(248,113,113,.4)}
+.hb-nt{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
+
+/* ── TICKER ── */
+.ticker{background:var(--cinza-esc);padding:11px 20px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;border-top:3px solid var(--amarelo)}
+.ticker span{font-family:'JetBrains Mono',monospace;font-size:.76rem;color:#e5e7eb;font-weight:600}
+.ticker .sep{color:rgba(255,255,255,.2)}
+.t-up{color:#4ade80!important}.t-dn{color:#f87171!important}.t-nt{color:var(--amarelo-l)!important}
+
+/* ── HEADLINE STRIP ── */
+.hl-strip{background:linear-gradient(135deg,#1a2e00,#0f3a00);padding:18px 24px;text-align:center;border-bottom:2px solid var(--amarelo)}
+.hl-strip .hs-inner{max-width:1100px;margin:0 auto}
+.hl-strip h2{font-family:'Playfair Display',serif;font-size:1.45rem;color:#fff;font-weight:700}
+.hl-strip p{font-size:.85rem;color:rgba(255,255,255,.6);margin-top:5px}
+
+/* ── CONTAINER ── */
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+.section{padding:44px 0 32px}
+.sec-title{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.sec-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;background:var(--amarelo)}
+.sec-title h2{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--marrom-l);font-weight:700}
+.sec-title .ln{flex:1;height:2px;background:linear-gradient(90deg,var(--amarelo),transparent)}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--amarelo),transparent);margin:0}
+
+/* ── PLACAR COTAÇÕES ── */
+.placar{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:14px;margin-bottom:24px}
+.p-card{background:#fff;border-radius:14px;padding:18px 16px;box-shadow:var(--sombra);position:relative;overflow:hidden}
+.p-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.p-card.up::before{background:linear-gradient(90deg,#16a34a,#4ade80)}
+.p-card.dn::before{background:linear-gradient(90deg,#dc2626,#f87171)}
+.p-card.nt::before{background:linear-gradient(90deg,var(--amarelo),var(--amarelo-l))}
+.p-lbl{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--cinza-l);margin-bottom:5px}
+.p-val{font-family:'JetBrains Mono',monospace;font-size:1.65rem;font-weight:700;color:var(--cinza-esc);line-height:1}
+.p-sub{font-size:.74rem;color:var(--cinza-l);margin-top:5px}
+.p-var{font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;margin-top:5px}
+.v-up{color:#16a34a}.v-dn{color:#dc2626}.v-nt{color:var(--amarelo)}
+.p-src{font-size:.64rem;color:#ccc;margin-top:6px}
+
+/* ── TERMÔMETRO ── */
+.termometros{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px}
+.termo{background:#fff;border-radius:14px;padding:20px 16px;box-shadow:var(--sombra);text-align:center}
+.termo h4{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--cinza-l);margin-bottom:12px}
+.termo-body{display:flex;flex-direction:column;align-items:center;gap:8px}
+.termo-gauge{position:relative;width:90px;height:90px}
+.termo-gauge svg{width:90px;height:90px}
+.termo-val{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--cinza-esc);margin-top:4px}
+.termo-desc{font-size:.75rem;color:var(--cinza-l);text-align:center;line-height:1.4}
+
+/* ── GRÁFICO CARDS ── */
+.chart-card{background:#fff;border-radius:14px;padding:22px;box-shadow:var(--sombra);margin-bottom:20px}
+.chart-card h3{font-family:'Playfair Display',serif;font-size:1rem;color:var(--marrom-l);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #f3f4f6}
+.chart-card .nf{font-size:.69rem;color:#bbb;font-style:italic;margin-top:8px}
+
+/* ── ANALISE BOXES ── */
+.abox{background:#fff;border-radius:14px;padding:22px 24px;box-shadow:var(--sombra);margin-bottom:18px;border-left:5px solid var(--amarelo)}
+.abox.verde{border-left-color:var(--verde-l)}
+.abox.vermelho{border-left-color:var(--vermelho-l)}
+.abox.azul{border-left-color:var(--azul-l)}
+.abox.cinza{border-left-color:#6b7280}
+.abox h3{font-family:'Playfair Display',serif;color:var(--marrom-l);font-size:1.05rem;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.abox.verde h3{color:var(--verde-s)}
+.abox.vermelho h3{color:var(--vermelho)}
+.abox.azul h3{color:var(--azul)}
+.abox p{color:var(--cinza);line-height:1.8;font-size:.9rem}
+.abox p+p{margin-top:8px}
+
+/* ── ALERTAS ── */
+.al{border-radius:12px;padding:14px 18px;margin-bottom:14px;display:flex;align-items:flex-start;gap:12px;border:1px solid}
+.al.yellow{background:var(--amarelo-pale);border-color:rgba(230,168,23,.4)}
+.al.red{background:#fef2f2;border-color:rgba(239,68,68,.3)}
+.al.green{background:#f0fdf4;border-color:rgba(34,197,94,.3)}
+.al.blue{background:#eff6ff;border-color:rgba(59,130,246,.3)}
+.al .ai{font-size:1.4rem;flex-shrink:0;margin-top:1px}
+.al .at h4{font-size:.88rem;font-weight:700;margin-bottom:3px}
+.al.yellow .at h4{color:var(--marrom-l)}
+.al.red .at h4{color:var(--vermelho)}
+.al.green .at h4{color:var(--verde-s)}
+.al.blue .at h4{color:var(--azul)}
+.al .at p{font-size:.82rem;color:var(--cinza-l);line-height:1.6}
+
+/* ── CENÁRIOS ── */
+.scen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:20px}
+.sc{border-radius:14px;padding:20px;border:2px solid}
+.sc.opt{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-color:#16a34a}
+.sc.neu{background:linear-gradient(135deg,#fffbeb,var(--amarelo-xl));border-color:var(--amarelo)}
+.sc.pes{background:linear-gradient(135deg,#fef2f2,#fee2e2);border-color:#dc2626}
+.sc-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.sc-dot{width:12px;height:12px;border-radius:50%}
+.sc.opt .sc-dot{background:#16a34a}
+.sc.neu .sc-dot{background:var(--amarelo)}
+.sc.pes .sc-dot{background:#dc2626}
+.sc h4{font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700}
+.sc.opt h4{color:#166534}.sc.neu h4{color:var(--marrom-l)}.sc.pes h4{color:var(--vermelho)}
+.sc ul{list-style:none;font-size:.83rem;color:var(--cinza);line-height:1.85}
+.sc ul li{display:flex;align-items:flex-start;gap:6px}
+.sc ul li::before{content:'›';font-weight:700;flex-shrink:0}
+.sc-prob{font-family:'JetBrains Mono',monospace;font-size:.7rem;margin-top:10px;padding:6px 10px;border-radius:6px;text-align:center;font-weight:700}
+.sc.opt .sc-prob{background:#dcfce7;color:#166534}
+.sc.neu .sc-prob{background:var(--amarelo-xl);color:var(--marrom-l)}
+.sc.pes .sc-prob{background:#fee2e2;color:var(--vermelho)}
+
+/* ── GEOPOLÍTICA FLAGS ── */
+.geo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px}
+.geo-card{background:#fff;border-radius:12px;padding:16px;box-shadow:var(--sombra);display:flex;gap:12px;align-items:flex-start}
+.geo-flag{font-size:1.6rem;flex-shrink:0}
+.geo-info h5{font-weight:700;font-size:.85rem;color:var(--cinza-esc);margin-bottom:3px}
+.geo-info p{font-size:.78rem;color:var(--cinza-l);line-height:1.55}
+.geo-status{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.62rem;padding:2px 8px;border-radius:10px;margin-top:4px;font-weight:700}
+.gs-up{background:#dcfce7;color:#16a34a}
+.gs-dn{background:#fee2e2;color:#dc2626}
+.gs-nt{background:var(--amarelo-xl);color:var(--marrom-l)}
+
+/* ── TERMÔMETRO DE PREÇO ── */
+.price-termo{background:#fff;border-radius:14px;padding:24px;box-shadow:var(--sombra);margin-bottom:20px}
+.price-termo h3{font-family:'Playfair Display',serif;font-size:1rem;color:var(--marrom-l);margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid #f3f4f6}
+.pt-bar{margin-bottom:14px}
+.pt-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:.82rem}
+.pt-label .pl-name{font-weight:600;color:var(--cinza)}
+.pt-label .pl-val{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.85rem}
+.pt-track{height:16px;background:#f3f4f6;border-radius:8px;overflow:hidden;position:relative}
+.pt-fill{height:100%;border-radius:8px;position:relative;transition:width .8s ease}
+.pt-marker{position:absolute;top:-4px;height:24px;width:3px;background:var(--cinza-esc);border-radius:2px;transform:translateX(-50%)}
+.pt-scale{display:flex;justify-content:space-between;margin-top:4px;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--cinza-l)}
+
+/* ── GRADE 2 COLUNAS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* ── PERCEPÇÃO BADGE ── */
+.percepcao{background:linear-gradient(135deg,#1a2e00,var(--marrom-l));border-radius:16px;padding:32px;margin-bottom:20px;color:#fff}
+.percepcao h3{font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:14px;color:var(--amarelo-xl)}
+.percepcao p{font-size:.9rem;line-height:1.85;color:rgba(255,255,255,.85)}
+.percepcao p+p{margin-top:10px}
+.percepcao .quote{border-left:3px solid var(--amarelo);padding-left:16px;font-style:italic;margin-top:16px;color:var(--amarelo-xl);font-size:.92rem}
+
+/* ── FOOTER ── */
+.footer{background:var(--cinza-esc);color:#fff;padding:52px 24px 32px}
+.fi{max-width:1100px;margin:0 auto}
+.ft{display:flex;align-items:flex-start;gap:32px;flex-wrap:wrap;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:24px}
+.fl .brand{font-family:'Playfair Display',serif;font-size:1.85rem;font-weight:900;color:var(--amarelo-l)}
+.fl .brand span{color:#fff}
+.fl .tag{font-size:.78rem;color:rgba(255,255,255,.45);font-style:italic;margin-top:4px}
+.fc h4{font-family:'Playfair Display',serif;color:var(--amarelo-l);font-size:1.1rem;margin-bottom:8px}
+.fc p{font-size:.82rem;color:rgba(255,255,255,.7);line-height:1.9}
+.fc a{color:var(--amarelo-l);text-decoration:none}
+.fc a:hover{text-decoration:underline}
+.fb{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255,255,.27);letter-spacing:.8px;text-align:center;line-height:1.8}
+.hl{background:linear-gradient(transparent 60%,rgba(230,168,23,.25) 60%)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:720px){
+  .g2{grid-template-columns:1fr}
+  .logo-txt h1{font-size:1.55rem}
+  .h-top{flex-direction:column;align-items:flex-start}
+  .h-meta{text-align:left}
+  .h-badges{justify-content:flex-start}
+  .ft{flex-direction:column}
+  .p-val{font-size:1.35rem}
+}
+/* ── NEON GLOW ── */
+.badge-neon{font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:5px 14px;border-radius:20px;font-weight:700;display:inline-block;margin:3px}
+.bn-gold{background:rgba(230,168,23,.15);color:var(--amarelo);border:1px solid var(--amarelo);box-shadow:0 0 8px rgba(230,168,23,.3)}
+.bn-red{background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(248,113,113,.4)}
+.bn-green{background:rgba(34,197,94,.12);color:#4ade80;border:1px solid rgba(74,222,128,.4)}
+.bn-blue{background:rgba(59,130,246,.12);color:#93c5fd;border:1px solid rgba(147,197,253,.4)}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="header">
+  <div class="h-top">
+    <div class="logo-w">
+      <svg class="logo-svg" viewBox="0 0 66 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="66" height="66" rx="13" fill="#e6a817"/>
+        <text x="7" y="40" font-family="Georgia,serif" font-size="26" font-weight="900" fill="#1a1200">RI</text>
+        <rect x="6" y="46" width="54" height="3" rx="1.5" fill="#1a1200" opacity=".7"/>
+        <text x="6" y="60" font-family="Arial,sans-serif" font-size="7.5" font-weight="700" fill="#1a1200" letter-spacing="2">RURAL IN</text>
+      </svg>
+      <div class="logo-txt">
+        <h1>Radar Agro da Soja</h1>
+        <div class="sub">Análise Mensal · Maio 2026 · Rural IN</div>
+      </div>
+    </div>
+    <div class="h-meta">
+      <div class="ed">PhD em Mercado Agro · Análise de Risco</div>
+      <div class="dt">Fechamento Maio 2026</div>
+      <div class="h-badges">
+        <span class="h-badge hb-nt">CBOT JUL: US$ 11,85/bu</span>
+        <span class="h-badge hb-dn">No ano: −7,7% (R$)</span>
+        <span class="h-badge hb-up">Export mai: +13,7%</span>
+      </div>
+    </div>
+  </div>
+  <div class="ticker">
+    <span>🌱 <span class="t-nt">CBOT Jul/26:</span> <strong>US$ 11,85/bu</strong></span>
+    <span class="sep">|</span>
+    <span>🇧🇷 <span class="t-nt">Paranaguá:</span> <strong>R$ 128–132/sc</strong></span>
+    <span class="sep">|</span>
+    <span>🏜️ <span class="t-nt">Mato Grosso:</span> <strong>R$ 103–110/sc</strong></span>
+    <span class="sep">|</span>
+    <span>🌾 <span class="t-nt">RS:</span> <strong>R$ 125–128/sc</strong></span>
+    <span class="sep">|</span>
+    <span>💵 <span class="t-nt">Dólar:</span> <strong>R$ 5,02–5,06</strong></span>
+    <span class="sep">|</span>
+    <span>📦 <span class="t-nt">Safra BR 25/26:</span> <strong>180,1 Mt (Conab)</strong></span>
+    <span class="sep">|</span>
+    <span>📊 <span class="t-nt">USDA 26/27:</span> <strong>186 Mt Brasil</strong></span>
+  </div>
+</header>
+
+<div class="hl-strip">
+  <div class="hs-inner">
+    <h2>🌱 Fechamento de Maio 2026 + Perspectivas para Junho</h2>
+    <p>Safra recorde · CBOT acima de US$12 com acordo EUA-China · Preços internos pressionados · Exportação em ritmo histórico · O que esperar em junho</p>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ══════════════════════
+     SEÇÃO 1: PLACAR COTAÇÕES
+═══════════════════════════ -->
+<section class="section">
+  <div class="sec-title">
+    <div class="sec-icon">💰</div>
+    <h2>Placar de Cotações — Fechamento Maio 2026</h2>
+    <div class="ln"></div>
+  </div>
+
+  <div class="placar">
+    <div class="p-card nt">
+      <div class="p-lbl">CBOT Jul/26 (Soja Grão)</div>
+      <div class="p-val">US$ 11,85</div>
+      <div class="p-sub">por bushel (≈ 27,2 kg)</div>
+      <div class="p-var v-up">▲ Chicago voltou acima de US$12 em mai</div>
+      <div class="p-src">Fonte: CME Group / Safras & Mercado</div>
+    </div>
+    <div class="p-card dn">
+      <div class="p-lbl">Paranaguá — Físico (30/mai)</div>
+      <div class="p-val">R$ 128</div>
+      <div class="p-sub">por saca de 60 kg</div>
+      <div class="p-var v-dn">▼ −7,7% no ano vs. dez/25</div>
+      <div class="p-src">Fonte: Cepea/Esalq, Grão Direto</div>
+    </div>
+    <div class="p-card dn">
+      <div class="p-lbl">Mato Grosso — Interior</div>
+      <div class="p-val">R$ 103</div>
+      <div class="p-sub">por saca (Sorriso/Lucas RV)</div>
+      <div class="p-var v-nt">Frete + logística: R$ 25–30/sc abaixo de Paranaguá</div>
+      <div class="p-src">Fonte: Grão Direto / Imea 29/05/26</div>
+    </div>
+    <div class="p-card nt">
+      <div class="p-lbl">Rio Grande do Sul</div>
+      <div class="p-val">R$ 127</div>
+      <div class="p-sub">por saca (Passo Fundo)</div>
+      <div class="p-var v-up">▲ +1,6% no mês — melhor praça</div>
+      <div class="p-src">Fonte: Grão Direto 29/05/26</div>
+    </div>
+    <div class="p-card nt">
+      <div class="p-lbl">Farelo Soja CBOT</div>
+      <div class="p-val">US$ 305</div>
+      <div class="p-sub">por tonelada — mai/26</div>
+      <div class="p-var v-nt">↔ Estável — demanda firme de proteína</div>
+      <div class="p-src">Fonte: CME Group</div>
+    </div>
+    <div class="p-card nt">
+      <div class="p-lbl">Óleo de Soja CBOT</div>
+      <div class="p-val">US$ 0,47</div>
+      <div class="p-sub">por libra — mai/26</div>
+      <div class="p-var v-up">▲ Biodiesel sustenta demanda</div>
+      <div class="p-src">Fonte: CME Group</div>
+    </div>
+  </div>
+
+  <!-- TERMÔMETRO DE PREÇOS REGIONAIS -->
+  <div class="price-termo">
+    <h3>🌡️ Termômetro de Preços — Soja por Região (R$/sc 60kg) · Fechamento Maio 2026</h3>
+
+    <div class="pt-bar">
+      <div class="pt-label">
+        <span class="pl-name">🏜️ Mato Grosso (Sorriso)</span>
+        <span class="pl-val" style="color:#dc2626">R$ 103/sc</span>
+      </div>
+      <div class="pt-track">
+        <div class="pt-fill" style="width:42%;background:linear-gradient(90deg,#dc2626,#f97316)"></div>
+        <div class="pt-marker" style="left:57%"></div>
+      </div>
+      <div class="pt-scale"><span>R$ 80 (fundo)</span><span style="font-weight:700;color:var(--cinza)">Custo: R$ 120/sc</span><span>R$ 160 (teto)</span></div>
+    </div>
+
+    <div class="pt-bar">
+      <div class="pt-label">
+        <span class="pl-name">🌱 Goiás / MATOPIBA</span>
+        <span class="pl-val" style="color:#d97706">R$ 110/sc</span>
+      </div>
+      <div class="pt-track">
+        <div class="pt-fill" style="width:52%;background:linear-gradient(90deg,#d97706,#f59e0b)"></div>
+        <div class="pt-marker" style="left:57%"></div>
+      </div>
+      <div class="pt-scale"><span>R$ 80</span><span style="font-weight:700;color:var(--cinza)">Custo: ~R$ 118/sc</span><span>R$ 160</span></div>
+    </div>
+
+    <div class="pt-bar">
+      <div class="pt-label">
+        <span class="pl-name">🚜 Rio Grande do Sul</span>
+        <span class="pl-val" style="color:#16a34a">R$ 127/sc</span>
+      </div>
+      <div class="pt-track">
+        <div class="pt-fill" style="width:68%;background:linear-gradient(90deg,#16a34a,#4ade80)"></div>
+        <div class="pt-marker" style="left:57%"></div>
+      </div>
+      <div class="pt-scale"><span>R$ 80</span><span style="font-weight:700;color:var(--cinza)">Custo: ~R$ 115/sc</span><span>R$ 160</span></div>
+    </div>
+
+    <div class="pt-bar">
+      <div class="pt-label">
+        <span class="pl-name">🚢 Paranaguá / Santos (Porto)</span>
+        <span class="pl-val" style="color:#16a34a">R$ 128–132/sc</span>
+      </div>
+      <div class="pt-track">
+        <div class="pt-fill" style="width:70%;background:linear-gradient(90deg,#16a34a,#4ade80)"></div>
+        <div class="pt-marker" style="left:57%"></div>
+      </div>
+      <div class="pt-scale"><span>R$ 80</span><span style="font-weight:700;color:var(--cinza)">Referência: preço FOB</span><span>R$ 160</span></div>
+    </div>
+
+    <div style="margin-top:10px;padding:12px;background:#f9fafb;border-radius:8px;font-size:.78rem;color:var(--cinza-l)">
+      <strong style="color:var(--marrom-l)">Legenda:</strong> A barra indica o nível do preço atual entre o fundo histórico (R$80) e o teto recente (R$160). A marcação vertical indica o custo médio de produção. Regiões onde a barra <em>não alcança</em> a marcação estão com preço abaixo do custo → <strong style="color:#dc2626">zona de prejuízo</strong> (MT interior).
+    </div>
+  </div>
+
+  <!-- GRÁFICO EVOLUÇÃO MAIO -->
+  <div class="chart-card">
+    <h3>📈 Evolução da Soja em Maio 2026 — CBOT (US$/bu) vs Paranaguá (R$/sc)</h3>
+    <canvas id="chartMaio" height="90"></canvas>
+    <p class="nf">Fonte: CME Group / Cepea/Esalq. Elaboração: Rural IN — Dr. Sidney Souza. Dados referência 29/05/2026.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════
+     SEÇÃO 2: FATOS DE MAIO
+═══════════════════════════ -->
+<section class="section">
+  <div class="sec-title">
+    <div class="sec-icon">📰</div>
+    <h2>Os 6 Fatos que Moveram o Mercado em Maio</h2>
+    <div class="ln"></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px;margin-bottom:20px">
+
+    <div class="al yellow">
+      <div class="ai">🤝</div>
+      <div class="at">
+        <h4>1. Acordo EUA–China: CBOT dispara acima de US$12</h4>
+        <p>Acordo entre EUA e China prevê compras anuais de US$ 17 bi em produtos agrícolas, incluindo 25 Mt de soja/ano por 3 anos. Em 19/mai, Chicago voltou a operar acima de US$12/bu pela primeira vez em meses. <strong>Mercado físico BR não acompanhou a velocidade.</strong></p>
+      </div>
+    </div>
+
+    <div class="al green">
+      <div class="ai">🚢</div>
+      <div class="at">
+        <h4>2. Exportação Bate Recorde: 16,13 Mt em Maio</h4>
+        <p>ANEC projetou embarques de <strong>16,13 Mt</strong> em maio (+13,7% vs. mai/25). Média diária de 758,8 kt/dia — próxima do recorde absoluto de 16,75 Mt registrado em abril. <strong>Brasil domina a janela de abastecimento global até outubro.</strong></p>
+      </div>
+    </div>
+
+    <div class="al yellow">
+      <div class="ai">📊</div>
+      <div class="at">
+        <h4>3. USDA WASDE: Brasil projetado em 186 Mt para 26/27</h4>
+        <p>Relatório WASDE de maio projetou safra 26/27 do Brasil em <strong>186 Mt</strong> (+6 Mt vs. estimativa anterior) com exportações de 117,5 Mt. <strong>Mais oferta futura = pressão estrutural sobre preços.</strong></p>
+      </div>
+    </div>
+
+    <div class="al red">
+      <div class="ai">📉</div>
+      <div class="at">
+        <h4>4. Preços Internos Caem 7,7% no Ano</h4>
+        <p>Soja Cepea/Paranaguá acumulou queda de <strong>7,7% de jan a mai/26</strong>. MT interior em R$103/sc — abaixo do custo de produção local (~R$120/sc). <strong>Produtor do interior mato-grossense sem margem operacional.</strong></p>
+      </div>
+    </div>
+
+    <div class="al blue">
+      <div class="ai">🇨🇳</div>
+      <div class="at">
+        <h4>5. China: Tarifa de 10% sobre EUA ainda vigente</h4>
+        <p>Apesar do acordo, <strong>a tarifa extra de 10%</strong> sobre produtos agrícolas americanos permanece, limitando o volume real de compras dos EUA. Esmagadoras chinesas operam no prejuízo. <strong>Isso mantém o Brasil como fornecedor prioritário até out/26.</strong></p>
+      </div>
+    </div>
+
+    <div class="al yellow">
+      <div class="ai">🌦️</div>
+      <div class="at">
+        <h4>6. Safra EUA 26/27 com Boa Perspectiva</h4>
+        <p>Plantio americano 2026/27 com condições climáticas favoráveis. <strong>Projeta-se nova safra recorde nos EUA</strong>, o que mantém o mercado global com oferta confortável. Qualquer evento climático adverso nos EUA em jun–ago pode ser o gatilho para alta expressiva.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- GRÁFICO HISTÓRICO 2026 -->
+  <div class="chart-card">
+    <h3>📊 Evolução da Soja em 2026 — Cepea Paranaguá (R$/sc) e CBOT (US$/bu × câmbio/6,5)</h3>
+    <canvas id="chartAnual" height="90"></canvas>
+    <p class="nf">Fonte: Cepea/Esalq, CME Group. Elaboração: Rural IN. A linha tracejada mostra o custo médio de produção estimado (R$120/sc).</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════
+     SEÇÃO 3: ANÁLISE TÉCNICA + FUNDAMENTOS
+═══════════════════════════ -->
+<section class="section">
+  <div class="sec-title">
+    <div class="sec-icon">🔬</div>
+    <h2>Análise Técnica + Fundamentalista — Dupla Visão</h2>
+    <div class="ln"></div>
+  </div>
+
+  <!-- TERMÔMETROS DE SENTIMENTO -->
+  <div class="termometros">
+    <div class="termo">
+      <h4>Sentimento CBOT</h4>
+      <div class="termo-body">
+        <svg viewBox="0 0 100 60" class="termo-gauge">
+          <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#ef4444"/><stop offset="50%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#16a34a"/></linearGradient></defs>
+          <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="url(#g1)" stroke-width="10" stroke-linecap="round"/>
+          <line x1="50" y1="50" x2="72" y2="22" stroke="#1e1e2e" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="50" cy="50" r="5" fill="#1e1e2e"/>
+          <text x="50" y="56" text-anchor="middle" font-size="9" fill="#6b7280">Neutro</text>
+        </svg>
+        <div class="termo-val">65 / 100</div>
+        <div class="termo-desc">Acordo EUA-China empurrou o índice para zona de otimismo moderado</div>
+      </div>
+    </div>
+    <div class="termo">
+      <h4>Sentimento BR Físico</h4>
+      <div class="termo-body">
+        <svg viewBox="0 0 100 60" class="termo-gauge">
+          <defs><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#ef4444"/><stop offset="50%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#16a34a"/></linearGradient></defs>
+          <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="url(#g2)" stroke-width="10" stroke-linecap="round"/>
+          <line x1="50" y1="50" x2="32" y2="28" stroke="#1e1e2e" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="50" cy="50" r="5" fill="#1e1e2e"/>
+          <text x="50" y="56" text-anchor="middle" font-size="9" fill="#6b7280">Bearish</text>
+        </svg>
+        <div class="termo-val">30 / 100</div>
+        <div class="termo-desc">Preços internos pressionados — produtor vende abaixo do custo no MT interior</div>
+      </div>
+    </div>
+    <div class="termo">
+      <h4>Demanda China</h4>
+      <div class="termo-body">
+        <svg viewBox="0 0 100 60" class="termo-gauge">
+          <defs><linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#ef4444"/><stop offset="50%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#16a34a"/></linearGradient></defs>
+          <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="url(#g3)" stroke-width="10" stroke-linecap="round"/>
+          <line x1="50" y1="50" x2="58" y2="19" stroke="#1e1e2e" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="50" cy="50" r="5" fill="#1e1e2e"/>
+          <text x="50" y="56" text-anchor="middle" font-size="9" fill="#6b7280">Alta</text>
+        </svg>
+        <div class="termo-val">72 / 100</div>
+        <div class="termo-desc">China projeta importar 114 Mt em 26/27 (+2 Mt). Tarifa 10% sobre EUA ainda favorece Brasil</div>
+      </div>
+    </div>
+    <div class="termo">
+      <h4>Risco Climático EUA</h4>
+      <div class="termo-body">
+        <svg viewBox="0 0 100 60" class="termo-gauge">
+          <defs><linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#16a34a"/><stop offset="50%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#ef4444"/></linearGradient></defs>
+          <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="url(#g4)" stroke-width="10" stroke-linecap="round"/>
+          <line x1="50" y1="50" x2="35" y2="27" stroke="#1e1e2e" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="50" cy="50" r="5" fill="#1e1e2e"/>
+          <text x="50" y="56" text-anchor="middle" font-size="9" fill="#6b7280">Baixo</text>
+        </svg>
+        <div class="termo-val">28 / 100</div>
+        <div class="termo-desc">Plantio EUA com boa umidade. Lavouras em bom desenvolvimento. Risco de seca (jul–ago) ainda baixo</div>
+      </div>
+    </div>
+    <div class="termo">
+      <h4>Pressão Comercialização BR</h4>
+      <div class="termo-body">
+        <svg viewBox="0 0 100 60" class="termo-gauge">
+          <defs><linearGradient id="g5" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#16a34a"/><stop offset="50%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#ef4444"/></linearGradient></defs>
+          <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="url(#g5)" stroke-width="10" stroke-linecap="round"/>
+          <line x1="50" y1="50" x2="70" y2="24" stroke="#1e1e2e" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="50" cy="50" r="5" fill="#1e1e2e"/>
+          <text x="50" y="56" text-anchor="middle" font-size="9" fill="#6b7280">Alta</text>
+        </svg>
+        <div class="termo-val">75 / 100</div>
+        <div class="termo-desc">Produtor com dívida e custo elevado — pressão para vender mesmo com preço baixo</div>
+      </div>
+    </div>
+    <div class="termo">
+      <h4>Basis (Paranaguá)</h4>
+      <div class="termo-body">
+        <svg viewBox="0 0 100 60" class="termo-gauge">
+          <defs><linearGradient id="g6" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#ef4444"/><stop offset="50%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#16a34a"/></linearGradient></defs>
+          <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="url(#g6)" stroke-width="10" stroke-linecap="round"/>
+          <line x1="50" y1="50" x2="52" y2="20" stroke="#1e1e2e" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="50" cy="50" r="5" fill="#1e1e2e"/>
+          <text x="50" y="56" text-anchor="middle" font-size="9" fill="#6b7280">Neutro</text>
+        </svg>
+        <div class="termo-val">50 / 100</div>
+        <div class="termo-desc">Basis (Paranaguá) neutro em mai. Prêmio portuário estável — compressão por excesso de oferta</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="abox">
+      <h3>📉 Análise Técnica — CBOT Soja (Maio 2026)</h3>
+      <p><strong>Tendência:</strong> lateral com viés de alta de curto prazo, após acordo EUA-China. O contrato julho/26 voltou acima de US$12/bu — resistência técnica importante que, se sustentada, aponta para teste de US$12,50–12,80.</p>
+      <p><strong>Suportes:</strong> US$ 11,20/bu (fundo de abr/26) → US$ 10,66/bu (mínima jan/26). <strong>Resistências:</strong> US$ 12,00/bu → US$ 12,50/bu → US$ 13,00/bu (psicológico).</p>
+      <p><strong>RSI:</strong> ~58 — saindo de zona neutra para levemente altista. <strong>MACD:</strong> cruzamento positivo confirmado. Volume aumentou nas semanas de alta (19–25/mai).</p>
+      <p>⚠ <span class="hl">Cuidado: parte do movimento foi especulativo</span> puxado pelas declarações de Trump sobre as compras chinesas. Um dado ruim de demanda pode reverter rapidamente.</p>
+    </div>
+    <div class="abox verde">
+      <h3>🌎 Análise Fundamentalista — Equilíbrio Global</h3>
+      <p><strong>Safra BR 25/26:</strong> Conab projeta 180,1 Mt (recorde absoluto, +5%). Colheita 98,3% concluída. Produtividade: 3.696 kg/ha (recorde histórico).</p>
+      <p><strong>Exportação BR:</strong> 116 Mt projetadas para 25/26 (+7,25% vs. ciclo anterior). Janela exclusiva até outubro — enquanto EUA planta, o mundo precisa do grão brasileiro.</p>
+      <p><strong>China (demanda):</strong> USDA projeta 114 Mt de importação em 26/27 (+2 Mt). Tarifa de 10% sobre EUA favorece Brasil estruturalmente até negociação definitiva.</p>
+      <p><strong>Estoques globais:</strong> confortáveis, mas não excessivos (~34% relação estoque/uso). <span class="hl">Qualquer seca nos EUA em jul–ago pode inverter o cenário em questão de semanas.</span></p>
+    </div>
+  </div>
+
+  <!-- GRÁFICO OFERTA/DEMANDA GLOBAL -->
+  <div class="chart-card">
+    <h3>🌍 Balanço Mundial de Soja — Produção vs. Consumo vs. Estoques Finais (Mt) · 2023–2027</h3>
+    <canvas id="chartGlobal" height="90"></canvas>
+    <p class="nf">Fonte: USDA WASDE Maio/2026. Elaboração: Rural IN. 2026/27 = projeção inicial USDA.</p>
+  </div>
+
+  <!-- GRÁFICO PARTICIPAÇÃO BRASIL -->
+  <div class="chart-card">
+    <h3>📦 Brasil no Comércio Mundial de Soja — Participação nas Exportações (%)</h3>
+    <canvas id="chartBrasil" height="75"></canvas>
+    <p class="nf">Fonte: USDA / ABPA. Brasil consolidado como maior exportador mundial. Elaboração: Rural IN.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════
+     SEÇÃO 4: GEOPOLÍTICA
+═══════════════════════════ -->
+<section class="section">
+  <div class="sec-title">
+    <div class="sec-icon">🌐</div>
+    <h2>Geopolítica e Macro — O que o Produtor Precisa Monitorar</h2>
+    <div class="ln"></div>
+  </div>
+
+  <div class="geo-grid">
+    <div class="geo-card">
+      <div class="geo-flag">🇨🇳</div>
+      <div class="geo-info">
+        <h5>China — O Grande Comprador</h5>
+        <p>Importa ~114 Mt/ano. Tarifa de 10% sobre EUA mantém vantagem brasileira. Esmagadoras no prejuízo — compra devagar. Demanda de ração animal firme.</p>
+        <span class="geo-status gs-nt">Monitorar</span>
+      </div>
+    </div>
+    <div class="geo-card">
+      <div class="geo-flag">🇺🇸</div>
+      <div class="geo-info">
+        <h5>EUA — Plantio 2026/27</h5>
+        <p>Plantio com boas condições. Safra nova (set–out/26) pode reduzir necessidade de soja brasileira. Acordo Trump-Xi: 25 Mt/ano por 3 anos.</p>
+        <span class="geo-status gs-nt">Atenção</span>
+      </div>
+    </div>
+    <div class="geo-card">
+      <div class="geo-flag">🇦🇷</div>
+      <div class="geo-info">
+        <h5>Argentina — Concorrente Regional</h5>
+        <p>Bolsa Buenos Aires projeta 48–50 Mt em 26/27. Governo sinaliza redução gradual de tarifas de export. soja a partir de 2027. Concorrência crescente.</p>
+        <span class="geo-status gs-dn">Risco futuro</span>
+      </div>
+    </div>
+    <div class="geo-card">
+      <div class="geo-flag">🇧🇷</div>
+      <div class="geo-info">
+        <h5>Brasil — Selic 13,25% e Câmbio</h5>
+        <p>Selic em 13,25% comprime margem e pressiona venda antecipada. Câmbio em R$5,02–5,06 é o principal aliado. Foco: R$5,00 como linha de suporte.</p>
+        <span class="geo-status gs-nt">Câmbio crítico</span>
+      </div>
+    </div>
+    <div class="geo-card">
+      <div class="geo-flag">🇪🇺</div>
+      <div class="geo-info">
+        <h5>União Europeia — Biodiesel</h5>
+        <p>Demanda por óleo de soja para biodiesel em alta. Acordo Mercosul-UE em aplicação provisória. Óleo de soja CBOT sustentado acima de US$0,46/lb.</p>
+        <span class="geo-status gs-up">Positivo</span>
+      </div>
+    </div>
+    <div class="geo-card">
+      <div class="geo-flag">☀️</div>
+      <div class="geo-info">
+        <h5>Clima EUA (jul–ago)</h5>
+        <p>O grande "joker" do semestre. Seca no Corn Belt em jul–ago seria o principal driver de alta da CBOT. Hoje: condições normais a boas. Probabilidade 25–30%.</p>
+        <span class="geo-status gs-nt">Monitorar</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRÁFICO CÂMBIO -->
+  <div class="chart-card">
+    <h3>💵 Câmbio (R$/US$) em 2026 — O Termômetro do Preço da Soja em Reais</h3>
+    <canvas id="chartCambio" height="75"></canvas>
+    <p class="nf">O câmbio é o "multiplicador" que transforma US$/bu em R$/sc. Dólar abaixo de R$5,00 → preços internos caem mesmo com CBOT estável. Fonte: Banco Central. Elaboração: Rural IN.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════
+     SEÇÃO 5: PERSPECTIVAS JUNHO
+═══════════════════════════ -->
+<section class="section">
+  <div class="sec-title">
+    <div class="sec-icon">🔭</div>
+    <h2>Perspectivas para Junho 2026 — Cenários e Projeções</h2>
+    <div class="ln"></div>
+  </div>
+
+  <div style="margin-bottom:16px;display:flex;flex-wrap:wrap;gap:8px">
+    <span class="badge-neon bn-gold">🌱 CBOT Jul: US$11,50–12,80</span>
+    <span class="badge-neon bn-dn">📉 Paranaguá: R$125–138/sc</span>
+    <span class="badge-neon bn-blue">🇨🇳 China: demanda firme</span>
+    <span class="badge-neon bn-gold">☀️ Clima EUA: chave da alta</span>
+    <span class="badge-neon bn-green">🚢 Export BR: ritmo recorde</span>
+    <span class="badge-neon bn-dn">💰 MT interior: abaixo do custo</span>
+  </div>
+
+  <!-- CENÁRIOS -->
+  <div class="scen-grid">
+    <div class="sc opt">
+      <div class="sc-header"><div class="sc-dot"></div><h4>🟢 Cenário Otimista</h4></div>
+      <ul>
+        <li><span>CBOT testa US$12,50–13,00/bu</span></li>
+        <li><span>Seca confirmada no Corn Belt EUA</span></li>
+        <li><span>China acelera compras antes do 3T</span></li>
+        <li><span>Dólar sobe para R$5,15–5,30</span></li>
+        <li><span>Paranaguá: R$136–145/sc</span></li>
+        <li><span>MT interior: R$112–120/sc</span></li>
+      </ul>
+      <div class="sc-prob">Prob. 25% — Depende do clima EUA</div>
+    </div>
+    <div class="sc neu">
+      <div class="sc-header"><div class="sc-dot"></div><h4>🟡 Cenário Base (mais provável)</h4></div>
+      <ul>
+        <li><span>CBOT lateral US$11,20–12,00/bu</span></li>
+        <li><span>Clima EUA favorável sem extremos</span></li>
+        <li><span>China compra no ritmo atual</span></li>
+        <li><span>Dólar R$4,95–5,10</span></li>
+        <li><span>Paranaguá: R$125–135/sc</span></li>
+        <li><span>MT interior: R$104–112/sc</span></li>
+      </ul>
+      <div class="sc-prob">Prob. 50% — Cenário base do mercado</div>
+    </div>
+    <div class="sc pes">
+      <div class="sc-header"><div class="sc-dot"></div><h4>🔴 Cenário Pessimista</h4></div>
+      <ul>
+        <li><span>CBOT cede para US$10,50–11,00</span></li>
+        <li><span>China desacelera compras</span></li>
+        <li><span>Dólar cai abaixo de R$4,85</span></li>
+        <li><span>Safra EUA supera projeções</span></li>
+        <li><span>Paranaguá: R$112–122/sc</span></li>
+        <li><span>MT interior: R$95–104/sc</span></li>
+      </ul>
+      <div class="sc-prob">Prob. 25% — Excesso oferta + câmbio</div>
+    </div>
+  </div>
+
+  <!-- GRÁFICO PROJEÇÃO JUNHO -->
+  <div class="chart-card">
+    <h3>🎯 Projeção de Preço Junho 2026 — Faixa de Cenários (R$/sc · Paranaguá)</h3>
+    <canvas id="chartProjecao" height="85"></canvas>
+    <p class="nf">Elaboração: Rural IN — Dr. Sidney Souza. Baseado em análise técnica e fundamentalista. Faixas de probabilidade por cenário.</p>
+  </div>
+
+  <!-- PERCEPÇÃO DO ANALISTA -->
+  <div class="percepcao">
+    <h3>🧭 Percepção do Analista para Junho — Dr. Sidney Souza</h3>
+    <p>Junho de 2026 é um mês de <span class="hl" style="background:linear-gradient(transparent 60%,rgba(230,168,23,.4) 60%)">dois tempos e uma variável-chave</span>: os dois tempos são o mercado de curto prazo (dominado pelo acordo EUA-China e pelo ritmo de exportação do Brasil) e o mercado de médio prazo (dominado pela evolução do plantio americano 26/27 e pela demanda chinesa). A variável-chave é o câmbio.</p>
+    <p>Do ponto de vista fundamentalista, <strong>o Brasil está em posição privilegiada por mais uns 4 meses</strong> — até que a safra americana de outubro comece a mudar o fluxo de exportações. Enquanto isso, nossos embarques seguem em ritmo recorde, a China precisa do grão brasileiro e o dólar acima de R$5,00 transforma os preços em reais em patamares toleráveis (ainda que abaixo do custo no interior de MT).</p>
+    <p>Do ponto de vista técnico, <strong>CBOT testou e superou US$12/bu</strong> — isso é significativo. Se essa sustentação se confirmar nas primeiras semanas de junho (com algum dado de clima adverso nos EUA ou compra adicional da China), existe um "gatilho de alta" que pode levar o contrato julho até US$12,50–13,00/bu em semanas. Isso se traduziria em Paranaguá voltando para R$135–145/sc — <em>a janela que o produtor precisa para fixar o restante da produção com margem positiva</em>.</p>
+    <p>O risco principal é a perda do patamar de US$12/bu na CBOT combinada com câmbio abaixo de R$5,00. Nesse cenário, Paranaguá cai para R$118–122/sc e o MT interior retrocede para R$95–100/sc — zona de grave prejuízo para quem não travou antecipadamente.</p>
+    <div class="quote">
+      "2026 não vai ser ano de ficar rico com soja. Vai ser ano de não ficar pobre. Quem entender que preço médio de R$130 é o 'novo normal' e agir com disciplina comercial sai na frente. Trave, corte custo e durma tranquilo." — André Pessôa, Agroconsult (webinar 28/11/25)
+    </div>
+  </div>
+
+  <!-- GRÁFICO CUSTO VS PREÇO -->
+  <div class="chart-card">
+    <h3>⚖️ Custo de Produção vs. Preço Recebido — Viabilidade por Região (R$/sc · 2026)</h3>
+    <canvas id="chartViabilidade" height="80"></canvas>
+    <p class="nf">Fonte: Aprosoja/MS, Imea, Cepea. Barra vermelha = custo médio de produção. Barra verde/amarela = preço médio recebido. Elaboração: Rural IN.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════
+     SEÇÃO 6: RECOMENDAÇÕES
+═══════════════════════════ -->
+<section class="section">
+  <div class="sec-title">
+    <div class="sec-icon">✅</div>
+    <h2>Recomendações Práticas para o Produtor</h2>
+    <div class="ln"></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:24px">
+
+    <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:var(--sombra);border-top:4px solid var(--amarelo)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span style="font-size:1.5rem">📌</span>
+        <h4 style="font-family:'Playfair Display',serif;font-size:.98rem;color:var(--marrom-l)">Gestão de Venda (Soja não vendida)</h4>
+      </div>
+      <p style="font-size:.84rem;color:var(--cinza);line-height:1.75">Com CBOT acima de US$12 e dólar acima de R$5,00, esta é uma <strong>janela de preço razoável</strong>. Quem ainda tem soja em armazém deve considerar fixar 30–50% do restante. Não espere R$160 — o mercado não tem fundamento para isso no curto prazo. Paranaguá em R$128–135 já oferece margem positiva para quem tem custo controlado.</p>
+    </div>
+
+    <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:var(--sombra);border-top:4px solid #16a34a">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span style="font-size:1.5rem">🛡️</span>
+        <h4 style="font-family:'Playfair Display',serif;font-size:.98rem;color:var(--verde-s)">Estratégia de Hedge (Safra 26/27)</h4>
+      </div>
+      <p style="font-size:.84rem;color:var(--cinza);line-height:1.75">Para a próxima safra (plantio em set–out/26), esta janela com CBOT em alta é ideal para fixar <strong>25–35%</strong> da produção via contratos a termo ou opções. O custo de produção projetado para 26/27 (~R$122–130/sc) exige travar pelo menos R$138+ para garantir margem. CBOT em US$12,50 + dólar R$5,10 = Paranaguá ~R$140/sc.</p>
+    </div>
+
+    <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:var(--sombra);border-top:4px solid #dc2626">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span style="font-size:1.5rem">⚠️</span>
+        <h4 style="font-family:'Playfair Display',serif;font-size:.98rem;color:var(--vermelho)">Alerta: MT Interior Abaixo do Custo</h4>
+      </div>
+      <p style="font-size:.84rem;color:var(--cinza);line-height:1.75">Produtor de MT com soja a R$103–110/sc e custo de ~R$120/sc está <strong>operando no prejuízo</strong>. A lógica de segurar esperando recuperação pode piorar a situação com juros crescentes sobre financiamento. A alternativa: avaliar custo marginal de armazenagem vs. venda imediata, ou travar preço futuro via B3 para capturar eventual alta.</p>
+    </div>
+
+    <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:var(--sombra);border-top:4px solid var(--azul-l)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span style="font-size:1.5rem">📡</span>
+        <h4 style="font-family:'Playfair Display',serif;font-size:.98rem;color:var(--azul)">O que Monitorar em Junho</h4>
+      </div>
+      <p style="font-size:.84rem;color:var(--cinza);line-height:1.75"><strong>1.</strong> Relatório USDA de junho (11/jun) — atualiza balanço global.<br><strong>2.</strong> Câmbio: manter acima de R$5,00 é essencial.<br><strong>3.</strong> Condições climáticas nos EUA (Iowa, Illinois, Indiana).<br><strong>4.</strong> Ritmo de compras da China nas primeiras semanas.<br><strong>5.</strong> Selic — Copom de junho: sinalização de corte = câmbio cai = preço BR cai.</p>
+    </div>
+
+  </div>
+
+  <!-- SEMÁFORO FINAL -->
+  <div class="chart-card">
+    <h3>🚦 Semáforo da Soja — Indicadores-Chave no Fechamento de Maio 2026</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:12px">
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px">
+        <span style="width:12px;height:12px;border-radius:50%;background:#f59e0b;display:inline-block;flex-shrink:0"></span>
+        <div><strong style="font-size:.85rem">CBOT</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">US$11,85/bu — voltou acima de US$12</span></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px">
+        <span style="width:12px;height:12px;border-radius:50%;background:#ef4444;display:inline-block;flex-shrink:0"></span>
+        <div><strong style="font-size:.85rem">Preço MT interior</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">R$103/sc — abaixo do custo</span></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px">
+        <span style="width:12px;height:12px;border-radius:50%;background:#16a34a;display:inline-block;flex-shrink:0"></span>
+        <div><strong style="font-size:.85rem">Exportação BR</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">16,13 Mt mai — recorde histórico</span></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px">
+        <span style="width:12px;height:12px;border-radius:50%;background:#16a34a;display:inline-block;flex-shrink:0"></span>
+        <div><strong style="font-size:.85rem">Safra BR 25/26</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">180,1 Mt — recorde Conab</span></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px">
+        <span style="width:12px;height:12px;border-radius:50%;background:#f59e0b;display:inline-block;flex-shrink:0"></span>
+        <div><strong style="font-size:.85rem">Câmbio</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">R$5,02–5,06 — sustentando</span></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px">
+        <span style="width:12px;height:12px;border-radius:50%;background:#16a34a;display:inline-block;flex-shrink:0"></span>
+        <div><strong style="font-size:.85rem">Acordo EUA-China</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">25 Mt/ano — positivo para CBOT</span></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px">
+        <span style="width:12px;height:12px;border-radius:50%;background:#ef4444;display:inline-block;flex-shrink:0"></span>
+        <div><strong style="font-size:.85rem">Selic 13,25%</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">Custo financeiro alto — pressão venda</span></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px">
+        <span style="width:12px;height:12px;border-radius:50%;background:#f59e0b;display:inline-block;flex-shrink:0"></span>
+        <div><strong style="font-size:.85rem">Clima EUA</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">Bom por ora — monitorar jul–ago</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="fi">
+    <div class="ft">
+      <div class="fl">
+        <div class="brand">Rural<span> IN</span></div>
+        <div class="tag">Inteligência Econômica para o Produtor Rural</div>
+        <p style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:10px;max-width:260px;line-height:1.7">Transformamos dados da fazenda em decisões econômicas. Ajudamos produtores a entender se o mercado sustenta seu negócio.</p>
+      </div>
+      <div class="fc">
+        <h4>Análise e Construção</h4>
+        <p>
+          <strong>Dr. Sidney Souza</strong><br>
+          Economista e Adm. Agrícola<br>
+          Estrategista Econômico do Produtor<br>
+          Especialista em economia da fazenda e gestão de risco no agro<br>
+          Transformamos dados da fazenda em decisões econômicas<br>
+          Ajudamos produtores a entender se o mercado sustenta seu negócio<br><br>
+          🌐 <a href="https://ruralinai-commits.github.io/ruralin-site/" target="_blank">ruralinai-commits.github.io/ruralin-site</a><br>
+          📱 @ruralin.ai<br>
+          ✉ <a href="mailto:sidneyagro@gmail.com">sidneyagro@gmail.com</a><br>
+          📞 (64) 9 9226-6886
+        </p>
+      </div>
+    </div>
+    <div class="fb">
+      RADAR AGRO DA SOJA · EDIÇÃO MAIO 2026 + PERSPECTIVAS JUNHO · RURAL IN · TODOS OS DIREITOS RESERVADOS<br>
+      ANÁLISE COM CARÁTER INFORMATIVO E ESTRATÉGICO. NÃO CONSTITUI RECOMENDAÇÃO FORMAL DE INVESTIMENTO.<br>
+      FONTES: CME GROUP · CEPEA/ESALQ · CONAB · USDA WASDE · ANEC · SECEX/MDIC · SAFRAS&MERCADO · FARMNEWS · BROTO NOTÍCIAS · PORTAL AGRON · GRÃO DIRETO · CANAL RURAL · AGROCONSULT · ITAÚ BBA
+    </div>
+  </div>
+</footer>
+
+<!-- ── SCRIPTS ── -->
+<script>
+Chart.defaults.color='#6b7280';
+Chart.defaults.borderColor='rgba(0,0,0,.06)';
+Chart.defaults.font.family="'Inter',system-ui,sans-serif";
+const am='#e6a817',amL='#f5c842',verde='#16a34a',verdeL='#4ade80',
+      verm='#dc2626',vermL='#f87171',azul='#1e40af',azulL='#3b82f6',
+      cin='#374151',cinL='#9ca3af',marrom='#7c4e00';
+
+// ─── 1. Evolução Maio 2026 ───
+new Chart(document.getElementById('chartMaio').getContext('2d'),{
+  type:'line',
+  data:{
+    labels:['01/05','05/05','08/05','12/05','15/05','19/05','22/05','26/05','29/05'],
+    datasets:[
+      {label:'Paranaguá (R$/sc)',data:[126,125,124,123,124,128,129,130,128],
+       borderColor:am,backgroundColor:'rgba(230,168,23,.08)',
+       borderWidth:3,tension:.35,fill:true,pointRadius:4,yAxisID:'y'},
+      {label:'CBOT JUL (US$/bu)',data:[11.22,11.05,11.00,10.95,11.10,12.10,12.25,12.15,11.85],
+       borderColor:azulL,backgroundColor:'rgba(59,130,246,.06)',
+       borderWidth:2.5,tension:.35,fill:false,pointRadius:4,yAxisID:'y2',borderDash:[6,3]}
+    ]
+  },
+  options:{responsive:true,interaction:{mode:'index',intersect:false},
+    plugins:{legend:{position:'top',labels:{usePointStyle:true,padding:14}}},
+    scales:{
+      y:{position:'left',min:115,ticks:{callback:v=>'R$ '+v},grid:{color:'rgba(0,0,0,.04)'}},
+      y2:{position:'right',min:10.5,max:13,ticks:{callback:v=>'US$ '+v.toFixed(2)},grid:{display:false}}
+    }}
+});
+
+// ─── 2. Anual 2026 ───
+new Chart(document.getElementById('chartAnual').getContext('2d'),{
+  type:'line',
+  data:{
+    labels:['Jan','Fev','Mar','Abr','Mai/26'],
+    datasets:[
+      {label:'Cepea Paranaguá (R$/sc)',data:[138,132,128,126,128],
+       borderColor:am,backgroundColor:'rgba(230,168,23,.08)',
+       borderWidth:3,tension:.3,fill:true,pointRadius:5},
+      {label:'CBOT convertido (R$/sc aprox)',data:[145,138,132,128,132],
+       borderColor:azulL,backgroundColor:'rgba(59,130,246,.04)',
+       borderWidth:2,tension:.3,fill:false,pointRadius:4,borderDash:[5,4]},
+      {label:'Custo médio produção (R$/sc)',data:[120,120,120,120,120],
+       borderColor:'#6b7280',borderWidth:2,borderDash:[4,4],pointRadius:0,fill:false}
+    ]
+  },
+  options:{responsive:true,interaction:{mode:'index',intersect:false},
+    plugins:{legend:{position:'top',labels:{usePointStyle:true,padding:14}}},
+    scales:{y:{min:100,ticks:{callback:v=>'R$ '+v},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false}}}}
+});
+
+// ─── 3. Balanço Global ───
+new Chart(document.getElementById('chartGlobal').getContext('2d'),{
+  type:'bar',
+  data:{
+    labels:['23/24','24/25','25/26 est.','26/27 proj.'],
+    datasets:[
+      {label:'Produção (Mt)',data:[395,422,428,718],backgroundColor:'rgba(230,168,23,.75)',borderRadius:6},
+      {label:'Consumo (Mt)',data:[370,385,395,710],backgroundColor:'rgba(30,64,175,.65)',borderRadius:6},
+      {label:'Estoques Finais (Mt)',data:[120,128,130,140],backgroundColor:'rgba(22,163,74,.65)',borderRadius:6}
+    ]
+  },
+  options:{responsive:true,
+    plugins:{legend:{position:'top',labels:{usePointStyle:true,padding:14}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+' Mt'}}},
+    scales:{y:{ticks:{callback:v=>v+' Mt'},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false}}}}
+});
+
+// ─── 4. Participação Brasil ───
+new Chart(document.getElementById('chartBrasil').getContext('2d'),{
+  type:'doughnut',
+  data:{
+    labels:['Brasil','EUA','Argentina','Outros'],
+    datasets:[{
+      data:[55,25,12,8],
+      backgroundColor:['rgba(230,168,23,.85)','rgba(30,64,175,.75)','rgba(22,163,74,.65)','rgba(180,180,180,.55)'],
+      borderWidth:2,borderColor:'#fff'
+    }]
+  },
+  options:{responsive:true,plugins:{legend:{position:'right',labels:{usePointStyle:true,padding:12}},tooltip:{callbacks:{label:c=>c.label+': '+c.raw+'%'}}}}
+});
+
+// ─── 5. Câmbio 2026 ───
+new Chart(document.getElementById('chartCambio').getContext('2d'),{
+  type:'line',
+  data:{
+    labels:['Jan','Fev','Mar','Abr','Mai/26'],
+    datasets:[
+      {label:'USD/BRL',data:[5.95,5.78,5.62,5.20,5.04],
+       borderColor:azulL,backgroundColor:'rgba(59,130,246,.08)',
+       borderWidth:3,tension:.35,fill:true,pointRadius:5},
+      {label:'Piso crítico R$5,00',data:[5.0,5.0,5.0,5.0,5.0],
+       borderColor:'#dc2626',borderWidth:2,borderDash:[6,3],pointRadius:0,fill:false}
+    ]
+  },
+  options:{responsive:true,interaction:{mode:'index',intersect:false},
+    plugins:{legend:{position:'top',labels:{usePointStyle:true,padding:14}}},
+    scales:{y:{min:4.5,max:6.5,ticks:{callback:v=>'R$ '+v.toFixed(2)},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false}}}}
+});
+
+// ─── 6. Projeção Junho ───
+new Chart(document.getElementById('chartProjecao').getContext('2d'),{
+  type:'bar',
+  data:{
+    labels:['1ª sem jun','2ª sem jun','3ª sem jun','4ª sem jun'],
+    datasets:[
+      {label:'Pessimista (R$/sc)',data:[122,120,118,120],backgroundColor:'rgba(220,38,38,.55)',borderRadius:6},
+      {label:'Base (R$/sc)',data:[130,131,129,132],backgroundColor:'rgba(230,168,23,.75)',borderRadius:6},
+      {label:'Otimista (R$/sc)',data:[138,140,142,145],backgroundColor:'rgba(22,163,74,.65)',borderRadius:6}
+    ]
+  },
+  options:{responsive:true,
+    plugins:{legend:{position:'top',labels:{usePointStyle:true,padding:14}},tooltip:{callbacks:{label:c=>c.dataset.label+': R$ '+c.raw+'/sc'}}},
+    scales:{y:{min:100,ticks:{callback:v=>'R$ '+v},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false}}}}
+});
+
+// ─── 7. Viabilidade ───
+new Chart(document.getElementById('chartViabilidade').getContext('2d'),{
+  type:'bar',
+  data:{
+    labels:['MT Interior','GO/MATOPIBA','MS','PR','RS','Paranaguá FOB'],
+    datasets:[
+      {label:'Custo produção (R$/sc)',data:[120,118,116,112,115,null],backgroundColor:'rgba(220,38,38,.7)',borderRadius:6},
+      {label:'Preço recebido mai/26 (R$/sc)',data:[103,110,112,118,127,130],
+       backgroundColor:(ctx)=>{
+         const v=ctx.raw,c=[120,118,116,112,115,null][ctx.dataIndex];
+         if(!c)return'rgba(22,163,74,.75)';
+         return v>=c?'rgba(22,163,74,.75)':'rgba(245,158,11,.85)';
+       },
+       borderRadius:6}
+    ]
+  },
+  options:{responsive:true,
+    plugins:{legend:{position:'top',labels:{usePointStyle:true,padding:14}},tooltip:{callbacks:{label:c=>c.dataset.label+': R$ '+c.raw+'/sc'}}},
+    scales:{y:{min:85,ticks:{callback:v=>'R$ '+v},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false}}}}
+});
+</script>
+</body>
+</html>
