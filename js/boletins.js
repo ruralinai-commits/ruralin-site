@@ -28,6 +28,13 @@
 window.BOLETINS = [
 
   {
+    arquivo: "info-insumos-26-27.html",
+    data: "Informativo de Insumos",
+    titulo: "Panorama de preços e disponibilidade de insumos",
+    categoria: "Insumos"
+  },
+
+  {
     arquivo: "info-junho-15-19.html",
     data: "Semana de 15 a 19 de junho de 2026",
     titulo: "Boletim de Mercado — Soja e Milho",
@@ -40,13 +47,6 @@ window.BOLETINS = [
     data: "08 a 12 jun. 2026",
     titulo: "Boletim de Mercado — Soja e Milho",
     categoria: "Boletim"
-  },
-
-  {
-    arquivo: "info-insumos-26-27.html",
-    data: "Informativo de Insumos",
-    titulo: "Panorama de preços e disponibilidade de insumos",
-    categoria: "Insumos"
   },
 
   {
