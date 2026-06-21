@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Rural IN — Milho · Radar Agro Semanal · 27-30 Abr 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050810;--bg2:#0a1018;--bg3:#0f1721;--bg4:#141f2c;--border:#1a2d3d;--border2:#243d52;--accent:#b45309;--accent2:#d97706;--accent3:#fbbf24;--gold:#f59e0b;--gold2:#fcd34d;--text:#eaf0f6;--text2:#9db3c8;--text3:#5d7a90;--up:#22c55e;--upDark:#15803d;--dn:#ef4444;--dnDark:#b91c1c;--nt:#eab308;--blue:#3b82f6;--purple:#a855f7;--orange:#f97316;--cyan:#06b6d4;--teal:#14b8a6;--pink:#ec4899;--lime:#84cc16;--corn:#facc15;--r:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 1000px 700px at 10% 15%,rgba(245,158,11,.06),transparent),radial-gradient(ellipse 800px 600px at 90% 85%,rgba(250,204,21,.04),transparent),radial-gradient(ellipse 600px 500px at 50% 50%,rgba(249,115,22,.02),transparent);pointer-events:none;z-index:0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+/* NAV */
+.nav{background:rgba(10,16,24,.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:12px 0;position:sticky;top:0;z-index:100}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between}
+.nav-left{display:flex;align-items:center;gap:14px}
+.nav-logo-img{height:42px;width:auto;border-radius:8px}
+.nav-logo{font-weight:900;font-size:1.2rem}
+.nav-logo .r{color:var(--gold2)}
+.nav-logo .i{color:#22c55e}
+.nav-badge{background:linear-gradient(135deg,#78350f,#b45309);border:1px solid rgba(252,211,77,.4);padding:5px 14px;border-radius:20px;font-size:.7rem;font-weight:800;color:var(--corn);letter-spacing:.6px;box-shadow:0 0 20px rgba(245,158,11,.25)}
+.nav-back{color:var(--text3);font-size:.8rem;text-decoration:none;transition:color .2s}
+.nav-back:hover{color:var(--gold2)}
+
+/* HERO */
+.hero{padding:54px 0 40px;position:relative;text-align:left}
+.hero::after{content:'';position:absolute;bottom:0;left:0;width:240px;height:3px;background:linear-gradient(90deg,var(--accent2),var(--corn),transparent)}
+.hero-top{display:flex;align-items:center;gap:22px;margin-bottom:16px}
+.hero-icon-wrap{position:relative;width:84px;height:84px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(245,158,11,.22),transparent 70%);border-radius:50%}
+.hero-icon{font-size:3.6rem;filter:drop-shadow(0 6px 18px rgba(245,158,11,.4))}
+.hero-texts h1{font-size:2.4rem;font-weight:900;letter-spacing:-1.2px;line-height:1.1}
+.hero-texts h1 .hl{background:linear-gradient(135deg,#d97706,#f59e0b,#fbbf24,#fef3c7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-texts .sub{font-size:.9rem;color:var(--text2);margin-top:6px;font-weight:500}
+.hero-bar{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;border-radius:22px;font-size:.72rem;font-weight:700;border:1px solid;backdrop-filter:blur(8px)}
+.chip.up{color:var(--up);border-color:rgba(34,197,94,.3);background:rgba(34,197,94,.08)}
+.chip.dn{color:var(--dn);border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.08)}
+.chip.nt{color:var(--nt);border-color:rgba(234,179,8,.3);background:rgba(234,179,8,.08)}
+.chip.bl{color:var(--blue);border-color:rgba(59,130,246,.3);background:rgba(59,130,246,.08)}
+.chip.pu{color:var(--purple);border-color:rgba(168,85,247,.3);background:rgba(168,85,247,.08)}
+.chip.or{color:var(--orange);border-color:rgba(249,115,22,.3);background:rgba(249,115,22,.08)}
+
+/* ALERTS */
+.alert{border-radius:var(--r);padding:18px 22px;margin-bottom:14px;display:flex;align-items:flex-start;gap:14px;border:1px solid;font-size:.85rem;line-height:1.75;color:var(--text2);position:relative;overflow:hidden}
+.alert::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px}
+.alert strong{color:var(--text)}
+.alert .ai{font-size:1.4rem;flex-shrink:0;margin-top:1px}
+.alert.green{background:linear-gradient(90deg,rgba(34,197,94,.08),rgba(34,197,94,.02));border-color:rgba(34,197,94,.25)}
+.alert.green::before{background:var(--up)}
+.alert.red{background:linear-gradient(90deg,rgba(239,68,68,.08),rgba(239,68,68,.02));border-color:rgba(239,68,68,.25)}
+.alert.red::before{background:var(--dn)}
+.alert.amber{background:linear-gradient(90deg,rgba(234,179,8,.08),rgba(234,179,8,.02));border-color:rgba(234,179,8,.25)}
+.alert.amber::before{background:var(--nt)}
+.alert.blue{background:linear-gradient(90deg,rgba(59,130,246,.08),rgba(59,130,246,.02));border-color:rgba(59,130,246,.25)}
+.alert.blue::before{background:var(--blue)}
+.alert.purple{background:linear-gradient(90deg,rgba(168,85,247,.08),rgba(168,85,247,.02));border-color:rgba(168,85,247,.25)}
+.alert.purple::before{background:var(--purple)}
+.alert.cyan{background:linear-gradient(90deg,rgba(6,182,212,.08),rgba(6,182,212,.02));border-color:rgba(6,182,212,.25)}
+.alert.cyan::before{background:var(--cyan)}
+.alert.orange{background:linear-gradient(90deg,rgba(249,115,22,.1),rgba(249,115,22,.02));border-color:rgba(249,115,22,.3)}
+.alert.orange::before{background:var(--orange)}
+
+/* KPIs */
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin:24px 0}
+.kpi{background:linear-gradient(160deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:14px;padding:16px 18px;position:relative;overflow:hidden;transition:all .25s ease}
+.kpi:hover{transform:translateY(-3px);border-color:var(--border2);box-shadow:0 12px 30px rgba(0,0,0,.4)}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--border2)}
+.kpi.up::before{background:linear-gradient(90deg,var(--up),var(--lime))}
+.kpi.dn::before{background:linear-gradient(90deg,var(--dn),var(--orange))}
+.kpi.nt::before{background:linear-gradient(90deg,var(--nt),var(--corn))}
+.kpi.bl::before{background:linear-gradient(90deg,var(--blue),var(--cyan))}
+.kpi.pu::before{background:linear-gradient(90deg,var(--purple),var(--pink))}
+.kpi.or::before{background:linear-gradient(90deg,var(--orange),var(--corn))}
+.kpi-lb{font-size:.6rem;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3);margin-bottom:5px;font-weight:700}
+.kpi-val{font-size:1.2rem;font-weight:900;letter-spacing:-.5px;line-height:1.2}
+.kpi-val.up{color:var(--up)}
+.kpi-val.dn{color:var(--dn)}
+.kpi-val.nt{color:var(--nt)}
+.kpi-val.bl{color:var(--blue)}
+.kpi-val.pu{color:var(--purple)}
+.kpi-val.or{color:var(--orange)}
+.kpi-sub{font-size:.66rem;color:var(--text3);margin-top:3px;font-weight:500}
+
+/* DIVIDER */
+.dv{height:1px;background:linear-gradient(90deg,transparent,var(--border2) 20%,var(--accent2) 50%,var(--border2) 80%,transparent);margin:36px 0}
+
+/* SECTION TITLE */
+.stitle{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.stitle .icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.stitle h2{font-size:1.18rem;font-weight:800;letter-spacing:-.3px}
+.stitle h2 span{color:var(--text2);font-weight:400;font-size:.85rem;margin-left:4px}
+
+/* COMMENTS */
+.co{border-radius:var(--r);padding:20px 24px;margin-bottom:14px;border-left:4px solid;font-size:.85rem;color:var(--text2);line-height:1.85;position:relative;background:linear-gradient(90deg,var(--bg2),var(--bg3))}
+.co strong{color:var(--text)}
+.co h4{font-size:.98rem;font-weight:800;margin-bottom:10px;letter-spacing:-.2px}
+.co.up{border-color:var(--up)}
+.co.up h4{color:var(--up)}
+.co.dn{border-color:var(--dn)}
+.co.dn h4{color:var(--dn)}
+.co.nt{border-color:var(--nt)}
+.co.nt h4{color:var(--nt)}
+.co.bl{border-color:var(--blue)}
+.co.bl h4{color:var(--blue)}
+.co.or{border-color:var(--orange)}
+.co.or h4{color:var(--orange)}
+.co.pu{border-color:var(--purple)}
+.co.pu h4{color:var(--purple)}
+.co.cy{border-color:var(--cyan)}
+.co.cy h4{color:var(--cyan)}
+
+/* CHART */
+.chart-box{background:linear-gradient(160deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:var(--r);padding:22px 24px;margin-bottom:14px;overflow:hidden;transition:border-color .2s}
+.chart-box:hover{border-color:var(--border2)}
+.chart-box h3{font-size:.9rem;color:var(--text);margin-bottom:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+.chart-box h3 .ch-tag{margin-left:auto;font-size:.62rem;font-weight:700;padding:2px 10px;border-radius:10px;background:rgba(245,158,11,.14);color:var(--corn);letter-spacing:.5px}
+.chart-wrap{position:relative;height:290px;overflow:hidden}
+
+/* GRIDS */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:800px){.grid2,.grid3{grid-template-columns:1fr}}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--border);margin-bottom:14px;background:var(--bg2)}
+table{width:100%;border-collapse:collapse;font-size:.78rem}
+thead th{background:linear-gradient(180deg,var(--bg3),var(--bg4));padding:12px 14px;text-align:center;font-weight:800;color:var(--text2);font-size:.66rem;text-transform:uppercase;letter-spacing:.9px;border-bottom:1px solid var(--border)}
+tbody td{padding:10px 12px;border-bottom:1px solid rgba(26,45,61,.35);text-align:center}
+tbody tr:hover{background:rgba(245,158,11,.04)}
+.td-name{text-align:left!important;font-weight:700;white-space:nowrap}
+.td-up{color:var(--up);font-weight:800}
+.td-dn{color:var(--dn);font-weight:800}
+.td-nt{color:var(--nt);font-weight:800}
+
+/* THERMOMETER */
+.thermo{margin:14px 0}
+.thermo h4{font-size:.84rem;color:var(--text);margin-bottom:10px;font-weight:700}
+.th-bar{height:14px;border-radius:7px;position:relative;box-shadow:inset 0 1px 4px rgba(0,0,0,.3)}
+.th-marker{position:absolute;top:-6px;width:4px;height:26px;background:#fff;border-radius:2px;transform:translateX(-50%);box-shadow:0 0 12px rgba(255,255,255,.6)}
+.th-lb{display:flex;justify-content:space-between;font-size:.66rem;color:var(--text3);margin-top:6px;font-weight:600}
+
+/* CARDS */
+.card{background:linear-gradient(160deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:var(--r);padding:22px 26px;margin-bottom:14px;transition:border-color .2s}
+.card:hover{border-color:var(--border2)}
+
+/* OPINION */
+.opinion{background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(252,211,77,.05),rgba(245,158,11,.02));border:1px solid rgba(252,211,77,.28);border-radius:var(--r);padding:30px 32px;margin:26px 0;position:relative;overflow:hidden}
+.opinion::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent2),var(--corn),var(--accent2))}
+.opinion h3{font-size:1.08rem;font-weight:800;color:var(--corn);margin-bottom:12px;letter-spacing:-.2px}
+.opinion p{font-size:.88rem;color:var(--text2);line-height:1.9;margin-bottom:12px}
+.opinion p strong{color:var(--text)}
+.opinion .scenarios{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.opinion .sc{padding:14px 16px;border-radius:10px;border:1px solid;background:rgba(0,0,0,.25)}
+.opinion .sc.up{border-color:rgba(34,197,94,.3)}
+.opinion .sc.nt{border-color:rgba(234,179,8,.3)}
+.opinion .sc.dn{border-color:rgba(239,68,68,.3)}
+.opinion .sc h5{font-size:.78rem;font-weight:800;margin-bottom:6px}
+.opinion .sc.up h5{color:var(--up)}
+.opinion .sc.nt h5{color:var(--nt)}
+.opinion .sc.dn h5{color:var(--dn)}
+.opinion .sc p{font-size:.74rem;line-height:1.6;margin:0}
+@media(max-width:700px){.opinion .scenarios{grid-template-columns:1fr}}
+.opinion .sig{margin-top:18px;padding-top:14px;border-top:1px solid rgba(252,211,77,.18);font-size:.78rem;color:var(--text3);font-style:italic;display:flex;align-items:center;gap:8px}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--border);padding:42px 0;text-align:center;margin-top:36px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.4))}
+.footer-brand{font-size:1.5rem;font-weight:900;margin-bottom:12px}
+.footer-brand .r{color:var(--gold2)}
+.footer-brand .i{color:#22c55e}
+.footer p{font-size:.78rem;color:var(--text3);line-height:1.8}
+.footer-credits{margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+.footer-credits h4{font-size:.92rem;color:var(--gold2);font-weight:700;margin-bottom:6px}
+.footer-credits .name{font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:2px}
+.footer-credits .title{font-size:.78rem;color:var(--corn);font-weight:600;margin-bottom:8px}
+.footer-credits .desc{font-size:.74rem;color:var(--text2);line-height:1.7;max-width:540px;margin:0 auto 12px}
+.footer-credits .contact{font-size:.74rem;color:var(--text3)}
+.footer-credits .contact a{color:var(--gold2);text-decoration:none}
+.footer-credits .contact a:hover{text-decoration:underline}
+
+/* BIG NUMBERS */
+.bignum-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}
+.bignum{background:linear-gradient(160deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:14px;padding:20px 18px;text-align:center;position:relative;overflow:hidden}
+.bignum::after{content:'';position:absolute;top:-50%;right:-30%;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(245,158,11,.1),transparent 70%)}
+.bignum .v{font-size:1.8rem;font-weight:900;letter-spacing:-1px;line-height:1;margin-bottom:6px;position:relative;z-index:1}
+.bignum .v.up{color:var(--up)}
+.bignum .v.dn{color:var(--dn)}
+.bignum .v.nt{color:var(--nt)}
+.bignum .v.bl{color:var(--blue)}
+.bignum .v.or{color:var(--orange)}
+.bignum .l{font-size:.72rem;color:var(--text2);font-weight:600;position:relative;z-index:1}
+.bignum .s{font-size:.66rem;color:var(--text3);margin-top:3px}
+@media(max-width:700px){.bignum-row{grid-template-columns:repeat(2,1fr)}}
+
+@media(max-width:600px){
+  .hero-top{flex-direction:column;text-align:center;gap:12px}
+  .hero-texts h1{font-size:1.65rem}
+  .nav .wrap{flex-direction:column;gap:10px}
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1"></script>
+</head>
+<body>
+
+<nav class="nav"><div class="wrap"><div class="nav-left"><img src="https://ruralinrv.github.io/ruralin/logo.png" alt="Rural IN" class="nav-logo-img" onerror="this.style.display='none'"><div class="nav-logo"><span class="r">Rural</span> <span class="i">IN</span></div><div class="nav-badge">🌽 MILHO</div></div><a href="portal-30-04.html" class="nav-back">← Voltar ao Portal</a></div></nav>
+
+<div class="wrap">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-top">
+    <div class="hero-icon-wrap"><span class="hero-icon">🌽</span></div>
+    <div class="hero-texts">
+      <h1><span class="hl">Milho</span> · Radar Semanal</h1>
+      <div class="sub">Semana 27–30 Abril 2026 (curta · feriado 1º Mai) · CEPEA · CBOT · USDA · CONAB · B3 · ANEC · Agrinvest · Safras · Cepea/Esalq</div>
+    </div>
+  </div>
+  <div class="hero-bar">
+    <span class="chip up">📈 CEPEA: R$ 66,91/sc (+0,36% sem)</span>
+    <span class="chip dn">📉 Mês: −4,92% · Pressão na safrinha</span>
+    <span class="chip or">⚠️ Quebra safrinha: −2 a −3 mi t exp.</span>
+    <span class="chip up">🇧🇷 CONAB: 139,57 mi t (revisado!)</span>
+    <span class="chip dn">🇺🇸 EUA RECORDE: 432 mi t (+14,3%)</span>
+    <span class="chip pu">🏦 Selic: 14,75% → 14,50%</span>
+  </div>
+</section>
+
+<!-- BIG NUMBERS -->
+<div class="bignum-row">
+  <div class="bignum"><div class="v nt">R$ 66,91</div><div class="l">CEPEA ESALQ/B3 · 30/04</div><div class="s">+0,36% sem · −4,92% mês</div></div>
+  <div class="bignum"><div class="v dn">US$ 4,7150</div><div class="l">CBOT Jul/26 · 30/04</div><div class="s">−1,31% dia · realização</div></div>
+  <div class="bignum"><div class="v or">95,5%</div><div class="l">Plantio safrinha BR</div><div class="s">CONAB · clima preocupa</div></div>
+  <div class="bignum"><div class="v up">139,57 mi t</div><div class="l">Safra BR 25/26 (CONAB)</div><div class="s">+1,17 mi t vs anterior</div></div>
+</div>
+
+<!-- ALERTAS -->
+<div class="alert orange">
+  <span class="ai">⚠️</span>
+  <div><strong style="color:var(--orange)">CONSENSO DE MERCADO: HAVERÁ QUEBRA NA SAFRINHA! Export pode cair 2-3 mi t</strong><br>
+  <strong>Agrinvest Commodities:</strong> <em>"Há já um consenso entre os agentes do mercado de que haverá uma quebra na segunda safra de milho do país, o que poderia impactar, com uma oferta menor, em uma redução nas exportações do cereal. O número do programa de exportação para essa temporada poderia reduzir de 2 a 3 milhões de toneladas."</em><br>
+  <strong>Modelos climáticos</strong> indicam <strong>chuvas irregulares para a 2ª semana de maio</strong>. Áreas mais afetadas: <strong>Goiás, São Paulo, Minas Gerais</strong>. Lavouras já estão perdendo potencial produtivo por tempo seco e quente.</div>
+</div>
+
+<div class="alert amber">
+  <span class="ai">🌽</span>
+  <div><strong style="color:var(--nt)">CEPEA ESTÁVEL EM SEMANA CURTA · MAS ABRIL FECHA EM −4,92%!</strong><br>
+  <strong>Indicador ESALQ/B3 30/04:</strong> R$ 66,91/sc (estável no dia · +0,36% na semana). <strong>Variação no mês: −4,92%</strong>. Mês foi marcado por correção dos picos de início de abril (R$ 69,07 em 10/04). Apoio: <strong>preocupação climática com safrinha</strong>. Pressão: <strong>dólar fraco</strong> (R$ 4,9523) e <strong>realização de lucros</strong> após altas anteriores.</div>
+</div>
+
+<div class="alert green">
+  <span class="ai">🇧🇷</span>
+  <div><strong style="color:var(--up)">CONAB REVISA SAFRA BR 25/26 PARA CIMA: 139,57 MI T! (+1,17 mi t vs 6º levantamento)</strong><br>
+  <strong>7º Levantamento (14/04):</strong> 139,57 mi t (vs 138,4 mi t anterior). Recuo de apenas −1,1% em relação à safra 24/25 (141,16 mi t). <strong>1ª safra:</strong> 28 mi t · 4,1 mi ha (alta). <strong>2ª safra (safrinha):</strong> 17,9 mi ha · plantio 95,5% concluído. <strong>Consumo interno:</strong> 94,6 mi t (+4,4% — etanol forte!). <strong>Exportação:</strong> 46,5 mi t (+11,7%!). <strong>Estoque final:</strong> 11,8 mi t (−7,3%). Brasil segue 2º maior exportador mundial.</div>
+</div>
+
+<div class="alert red">
+  <span class="ai">🇺🇸</span>
+  <div><strong style="color:var(--dn)">EUA CAMINHAM PARA SAFRA RECORDE HISTÓRICA: 432,3 MI T (+14,3%)!</strong><br>
+  <strong>USDA Abr/26:</strong> Produção EUA 25/26 estimada em <strong>432,3 mi t</strong> (vs 378,3 em 24/25). <strong>Exportações:</strong> 83,8 mi t (+15,5%). Plantio acelerado nas condições ideais nas lavouras. <strong>Mundial:</strong> 1.301 mi t (+5,7%) — recorde também! <strong>Brasil USDA:</strong> 132 mi t (mais conservador que CONAB). <strong>Argentina:</strong> 52 mi t (USDA) ou 67 mi t (Bolsa Rosário) — recorde histórico! Pressão estrutural no mundo.</div>
+</div>
+
+<div class="alert cyan">
+  <span class="ai">⛽</span>
+  <div><strong style="color:var(--cyan)">ETANOL DE MILHO: O CORINGA ESTRUTURAL DO MERCADO INTERNO!</strong><br>
+  Petróleo subiu mais de 6% (Brent/WTI) com falta de acordo EUA-Irã. <strong>Etanol fica mais competitivo</strong> nos EUA → demanda de milho cresce. <strong>No Brasil:</strong> consumo interno cresce <strong>+4,4%</strong>, impulsionado principalmente pela <strong>indústria de etanol de milho</strong>. <strong>Possível E32</strong> (mistura de etanol anidro a 32% na gasolina) pode demandar +1 bilhão de litros adicionais ao ano! Brasil produz cada vez mais etanol de milho — fator estrutural altista.</div>
+</div>
+
+<div class="alert blue">
+  <span class="ai">🚢</span>
+  <div><strong style="color:var(--blue)">EXPORTAÇÕES BR EM MARÇO: 983 MIL T (+12,8% vs mar/25)!</strong><br>
+  <strong>Receita:</strong> US$ 226,5 mi (+8,2%). <strong>Preço médio:</strong> US$ 230,40/t (−4,1% vs mar/25). Volume veio surpreendentemente forte, sustentado pelos embarques do <strong>Rio Grande do Sul</strong>, que tradicionalmente exporta neste período. Roberto Carlos Rafael (Germinar): "<em>Desempenho das exportações no início de 2026 surpreendeu positivamente o mercado.</em>" Para os próximos meses, ritmo deve perder força conforme a 2ª safra entra. <strong>Risco:</strong> demanda do Irã (importante comprador) pode ser afetada pela guerra.</div>
+</div>
+
+<div class="alert purple">
+  <span class="ai">🏦</span>
+  <div><strong style="color:var(--purple)">EVENTO MACRO DA SEMANA: COPOM CORTOU SELIC PARA 14,50%! (29/04)</strong><br>
+  Banco Central reduziu a taxa básica em <strong>0,25 p.p.</strong> Resultado: <strong>dólar caiu 1,00%</strong> (R$ 4,9523 — menor em 2+ anos!) e <strong>Ibovespa subiu 1,39%</strong> (187.318 pts). <strong>Para o milho:</strong> dólar fraco pressiona preços internos via export, mas Selic menor reduz custo de capital de giro do produtor (positivo para o médio prazo). Comunicado cauteloso por causa da inflação do petróleo.</div>
+</div>
+
+<div class="dv"></div>
+
+<!-- KPIs DETALHADOS -->
+<div class="stitle"><div class="icon" style="background:linear-gradient(135deg,#78350f,#b45309)">📊</div><h2>Indicadores-Chave <span>— Cotações · CBOT · B3 · Volumes · Safra · Macro</span></h2></div>
+
+<div class="kpi-row">
+  <div class="kpi nt"><div class="kpi-lb">CEPEA ESALQ/B3 30/04</div><div class="kpi-val nt">R$ 66,91/sc</div><div class="kpi-sub">+0,36% sem · −4,92% mês</div></div>
+  <div class="kpi dn"><div class="kpi-lb">CBOT Jul/26 30/04</div><div class="kpi-val dn">US$ 4,7150/bu</div><div class="kpi-sub">−1,31% dia · realização</div></div>
+  <div class="kpi up"><div class="kpi-lb">CBOT Set/26</div><div class="kpi-val up">US$ 4,80/bu</div><div class="kpi-sub">29/04 · resiliente</div></div>
+  <div class="kpi up"><div class="kpi-lb">CBOT Dez/26</div><div class="kpi-val up">US$ 4,97/bu</div><div class="kpi-sub">29/04 · ganha em escala</div></div>
+  <div class="kpi up"><div class="kpi-lb">B3 Jul/26</div><div class="kpi-val up">R$ 69,80/sc</div><div class="kpi-sub">28/04 · referência forte</div></div>
+  <div class="kpi up"><div class="kpi-lb">B3 Set/26</div><div class="kpi-val up">R$ 71,94/sc</div><div class="kpi-sub">28/04 · prêmio futuro</div></div>
+  <div class="kpi up"><div class="kpi-lb">CONAB 25/26</div><div class="kpi-val up">139,57 mi t</div><div class="kpi-sub">+1,17 mi t · −1,1% a/a</div></div>
+  <div class="kpi or"><div class="kpi-lb">Plantio safrinha</div><div class="kpi-val or">95,5%</div><div class="kpi-sub">CONAB · em maio crítico</div></div>
+  <div class="kpi up"><div class="kpi-lb">Export BR 25/26</div><div class="kpi-val up">46,5 mi t</div><div class="kpi-sub">+11,7% a/a · CONAB</div></div>
+  <div class="kpi up"><div class="kpi-lb">Consumo interno</div><div class="kpi-val up">94,6 mi t</div><div class="kpi-sub">+4,4% a/a · etanol forte!</div></div>
+  <div class="kpi dn"><div class="kpi-lb">USDA EUA 25/26</div><div class="kpi-val dn">432,3 mi t</div><div class="kpi-sub">+14,3% · RECORDE!</div></div>
+  <div class="kpi dn"><div class="kpi-lb">Mundial 25/26</div><div class="kpi-val dn">1.301 mi t</div><div class="kpi-sub">+5,7% · oferta global ↑</div></div>
+  <div class="kpi up"><div class="kpi-lb">Embarques mar/26</div><div class="kpi-val up">983 mil t</div><div class="kpi-sub">+12,8% vs mar/25</div></div>
+  <div class="kpi nt"><div class="kpi-lb">Estoques finais BR</div><div class="kpi-val nt">11,8 mi t</div><div class="kpi-sub">−7,3% · apertou</div></div>
+  <div class="kpi pu"><div class="kpi-lb">Selic 29/04</div><div class="kpi-val pu">14,50% a.a.</div><div class="kpi-sub">↓ 0,25 p.p. · CORTE</div></div>
+  <div class="kpi dn"><div class="kpi-lb">Dólar fech. 30/04</div><div class="kpi-val dn">R$ 4,9523</div><div class="kpi-sub">−1,00% · mín. 2 anos</div></div>
+</div>
+
+<div class="dv"></div>
+
+<!-- COTAÇÕES POR PRAÇA -->
+<div class="stitle"><div class="icon" style="background:linear-gradient(135deg,#78350f,#92400e)">📍</div><h2>Cotações por Praça <span>— Físico Spot · 27 a 30 Abril 2026 · R$/saca 60 kg</span></h2></div>
+
+<div class="tbl-wrap">
+<table>
+<thead><tr><th>Praça</th><th>Mín. (R$)</th><th>Máx. (R$)</th><th>Médio</th><th>Spread vs Campinas</th><th>Tendência</th></tr></thead>
+<tbody>
+<tr><td class="td-name">🏙️ Campinas (SP) — CIF</td><td>R$ 68,00</td><td>R$ 70,00</td><td class="td-up">R$ 69,00</td><td>—</td><td class="td-up">↑ Polo demanda</td></tr>
+<tr><td class="td-name">🚢 Porto de Santos (SP) — CIF</td><td>R$ 65,50</td><td>R$ 69,00</td><td class="td-up">R$ 67,25</td><td class="td-dn">−R$ 1,75</td><td class="td-up">↑ Export ativo</td></tr>
+<tr><td class="td-name">🚢 Porto de Paranaguá (PR)</td><td>R$ 65,00</td><td>R$ 69,00</td><td class="td-up">R$ 67,00</td><td class="td-dn">−R$ 2,00</td><td class="td-up">↑ Sul forte</td></tr>
+<tr><td class="td-name">🌾 Erechim (RS)</td><td>R$ 66,00</td><td>R$ 68,00</td><td class="td-up">R$ 67,00</td><td class="td-dn">−R$ 2,00</td><td class="td-up">↑ Estoque baixo</td></tr>
+<tr><td class="td-name">🌾 Mogiana (SP)</td><td>R$ 63,00</td><td>R$ 65,00</td><td class="td-nt">R$ 64,00</td><td class="td-dn">−R$ 5,00</td><td class="td-nt">→ Estável</td></tr>
+<tr><td class="td-name">🌾 Cascavel (PR)</td><td>R$ 61,00</td><td>R$ 63,00</td><td class="td-nt">R$ 62,00</td><td class="td-dn">−R$ 7,00</td><td class="td-nt">→ Lateral</td></tr>
+<tr><td class="td-name">🌾 Uberlândia (MG)</td><td>R$ 58,00</td><td>R$ 60,00</td><td class="td-nt">R$ 59,00</td><td class="td-dn">−R$ 10,00</td><td class="td-nt">→ Demanda fraca</td></tr>
+<tr><td class="td-name">🌾 Rio Verde (GO) — CIF</td><td>R$ 57,00</td><td>R$ 60,00</td><td class="td-nt">R$ 58,50</td><td class="td-dn">−R$ 10,50</td><td class="td-up">↑ Safrinha foco</td></tr>
+<tr><td class="td-name">🌾 Rondonópolis (MT)</td><td>R$ 49,00</td><td>R$ 53,00</td><td class="td-dn">R$ 51,00</td><td class="td-dn">−R$ 18,00</td><td class="td-dn">↓ Mais pressão</td></tr>
+<tr><td class="td-name">📊 CEPEA ESALQ/B3</td><td colspan="2">R$ 66,91</td><td class="td-up">R$ 66,91</td><td class="td-dn">−R$ 2,09</td><td class="td-nt">→ −4,92% mês</td></tr>
+<tr><td class="td-name">📊 CBOT Jul/26 (US$/bu)</td><td colspan="2">4,7150</td><td class="td-dn">US$ 4,7150</td><td>—</td><td class="td-dn">↓ −1,31% dia</td></tr>
+<tr><td class="td-name">📊 B3 Jul/26 (R$/sc)</td><td colspan="2">69,80</td><td class="td-up">R$ 69,80</td><td>+R$ 0,80</td><td class="td-up">↑ Prêmio futuro</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="dv"></div>
+
+<!-- 6 GRÁFICOS -->
+<div class="stitle"><div class="icon" style="background:linear-gradient(135deg,#78350f,#b45309)">📈</div><h2>Análise Gráfica <span>— 6 perspectivas · CEPEA · CBOT · Safra · Spread · Etanol · Comparativo</span></h2></div>
+
+<div class="grid2">
+  <div class="chart-box">
+    <h3>📊 CEPEA ESALQ/B3 — Trajetória Diária <span class="ch-tag">Abr/26 · R$/sc</span></h3>
+    <div class="chart-wrap"><canvas id="ch1"></canvas></div>
+  </div>
+  <div class="chart-box">
+    <h3>📈 CBOT Milho — Curva Forward <span class="ch-tag">30/04 · US$/bu</span></h3>
+    <div class="chart-wrap"><canvas id="ch2"></canvas></div>
+  </div>
+</div>
+
+<div class="grid2">
+  <div class="chart-box">
+    <h3>🇧🇷 Safra BR Milho — Histórico CONAB <span class="ch-tag">mi t · 7 safras</span></h3>
+    <div class="chart-wrap"><canvas id="ch3"></canvas></div>
+  </div>
+  <div class="chart-box">
+    <h3>🌍 Top Produtores Mundiais 25/26 <span class="ch-tag">USDA · mi t</span></h3>
+    <div class="chart-wrap"><canvas id="ch4"></canvas></div>
+  </div>
+</div>
+
+<div class="grid2">
+  <div class="chart-box">
+    <h3>📐 Spread Logístico — Praças BR vs Campinas <span class="ch-tag">R$/sc · 30/04</span></h3>
+    <div class="chart-wrap"><canvas id="ch5"></canvas></div>
+  </div>
+  <div class="chart-box">
+    <h3>🥧 Destinação da Safra BR 25/26 <span class="ch-tag">CONAB · mi t</span></h3>
+    <div class="chart-wrap"><canvas id="ch6"></canvas></div>
+  </div>
+</div>
+
+<div class="dv"></div>
+
+<!-- ANÁLISE -->
+<div class="stitle"><div class="icon" style="background:linear-gradient(135deg,#78350f,#d97706)">🔍</div><h2>Análise Aprofundada <span>— A grande dualidade do milho 2026</span></h2></div>
+
+<div class="co or">
+  <h4>⚠️ A Tese Central: A Quebra da Safrinha É Real</h4>
+  <p><strong>O ponto crítico do milho em 2026:</strong><br>
+  ▸ <strong>Plantio safrinha:</strong> 95,5% concluído (CONAB · 28/03), em ritmo abaixo dos 97,9% de 2025<br>
+  ▸ <strong>Estados com problemas climáticos:</strong> Goiás (pressão fitossanitária), São Paulo (calor + pouca chuva), Minas Gerais (irregularidade)<br>
+  ▸ <strong>Paraná:</strong> baixa umidade no solo + altas temperaturas afetam potencial<br>
+  ▸ <strong>Mato Grosso:</strong> ainda dentro da normalidade · clima favorece<br>
+  ▸ <strong>Modelos climáticos:</strong> Indicam <strong>chuvas irregulares para 2ª semana de maio</strong> — janela crítica para enchimento de grãos!<br><br>
+  <strong>Consenso de mercado (Agrinvest):</strong> "<em>Há já um consenso entre os agentes do mercado de que haverá uma quebra na segunda safra de milho do país. O número do programa de exportação para essa temporada poderia reduzir de 2 a 3 milhões de toneladas, resultando em um pacote menor para o produtor.</em>"<br><br>
+  <strong>Tradução prática:</strong> A 2ª safra é responsável por <strong>~80% do milho brasileiro</strong>. Quebra significa preços firmes no 2S/26, especialmente para os contratos B3 julho e setembro.</p>
+</div>
+
+<div class="co up">
+  <h4>🇧🇷 O Lado Bom: CONAB Revisou Safra Para Cima e Demanda Interna É Forte</h4>
+  <p><strong>Apesar do risco da safrinha, CONAB revisou produção total para cima:</strong><br>
+  ▸ <strong>7º Levantamento (14/04):</strong> 139,57 mi t (vs 138,4 mi t no 6º)<br>
+  ▸ <strong>+1,17 mi t</strong> de revisão positiva<br>
+  ▸ Recuo de apenas −1,1% vs safra 24/25 (141,16 mi t)<br>
+  ▸ Brasil mantém posição de <strong>2º maior exportador mundial</strong><br><br>
+  <strong>Demanda interna em alta histórica:</strong><br>
+  ▸ <strong>Consumo:</strong> 94,6 mi t (+4,4%) — recorde absoluto!<br>
+  ▸ <strong>Indústria de etanol de milho:</strong> Crescimento estrutural<br>
+  ▸ <strong>Possível E32:</strong> Mistura de etanol passar de 27% para 32% da gasolina pode demandar +1 bilhão de litros — sustentação de longo prazo<br>
+  ▸ <strong>Demanda da indústria animal:</strong> Frango/suíno em recordes de exportação puxam ração<br><br>
+  <strong>Exportações:</strong> 46,5 mi t (+11,7%). Embarques mar/26 já indicam ritmo forte — 983 mil t (+12,8%).</p>
+</div>
+
+<div class="co dn">
+  <h4>🇺🇸 EUA Caminham para SAFRA RECORDE: 432,3 mi t (+14,3%)!</h4>
+  <p><strong>Pressão estrutural baixista vinda dos EUA:</strong><br>
+  ▸ <strong>USDA Abr/26:</strong> Produção EUA 25/26 = 432,3 mi t (vs 378,3 em 24/25)<br>
+  ▸ <strong>Migração de área:</strong> Produtores plantando mais milho que soja por preço relativo<br>
+  ▸ <strong>Plantio acelerado</strong> · Condições ideais nas lavouras<br>
+  ▸ <strong>Exportações EUA:</strong> 83,8 mi t (+15,5%) — pressão direta sobre preços<br>
+  ▸ <strong>Estoques finais EUA:</strong> 2,127 bi de bushels (máxima em 7 anos)<br><br>
+  <strong>Mas há contrapesos para os EUA:</strong><br>
+  ▸ <strong>30% trigo de inverno</strong> em condições boas/excelentes (vs 49% ano anterior) — pressões climáticas de fundo<br>
+  ▸ <strong>Custos de fertilizantes</strong> disparando com guerra Irã/Ormuz<br>
+  ▸ <strong>Demanda de etanol</strong> aquecida com petróleo alto (Brent/WTI +6% na quarta!)<br><br>
+  <strong>Argentina:</strong> 52 mi t (USDA) ou 67 mi t (Bolsa Cereais Rosário) — também recorde! Embarques BR + ARG + URU podem chegar a 30 mi t entre abr-jun. Pressão global persistente.</p>
+</div>
+
+<div class="co bl">
+  <h4>📊 USDA WASDE Abril 2026: Cenário Global do Milho</h4>
+  <p><strong>Produção mundial 25/26:</strong> 1.301 mi t (+5,7% vs 24/25)<br>
+  <strong>Exportações mundiais:</strong> 207,3 mi t (+10,8%)<br>
+  <strong>Importações mundiais:</strong> 193,1 mi t (+3,7%)<br>
+  <strong>Estoques finais mundiais:</strong> 294,8 mi t (mín. 11 anos!)<br>
+  <strong>EUA produção:</strong> 432,3 mi t (+14,3%)<br>
+  <strong>EUA estoques finais:</strong> 2,127 bi bushels (máx. 7 anos)<br>
+  <strong>EUA exportações:</strong> 83,8 mi t (+15,5%)<br>
+  <strong>Brasil produção:</strong> 132 mi t (USDA — mais conservador)<br>
+  <strong>Brasil exportação:</strong> 43 mi t (USDA)<br>
+  <strong>Argentina produção:</strong> 52 mi t (USDA) / 67 mi t (Bolsa Rosário)<br>
+  <strong>China importação:</strong> 8 mi t (+338,8%! demanda explodiu)<br>
+  <strong>México importação:</strong> 26,3 mi t (maior importador global)<br>
+  <strong>Próximo WASDE:</strong> 12 de maio de 2026</p>
+</div>
+
+<div class="co cy">
+  <h4>⛽ Etanol de Milho: O Coringa Estrutural do Mercado Interno</h4>
+  <p><strong>Por que isso importa para o produtor brasileiro?</strong><br>
+  ▸ <strong>Brasil produz cada vez mais etanol de milho</strong> — especialmente no Centro-Oeste (MT, GO, MS)<br>
+  ▸ Plantas de etanol de milho são <strong>compradores estruturais firmes</strong>, não dependem de exportação<br>
+  ▸ <strong>Possível E32:</strong> Em discussão no governo · pode aumentar demanda em +1 bilhão de litros/ano<br>
+  ▸ <strong>Petróleo +6% na quarta (29/04):</strong> Encarece gasolina nos EUA → demanda etanol → demanda milho<br>
+  ▸ <strong>Brent/WTI elevados</strong> com guerra Irã sem acordo<br><br>
+  <strong>Consumo interno BR cresce +4,4%</strong> — esse é o número mais importante para sustentar preço de longo prazo do milho brasileiro, mesmo com EUA em safra recorde.<br><br>
+  <strong>Hedgepoint:</strong> "<em>Demanda por biocombustíveis cresce mais rapidamente. Mesmo nos momentos de queda do petróleo, milho e soja permanecem com preços firmes.</em>"</p>
+</div>
+
+<div class="co pu">
+  <h4>🏦 Selic Cortada para 14,50%: Reflexos para o Milho</h4>
+  <p><strong>Decisão Copom (29/04):</strong> redução de 0,25 p.p., de 14,75% para 14,50% a.a.<br><br>
+  <strong>Reflexos imediatos:</strong><br>
+  ▸ <strong>Dólar:</strong> R$ 4,9523 (−1,00% · mín. 2 anos!) → pressiona preço interno via export<br>
+  ▸ <strong>B3 Milho:</strong> Subiu na quarta com dólar voltando a R$ 5,00 brevemente<br>
+  ▸ <strong>Selic menor:</strong> Custo de capital mais barato → financiamento de safrinha mais leve<br><br>
+  <strong>Comunicado cauteloso:</strong> BC mostrou preocupação com inflação do petróleo. Próximas reuniões podem ser <strong>menos agressivas</strong> nos cortes — analistas reviram projeções.<br><br>
+  <strong>Para o milho:</strong> Saldo é <strong>levemente negativo no curto prazo</strong> (dólar fraco) e <strong>positivo no médio prazo</strong> (capital de giro mais barato). Vale acompanhar Boletim Focus.</p>
+</div>
+
+<div class="dv"></div>
+
+<!-- TERMÔMETROS -->
+<div class="stitle"><div class="icon" style="background:linear-gradient(135deg,#78350f,#d97706)">🌡️</div><h2>Termômetros do Mercado <span>— Pressões e Vetores</span></h2></div>
+
+<div class="grid3">
+  <div class="card">
+    <div class="thermo"><h4>📈 Preço Interno BR</h4>
+      <div class="th-bar" style="background:linear-gradient(90deg,var(--dn),var(--nt),var(--up))"><div class="th-marker" style="left:45%"></div></div>
+      <div class="th-lb"><span>Fraco</span><span>Lateral</span><span>Forte</span></div>
+      <p style="font-size:.78rem;color:var(--nt);margin-top:8px;font-weight:700">→ MÉDIO/LATERAL</p>
+      <p style="font-size:.74rem;color:var(--text2);margin-top:4px">−4,92% mês. Suporte: quebra safrinha. Pressão: dólar.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="thermo"><h4>🌧️ Clima Safrinha</h4>
+      <div class="th-bar" style="background:linear-gradient(90deg,var(--up),var(--nt),var(--dn))"><div class="th-marker" style="left:75%"></div></div>
+      <div class="th-lb"><span>Bom</span><span>Médio</span><span>Crítico</span></div>
+      <p style="font-size:.78rem;color:var(--dn);margin-top:8px;font-weight:700">⚠ CRÍTICO</p>
+      <p style="font-size:.74rem;color:var(--text2);margin-top:4px">Quebra esperada em GO/SP/MG/PR. Maio decide.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="thermo"><h4>📊 CBOT Chicago</h4>
+      <div class="th-bar" style="background:linear-gradient(90deg,var(--dn),var(--nt),var(--up))"><div class="th-marker" style="left:50%"></div></div>
+      <div class="th-lb"><span>Baixo</span><span>Médio</span><span>Alto</span></div>
+      <p style="font-size:.78rem;color:var(--nt);margin-top:8px;font-weight:700">→ MÉDIO</p>
+      <p style="font-size:.74rem;color:var(--text2);margin-top:4px">Jul/26 US$ 4,7150. Recordes EUA pesam.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="thermo"><h4>🚢 Demanda Externa</h4>
+      <div class="th-bar" style="background:linear-gradient(90deg,var(--dn),var(--nt),var(--up))"><div class="th-marker" style="left:65%"></div></div>
+      <div class="th-lb"><span>Fraca</span><span>Normal</span><span>Forte</span></div>
+      <p style="font-size:.78rem;color:var(--up);margin-top:8px;font-weight:700">⬆ FORTE</p>
+      <p style="font-size:.74rem;color:var(--text2);margin-top:4px">Mar +12,8%. Mas EUA em recorde concorrem.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="thermo"><h4>⛽ Etanol/Petróleo</h4>
+      <div class="th-bar" style="background:linear-gradient(90deg,var(--dn),var(--nt),var(--up))"><div class="th-marker" style="left:78%"></div></div>
+      <div class="th-lb"><span>Fraco</span><span>Médio</span><span>Forte</span></div>
+      <p style="font-size:.78rem;color:var(--up);margin-top:8px;font-weight:700">⬆ FORTE</p>
+      <p style="font-size:.74rem;color:var(--text2);margin-top:4px">Petróleo +6%. Etanol BR +4,4%. E32 em pauta.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="thermo"><h4>💵 Câmbio (Dólar)</h4>
+      <div class="th-bar" style="background:linear-gradient(90deg,var(--up),var(--nt),var(--dn))"><div class="th-marker" style="left:25%"></div></div>
+      <div class="th-lb"><span>Forte ($)</span><span>Médio</span><span>Fraco ($)</span></div>
+      <p style="font-size:.78rem;color:var(--dn);margin-top:8px;font-weight:700">⬇ DÓLAR FRACO</p>
+      <p style="font-size:.74rem;color:var(--text2);margin-top:4px">R$ 4,9523. Pressiona preços internos.</p>
+    </div>
+  </div>
+</div>
+
+<div class="dv"></div>
+
+<!-- OPINIÃO -->
+<div class="opinion">
+  <h3>🎯 Opinião do Analista — Milho na Encruzilhada: Quebra da Safrinha vs Recorde EUA</h3>
+
+  <p><strong>O milho brasileiro está vivendo um momento ímpar de dualidade. De um lado, há um consenso real de mercado de que haverá quebra na safrinha brasileira — clima irregular em GO/SP/MG/PR, plantio em 95,5% mas com lavouras já perdendo potencial. De outro, os EUA caminham para uma safra HISTÓRICA de 432,3 mi t (+14,3%!), pressionando estruturalmente o CBOT e os estoques globais. O preço interno cedeu −4,92% no mês, mas pode reagir forte se a quebra se confirmar em maio.</strong></p>
+
+  <p><strong>Semana 27-30/abr (curta · feriado 1º Mai) — Em síntese:</strong><br>
+  ▸ <strong>CEPEA ESALQ/B3:</strong> R$ 66,91/sc (+0,36% sem · −4,92% mês)<br>
+  ▸ <strong>CBOT Jul/26:</strong> US$ 4,7150/bu (−1,31% dia · realização de lucros)<br>
+  ▸ <strong>B3 Jul/26:</strong> R$ 69,80/sc · <strong>Set/26:</strong> R$ 71,94/sc (prêmio futuro!)<br>
+  ▸ <strong>Selic:</strong> Cortada para 14,50% (evento da semana!)<br>
+  ▸ <strong>Dólar:</strong> R$ 4,9523 (mínima de 2+ anos!)<br>
+  ▸ <strong>CONAB:</strong> Revisou safra para cima · 139,57 mi t<br>
+  ▸ <strong>Risco principal:</strong> Quebra safrinha · 2ª semana de maio é decisiva</p>
+
+  <p><strong>Recomendações estratégicas para o produtor:</strong></p>
+
+  <p><strong>1. SE TEM SAFRINHA NO CAMPO: NÃO TRAVE TUDO AGORA.</strong> Há um forte upside potencial se a quebra se confirmar. Modelos climáticos indicam chuvas irregulares em maio. Quebra de 5-10% pode levar B3 julho de R$ 69,80 para R$ 78-85. <strong>Estratégia:</strong> trave 30-40% para garantir custo, segure 60-70% para capturar prêmio se o cenário se materializar.</p>
+
+  <p><strong>2. SE JÁ FECHOU A 1ª SAFRA: B3 JULHO/SETEMBRO ESTÁ ATRATIVO.</strong> R$ 69,80 (jul) e R$ 71,94 (set) são patamares <strong>acima do CEPEA spot</strong> (R$ 66,91). O mercado futuro está embutindo um prêmio de R$ 3-5/sc para os meses de pico de demanda interna (jul/set, antes da safrinha plena entrar). Se já tem produto armazenado, vale fazer venda casada com hedge.</p>
+
+  <p><strong>3. ATENÇÃO AO SPREAD LOGÍSTICO BRUTAL!</strong> Rondonópolis MT a R$ 51 vs Campinas a R$ 69 = <strong>R$ 18/sc de spread!</strong> Rio Verde GO a R$ 58,50 = R$ 10,50 de spread. Quem tem como armazenar e esperar o pico da demanda local (chega chuva, melhora estrada) ganha. Centro-Oeste é mais castigado pelo frete porque é onde está sobrando milho da 1ª safra.</p>
+
+  <p><strong>4. DEMANDA INTERNA É O CHÃO DO MERCADO.</strong> Consumo BR vai crescer +4,4% para 94,6 mi t. Isso significa <strong>demanda firme da indústria de etanol</strong> (especialmente Centro-Oeste), <strong>ração animal</strong> (frango/suíno em recordes de export), e <strong>possível E32</strong> que pode adicionar +1 bi de litros/ano de etanol. Esse é o fator estrutural que evita um colapso de preços.</p>
+
+  <p><strong>5. EUA SÃO O TETO DO MERCADO.</strong> 432,3 mi t é uma quebra de paradigma. CBOT vai operar com gravidade nos próximos meses. Se há quebra do milho EUA por seca de verão (julho/agosto), aí sim CBOT explode. Mas plantar premissa otimista é arriscado. <strong>Cenário base: CBOT Jul lateral entre US$ 4,60 e US$ 4,85.</strong></p>
+
+  <p><strong>6. CÂMBIO PESA, MAS PODE VIRAR.</strong> Dólar a R$ 4,9523 (mín. 2 anos!) é o que mais pressiona o produtor brasileiro hoje. Se guerra Irã escalar, dólar pode voltar a R$ 5,30-5,50 — efeito imediato de +R$ 4-6/sc no milho. <strong>Acompanhe Focus, Selic e tensões geopolíticas.</strong></p>
+
+  <p><strong>7. ETANOL DE MILHO: A OPORTUNIDADE ESTRUTURAL.</strong> Quem está perto de plantas de etanol (especialmente MT, MS, GO), tem demanda firme e estruturada. Esses compradores pagam menos prêmio que portos, mas dão segurança de comercialização e contratos de mais longo prazo. Vale construir relacionamento direto.</p>
+
+  <div class="scenarios">
+    <div class="sc up">
+      <h5>🟢 Cenário Altista</h5>
+      <p>Quebra safrinha confirmada (10%+) + dólar a R$ 5,30 + E32 aprovado → <strong>CEPEA R$ 78-85/sc no 2S</strong>. Probabilidade: ~30%</p>
+    </div>
+    <div class="sc nt">
+      <h5>🟡 Cenário Neutro</h5>
+      <p>Quebra moderada (3-5%) + dólar lateral + EUA recorde → <strong>CEPEA R$ 65-72/sc até agosto</strong>. Probabilidade: ~50%</p>
+    </div>
+    <div class="sc dn">
+      <h5>🔴 Cenário Baixista</h5>
+      <p>Safrinha se recupera + dólar abaixo R$ 4,80 + EUA exporta forte → <strong>CEPEA R$ 58-64/sc</strong>. Probabilidade: ~20%</p>
+    </div>
+  </div>
+
+  <div class="sig">📅 Análise Rural IN · Quinta-feira, 30/Abr/2026 · Semana curta (feriado 1º Mai) · 2ª semana de maio é decisiva!</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer"><div class="wrap">
+  <div class="footer-brand"><span class="r">Rural</span> <span class="i">IN</span></div>
+  <p>Radar Agro Semanal · Milho · Semana 27–30 Abril 2026<br>
+  Fontes: CEPEA/ESALQ · CBOT/CME · USDA WASDE · CONAB · B3 · ANEC · Secex · Agrinvest Commodities · SAFRAS &amp; Mercado · Hedgepoint Global · Bolsa de Cereais de Rosário · Banco Central · COPOM · InfoMoney · G1/Globo Rural · Notícias Agrícolas · Reuters · Mais Soja · Granar</p>
+  <div class="footer-credits">
+    <h4>Análise e Construção</h4>
+    <div class="name">Dr. Sidney Souza</div>
+    <div class="title">Economista e Adm. Agrícola — Estrategista Econômico do Produtor</div>
+    <div class="desc">Especialista em economia da fazenda e gestão de risco no agro<br>Transformamos dados da fazenda em decisões econômicas<br>Ajudamos produtores a entender se o mercado sustenta seu negócio</div>
+    <div class="contact">📧 <a href="mailto:sidneyagro@gmail.com">sidneyagro@gmail.com</a> · 📱 <a href="tel:+5564992266886">(64) 9 9226-6886</a> · 📸 <a href="https://instagram.com/ruralin.ai" target="_blank">@ruralin.ai</a></div>
+  </div>
+  <p style="margin-top:18px"><em>⚠️ Material informativo. Não constitui recomendação de investimento. Consulte profissionais habilitados.</em></p>
+</div></footer>
+
+</div>
+
+<script>
+const gc='rgba(26,45,61,.35)';
+const tt={backgroundColor:'rgba(10,16,24,.96)',borderColor:'#243d52',borderWidth:1,titleFont:{size:11,weight:'700'},bodyFont:{size:10},padding:10,cornerRadius:8};
+
+// CH1: CEPEA ESALQ/B3 trajetória
+new Chart(document.getElementById('ch1').getContext('2d'),{
+  type:'line',
+  data:{
+    labels:['09/04','10/04','13/04','14/04','15/04','16/04','17/04','20/04','22/04','23/04','24/04','27/04','28/04','29/04','30/04'],
+    datasets:[{label:'CEPEA ESALQ/B3 (R$/sc)',data:[69.59,69.07,68.78,67.73,67.48,67.01,66.81,66.45,66.34,66.36,66.63,66.67,66.67,66.91,66.91],
+      borderColor:'#f59e0b',backgroundColor:'rgba(245,158,11,.12)',borderWidth:3,fill:true,tension:.3,pointRadius:3.5,pointBackgroundColor:'#f59e0b',pointBorderColor:'#fcd34d',pointBorderWidth:1.5}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:tt,
+      annotation:{annotations:{
+        max:{type:'label',xValue:0.5,yValue:69.8,content:['📈 R$ 69,07','Pico abril'],font:{size:9,weight:'bold'},color:'#22c55e',backgroundColor:'rgba(34,197,94,.12)',padding:4},
+        min:{type:'label',xValue:13,yValue:65.7,content:['📉 −4,92%','no mês'],font:{size:9,weight:'bold'},color:'#ef4444',backgroundColor:'rgba(239,68,68,.12)',padding:4}
+      }}
+    },
+    scales:{y:{min:65.5,max:70,grid:{color:gc},ticks:{callback:function(v){return'R$ '+v.toFixed(2)},font:{size:9,weight:'600'},color:'#9db3c8'}},x:{grid:{display:false},ticks:{font:{size:8,weight:'700'},color:'#9db3c8',maxRotation:0}}}
+  }
+});
+
+// CH2: CBOT curva forward
+new Chart(document.getElementById('ch2').getContext('2d'),{
+  type:'line',
+  data:{
+    labels:['Mai/26','Jul/26','Set/26','Dez/26','Mar/27'],
+    datasets:[{label:'CBOT (US$/bu)',data:[4.6750,4.7150,4.80,4.97,5.05],
+      borderColor:'#fbbf24',backgroundColor:'rgba(251,191,36,.15)',borderWidth:3,fill:true,tension:.35,pointRadius:5,pointBackgroundColor:'#fbbf24',pointBorderColor:'#fef3c7',pointBorderWidth:2}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:tt,
+      annotation:{annotations:{
+        rec:{type:'label',xValue:3,yValue:5.05,content:['📈 Forward','positiva'],font:{size:9,weight:'bold'},color:'#22c55e',backgroundColor:'rgba(34,197,94,.12)',padding:4}
+      }}
+    },
+    scales:{y:{min:4.6,max:5.15,grid:{color:gc},ticks:{callback:function(v){return'$ '+v.toFixed(2)},font:{size:9,weight:'600'},color:'#9db3c8'}},x:{grid:{display:false},ticks:{font:{size:10,weight:'700'},color:'#9db3c8'}}}
+  }
+});
+
+// CH3: Safra BR histórico
+new Chart(document.getElementById('ch3').getContext('2d'),{
+  type:'bar',
+  data:{
+    labels:['19/20','20/21','21/22','22/23','23/24','24/25','25/26'],
+    datasets:[{label:'mi t',data:[102.6,87.1,113.1,131.9,119.7,141.2,139.57],
+      backgroundColor:function(c){
+        if(c.dataIndex===6)return 'rgba(59,130,246,.55)';
+        if(c.dataIndex===5)return 'rgba(34,197,94,.45)';
+        return 'rgba(245,158,11,.35)';
+      },
+      borderColor:function(c){
+        if(c.dataIndex===6)return '#3b82f6';
+        if(c.dataIndex===5)return '#22c55e';
+        return '#f59e0b';
+      },
+      borderWidth:2,borderRadius:7}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:tt,
+      annotation:{annotations:{
+        rec:{type:'label',xValue:6,yValue:148,content:['🇧🇷 25/26','139,57 mi t','−1,1% a/a'],font:{size:9,weight:'bold'},color:'#3b82f6',backgroundColor:'rgba(59,130,246,.13)',padding:5}
+      }}
+    },
+    scales:{y:{min:80,max:155,grid:{color:gc},ticks:{callback:function(v){return v+' mi t'},font:{size:9,weight:'600'},color:'#9db3c8'}},x:{grid:{display:false},ticks:{font:{size:10,weight:'700'},color:'#9db3c8'}}}
+  }
+});
+
+// CH4: Top produtores 25/26
+new Chart(document.getElementById('ch4').getContext('2d'),{
+  type:'bar',
+  data:{
+    labels:['EUA','China','Brasil','UE','Argentina','Ucrânia'],
+    datasets:[{label:'Produção (mi t)',data:[432.3,301.2,132,56.8,52,30.7],
+      backgroundColor:['rgba(239,68,68,.55)','rgba(168,85,247,.45)','rgba(34,197,94,.55)','rgba(59,130,246,.4)','rgba(245,158,11,.4)','rgba(6,182,212,.4)'],
+      borderColor:['#ef4444','#a855f7','#22c55e','#3b82f6','#f59e0b','#06b6d4'],
+      borderWidth:2,borderRadius:7}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:tt,
+      annotation:{annotations:{
+        rec:{type:'label',xValue:0,yValue:455,content:['🇺🇸 RECORDE!','+14,3% a/a'],font:{size:9,weight:'bold'},color:'#ef4444',backgroundColor:'rgba(239,68,68,.13)',padding:5}
+      }}
+    },
+    scales:{y:{min:0,max:480,grid:{color:gc},ticks:{callback:function(v){return v+' mi t'},font:{size:9,weight:'600'},color:'#9db3c8'}},x:{grid:{display:false},ticks:{font:{size:10,weight:'700'},color:'#9db3c8'}}}
+  }
+});
+
+// CH5: Spread Logístico
+new Chart(document.getElementById('ch5').getContext('2d'),{
+  type:'bar',
+  data:{
+    labels:['Rondonópolis MT','Rio Verde GO','Uberlândia MG','Cascavel PR','Mogiana SP','Paranaguá PR','Erechim RS','Santos SP','Campinas SP'],
+    datasets:[{label:'R$/sc',data:[51,58.5,59,62,64,67,67,67.25,69],
+      backgroundColor:function(c){
+        const v=c.parsed.y;
+        if(v<55)return 'rgba(239,68,68,.55)';
+        if(v<63)return 'rgba(234,179,8,.5)';
+        return 'rgba(34,197,94,.55)';
+      },
+      borderColor:function(c){
+        const v=c.parsed.y;
+        if(v<55)return '#ef4444';
+        if(v<63)return '#eab308';
+        return '#22c55e';
+      },
+      borderWidth:2,borderRadius:6}]
+  },
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:tt,
+      annotation:{annotations:{
+        sp:{type:'line',xMin:69,xMax:69,borderColor:'#3b82f6',borderWidth:2,borderDash:[6,4],
+          label:{display:true,content:'Campinas R$ 69',position:'start',backgroundColor:'rgba(59,130,246,.18)',color:'#3b82f6',font:{size:9,weight:'bold'},padding:4}}
+      }}
+    },
+    scales:{x:{min:45,max:75,grid:{color:gc},ticks:{callback:function(v){return'R$ '+v},font:{size:9,weight:'600'},color:'#9db3c8'}},y:{grid:{display:false},ticks:{font:{size:9,weight:'700'},color:'#9db3c8'}}}
+  }
+});
+
+// CH6: Destinação safra (donut)
+new Chart(document.getElementById('ch6').getContext('2d'),{
+  type:'doughnut',
+  data:{
+    labels:['Consumo Interno (94,6)','Exportação (46,5)','Estoque Final (11,8)'],
+    datasets:[{data:[94.6,46.5,11.8],
+      backgroundColor:['rgba(34,197,94,.7)','rgba(59,130,246,.7)','rgba(245,158,11,.7)'],
+      borderColor:['#22c55e','#3b82f6','#f59e0b'],
+      borderWidth:2,hoverOffset:8}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'bottom',labels:{color:'#9db3c8',font:{size:10,weight:'600'},boxWidth:14,padding:10}},
+      tooltip:{...tt,callbacks:{label:function(c){return c.label+': '+c.parsed+' mi t'}}}
+    },
+    cutout:'58%'
+  }
+});
+</script>
+</body>
+</html>
