@@ -36,8 +36,8 @@ window.BOLETINS = [
 
   {
     arquivo: "info-junho-15-19.html",
-    data: "Semana de 15 a 19 de junho de 2026",
-    titulo: "Boletim de Mercado — Soja e Milho",
+    data: "15 a 19 de junho de 2026",
+    titulo: "Boletim de Mercado — Soja, Milho e Boi",
     resumo: "Panorama da semana, leitura de câmbio e clima e os principais pontos de atenção para a comercialização da safra.",
     categoria: "Boletim"
   },
@@ -45,13 +45,13 @@ window.BOLETINS = [
   {
     arquivo: "info-junho-08-12.html",
     data: "08 a 12 jun. 2026",
-    titulo: "Boletim de Mercado — Soja e Milho",
+    titulo: "Boletim de Mercado — Soja, Milho e Boi",
     categoria: "Boletim"
   },
 
   {
     arquivo: "radar-agro-soja-maio-junho-2026.html",
-    data: "Maio / Junho 2026",
+    data: "Maio 2026",
     titulo: "Radar Agro — Soja",
     categoria: "Radar"
   },
@@ -65,14 +65,14 @@ window.BOLETINS = [
 
   {
     arquivo: "radar-agro-algodao-maio-junho-2026.html",
-    data: "Maio / Junho 2026",
+    data: "Maio 2026",
     titulo: "Radar Agro — Algodão",
     categoria: "Radar"
   },
 
   {
     arquivo: "radar-agro-trigo-maio-junho-2026.html",
-    data: "Maio / Junho 2026",
+    data: "Maio 2026",
     titulo: "Radar Agro — Trigo",
     categoria: "Radar"
   },
