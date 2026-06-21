@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar Agro · Milho · Maio 2026 — ruralin.ai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,900&family=Archivo:wght@400;500;600;700;800&family=Archivo+Narrow:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde:#1d3b2a;        /* verde mata profundo */
+    --verde2:#2d5a3d;
+    --milho:#e6a72c;        /* dourado milho */
+    --milho2:#f4c95d;
+    --terra:#7a4a2b;        /* terra */
+    --creme:#f6f1e3;        /* fundo creme */
+    --creme2:#efe7d2;
+    --tinta:#21271f;        /* texto */
+    --suave:#5b6356;
+    --alta:#2f8f4e;         /* verde alta */
+    --baixa:#c0392b;        /* vermelho baixa */
+    --neutro:#c08a1e;
+    --linha:#d9cfb4;
+    --carta:#fffdf6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Archivo',sans-serif;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(230,167,44,.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(45,90,61,.10), transparent 60%),
+      var(--creme);
+    color:var(--tinta);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:980px;margin:0 auto;padding:0 22px 70px}
+
+  /* ---------- HEADER ---------- */
+  header.top{
+    background:linear-gradient(160deg,var(--verde) 0%, #16301f 100%);
+    color:var(--creme);
+    border-radius:0 0 26px 26px;
+    padding:26px 30px 30px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 18px 40px -22px rgba(29,59,42,.7);
+  }
+  header.top::after{
+    content:"";position:absolute;inset:0;opacity:.07;pointer-events:none;
+    background-image:repeating-linear-gradient(90deg,transparent 0 38px,#fff 38px 39px);
+  }
+  .brandrow{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;position:relative;z-index:2}
+  .logo{display:flex;align-items:center;gap:11px}
+  .logo .mark{width:42px;height:42px;flex:none}
+  .logo .name{font-family:'Fraunces',serif;font-weight:600;font-size:25px;letter-spacing:.3px;color:#fff;line-height:1}
+  .logo .name span{color:var(--milho2)}
+  .logo .tag{font-family:'Archivo Narrow';font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#bcd2c2;margin-top:3px}
+  .edpill{font-family:'Archivo Narrow';text-transform:uppercase;letter-spacing:2px;font-size:11.5px;color:#16301f;background:var(--milho2);padding:7px 14px;border-radius:30px;font-weight:700}
+
+  .titlewrap{position:relative;z-index:2;margin-top:26px}
+  .kicker{font-family:'Archivo Narrow';letter-spacing:5px;text-transform:uppercase;font-size:13px;color:var(--milho2);font-weight:600}
+  h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(38px,7vw,68px);line-height:.95;color:#fff;margin:6px 0 4px;letter-spacing:-1px}
+  h1 em{font-style:italic;color:var(--milho2)}
+  .subhead{color:#cfe0d4;max-width:640px;font-size:15.5px;margin-top:8px}
+  .datestrip{display:flex;gap:22px;flex-wrap:wrap;margin-top:18px;font-family:'Archivo Narrow';font-size:13px;letter-spacing:1px;color:#a9c2b1;text-transform:uppercase}
+  .datestrip b{color:#fff;font-family:'Archivo';font-weight:700;letter-spacing:0}
+
+  /* ---------- SECTION ---------- */
+  section{margin-top:42px}
+  .sechead{display:flex;align-items:baseline;gap:14px;margin-bottom:18px}
+  .secnum{font-family:'Fraunces',serif;font-weight:900;font-size:20px;color:var(--milho);background:var(--verde);width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:none}
+  .sechead h2{font-family:'Fraunces',serif;font-weight:600;font-size:27px;color:var(--verde);line-height:1.05}
+  .sechead .h2sub{font-size:13px;color:var(--suave);font-family:'Archivo Narrow';letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+
+  p.lead{font-size:16px;margin:10px 0}
+  p{margin:9px 0}
+  strong{color:var(--verde)}
+
+  /* ---------- COTAÇÕES CARDS ---------- */
+  .quotegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .qcard{background:var(--carta);border:1px solid var(--linha);border-radius:16px;padding:16px 16px 15px;position:relative;overflow:hidden;box-shadow:0 10px 24px -20px rgba(29,59,42,.5)}
+  .qcard .lab{font-family:'Archivo Narrow';text-transform:uppercase;letter-spacing:1.5px;font-size:11px;color:var(--suave);font-weight:600}
+  .qcard .big{font-family:'Fraunces',serif;font-weight:600;font-size:30px;color:var(--verde);line-height:1;margin-top:9px}
+  .qcard .unit{font-size:13px;color:var(--suave);font-family:'Archivo';font-weight:500}
+  .qcard .chg{display:inline-flex;align-items:center;gap:5px;font-weight:700;font-size:13px;margin-top:9px;padding:3px 9px;border-radius:20px}
+  .chg.dn{color:var(--baixa);background:rgba(192,57,43,.10)}
+  .chg.up{color:var(--alta);background:rgba(47,143,78,.12)}
+  .chg.fl{color:var(--neutro);background:rgba(192,138,30,.12)}
+  .qcard .note{font-size:11.5px;color:var(--suave);margin-top:8px;line-height:1.4}
+  .qcard::before{content:"";position:absolute;top:0;left:0;width:100%;height:4px;background:var(--milho)}
+  .qcard.c2::before{background:var(--verde2)}
+  .qcard.c3::before{background:var(--terra)}
+  .qcard.c4::before{background:var(--alta)}
+
+  /* ---------- TERMÔMETRO ---------- */
+  .gaugewrap{background:linear-gradient(170deg,#fffdf6,#f3ecdb);border:1px solid var(--linha);border-radius:20px;padding:22px 26px;display:grid;grid-template-columns:300px 1fr;gap:26px;align-items:center}
+  .gaugebox{text-align:center}
+  .gaugecap{font-family:'Archivo Narrow';text-transform:uppercase;letter-spacing:2px;font-size:12px;color:var(--suave);margin-top:4px}
+  .gaugeverdict{font-family:'Fraunces',serif;font-weight:700;font-size:22px;color:var(--neutro);margin-top:2px}
+  .readlist{display:flex;flex-direction:column;gap:11px}
+  .readitem{display:flex;gap:12px;align-items:flex-start;font-size:14.5px}
+  .dotp{width:13px;height:13px;border-radius:50%;flex:none;margin-top:4px}
+  .dotp.b{background:var(--baixa)}.dotp.a{background:var(--alta)}.dotp.n{background:var(--neutro)}
+  .readitem b{color:var(--verde)}
+
+  /* ---------- CHART CARD ---------- */
+  .chartcard{background:var(--carta);border:1px solid var(--linha);border-radius:18px;padding:20px 22px 16px;box-shadow:0 14px 30px -26px rgba(29,59,42,.6)}
+  .chartcard h3{font-family:'Fraunces',serif;font-weight:600;font-size:18px;color:var(--verde);margin-bottom:2px}
+  .chartcard .csub{font-size:12.5px;color:var(--suave);margin-bottom:12px}
+  .src{font-size:11px;color:var(--suave);font-family:'Archivo Narrow';letter-spacing:.6px;margin-top:10px}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+
+  /* ---------- regional status ---------- */
+  .regiongrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .region{background:var(--carta);border:1px solid var(--linha);border-radius:14px;padding:14px 15px}
+  .region .nm{font-weight:800;font-size:14.5px;color:var(--verde)}
+  .region .st{font-size:12.5px;color:var(--suave);margin-top:3px;line-height:1.4}
+  .tmeter{height:8px;border-radius:6px;background:var(--creme2);margin-top:10px;overflow:hidden}
+  .tmeter > i{display:block;height:100%;border-radius:6px}
+
+  /* ---------- callout boxes ---------- */
+  .box{border-radius:16px;padding:18px 20px;margin-top:14px}
+  .box.warn{background:linear-gradient(160deg,#3a2417,#5a3a22);color:#f3e6d3;border:1px solid #6e4a2c}
+  .box.warn h4{font-family:'Fraunces',serif;color:var(--milho2);font-size:18px;margin-bottom:8px}
+  .box.warn b{color:#fff}
+  .box.tip{background:linear-gradient(160deg,#173524,#214d33);color:#dcebe0;border:1px solid #2d5a3d}
+  .box.tip h4{font-family:'Fraunces',serif;color:var(--milho2);font-size:18px;margin-bottom:8px}
+  .box.tip b{color:#fff}
+
+  /* ---------- scenarios ---------- */
+  .scengrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .scen{border-radius:18px;padding:18px 17px;border:1px solid var(--linha);background:var(--carta);position:relative;overflow:hidden}
+  .scen .stag{font-family:'Archivo Narrow';text-transform:uppercase;letter-spacing:1.5px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;display:inline-block}
+  .scen.s1 .stag{background:rgba(192,57,43,.12);color:var(--baixa)}
+  .scen.s2 .stag{background:rgba(192,138,30,.14);color:var(--neutro)}
+  .scen.s3 .stag{background:rgba(47,143,78,.14);color:var(--alta)}
+  .scen h4{font-family:'Fraunces',serif;font-size:19px;color:var(--verde);margin:11px 0 3px}
+  .scen .prob{font-family:'Fraunces',serif;font-weight:900;font-size:34px;line-height:1}
+  .scen.s1 .prob{color:var(--baixa)}.scen.s2 .prob{color:var(--neutro)}.scen.s3 .prob{color:var(--alta)}
+  .scen .problab{font-size:11px;color:var(--suave);font-family:'Archivo Narrow';letter-spacing:1px;text-transform:uppercase}
+  .scen .price{font-weight:800;color:var(--verde);font-size:15px;margin:10px 0 4px}
+  .scen ul{margin:6px 0 0;padding-left:16px}
+  .scen li{font-size:12.8px;margin:4px 0;color:var(--tinta)}
+  .scen::before{content:"";position:absolute;top:0;left:0;width:100%;height:5px}
+  .scen.s1::before{background:var(--baixa)}.scen.s2::before{background:var(--neutro)}.scen.s3::before{background:var(--alta)}
+
+  /* ---------- macro watch ---------- */
+  .watchlist{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .watch{display:flex;gap:13px;background:var(--carta);border:1px solid var(--linha);border-radius:14px;padding:14px 15px;align-items:flex-start}
+  .watch .ic{width:34px;height:34px;border-radius:9px;background:var(--verde);color:var(--milho2);display:flex;align-items:center;justify-content:center;flex:none;font-family:'Fraunces';font-weight:900;font-size:17px}
+  .watch .wt{font-weight:800;color:var(--verde);font-size:14px}
+  .watch .wd{font-size:12.8px;color:var(--suave);margin-top:2px;line-height:1.42}
+
+  /* ---------- footer ---------- */
+  footer{margin-top:50px;background:linear-gradient(160deg,var(--verde),#16301f);color:var(--creme);border-radius:24px;padding:30px 32px;position:relative;overflow:hidden}
+  footer::after{content:"";position:absolute;inset:0;opacity:.06;background-image:repeating-linear-gradient(45deg,transparent 0 28px,#fff 28px 29px);pointer-events:none}
+  .fcred{position:relative;z-index:2}
+  .fcred .role{font-family:'Archivo Narrow';text-transform:uppercase;letter-spacing:3px;font-size:12px;color:var(--milho2);margin-bottom:10px}
+  .fcred .nome{font-family:'Fraunces',serif;font-weight:700;font-size:26px;color:#fff}
+  .fcred .qual{color:#cfe0d4;font-size:14px;margin-top:3px}
+  .fcred .lines{margin-top:14px;display:flex;flex-direction:column;gap:3px;font-size:13.5px;color:#dcebe0}
+  .fcred .lines b{color:var(--milho2)}
+  .fcontact{position:relative;z-index:2;margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.16);display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;color:#cfe0d4}
+  .fcontact a{color:var(--milho2);text-decoration:none;font-weight:600}
+  .flogo{display:flex;align-items:center;gap:9px;margin-bottom:18px;position:relative;z-index:2}
+  .flogo .name{font-family:'Fraunces',serif;font-weight:600;font-size:21px;color:#fff}
+  .flogo .name span{color:var(--milho2)}
+
+  .disc{font-size:11px;color:var(--suave);margin-top:18px;line-height:1.5;border-top:1px dashed var(--linha);padding-top:14px}
+
+  /* responsive */
+  @media(max-width:760px){
+    .quotegrid{grid-template-columns:1fr 1fr}
+    .gaugewrap{grid-template-columns:1fr}
+    .twocol{grid-template-columns:1fr}
+    .regiongrid{grid-template-columns:1fr}
+    .scengrid{grid-template-columns:1fr}
+    .watchlist{grid-template-columns:1fr}
+  }
+  @media print{
+    body{background:#fff}
+    header.top,footer,.box.warn,.box.tip{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    section{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brandrow">
+    <div class="logo">
+      <!-- LOGO ruralin.ai : varredura de radar + folha -->
+      <svg class="mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="ruralin.ai">
+        <circle cx="32" cy="32" r="30" stroke="#f4c95d" stroke-width="2.5" opacity=".55"/>
+        <circle cx="32" cy="32" r="20" stroke="#f4c95d" stroke-width="1.6" opacity=".35"/>
+        <circle cx="32" cy="32" r="10" stroke="#f4c95d" stroke-width="1.6" opacity=".25"/>
+        <path d="M32 32 L32 4 A28 28 0 0 1 56 18 Z" fill="#f4c95d" opacity=".22"/>
+        <path d="M32 33c0-9 6-16 16-18-1 10-7 16-16 18z" fill="#e6a72c"/>
+        <path d="M32 33c0-7-5-12-12-13 1 8 5 12 12 13z" fill="#bcd2c2"/>
+        <circle cx="32" cy="32" r="3.4" fill="#fff"/>
+      </svg>
+      <div>
+        <div class="name">rural<span>in</span>.ai</div>
+        <div class="tag">Inteligência Econômica do Produtor</div>
+      </div>
+    </div>
+    <div class="edpill">Edição Maio · 2026</div>
+  </div>
+
+  <div class="titlewrap">
+    <div class="kicker">Radar Agro · Mercado do Milho</div>
+    <h1>O milho<br><em>de costas pro vento</em></h1>
+    <p class="subhead">Físico nas mínimas do ano enquanto o mundo aperta estoques e a guerra no Golfo encarece o fertilizante. Um mês de pressão de baixa com prêmios de risco escondidos embaixo do tapete.</p>
+    <div class="datestrip">
+      <span>Fechamento <b>30/05/2026</b></span>
+      <span>Praça-foco <b>Rio Verde · GO</b></span>
+      <span>Próximo WASDE <b>11/06</b></span>
+      <span>Próxima Conab <b>jun/26</b></span>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- 1. COTAÇÕES -->
+  <section>
+    <div class="sechead">
+      <div class="secnum">1</div>
+      <div>
+        <h2>O placar do mês</h2>
+        <div class="h2sub">Cotações de referência · fim de maio/2026</div>
+      </div>
+    </div>
+
+    <div class="quotegrid">
+      <div class="qcard c1">
+        <div class="lab">Físico · Cepea/Esalq</div>
+        <div class="big">R$ 64,9<span class="unit"> /sc 60kg</span></div>
+        <div class="chg dn">▼ −1,8% no mês</div>
+        <div class="note">Menor valor de 2026. Já são 2 meses seguidos de queda. −10,4% frente a maio/25 (R$ 73,3).</div>
+      </div>
+      <div class="qcard c2">
+        <div class="lab">Chicago · CBOT (jul)</div>
+        <div class="big">≈456<span class="unit"> ¢/bushel</span></div>
+        <div class="chg fl">◆ lateral / topo recuou</div>
+        <div class="note">Chegou a ~476¢ no susto geopolítico. Médias móveis dão sinal técnico "venda forte". Faixa 52s: 391–487¢.</div>
+      </div>
+      <div class="qcard c3">
+        <div class="lab">Câmbio · Dólar</div>
+        <div class="big">R$ 5,05<span class="unit"> /US$</span></div>
+        <div class="chg up">▲ leve firmeza</div>
+        <div class="note">Dólar mais firme sustenta a paridade de exportação e segura a queda do físico no Brasil.</div>
+      </div>
+      <div class="qcard c4">
+        <div class="lab">Exportação · jan–abr</div>
+        <div class="big">7,18<span class="unit"> mi t</span></div>
+        <div class="chg up">▲ +18,6% a/a</div>
+        <div class="note">Maior volume para o período desde 2023. A demanda externa é o grande contrapeso à oferta interna.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. TERMÔMETRO -->
+  <section>
+    <div class="sechead">
+      <div class="secnum">2</div>
+      <div>
+        <h2>Termômetro do mercado</h2>
+        <div class="h2sub">Leitura rápida do viés · físico Brasil curto prazo</div>
+      </div>
+    </div>
+
+    <div class="gaugewrap">
+      <div class="gaugebox">
+        <!-- gauge semicircular -->
+        <svg viewBox="0 0 260 156" width="100%" style="max-width:280px" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#c0392b"/>
+              <stop offset=".5" stop-color="#e6a72c"/>
+              <stop offset="1" stop-color="#2f8f4e"/>
+            </linearGradient>
+          </defs>
+          <path d="M20 140 A110 110 0 0 1 240 140" fill="none" stroke="#e7ddc4" stroke-width="22" stroke-linecap="round"/>
+          <path d="M20 140 A110 110 0 0 1 240 140" fill="none" stroke="url(#g1)" stroke-width="22" stroke-linecap="round" stroke-dasharray="345" stroke-dashoffset="0" opacity=".9"/>
+          <!-- needle: aponta para zona "neutro→baixa" ~ 72° from left (viés de baixa moderado) -->
+          <g transform="rotate(-44 130 140)">
+            <line x1="130" y1="140" x2="130" y2="48" stroke="#21271f" stroke-width="4.5" stroke-linecap="round"/>
+          </g>
+          <circle cx="130" cy="140" r="9" fill="#21271f"/>
+          <text x="20" y="155" font-family="Archivo Narrow" font-size="12" fill="#c0392b" font-weight="700">BAIXA</text>
+          <text x="112" y="20" font-family="Archivo Narrow" font-size="12" fill="#c08a1e" font-weight="700">NEUTRO</text>
+          <text x="205" y="155" font-family="Archivo Narrow" font-size="12" fill="#2f8f4e" font-weight="700">ALTA</text>
+        </svg>
+        <div class="gaugecap">Viés do físico em maio</div>
+        <div class="gaugeverdict">Pressão de baixa<br>com risco altista latente</div>
+      </div>
+      <div class="readlist">
+        <div class="readitem"><span class="dotp b"></span><div><b>Pesa pra baixo:</b> colheita robusta da safra de verão + estoques de passagem cheios. Armazéns precisam liberar espaço para soja/milho — vendedor flexível, comprador só pinga quando vê preço menor.</div></div>
+        <div class="readitem"><span class="dotp n"></span><div><b>Segura a queda:</b> estiagem no Centro-Oeste na fase de enchimento da safrinha e dólar firme. As baixas "só não foram maiores" por causa do clima.</div></div>
+        <div class="readitem"><span class="dotp a"></span><div><b>Empurra pra cima (médio prazo):</b> exportação recorde, estoques globais 26/27 nos menores desde 2013/14 e o custo do fertilizante turbinado pela crise no Golfo. A curva futura da B3 está <b>toda acima do físico</b>.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. GRÁFICOS -->
+  <section>
+    <div class="sechead">
+      <div class="secnum">3</div>
+      <div>
+        <h2>O que os gráficos contam</h2>
+        <div class="h2sub">Análise grafista · físico, curva futura e Chicago</div>
+      </div>
+    </div>
+
+    <div class="chartcard" style="margin-bottom:18px">
+      <h3>Físico Cepea/Esalq — a perna final de maio</h3>
+      <div class="csub">R$ por saca de 60 kg · pregões selecionados de maio/2026</div>
+      <svg viewBox="0 0 900 320" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Archivo">
+        <!-- grid -->
+        <g stroke="#e7ddc4" stroke-width="1">
+          <line x1="70" y1="40" x2="860" y2="40"/>
+          <line x1="70" y1="110" x2="860" y2="110"/>
+          <line x1="70" y1="180" x2="860" y2="180"/>
+          <line x1="70" y1="250" x2="860" y2="250"/>
+        </g>
+        <!-- y labels (scale 64 - 67) -->
+        <g font-size="12" fill="#5b6356" font-family="Archivo Narrow">
+          <text x="34" y="44">67,0</text>
+          <text x="34" y="114">66,0</text>
+          <text x="34" y="184">65,0</text>
+          <text x="34" y="254">64,0</text>
+        </g>
+        <!-- maio/25 reference dashed line at 73,3 -> off-scale top, mark as band -->
+        <!-- data points: média parcial 65,6 ; 22mai 65,47 ; 26mai 65,0 ; 28mai 64,9 -->
+        <!-- map value->y : y = 250 - (val-64)*70 -->
+        <!-- 65,6 -> 138 ; 65,47 -> 147 ; 65,0 -> 180 ; 64,9 -> 187 -->
+        <polyline points="150,138 380,147 610,180 800,187" fill="none" stroke="#e6a72c" stroke-width="4"/>
+        <g fill="#1d3b2a">
+          <circle cx="150" cy="138" r="6"/><circle cx="380" cy="147" r="6"/><circle cx="610" cy="180" r="6"/><circle cx="800" cy="187" r="7" fill="#c0392b"/>
+        </g>
+        <g font-size="13" fill="#1d3b2a" font-weight="700" text-anchor="middle">
+          <text x="150" y="122">65,6</text>
+          <text x="380" y="131">65,47</text>
+          <text x="610" y="164">65,0</text>
+          <text x="800" y="170" fill="#c0392b">64,9</text>
+        </g>
+        <g font-size="12" fill="#5b6356" text-anchor="middle" font-family="Archivo Narrow">
+          <text x="150" y="278">média mês</text>
+          <text x="380" y="278">22/mai</text>
+          <text x="610" y="278">26/mai</text>
+          <text x="800" y="278">28/mai</text>
+        </g>
+        <text x="800" y="205" font-size="11.5" fill="#c0392b" text-anchor="middle" font-weight="700">mínima 2026</text>
+      </svg>
+      <p style="font-size:13.5px;color:var(--suave);margin-top:4px">Leitura grafista: tendência de curtíssimo prazo <b style="color:var(--baixa)">descendente</b>, com o físico furando o piso psicológico de R$ 65 no fim do mês. O patamar de <b>R$ 64–65</b> vira o suporte a observar — perdê-lo abre espaço para R$ 62–63; defendê-lo confirma acomodação.</p>
+      <div class="src">Fonte: Cepea/Esalq-USP · elaboração ruralin.ai. Pontos de pregão selecionados; escala destacada.</div>
+    </div>
+
+    <div class="twocol">
+      <div class="chartcard">
+        <h3>Curva futura B3 — o mercado paga prêmio pra frente</h3>
+        <div class="csub">Estrutura a termo · físico vs. vencimentos (esquemático)</div>
+        <svg viewBox="0 0 420 280" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Archivo">
+          <line x1="50" y1="20" x2="50" y2="230" stroke="#d9cfb4"/>
+          <line x1="50" y1="230" x2="405" y2="230" stroke="#d9cfb4"/>
+          <!-- bars: fisico 64.9, 2026 contracts <70, 2027 higher -->
+          <!-- scale: base y230, R$ each unit -->
+          <g>
+            <rect x="70" y="150" width="55" height="80" rx="4" fill="#c0392b" opacity=".85"/>
+            <rect x="160" y="120" width="55" height="110" rx="4" fill="#e6a72c"/>
+            <rect x="250" y="105" width="55" height="125" rx="4" fill="#2d5a3d"/>
+            <rect x="340" y="80" width="55" height="150" rx="4" fill="#1d3b2a"/>
+          </g>
+          <g font-size="13" font-weight="700" fill="#21271f" text-anchor="middle">
+            <text x="97" y="142">≈65</text>
+            <text x="187" y="112">&lt;70</text>
+            <text x="277" y="97">~70+</text>
+            <text x="367" y="72">otim.</text>
+          </g>
+          <g font-size="11.5" fill="#5b6356" text-anchor="middle" font-family="Archivo Narrow">
+            <text x="97" y="248">FÍSICO</text>
+            <text x="187" y="248">2º sem/26</text>
+            <text x="277" y="248">jan–mai/27</text>
+            <text x="367" y="248">2027+</text>
+          </g>
+        </svg>
+        <p style="font-size:13px;color:var(--suave)">Todos os vencimentos em aberto seguem <b>acima do físico</b>. O mercado precifica recuperação à frente — sinal de que a baixa atual é vista como sazonal (pressão de colheita), não estrutural.</p>
+        <div class="src">Fonte: B3 + Cepea · leitura esquemática ruralin.ai.</div>
+      </div>
+
+      <div class="chartcard">
+        <h3>Chicago — onde o preço está na régua do ano</h3>
+        <div class="csub">CBOT · ¢/bushel · faixa de 52 semanas</div>
+        <svg viewBox="0 0 420 280" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Archivo">
+          <!-- range bar -->
+          <rect x="120" y="40" width="60" height="200" rx="30" fill="#efe7d2"/>
+          <!-- fill from min to current -->
+          <rect x="120" y="118" width="60" height="122" rx="30" fill="#e6a72c" opacity=".35"/>
+          <!-- markers -->
+          <line x1="100" y1="240" x2="200" y2="240" stroke="#5b6356" stroke-width="2"/>
+          <line x1="100" y1="40" x2="200" y2="40" stroke="#5b6356" stroke-width="2"/>
+          <!-- current ~456 between 391(min) and 487(max) -> pos = 240 - (456-391)/(487-391)*200 = 240-135=105 -->
+          <line x1="108" y1="105" x2="192" y2="105" stroke="#1d3b2a" stroke-width="4"/>
+          <circle cx="150" cy="105" r="8" fill="#1d3b2a"/>
+          <!-- peak ~476 -> 240 - (476-391)/96*200 = 240-177=63 -->
+          <line x1="120" y1="63" x2="180" y2="63" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5 4"/>
+          <g font-size="12.5" fill="#21271f" font-weight="700">
+            <text x="210" y="44">487¢ · máx 52s</text>
+            <text x="210" y="67" fill="#c0392b">476¢ · pico geopol. mai</text>
+            <text x="210" y="109" fill="#1d3b2a">≈456¢ · atual</text>
+            <text x="210" y="244">391¢ · mín 52s</text>
+          </g>
+          <text x="150" y="270" font-size="11.5" fill="#5b6356" text-anchor="middle" font-family="Archivo Narrow">posição no range anual</text>
+        </svg>
+        <p style="font-size:13px;color:var(--suave)">Preço no <b>terço superior</b> da faixa anual, mas os indicadores de média móvel marcam <b style="color:var(--baixa)">"venda forte"</b>: o topo de maio (susto no Golfo) foi rejeitado e o mercado devolveu prêmio.</p>
+        <div class="src">Fonte: CBOT/Investing · elaboração ruralin.ai.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. FUNDAMENTOS -->
+  <section>
+    <div class="sechead">
+      <div class="secnum">4</div>
+      <div>
+        <h2>Os fundamentos por trás do preço</h2>
+        <div class="h2sub">Análise fundamentalista · oferta, demanda e clima</div>
+      </div>
+    </div>
+
+    <p class="lead">O retrato de maio é um <strong>cabo de guerra</strong>: de um lado, a maré de oferta da safra de verão recém-colhida e estoques cheios empurra o físico pra baixo; de outro, a estiagem na safrinha do Cerrado e um balanço global cada vez mais magro seguram a faca.</p>
+
+    <p>A <strong>Conab</strong> (8º levantamento, 14/mai) projeta milho total de <strong>140,2 mi t</strong> — a 2ª maior safra da história. Mas o diabo mora na safrinha: a 2ª safra recuou para <strong>108,5 mi t (−0,6%)</strong> e a produtividade caiu <strong>6,2%, para 6.096 kg/ha</strong>, vítima da restrição hídrica na fase de enchimento de grãos. A demanda interna não dá trégua: o consumo puxado pelo <strong>etanol de milho</strong> deve chegar a 94,86 mi t (+4,6%).</p>
+
+    <p>No tabuleiro global, o <strong>WASDE de maio (USDA)</strong> trouxe a 1ª foto da safra 2026/27 e ela é <strong>construtiva pra preço</strong>: estoques mundiais caindo 7%, para <strong>277,5 mi t — o menor nível desde 2013/14</strong>, com consumo recorde de 1,315 bi t. Os EUA reduzem produção (de 432 para 406 mi t) e o Brasil cresce para 139 mi t, com exportação subindo a 44 mi t. Em bom português: <strong>tem milho, mas a gordura do estoque está sendo queimada</strong>.</p>
+
+    <h3 style="font-family:'Fraunces',serif;color:var(--verde);font-size:18px;margin:22px 0 12px">Mapa do clima na safrinha — onde aperta</h3>
+    <div class="regiongrid">
+      <div class="region">
+        <div class="nm">⚠ Goiás · Minas · Triângulo · Matopiba</div>
+        <div class="st">Restrição hídrica confirmada no enchimento de grãos (boletim Conab 21/mai). Perda de potencial produtivo no Cerrado.</div>
+        <div class="tmeter"><i style="width:82%;background:#c0392b"></i></div>
+      </div>
+      <div class="region">
+        <div class="nm">↗ Paraná · Mato Grosso do Sul</div>
+        <div class="st">Recuperação do índice de vegetação após regularização das chuvas em maio. Cenário aliviou frente a abril.</div>
+        <div class="tmeter"><i style="width:55%;background:#c08a1e"></i></div>
+      </div>
+      <div class="region">
+        <div class="nm">✓ Mato Grosso</div>
+        <div class="st">Maior produtor da safrinha com lavouras vigorosas e condições satisfatórias na maior parte da área.</div>
+        <div class="tmeter"><i style="width:30%;background:#2f8f4e"></i></div>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--suave);margin-top:8px">↳ Para o produtor de <b>Rio Verde/GO</b>, o recado é direto: a sua região está justamente no foco da restrição hídrica. Quebra local convive com piso de preço nacional ainda pressionado — atenção redobrada à comercialização e ao seguro.</p>
+  </section>
+
+  <!-- 5. CENÁRIOS JUNHO -->
+  <section>
+    <div class="sechead">
+      <div class="secnum">5</div>
+      <div>
+        <h2>Cenários para junho</h2>
+        <div class="h2sub">Como o mês pode se desenhar · probabilidade subjetiva ruralin.ai</div>
+      </div>
+    </div>
+
+    <div class="scengrid">
+      <div class="scen s1">
+        <span class="stag">Cenário baixista</span>
+        <div style="margin-top:12px"><span class="prob">30%</span> <span class="problab">probabilidade</span></div>
+        <h4>"A colheita afoga o preço"</h4>
+        <div class="price">Físico: R$ 60–63 /sc</div>
+        <ul>
+          <li>Chuva volta em força no Cerrado e segura perdas da safrinha.</li>
+          <li>Pico de colheita da 2ª safra empurra oferta ao mercado.</li>
+          <li>Trégua firme no Golfo derruba petróleo e fertilizante.</li>
+          <li>Dólar recua e piora a paridade de exportação.</li>
+        </ul>
+      </div>
+      <div class="scen s2">
+        <span class="stag">Cenário base</span>
+        <div style="margin-top:12px"><span class="prob">45%</span> <span class="problab">probabilidade</span></div>
+        <h4>"Acomodação tensa"</h4>
+        <div class="price">Físico: R$ 64–68 /sc</div>
+        <ul>
+          <li>Físico encontra suporte perto de R$ 64–65 e lateraliza.</li>
+          <li>Exportação recorde compensa pressão de colheita.</li>
+          <li>Clima irregular mantém prêmio de risco no preço.</li>
+          <li>WASDE 11/jun confirma estoque global apertado.</li>
+        </ul>
+      </div>
+      <div class="scen s3">
+        <span class="stag">Cenário altista</span>
+        <div style="margin-top:12px"><span class="prob">25%</span> <span class="problab">probabilidade</span></div>
+        <h4>"O clima cobra a conta"</h4>
+        <div class="price">Físico: R$ 69–74 /sc</div>
+        <ul>
+          <li>Seca persiste e Conab/USDA cortam a safrinha.</li>
+          <li>Escalada no Golfo dispara petróleo e fertilizante.</li>
+          <li>Chicago rompe topo com aperto global de estoques.</li>
+          <li>Dólar volta a subir e premia o exportador.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="box tip">
+      <h4>Minha leitura como estrategista</h4>
+      <p>O <b>cenário base é o mais provável</b>: o físico já fez boa parte do ajuste de baixa e está testando suporte. O grande diferencial de junho é que, ao contrário de uma safra cheia "tranquila", temos <b>dois gatilhos altistas armados ao mesmo tempo</b> — o clima da safrinha no Cerrado e o custo do fertilizante refém da geopolítica. Isso muda a assimetria do risco: <b>o espaço para cair é menor do que o espaço para reagir</b>. Quem vende, não precisa correr para se desfazer de tudo no piso; quem compra insumo, não pode ignorar o relógio do fertilizante.</p>
+    </div>
+  </section>
+
+  <!-- 6. RADAR MACRO -->
+  <section>
+    <div class="sechead">
+      <div class="secnum">6</div>
+      <div>
+        <h2>Radar macro &amp; geopolítico</h2>
+        <div class="h2sub">O que ficar de olho em junho</div>
+      </div>
+    </div>
+
+    <div class="box warn">
+      <h4>🛢️ Estreito de Ormuz — o curinga de 2026</h4>
+      <p>O conflito Irã–Israel–EUA (desde fev/26) mantém o Estreito de Ormuz praticamente fechado, com o trânsito de navios derretido em mais de 95%. Por ali passam cerca de <b>20% do comércio marítimo de fertilizantes</b> do mundo. Resultado: o Brent saltou de ~US$ 70 para mais de US$ 110 no auge, e os <b>fertilizantes nitrogenados subiram +30%</b>. O cessar-fogo foi estendido por tempo indeterminado, mas as conversas de paz estão em pausa — e a Rússia já estendeu suas cotas de exportação de fertilizante até dezembro. <b>Para o Brasil, grande importador de adubo, esse é o fator que pode redesenhar o custo da próxima safra.</b></p>
+    </div>
+
+    <div class="watchlist" style="margin-top:16px">
+      <div class="watch">
+        <div class="ic">$</div>
+        <div><div class="wt">Câmbio (R$ 5,05)</div><div class="wd">Dólar firme sustenta exportação e segura o físico. Real mais forte seria baixista para o milho interno.</div></div>
+      </div>
+      <div class="watch">
+        <div class="ic">N</div>
+        <div><div class="wt">Fertilizante / ureia</div><div class="wd">Cenários projetam pico de US$ 782/st (jun, reabertura rápida) até US$ 996/st (out, conflito prolongado). Trava de preço é decisiva.</div></div>
+      </div>
+      <div class="watch">
+        <div class="ic">🌧</div>
+        <div><div class="wt">El Niño (88% mai–jul)</div><div class="wd">Tende a trazer mais chuva ao Sul e menos ao Norte/Nordeste. Pode aliviar PR/MS e penalizar Matopiba.</div></div>
+      </div>
+      <div class="watch">
+        <div class="ic">11</div>
+        <div><div class="wt">WASDE de 11/junho</div><div class="wd">Primeiro ajuste relevante da safra 26/27 com clima incorporado. Pode mexer no humor de Chicago no curto prazo.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. RECADO -->
+  <section>
+    <div class="sechead">
+      <div class="secnum">7</div>
+      <div>
+        <h2>O recado ao produtor</h2>
+        <div class="h2sub">Gestão de risco · transformando dado em decisão</div>
+      </div>
+    </div>
+    <p class="lead">O mercado está te oferecendo um piso barato à vista (físico) e um prêmio à frente (curva futura toda acima do físico). Em ano de <strong>risco climático ativo na sua região e custo de insumo geopolítico</strong>, vender 100% no balcão pelo desespero de caixa é o pior dos mundos.</p>
+    <p>Três perguntas para levar pra mesa do escritório: <strong>(1)</strong> Qual o meu custo de produção por saca nesta safrinha — o preço de hoje cobre? <strong>(2)</strong> Já travei o fertilizante da próxima safra antes que o Golfo cobre a conta? <strong>(3)</strong> Tenho espaço de armazenagem e fôlego de caixa para esperar a curva futura ou a frustração climática se confirmar? A resposta a essas três define se você vende, trava ou espera — e não o boletim do dia.</p>
+  </section>
+
+  <div class="disc">
+    <b>Aviso.</b> Este informativo tem caráter educativo e analítico e não constitui recomendação de compra, venda ou investimento. As cotações são de referência (fim de maio/2026) e podem variar por praça, qualidade e logística. Probabilidades de cenário são subjetivas e baseadas no quadro disponível na data de fechamento. Decisões de comercialização e hedge devem considerar o custo de produção, o fluxo de caixa e o perfil de risco individuais de cada propriedade. Fontes: Cepea/Esalq-USP, Conab (8º levantamento, mai/26), USDA/WASDE (mai/26), B3, CBOT, IFPRI/UNCTAD/Congressional Research Service (crise no Estreito de Ormuz).
+  </div>
+
+  <!-- FOOTER / CREDENCIAIS -->
+  <footer>
+    <div class="flogo">
+      <svg width="34" height="34" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="30" stroke="#f4c95d" stroke-width="2.5" opacity=".55"/>
+        <circle cx="32" cy="32" r="20" stroke="#f4c95d" stroke-width="1.6" opacity=".35"/>
+        <path d="M32 33c0-9 6-16 16-18-1 10-7 16-16 18z" fill="#e6a72c"/>
+        <path d="M32 33c0-7-5-12-12-13 1 8 5 12 12 13z" fill="#bcd2c2"/>
+        <circle cx="32" cy="32" r="3.4" fill="#fff"/>
+      </svg>
+      <div class="name">rural<span>in</span>.ai</div>
+    </div>
+    <div class="fcred">
+      <div class="role">Análise e Construção</div>
+      <div class="nome">Dr. Sidney Souza</div>
+      <div class="qual">Economista e Administrador Agrícola · Estrategista Econômico do Produtor</div>
+      <div class="lines">
+        <span>Especialista em economia da fazenda e gestão de risco no agro</span>
+        <span><b>Transformamos dados da fazenda em decisões econômicas.</b></span>
+        <span>Ajudamos produtores a entender se o mercado sustenta seu negócio.</span>
+      </div>
+    </div>
+    <div class="fcontact">
+      <span>🌐 <a href="https://ruralinai-commits.github.io/ruralin-site/">ruralin-site</a></span>
+      <span>📸 <b style="color:#f4c95d">@ruralin.ai</b></span>
+      <span>✉️ <a href="mailto:sidneyagro@gmail.com">sidneyagro@gmail.com</a></span>
+      <span>📱 (64) 9 9226-6886</span>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
