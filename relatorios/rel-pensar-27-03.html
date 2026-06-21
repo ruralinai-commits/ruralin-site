@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar Agro para Pensar — 27/03/2026 | Rural IN</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#08060a;color:#d5d0dc;min-height:100vh}
+.pg{max-width:940px;margin:0 auto;padding:10px}
+
+.topbar{background:linear-gradient(90deg,#100e14,#141020,#100e14);padding:12px 20px;border-radius:14px 14px 0 0;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #2a2040;flex-wrap:wrap;gap:8px}
+.topbar .logo{display:flex;align-items:center;gap:12px}
+.topbar .logo-ic{width:54px;height:54px;background:linear-gradient(135deg,#7c4dff,#311b92);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.7em;box-shadow:0 4px 25px rgba(124,77,255,.3)}
+.topbar .logo-txt h2{font-size:1.05em;font-weight:900;color:#fff;letter-spacing:1.5px}
+.topbar .logo-txt small{font-size:.62em;color:#b39ddb;font-weight:600;display:block}
+.topbar .ed{text-align:right}
+.topbar .ed .dt{font-size:.88em;font-weight:800;color:#b39ddb}
+.topbar .ed .inf{font-size:.62em;color:#5c5270;font-weight:600}
+
+.hdr{background:linear-gradient(135deg,#1a1025,#12082a 50%,#0d1025);padding:40px 24px 36px;text-align:center;border-bottom:3px solid #7c4dff;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(124,77,255,.08) 0%,transparent 70%)}
+.hdr .ep{font-size:.68em;color:#7c4dff;font-weight:700;letter-spacing:4px;text-transform:uppercase;position:relative;z-index:1;margin-bottom:8px}
+.hdr h1{font-family:'Playfair Display',serif;font-size:1.8em;font-weight:900;color:#fff;position:relative;z-index:1;line-height:1.3;max-width:700px;margin:0 auto}
+.hdr .sub{font-size:.86em;color:#b39ddb;margin-top:10px;font-weight:500;position:relative;z-index:1;font-style:italic;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.6}
+.hdr .tag{font-size:.64em;color:#5c5270;margin-top:16px;position:relative;z-index:1;letter-spacing:1px}
+
+.mn{background:#0c0a10;padding:24px;border:1px solid #1a1530;border-top:none}
+
+.epi{text-align:center;padding:28px 30px;margin-bottom:26px;border:1px solid #2a2040;border-radius:14px;background:linear-gradient(135deg,#100d18,#14102a)}
+.epi blockquote{font-family:'Playfair Display',serif;font-size:1.15em;color:#e0d8f0;line-height:1.7;font-style:italic;position:relative;padding:0 20px}
+.epi blockquote::before{content:'\201C';font-size:3em;color:#7c4dff;position:absolute;top:-15px;left:-5px;font-family:Georgia,serif;opacity:.5}
+.epi cite{display:block;margin-top:12px;font-size:.72em;color:#7c4dff;font-style:normal;font-weight:700;letter-spacing:1px}
+
+.stl{font-size:.82em;text-transform:uppercase;letter-spacing:2px;font-weight:800;color:#7c4dff;margin:28px 0 14px;display:flex;align-items:center;gap:10px;padding-bottom:8px;border-bottom:1px solid #1a1530}
+.stl2{font-family:'Playfair Display',serif;font-size:1.25em;font-weight:800;color:#fff;margin-bottom:16px;line-height:1.4;text-align:center}
+
+.tx{font-size:.88em;line-height:2;color:#b0a8c0;margin-bottom:18px;text-align:justify}
+.tx strong{color:#e0d8f0;font-weight:700}
+.tx em{color:#b39ddb;font-style:italic}
+.tx .hl{color:#ffab40;font-weight:700}
+.tx .ng{color:#ef5350;font-weight:700}
+.tx .ps{color:#81c784;font-weight:700}
+.tx .bl{color:#b39ddb;font-weight:700}
+.tx .wh{color:#fff;font-weight:800}
+
+.chc{background:#110e18;border:1px solid #1e1a30;border-radius:12px;padding:16px;margin-bottom:16px}
+.chc h4{font-size:.72em;color:#b39ddb;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-weight:700;text-align:center}
+.chc canvas{max-height:290px}
+.chg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+
+.tl{position:relative;padding-left:30px;margin-bottom:20px}
+.tl::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,#7c4dff,#311b92,transparent)}
+.tl-i{position:relative;margin-bottom:18px;padding-left:16px}
+.tl-i::before{content:'';position:absolute;left:-24px;top:6px;width:10px;height:10px;border-radius:50%;border:2px solid #7c4dff;background:#08060a}
+.tl-i.tc::before{background:#7c4dff;box-shadow:0 0 10px rgba(124,77,255,.5)}
+.tl-i .td{font-size:.64em;color:#7c4dff;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+.tl-i .tt{font-size:.86em;font-weight:800;color:#e0d8f0;margin-top:2px}
+.tl-i .tp{font-size:.78em;color:#9088a8;line-height:1.7;margin-top:4px}
+.tl-i .tp .hl{color:#ffab40;font-weight:700}
+.tl-i .tp .ng{color:#ef5350;font-weight:700}
+
+.bld{background:linear-gradient(135deg,#18102a,#1a1030);border:2px solid #7c4dff;border-radius:14px;padding:24px;margin:20px 0;text-align:center;box-shadow:0 0 40px rgba(124,77,255,.06)}
+.bld h3{font-family:'Playfair Display',serif;font-size:1.3em;color:#fff;margin-bottom:12px;line-height:1.4}
+.bld p{font-size:.88em;color:#b39ddb;line-height:1.9}
+
+.thermo{background:#110e18;border-radius:14px;padding:18px;border:1px solid #1e1a30;margin-bottom:14px}
+.thermo h4{text-align:center;font-size:.74em;color:#b39ddb;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-bottom:14px}
+.th-bar{height:20px;background:linear-gradient(90deg,#1b5e20 0%,#4CAF50 20%,#8bc34a 35%,#ffd740 50%,#ff9800 65%,#ef5350 80%,#b71c1c 100%);border-radius:10px;position:relative;margin:28px 10px 12px}
+.th-mk{position:absolute;top:-24px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
+.th-mk .arr{width:3px;height:44px;border-radius:2px;background:#fff;box-shadow:0 0 8px rgba(255,255,255,.3)}
+.th-mk .lbl{font-size:.66em;font-weight:800;padding:4px 10px;border-radius:6px;white-space:nowrap;margin-top:4px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.th-labels{display:flex;justify-content:space-between;padding:0 10px;font-size:.64em;color:#5c5270;font-weight:700}
+
+.dg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:18px}
+.dc{background:#110e18;border-radius:11px;padding:16px;border:1px solid #1e1a30;text-align:center}
+.dc .dl{font-size:.58em;color:#7c4dff;text-transform:uppercase;letter-spacing:1.2px;font-weight:700;margin-bottom:6px}
+.dc .dv{font-size:1.3em;font-weight:900;color:#fff}
+.dc .ds{font-size:.72em;color:#9088a8;margin-top:4px;line-height:1.4}
+
+.qb{background:linear-gradient(135deg,#100d18,#18102a);border-left:4px solid #7c4dff;border-radius:0 12px 12px 0;padding:20px;margin-bottom:14px}
+.qb .qq{font-family:'Playfair Display',serif;font-size:1.1em;color:#e0d8f0;font-weight:700;line-height:1.5}
+.qb .qa{font-size:.84em;color:#9088a8;line-height:1.9;margin-top:10px}
+.qb .qa .hl{color:#ffab40;font-weight:700}
+.qb .qa .ng{color:#ef5350;font-weight:700}
+.qb .qa .ps{color:#81c784;font-weight:700}
+
+.cta{background:linear-gradient(135deg,#1a0e30,#2a1050);border:2px solid #7c4dff;border-radius:16px;padding:28px;margin:24px 0;text-align:center;box-shadow:0 0 50px rgba(124,77,255,.1)}
+.cta h3{font-family:'Playfair Display',serif;font-size:1.35em;color:#fff;margin-bottom:12px;line-height:1.4}
+.cta p{font-size:.86em;color:#b39ddb;line-height:1.9;max-width:700px;margin:0 auto}
+.cta .ctb{display:inline-block;margin-top:16px;padding:12px 30px;background:linear-gradient(135deg,#7c4dff,#651fff);color:#fff;font-weight:800;font-size:.82em;border-radius:30px;text-decoration:none;letter-spacing:1px;box-shadow:0 4px 20px rgba(124,77,255,.4)}
+
+.cred{background:linear-gradient(135deg,#100d18,#18102a);border:2px solid #311b92;border-radius:16px;padding:24px;margin-top:24px}
+.cred-in{display:flex;gap:20px;align-items:center}
+.cred-av{width:72px;height:72px;background:linear-gradient(135deg,#7c4dff,#311b92);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.9em;flex-shrink:0;box-shadow:0 4px 25px rgba(124,77,255,.3)}
+.cred h3{font-size:1em;font-weight:900;color:#fff}
+.cred .ti{font-size:.76em;color:#b39ddb;font-weight:700;margin-top:2px}
+.cred .dsc{font-size:.72em;color:#7c4dff;margin-top:5px;line-height:1.5;font-style:italic}
+.cred .ct{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px}
+.cred .ct a,.cred .ct span{font-size:.7em;color:#d1c4e9;text-decoration:none;display:flex;align-items:center;gap:4px;font-weight:600;padding:4px 10px;background:rgba(124,77,255,.06);border-radius:6px;border:1px solid rgba(124,77,255,.2)}
+.cred .ct a:hover{background:rgba(124,77,255,.15);color:#fff}
+.disc{margin-top:16px;padding:14px;background:rgba(255,255,255,.02);border-radius:10px;font-size:.64em;color:#3a3450;line-height:1.6;text-align:center;border:1px solid rgba(255,255,255,.03)}
+.ftr{text-align:center;padding:14px;font-size:.66em;color:#1e1830;border-radius:0 0 14px 14px;background:#08060a}
+
+.sep{text-align:center;margin:30px 0;color:#311b92;font-size:1.2em;letter-spacing:10px}
+
+@media(max-width:768px){.topbar{flex-direction:column;text-align:center}.topbar .ed{text-align:center}.hdr h1{font-size:1.3em}.chg{grid-template-columns:1fr}.cred-in{flex-direction:column;text-align:center}.cred .ct{justify-content:center}.dg{grid-template-columns:1fr 1fr}.epi blockquote{font-size:1em;padding:0 10px}}
+@media(max-width:420px){.dg{grid-template-columns:1fr}.hdr h1{font-size:1.1em}}
+</style>
+</head>
+<body>
+<div class="pg">
+
+<div class="topbar">
+<div class="logo"><div class="logo-ic">💭</div><div class="logo-txt"><h2>RURAL IN</h2><small>Inteligência para o Agronegócio</small></div></div>
+<div class="ed"><div class="dt">Sexta-feira, 27 de Março de 2026</div><div class="inf">Radar Agro para Pensar · Edição Reflexiva · Não é sobre preço. É sobre futuro.</div></div>
+</div>
+
+<div class="hdr">
+<div class="ep">Radar Agro para Pensar</div>
+<h1>O Modelo que Sustentou o Agro por 30 Anos Está Quebrando. E Poucos Perceberam.</h1>
+<div class="sub">Este não é um informativo de cotações. É um convite para parar, olhar o espelho retrovisor — e entender por que o caminho que trouxe você até aqui pode não ser o mesmo que vai levar adiante.</div>
+<div class="tag">27 de março de 2026 · Uma reflexão de Dr. Sidney Souza · Rural IN</div>
+</div>
+
+<div class="mn">
+
+<div class="epi">
+<blockquote>Não são as espécies mais fortes que sobrevivem, nem as mais inteligentes, mas as que melhor se adaptam às mudanças.</blockquote>
+<cite>— Charles Darwin (1809–1882)</cite>
+</div>
+
+<!-- ABERTURA -->
+<h3 class="stl">📖 Antes de Tudo: Uma Confissão</h3>
+
+<p class="tx">Eu poderia ter escrito mais um boletim de preços. <span class="hl">Ureia a US$ 550, MAP a US$ 1.000, soja a R$ 106, milho a R$ 58.</span> Números que todo produtor já sabe. Mas hoje eu preciso falar sobre algo que <strong>quase ninguém está dizendo em voz alta</strong>: o agronegócio brasileiro vive o início de uma <span class="ng">ruptura silenciosa</span>. Não é uma crise de safra. Não é uma seca. Não é uma praga. É algo mais profundo — é uma <span class="wh">crise de modelo</span>.</p>
+
+<p class="tx">O produtor rural brasileiro se tornou, nas últimas três décadas, uma das máquinas de produção de alimentos mais eficientes que o planeta já viu. Saiu de 50 milhões de toneladas de grãos em 1990 para mais de 320 milhões em 2025. Colonizou o Cerrado. Dominou o plantio direto. <strong>Alimenta 800 milhões de pessoas</strong>. E mesmo assim — no exato momento de sua maior produção histórica — <span class="ng">enfrenta a pior crise de margem dos últimos 20 anos</span>.</p>
+
+<p class="tx">Isso não é coincidência. <span class="wh">É consequência.</span></p>
+
+<div class="sep">· · ·</div>
+
+<!-- TIMELINE -->
+<h3 class="stl">⏳ 30 Anos em 30 Segundos — O Que Aconteceu com o Mundo</h3>
+<p class="stl2">Uma linha do tempo que o agro viveu — mas não parou para processar</p>
+
+<div class="tl">
+<div class="tl-i"><div class="td">1994-2002 · A Gênese</div><div class="tt">Plano Real, Terra Barata e Crédito Público</div><div class="tp">Estabilização monetária permitiu planejamento. Hectare no Cerrado custava o preço de uma motocicleta. BNDES e crédito rural a juros negativos financiaram a expansão. <span class="hl">O modelo era simples: compre terra, plante soja, cresça.</span> O risco era baixo porque o patrimônio se valorizava sozinho.</div></div>
+
+<div class="tl-i"><div class="td">2003-2008 · O Superciclo</div><div class="tt">China Emerge, Commodities Explodem, Produtor Vira Rei</div><div class="tp">China entra na OMC (2001) e inicia o maior ciclo de urbanização da história. Demanda por soja, milho e minério <span class="hl">multiplica preços por 3x em 5 anos</span>. Soja sai de US$ 5 para US$ 16/bushel. Produtor brasileiro compra mais terra, mais máquina, mais insumo. O mundo parece infinito. Até que não parece mais.</div></div>
+
+<div class="tl-i"><div class="td">Setembro de 2008 · A Fratura</div><div class="tt">Lehman Brothers Quebra. O Mundo Aprende Que Risco Existe.</div><div class="tp"><span class="ng">O maior banco de investimentos do planeta desaparece em 48 horas.</span> Crédito congela globalmente. Commodities despencam 50% em semanas. No Brasil, produtores que travaram insumos a preços altos e venderam soja em queda perderam safras inteiras. <span class="ng">O agro descobriu, da pior forma, que estava conectado ao mercado financeiro global</span> — mesmo sem saber.</div></div>
+
+<div class="tl-i"><div class="td">2009-2014 · A Recuperação Ilusória</div><div class="tt">QE, Dólar Barato, China Dobra a Aposta</div><div class="tp">Bancos centrais injetam US$ 15 trilhões no sistema. Juros zero no mundo todo. <span class="hl">Dinheiro fácil financia expansão agrícola sem precedentes.</span> Área plantada no Brasil cresce 40%. Produtividade salta 25%. Mas ninguém percebe o detalhe: <strong>o custo de produção subiu junto</strong>. E a estrutura de capital ficou mais alavancada.</div></div>
+
+<div class="tl-i"><div class="td">2015-2019 · O Aperto Começa</div><div class="tt">China Desacelera, Preços Caem, Margens Encolhem</div><div class="tp">Soja opera abaixo de US$ 9/bu. Milho abaixo de R$ 30/sc. <span class="ng">Primeira onda de recuperações judiciais no agro.</span> Produtores que expandiram no ciclo anterior enfrentam a conta. O crédito público começa a ser substituído por CPRs, CRAs, fundos. <span class="hl">O produtor vira tomador de mercado financeiro sem perceber.</span></div></div>
+
+<div class="tl-i tc"><div class="td">2020-2022 · Pandemia, Guerra e a Grande Ilusão</div><div class="tt">COVID + Ucrânia = Superciclo Artificial</div><div class="tp">Pandemia paralisa o mundo. Cadeias de suprimento quebram. Rússia invade Ucrânia. <span class="hl">Soja bate R$ 191/sc em MT. Fertilizante triplica.</span> Margens explodem — para cima. Produtor compra mais terra (a R$ 200 mil/ha no Cerrado), mais máquina, mais insumo. Sensação de invencibilidade. Mas era uma <span class="ng">bolha de circunstância</span>: preços altos por escassez, não por demanda estrutural.</div></div>
+
+<div class="tl-i tc"><div class="td">2023-2026 · O Acerto de Contas</div><div class="tt">Margens Colapsam. O Modelo Quebra. O Futuro Cobra a Conta.</div><div class="tp">Soja volta a R$ 106/sc. Custos <strong>não voltam</strong>. MAP a US$ 1.000/t. Selic a 14,75%. <span class="ng">Inadimplência rural atinge 7,3% — recorde desde 2011.</span> Dívida do setor: R$ 706 bilhões. 15% do crédito ativo classificado com risco. Recuperações judiciais disparam. <span class="ng">O produtor descobre que produzir recorde não garante sobreviver.</span></div></div>
+</div>
+
+<div class="sep">· · ·</div>
+
+<!-- NÚMEROS -->
+<h3 class="stl">📊 Os Números que Ninguém Junta na Mesma Planilha</h3>
+<p class="stl2">O retrato real da crise — não a manchete, mas a conta</p>
+
+<div class="dg">
+<div class="dc"><div class="dl">Soja MT (2022)</div><div class="dv" style="color:#81c784">R$ 191/sc</div><div class="ds">Pico do superciclo.<br>Margem folgada.</div></div>
+<div class="dc"><div class="dl">Soja MT (Hoje)</div><div class="dv" style="color:#ef5350">R$ 100-104/sc</div><div class="ds">Queda de 46%.<br>Custo não caiu junto.</div></div>
+<div class="dc"><div class="dl">Custo/ha Soja MT</div><div class="dv" style="color:#ffab40">R$ 7.118/ha</div><div class="ds">Precisa colher 62 sc<br>só pra empatar.</div></div>
+<div class="dc"><div class="dl">Inadimplência Rural</div><div class="dv" style="color:#ef5350">7,3%</div><div class="ds">Jan/2026. Recorde.<br>Série desde 2011.</div></div>
+<div class="dc"><div class="dl">Inadimpl. Tx Mercado</div><div class="dv" style="color:#ef5350">13,5%</div><div class="ds">Era 4,3% em Jan/25.<br>Explodiu em 1 ano.</div></div>
+<div class="dc"><div class="dl">Dívida Total do Agro</div><div class="dv" style="color:#ef5350">R$ 706 bi</div><div class="ds">Crédito rural PF.<br>R$ 41,3 bi inadimplentes.</div></div>
+<div class="dc"><div class="dl">Crédito Estressado</div><div class="dv" style="color:#ffab40">R$ 123,6 bi</div><div class="ds">15% de todo crédito.<br>Alta de 71% em 2025.</div></div>
+<div class="dc"><div class="dl">Selic Atual</div><div class="dv" style="color:#ef5350">14,75% a.a.</div><div class="ds">Cada R$ 1 mi de<br>dívida = R$ 147,5 mil/ano.</div></div>
+<div class="dc"><div class="dl">Custo Plano Safra</div><div class="dv" style="color:#ffab40">R$ 54-58 bi</div><div class="ds">Custo adicional ao setor.<br>Taxas subiram até 58%.</div></div>
+</div>
+
+<!-- GRÁFICOS -->
+<div class="chc">
+<h4>A Tesoura que Esmaga o Produtor: Receita vs Custo (R$/ha Soja MT)</h4>
+<canvas id="ch1"></canvas>
+</div>
+
+<div class="chg">
+<div class="chc">
+<h4>Margem Liquida Soja MT (R$/ha)</h4>
+<canvas id="ch2"></canvas>
+</div>
+<div class="chc">
+<h4>Inadimplencia Rural em Tx de Mercado (%)</h4>
+<canvas id="ch3"></canvas>
+</div>
+</div>
+
+<div class="sep">· · ·</div>
+
+<!-- REFLEXÃO CENTRAL -->
+<h3 class="stl">🧠 A Reflexão que Poucos Fazem</h3>
+<p class="stl2">Cinco perguntas que valem mais que qualquer cotação</p>
+
+<div class="qb">
+<div class="qq">1. Sobreviver será para quem produzir mais — ou para quem rentabilizar mais?</div>
+<div class="qa">O Brasil aumentou produção de grãos em <span class="hl">540% em 30 anos</span>. E a renda do produtor? Oscila entre euforia e desespero a cada dois ciclos. A safra 24/25 foi recorde — e a margem líquida <span class="ng">caiu 36,7% na soja e 92,2% no milho</span> no ciclo seguinte. Produtividade sem gestão de margem é como correr mais rápido numa esteira: <span class="ng">muito esforço, nenhum deslocamento</span>. O futuro pertence a quem entende que <span class="ps">cada saca precisa gerar lucro — não apenas existir</span>.</div>
+</div>
+
+<div class="qb">
+<div class="qq">2. O crédito mudou de dono. E você percebeu?</div>
+<div class="qa">Em 1995, o crédito rural era <span class="hl">público, subsidiado e politicamente direcionado</span>. O produtor ia ao Banco do Brasil, assinava e plantava. Hoje, o crédito vem de <span class="hl">CRAs, CPRs, fundos de investimento, tradings e fintechs</span>. Esses agentes operam com lógica de <strong>mercado financeiro</strong>: risco, retorno, garantia, score. Inadimplência em operações de mercado pulou de <span class="ng">1,8% (média 13 anos) para 13,5% em janeiro/2026</span>. O produtor entrou no mercado financeiro — mas com mentalidade de crédito público. <span class="ng">Essa conta chegou.</span></div>
+</div>
+
+<div class="qb">
+<div class="qq">3. Você é gestor da sua fazenda — ou refém do ciclo?</div>
+<div class="qa">Nos anos bons, o produtor expande: mais terra, mais máquina, mais estoque. Nos anos ruins, ele renegocia, vende ativo, aperta o cinto. Esse padrão tem nome na economia: <span class="hl">comportamento pró-cíclico</span> — o mesmo erro que os bancos cometeram em 2008. <span class="ps">Gestão anticíclica é o oposto</span>: guardar nos anos bons, investir nos anos ruins. O produtor que comprou terra a R$ 200 mil/ha em 2022 e hoje não consegue pagar o financiamento a Selic 14,75% <span class="ng">foi vítima do ciclo — não da seca</span>.</div>
+</div>
+
+<div class="qb">
+<div class="qq">4. O mundo está produzindo alimento demais — ou pagando de menos?</div>
+<div class="qa">A oferta global de grãos cresceu <span class="hl">exponencialmente</span>. Brasil, Argentina, EUA, Ucrânia e agora África — todos expandem área e produtividade. Mas a demanda <span class="ng">não acompanha no mesmo ritmo</span>. A China desacelerou. A Europa estabilizou. A Índia consome mais internamente. O resultado: <strong>estoques confortáveis pressionam preços para baixo</strong>. Quem vai pagar mais pelo alimento? E se não vão pagar mais — <span class="ng">quem vai ser eliminado da competição por custo?</span></div>
+</div>
+
+<div class="qb">
+<div class="qq">5. Será melhor ter gestor ou ser gestor?</div>
+<div class="qa">A fazenda de 2026 não é a mesma de 1996. Hoje ela opera com <span class="hl">câmbio, derivativos, custo de oportunidade, hedge, barter, CDI, spread bancário</span>. Exige competências que antes eram exclusivas de tesourarias de banco. O produtor que insiste em decidir sozinho — sem dados, sem simulação, sem parceiro técnico — está pilotando um avião sem painel de instrumentos. <span class="ps">Não é fraqueza buscar inteligência de fora. É estratégia de sobrevivência.</span></div>
+</div>
+
+<div class="sep">· · ·</div>
+
+<!-- TERMÔMETROS -->
+<h3 class="stl">🌡️ Onde Estamos — e Para Onde Vamos</h3>
+
+<div class="chg">
+<div class="thermo"><h4>Saude Financeira do Agro BR</h4>
+<div class="th-bar"><div class="th-mk" style="left:72%"><div class="arr"></div><div class="lbl" style="background:#ef5350;color:#fff">ESTRESSADO</div></div></div>
+<div class="th-labels"><span>Saudavel</span><span>Atencao</span><span>Crise</span></div>
+</div>
+<div class="thermo"><h4>Margem Soja/Milho 25/26</h4>
+<div class="th-bar"><div class="th-mk" style="left:70%"><div class="arr"></div><div class="lbl" style="background:#ef5350;color:#fff">APERTADA</div></div></div>
+<div class="th-labels"><span>Folgada</span><span>Equilibrada</span><span>Negativa</span></div>
+</div>
+</div>
+
+<div class="chg">
+<div class="thermo"><h4>Nivel de Gestao do Produtor Medio</h4>
+<div class="th-bar"><div class="th-mk" style="left:65%"><div class="arr"></div><div class="lbl" style="background:#ffab40;color:#000">INSUFICIENTE</div></div></div>
+<div class="th-labels"><span>Avancado</span><span>Basico</span><span>Ausente</span></div>
+</div>
+<div class="thermo"><h4>Urgencia de Adaptacao</h4>
+<div class="th-bar"><div class="th-mk" style="left:80%"><div class="arr"></div><div class="lbl" style="background:#ef5350;color:#fff">URGENTE</div></div></div>
+<div class="th-labels"><span>Baixa</span><span>Moderada</span><span>Critica</span></div>
+</div>
+</div>
+
+<!-- GRÁFICO PRODUÇÃO VS MARGEM -->
+<div class="chc">
+<h4>Producao Brasileira de Graos vs Margem Real do Produtor (Indice Base 100)</h4>
+<canvas id="ch4"></canvas>
+</div>
+
+<div class="sep">· · ·</div>
+
+<!-- MUDANÇA -->
+<h3 class="stl">🔑 O Que Mudou — e o Que Precisa Mudar</h3>
+
+<div class="chg">
+<div class="chc">
+<h4>O Modelo Antigo (1995-2020)</h4>
+<canvas id="ch5"></canvas>
+</div>
+<div class="chc">
+<h4>O Modelo Necessario (2026 em diante)</h4>
+<canvas id="ch6"></canvas>
+</div>
+</div>
+
+<p class="tx">O modelo antigo funcionou porque o <span class="hl">contexto permitiu</span>: terra barata, crédito subsidiado, câmbio favorável, China em expansão infinita e margens que perdoavam erros. Cada um desses pilares <span class="ng">está rachado ou ruiu</span>. Terra a R$ 200 mil/ha. Crédito a Selic 14,75%. Câmbio volátil. China desacelerando. Margens negativas em várias praças. <strong>O modelo antigo não é errado — é insuficiente</strong>. É como usar um mapa de estrada de 2005 para navegar com GPS em 2026. O destino mudou. As rotas mudaram. Os riscos mudaram.</p>
+
+<div class="bld">
+<h3>A diferença entre o produtor que vai prosperar e o que vai sobreviver não está no trator. Está na planilha.</h3>
+<p>Não é sobre produzir mais. É sobre <strong>saber quanto custa cada saca, em que momento vender, quando travar, como financiar e quando dizer não</strong>. É sobre transformar a fazenda de uma unidade de produção em uma <strong>unidade de decisão econômica</strong>.</p>
+</div>
+
+<div class="sep">· · ·</div>
+
+<!-- GEOPOLÍTICA -->
+<h3 class="stl">🌐 O Mundo Lá Fora Não Está Esperando</h3>
+
+<p class="tx">Enquanto o produtor brasileiro lida com Selic 14,75% e MAP a US$ 1.000/t, o mundo está se reorganizando. <span class="hl">Guerras no Oriente Médio</span> interrompem rotas de fertilizantes. <span class="hl">China</span> restringe exportações de fosfatados e negocia potássio bilateralmente. <span class="hl">Rússia</span> usa energia e fertilizantes como arma geopolítica. <span class="hl">EUA</span> promovem reshoring e protecionismo comercial sob Trump. A <span class="ng">ordem econômica globalizada que permitiu ao Brasil importar 85% dos seus fertilizantes barato está se fragmentando</span>. E a promessa do Plano Nacional de Fertilizantes? <em>"Não saiu do papel"</em>, admitiu o governo.</p>
+
+<p class="tx">O produtor opera hoje num tabuleiro que ele <strong>não escolheu, não controla e muitas vezes não entende</strong>. Câmbio, juros americanos, conflito no Estreito de Ormuz, política de exportação chinesa, sanções sobre a Rússia — tudo isso entra no custo da sua saca antes mesmo dela ser plantada. <span class="wh">Ignorar esse tabuleiro não é simplicidade. É risco.</span></p>
+
+<div class="sep">· · ·</div>
+
+<!-- FECHAMENTO -->
+<h3 class="stl">💭 Uma Última Reflexão</h3>
+
+<div class="epi">
+<blockquote>Nos últimos 30 anos, o agro brasileiro provou que sabe produzir como ninguém. A pergunta dos próximos 30 não é se vamos produzir mais. É se vamos sobreviver produzindo.</blockquote>
+<cite>— Dr. Sidney Souza, Rural IN</cite>
+</div>
+
+<p class="tx">Se você chegou até aqui, já demonstrou algo que a maioria não tem: <span class="ps">disposição para pensar além da porteira</span>. O mercado vai continuar fazendo o que faz — oscilar, assustar, iludir e punir. A pergunta não é o que o mercado vai fazer. <span class="wh">A pergunta é o que você vai fazer com a informação que tem.</span></p>
+
+<p class="tx">A Rural IN existe porque acreditamos que <span class="hl">o produtor precisa de parceiro que enxerga a fazenda como empresa</span> — não como aposta. Que <span class="ps">transforma dado em decisão</span>. Que ajuda a responder a pergunta mais importante de todas: <span class="wh">o mercado sustenta meu negócio?</span></p>
+
+<p class="tx">Se a resposta for sim — ótimo, vamos maximizar. Se for não — melhor saber agora do que descobrir na colheita.</p>
+
+<!-- CTA -->
+<div class="cta">
+<h3>Você não precisa saber tudo. Precisa saber com quem contar.</h3>
+<p>A Rural IN ajuda produtores a entender se o mercado sustenta seu negócio. Transformamos dados da fazenda em decisões econômicas. Gestão de risco, simulação de cenários, análise de margem, estratégia de comercialização.</p>
+<a href="https://wa.me/5564992266886?text=Ol%C3%A1%20Dr.%20Sidney%2C%20li%20o%20Radar%20para%20Pensar%20e%20quero%20conversar%20sobre%20gest%C3%A3o." class="ctb">FALE COM A RURAL IN</a>
+</div>
+
+<!-- CREDENCIAL -->
+<div class="cred">
+<div class="cred-in">
+<div class="cred-av">👨‍💼</div>
+<div>
+<h3>Dr. Sidney Souza</h3>
+<div class="ti">Economista Agrícola · Estrategista Econômico do Produtor</div>
+<div class="dsc">Especialista em economia da fazenda e gestão de risco no agro. Transformamos dados da fazenda em decisões econômicas. Ajudamos produtores a entender se o mercado sustenta seu negócio.</div>
+<div class="ct">
+<a href="mailto:sidneyagro@gmail.com">📧 sidneyagro@gmail.com</a>
+<a href="https://wa.me/5564992266886">📱 (64) 9 9226-6886</a>
+<span>📸 @ruralin.ai</span>
+<span>📸 @sidneyagrosa</span>
+</div>
+</div>
+</div>
+<div class="disc">Material reflexivo e educacional. Nao constitui recomendacao de compra, venda ou investimento. Dados: BC, CNA, CONAB, Aprosoja, Cepea/Esalq, StoneX, Argus, Scot Consultoria, AgFeed, AgroPujante, Itau BBA, Farmnews.</div>
+</div>
+
+</div>
+<div class="ftr">RURAL IN 2026 · Inteligencia para o Agronegocio · Dr. Sidney Souza · Rio Verde/GO</div>
+</div>
+
+<!-- SCRIPTS -->
+<script>
+Chart.defaults.color = '#6b6080';
+Chart.defaults.font.family = 'Inter';
+Chart.defaults.font.size = 11;
+
+var df = { family: 'Inter', weight: '600' };
+var tt = {
+    backgroundColor: '#110e18',
+    titleColor: '#b39ddb',
+    bodyColor: '#d5d0dc',
+    borderColor: '#311b92',
+    borderWidth: 1,
+    padding: 12,
+    cornerRadius: 8
+};
+
+// GRAFICO 1 - Tesoura Receita vs Custo
+var ctx1 = document.getElementById('ch1').getContext('2d');
+new Chart(ctx1, {
+    type: 'line',
+    data: {
+        labels: ['18/19', '19/20', '20/21', '21/22', '22/23', '23/24', '24/25', '25/26*'],
+        datasets: [
+            {
+                label: 'Receita Bruta (R$/ha)',
+                data: [3200, 3400, 5800, 7500, 5200, 4600, 5100, 4500],
+                borderColor: '#81c784',
+                backgroundColor: 'rgba(129,199,132,0.06)',
+                borderWidth: 3,
+                fill: false,
+                tension: 0.3,
+                pointRadius: 4,
+                pointBackgroundColor: '#81c784'
+            },
+            {
+                label: 'Custo Total (R$/ha)',
+                data: [2900, 3100, 3800, 5200, 5800, 5500, 4700, 5200],
+                borderColor: '#ef5350',
+                backgroundColor: 'rgba(239,83,80,0.06)',
+                borderWidth: 3,
+                fill: false,
+                tension: 0.3,
+                pointRadius: 4,
+                pointBackgroundColor: '#ef5350',
+                borderDash: [6, 3]
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: { labels: { font: df, boxWidth: 14 } },
+            tooltip: tt,
+            annotation: {
+                annotations: {
+                    tesoura: {
+                        type: 'label',
+                        xValue: 7,
+                        yValue: 4850,
+                        content: ['Tesoura se fecha'],
+                        font: { size: 10, weight: 'bold' },
+                        color: '#ef5350'
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                grid: { color: 'rgba(255,255,255,0.03)' },
+                ticks: { callback: function(v) { return 'R$ ' + v.toLocaleString('pt-BR'); }, font: df }
+            },
+            x: { grid: { display: false }, ticks: { font: df } }
+        }
+    }
+});
+
+// GRAFICO 2 - Margem Liquida
+var ctx2 = document.getElementById('ch2').getContext('2d');
+var margemData = [2000, 2300, -600, -900, 400, -700];
+var margemCores = margemData.map(function(v) { return v >= 0 ? 'rgba(129,199,132,0.5)' : 'rgba(239,83,80,0.5)'; });
+var margemBordas = margemData.map(function(v) { return v >= 0 ? '#81c784' : '#ef5350'; });
+
+new Chart(ctx2, {
+    type: 'bar',
+    data: {
+        labels: ['20/21', '21/22', '22/23', '23/24', '24/25', '25/26*'],
+        datasets: [{
+            data: margemData,
+            backgroundColor: margemCores,
+            borderColor: margemBordas,
+            borderWidth: 2,
+            borderRadius: 6
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                backgroundColor: '#110e18',
+                titleColor: '#b39ddb',
+                bodyColor: '#d5d0dc',
+                borderColor: '#311b92',
+                borderWidth: 1,
+                padding: 12,
+                cornerRadius: 8,
+                callbacks: {
+                    label: function(c) { return 'R$ ' + c.parsed.y + '/ha'; }
+                }
+            },
+            annotation: {
+                annotations: {
+                    zero: {
+                        type: 'line',
+                        yMin: 0,
+                        yMax: 0,
+                        borderColor: '#ffab40',
+                        borderWidth: 1.5,
+                        borderDash: [5, 4],
+                        label: {
+                            display: true,
+                            content: 'Break-even',
+                            position: 'end',
+                            backgroundColor: 'rgba(255,171,64,0.7)',
+                            color: '#000',
+                            font: { size: 8, weight: 'bold' },
+                            padding: 2
+                        }
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                grid: { color: 'rgba(255,255,255,0.03)' },
+                ticks: { callback: function(v) { return 'R$ ' + v; }, font: df }
+            },
+            x: { grid: { display: false }, ticks: { font: df } }
+        }
+    }
+});
+
+// GRAFICO 3 - Inadimplencia
+var ctx3 = document.getElementById('ch3').getContext('2d');
+new Chart(ctx3, {
+    type: 'line',
+    data: {
+        labels: ['Jan/22', 'Jul/22', 'Jan/23', 'Jul/23', 'Jan/24', 'Jul/24', 'Jan/25', 'Jul/25', 'Jan/26'],
+        datasets: [{
+            label: 'Inadimpl. Tx Mercado (%)',
+            data: [1.5, 1.8, 2.2, 3.0, 3.5, 3.8, 4.3, 8.2, 13.5],
+            borderColor: '#ef5350',
+            backgroundColor: 'rgba(239,83,80,0.08)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.3,
+            pointRadius: [3, 3, 3, 3, 3, 3, 4, 5, 8],
+            pointBackgroundColor: [
+                '#ef5350', '#ef5350', '#ef5350', '#ef5350',
+                '#ef5350', '#ef5350', '#ef5350', '#ff1744', '#ff1744'
+            ]
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                backgroundColor: '#110e18',
+                titleColor: '#b39ddb',
+                bodyColor: '#d5d0dc',
+                borderColor: '#311b92',
+                borderWidth: 1,
+                padding: 12,
+                cornerRadius: 8,
+                callbacks: {
+                    label: function(c) { return c.parsed.y.toFixed(1) + '%'; }
+                }
+            },
+            annotation: {
+                annotations: {
+                    media: {
+                        type: 'line',
+                        yMin: 1.8,
+                        yMax: 1.8,
+                        borderColor: 'rgba(179,157,219,0.4)',
+                        borderWidth: 1.5,
+                        borderDash: [5, 4],
+                        label: {
+                            display: true,
+                            content: 'Media 13 anos: 1,8%',
+                            position: 'start',
+                            backgroundColor: 'rgba(179,157,219,0.7)',
+                            color: '#000',
+                            font: { size: 8, weight: 'bold' },
+                            padding: 2
+                        }
+                    },
+                    pico: {
+                        type: 'label',
+                        xValue: 8,
+                        yValue: 12,
+                        content: ['13,5%'],
+                        font: { size: 12, weight: 'bold' },
+                        color: '#ef5350'
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                min: 0,
+                max: 16,
+                grid: { color: 'rgba(255,255,255,0.03)' },
+                ticks: { callback: function(v) { return v + '%'; }, font: df }
+            },
+            x: {
+                grid: { display: false },
+                ticks: { font: { family: 'Inter', weight: '600', size: 8 }, maxRotation: 30 }
+            }
+        }
+    }
+});
+
+// GRAFICO 4 - Producao vs Margem
+var ctx4 = document.getElementById('ch4').getContext('2d');
+new Chart(ctx4, {
+    type: 'line',
+    data: {
+        labels: ['2000', '2004', '2008', '2012', '2016', '2020', '2022', '2024', '2026*'],
+        datasets: [
+            {
+                label: 'Producao Graos (indice)',
+                data: [100, 130, 155, 190, 215, 270, 310, 340, 350],
+                borderColor: '#81c784',
+                borderWidth: 3,
+                tension: 0.3,
+                pointRadius: 3,
+                fill: false,
+                pointBackgroundColor: '#81c784'
+            },
+            {
+                label: 'Margem Real Produtor (indice)',
+                data: [100, 140, 90, 120, 80, 160, 180, 60, 45],
+                borderColor: '#ef5350',
+                borderWidth: 3,
+                tension: 0.3,
+                pointRadius: [3, 3, 5, 3, 4, 3, 5, 6, 8],
+                pointBackgroundColor: [
+                    '#ef5350', '#ef5350', '#ff1744', '#ef5350',
+                    '#ef5350', '#ef5350', '#81c784', '#ff1744', '#ff1744'
+                ],
+                fill: false,
+                borderDash: [6, 3]
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: { labels: { font: df, boxWidth: 14 } },
+            tooltip: tt,
+            annotation: {
+                annotations: {
+                    div: {
+                        type: 'label',
+                        xValue: 7,
+                        yValue: 200,
+                        content: ['Producao sobe', 'Margem cai', 'A tesoura.'],
+                        font: { size: 9, weight: 'bold' },
+                        color: '#ffab40',
+                        textAlign: 'center'
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                min: 20,
+                max: 380,
+                grid: { color: 'rgba(255,255,255,0.03)' },
+                ticks: { font: df },
+                title: {
+                    display: true,
+                    text: 'Indice (base 2000 = 100)',
+                    color: '#6b6080',
+                    font: df
+                }
+            },
+            x: { grid: { display: false }, ticks: { font: df } }
+        }
+    }
+});
+
+// GRAFICO 5 - Modelo Antigo (Radar)
+var ctx5 = document.getElementById('ch5').getContext('2d');
+new Chart(ctx5, {
+    type: 'radar',
+    data: {
+        labels: ['Volume', 'Area', 'Credito Publico', 'Gestao Fin.', 'Hedge', 'Analise Risco'],
+        datasets: [{
+            label: 'Foco do Modelo Antigo',
+            data: [95, 90, 85, 20, 15, 10],
+            backgroundColor: 'rgba(239,83,80,0.12)',
+            borderColor: '#ef5350',
+            borderWidth: 2,
+            pointBackgroundColor: '#ef5350',
+            pointRadius: 4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: { labels: { font: df } },
+            tooltip: tt
+        },
+        scales: {
+            r: {
+                min: 0,
+                max: 100,
+                ticks: { display: false, stepSize: 20 },
+                grid: { color: 'rgba(255,255,255,0.06)' },
+                pointLabels: { font: { family: 'Inter', weight: '600', size: 9 }, color: '#b39ddb' }
+            }
+        }
+    }
+});
+
+// GRAFICO 6 - Modelo Novo (Radar)
+var ctx6 = document.getElementById('ch6').getContext('2d');
+new Chart(ctx6, {
+    type: 'radar',
+    data: {
+        labels: ['Margem', 'Gestao Fin.', 'Hedge/Risco', 'Dados/BI', 'Custo Real', 'Timing'],
+        datasets: [{
+            label: 'Foco do Modelo Necessario',
+            data: [95, 90, 85, 88, 92, 85],
+            backgroundColor: 'rgba(129,199,132,0.12)',
+            borderColor: '#81c784',
+            borderWidth: 2,
+            pointBackgroundColor: '#81c784',
+            pointRadius: 4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: { labels: { font: df } },
+            tooltip: tt
+        },
+        scales: {
+            r: {
+                min: 0,
+                max: 100,
+                ticks: { display: false, stepSize: 20 },
+                grid: { color: 'rgba(255,255,255,0.06)' },
+                pointLabels: { font: { family: 'Inter', weight: '600', size: 9 }, color: '#b39ddb' }
+            }
+        }
+    }
+});
+</script>
+</body>
+</html>
