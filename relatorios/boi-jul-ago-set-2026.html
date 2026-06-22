@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informativo do Boi Gordo · Tendência Jul–Set 2026 · Ruralin.AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --papel:#F4F0E6;--papel-2:#ECE6D7;--tinta:#18231C;--tinta-suave:#415045;
+    --verde:#1E5638;--verde-claro:#2C7A4B;--ocre:#C28A2C;--ocre-escuro:#9A6A1C;
+    --barro:#B8462E;--petroleo:#15585E;--linha:#D8D0BD;--linha-forte:#C3B89E;
+    --sombra:0 1px 2px rgba(24,35,28,.06),0 8px 28px rgba(24,35,28,.07);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--papel);color:var(--tinta);font-family:'Inter',system-ui,sans-serif;line-height:1.55;font-size:16px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  .mono{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums}
+  .alta{color:var(--verde-claro)}.baixa{color:var(--barro)}.neutro{color:var(--petroleo)}
+
+  header.top{background:radial-gradient(120% 140% at 85% -20%, rgba(194,138,44,.18), transparent 55%),linear-gradient(165deg,#16271D 0%,#1E5638 130%);color:#F4F0E6;padding:38px 0 30px;border-bottom:3px solid var(--ocre)}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ocre);margin:0 0 14px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+  .eyebrow .pill{border:1px solid rgba(194,138,44,.5);border-radius:999px;padding:3px 11px;color:#EBDcc0}
+  h1.title{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(28px,5.2vw,50px);line-height:1.04;margin:0 0 14px;letter-spacing:-.01em}
+  h1.title em{font-style:italic;color:var(--ocre)}
+  .thesis{font-size:clamp(15px,2.4vw,18px);max-width:64ch;color:#E3DDCC;margin:0}
+  .periodo{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 26px;align-items:baseline;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#CFC7B2;border-top:1px solid rgba(244,240,230,.18);padding-top:16px}
+  .periodo b{color:#fff;font-weight:600}
+
+  section{padding:46px 0}
+  section + section{border-top:1px solid var(--linha)}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin:0 0 6px}
+  .sec-num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ocre-escuro);font-weight:600;padding-top:6px}
+  h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(23px,3.6vw,32px);margin:0;letter-spacing:-.01em;line-height:1.1}
+  .sec-sub{color:var(--tinta-suave);margin:4px 0 26px;font-size:15px;max-width:68ch}
+
+  .grid-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .card{background:#FBF8F0;border:1px solid var(--linha);border-radius:14px;padding:18px;box-shadow:var(--sombra);display:flex;flex-direction:column;gap:7px}
+  .card .lbl{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-suave)}
+  .card .val{font-family:'IBM Plex Mono',monospace;font-size:27px;font-weight:600;letter-spacing:-.01em;line-height:1}
+  .card .unit{font-size:12px;color:var(--tinta-suave);font-weight:400;font-family:'Inter',sans-serif}
+  .card .delta{font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:500}
+  .card .ctx{font-size:12.5px;color:var(--tinta-suave);margin-top:2px}
+
+  .asset{display:grid;grid-template-columns:1.05fr 1fr;gap:30px;align-items:start}
+  .chart-card{background:#FBF8F0;border:1px solid var(--linha);border-radius:14px;padding:16px 16px 12px;box-shadow:var(--sombra)}
+  .chart-card .chead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;gap:10px}
+  .chart-card .chead .t{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-suave)}
+  .chart-card .chead .now{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px}
+  .chart-box{position:relative;height:250px}
+  .chart-box canvas{position:absolute;inset:0;width:100%!important;height:100%!important}
+  .chart-foot{font-size:11px;color:var(--tinta-suave);margin:8px 2px 2px;font-family:'IBM Plex Mono',monospace}
+  .analise p{margin:0 0 13px;font-size:15px}
+  .analise p strong{color:var(--verde)}
+  .tagline{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ocre-escuro);font-weight:600;margin:0 0 8px}
+  .niveis{display:flex;gap:8px;flex-wrap:wrap;margin:2px 0 4px}
+  .niveis .n{font-family:'IBM Plex Mono',monospace;font-size:12px;border:1px solid var(--linha-forte);border-radius:8px;padding:5px 9px;background:#FBF8F0}
+  .niveis .n b{display:block;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-suave);font-weight:600;margin-bottom:2px}
+
+  /* meses tendência */
+  .meses{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .mes{background:#FBF8F0;border:1px solid var(--linha);border-radius:14px;padding:18px;box-shadow:var(--sombra);border-top:4px solid var(--linha-forte)}
+  .mes.m1{border-top-color:var(--ocre)}.mes.m2{border-top-color:var(--verde-claro)}.mes.m3{border-top-color:var(--verde)}
+  .mes h3{font-family:'Fraunces',serif;font-size:21px;font-weight:600;margin:0 0 2px}
+  .mes .faixa{font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:600;color:var(--tinta);margin-bottom:2px}
+  .mes .vbadge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:6px;margin-bottom:10px}
+  .mes.m1 .vbadge{background:rgba(194,138,44,.16);color:var(--ocre-escuro)}
+  .mes.m2 .vbadge{background:rgba(44,122,75,.14);color:var(--verde-claro)}
+  .mes.m3 .vbadge{background:rgba(30,86,56,.14);color:var(--verde)}
+  .mes p{margin:0;font-size:13.5px;color:var(--tinta-suave)}
+  .therm{margin:10px 0 4px}
+  .therm .scale{position:relative;height:9px;border-radius:6px;background:linear-gradient(90deg,var(--barro) 0%,#D9B36A 50%,var(--verde-claro) 100%);opacity:.85}
+  .therm .mark{position:absolute;top:-4px;width:3px;height:17px;border-radius:2px;background:var(--tinta);box-shadow:0 0 0 2px #FBF8F0}
+  .therm .ends{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.04em;color:var(--tinta-suave);margin-top:5px;text-transform:uppercase}
+
+  /* gangorra fatores */
+  .balanca{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .bcol{border-radius:14px;padding:18px 20px;border:1px solid var(--linha)}
+  .bcol.up{background:rgba(44,122,75,.07);border-color:rgba(44,122,75,.26)}
+  .bcol.dn{background:rgba(184,70,46,.07);border-color:rgba(184,70,46,.26)}
+  .bcol h4{margin:0 0 12px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+  .bcol.up h4{color:var(--verde-claro)}.bcol.dn h4{color:var(--barro)}
+  .bcol ul{margin:0;padding-left:0;list-style:none}
+  .bcol li{font-size:13.5px;color:var(--tinta-suave);padding:7px 0;border-bottom:1px dashed var(--linha);display:flex;gap:9px}
+  .bcol li:last-child{border-bottom:none}
+  .bcol li::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;margin-top:6px}
+  .bcol.up li::before{background:var(--verde-claro)}.bcol.dn li::before{background:var(--barro)}
+
+  .agenda{display:grid;grid-template-columns:1.15fr 1fr;gap:28px;align-items:start}
+  .timeline{list-style:none;margin:0;padding:0}
+  .timeline li{position:relative;padding:0 0 20px 30px;border-left:2px solid var(--linha-forte)}
+  .timeline li:last-child{border-left-color:transparent;padding-bottom:0}
+  .timeline li::before{content:"";position:absolute;left:-7px;top:3px;width:12px;height:12px;border-radius:50%;background:var(--papel);border:2px solid var(--ocre)}
+  .timeline li.hot::before{background:var(--barro);border-color:var(--barro);box-shadow:0 0 0 4px rgba(184,70,46,.18)}
+  .timeline .when{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ocre-escuro);font-weight:600}
+  .timeline .what{font-weight:600;margin:2px 0 2px;font-size:15px}
+  .timeline .desc{font-size:13.5px;color:var(--tinta-suave)}
+  .macro-card{background:#FBF8F0;border:1px solid var(--linha);border-radius:14px;padding:18px 20px;box-shadow:var(--sombra);margin-bottom:14px}
+  .macro-card h4{margin:0 0 6px;font-family:'Fraunces',serif;font-size:18px;font-weight:600}
+  .macro-card p{margin:0;font-size:14px;color:var(--tinta-suave)}
+  .macro-card .stat{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--tinta)}
+
+  .sintese{background:linear-gradient(160deg,#16271D,#1E5638);color:#F0EBDC;border-radius:18px;padding:32px clamp(20px,4vw,40px);box-shadow:var(--sombra)}
+  .sintese h2{color:#fff}.sintese .sec-sub{color:#CFC7B2}
+  .sintese .read{font-size:15.5px;max-width:74ch}.sintese .read strong{color:var(--ocre)}
+  .acao-produtor{margin-top:24px;border-top:1px solid rgba(244,240,230,.16);padding-top:18px}
+  .acao-produtor .t{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ocre);margin-bottom:10px}
+  .acao-produtor ul{margin:0;padding-left:18px;font-size:14.5px;color:#E6E0D0}
+  .acao-produtor li{margin-bottom:7px}
+
+  .nota{font-size:12px;color:var(--tinta-suave);background:var(--papel-2);border:1px solid var(--linha);border-radius:10px;padding:14px 16px;margin-top:30px;line-height:1.5}
+  footer.cred{background:#16271D;color:#E6E0D0;padding:38px 0 30px;border-top:3px solid var(--ocre)}
+  .cred-grid{display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;align-items:flex-start}
+  .cred .name{font-family:'Fraunces',serif;font-size:24px;font-weight:600;color:#fff;margin:0 0 2px}
+  .cred .role{color:var(--ocre);font-weight:600;font-size:14px;margin:0}
+  .cred .desc{font-size:13.5px;color:#CFC7B2;max-width:48ch;margin:6px 0 0}
+  .cred .tagit{font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:#E6E0D0;margin:14px 0 0}
+  .cred .contatos{font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:2;text-align:right}
+  .cred .contatos a{color:#E6E0D0;text-decoration:none;border-bottom:1px solid rgba(194,138,44,.45)}
+  .cred .assin{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ocre);margin-bottom:18px}
+
+  @media (max-width:880px){
+    .grid-cards{grid-template-columns:repeat(2,1fr)}
+    .asset{grid-template-columns:1fr;gap:22px}
+    .meses{grid-template-columns:1fr}
+    .balanca{grid-template-columns:1fr}
+    .agenda{grid-template-columns:1fr;gap:22px}
+  }
+  @media (max-width:560px){
+    section{padding:36px 0}
+    .grid-cards{grid-template-columns:1fr}
+    .cred-grid{flex-direction:column}.cred .contatos{text-align:left}
+    .periodo{font-size:12px;gap:8px 18px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">
+      <span class="pill">Informativo do Boi Gordo</span>
+      <span>Mesa de Risco do Produtor</span>
+      <span>Ruralin.AI</span>
+    </p>
+    <h1 class="title">A arroba na <em>entressafra</em>:<br>o que esperar de jul a set</h1>
+    <p class="thesis">O boi gordo bateu recordes em 2026 e corrigiu na virada para o clima seco. À frente, a entressafra aperta a oferta e a exportação segue recorde — mas a cota da China e as tarifas dos EUA são os curingas. A leitura: viés firme, ganhando força mês a mês até o pico do fim do ano.</p>
+    <div class="periodo">
+      <span>Semana de <b>22 a 26 de junho de 2026</b></span>
+      <span>Foco: tendência jul · ago · set</span>
+      <span>Cerrado · Goiás</span>
+    </div>
+  </div>
+</header>
+
+<!-- 01 PAINEL -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2>O boi em números</h2></div>
+    <p class="sec-sub">Onde está a arroba, de onde veio e o que sustenta o ciclo. Indicador CEPEA/ESALQ (referência São Paulo).</p>
+    <div class="grid-cards">
+      <div class="card">
+        <div class="lbl">Arroba hoje</div>
+        <div class="val">347<span class="unit"> R$/@</span></div>
+        <div class="delta neutro">recuo sazonal de junho</div>
+        <div class="ctx">Vindo do recorde de R$ 367 (abril).</div>
+      </div>
+      <div class="card">
+        <div class="lbl">No ano (2026)</div>
+        <div class="val alta">+12%<span class="unit"> nominal</span></div>
+        <div class="delta alta">boi &gt; vaca (+12,6% vs +7,5%)</div>
+        <div class="ctx">Máxima histórica nominal renovada.</div>
+      </div>
+      <div class="card">
+        <div class="lbl">Exportação (carne)</div>
+        <div class="val alta">+16%<span class="unit"> jan–mai</span></div>
+        <div class="delta alta">China +80% no valor (mai)</div>
+        <div class="ctx">Embarques in natura recordes.</div>
+      </div>
+      <div class="card">
+        <div class="lbl">Ciclo pecuário</div>
+        <div class="val">Retenção</div>
+        <div class="delta alta">bezerro em forte alta</div>
+        <div class="ctx">Menos animais à frente = preço sustentado.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 ONDE ESTAMOS -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Onde estamos — recorde e correção sazonal</h2></div>
+    <p class="sec-sub">A arroba subiu forte e renovou máximas nominais em 2026, refletindo a virada do ciclo (retenção de fêmeas) e a demanda externa. O recuo de maio/junho é típico do "fim das águas".</p>
+    <div class="asset">
+      <div class="chart-card">
+        <div class="chead"><span class="t">Boi gordo · CEPEA/ESALQ · R$/@</span><span class="now mono alta">R$ 347</span></div>
+        <div class="chart-box"><canvas id="chHist"></canvas></div>
+        <div class="chart-foot">Médias aproximadas. Pico recente: R$ 367 (abr/26).</div>
+      </div>
+      <div class="analise">
+        <p class="tagline">Leitura fundamentalista</p>
+        <p>O indicador alcançou <strong>R$ 367/@</strong> em abril (recorde nominal) e recuou cerca de 4% com a chegada do clima seco: o "fim das águas" leva o pecuarista a <strong>descartar mais animais</strong>, ampliando temporariamente a oferta e segurando o preço no curto prazo. Mesmo assim, a arroba acumula <strong>+12% no ano</strong> e supera com folga a média de 2025.</p>
+        <p>O pano de fundo é estrutural: estamos em <strong>ciclo de retenção</strong> — o bezerro, que lidera as altas, sinaliza retenção de fêmeas e, portanto, menos boi para abate à frente. Escalas de abate apertadas dão poder de barganha ao produtor.</p>
+        <p class="tagline">Leitura grafista</p>
+        <p>Tendência de alta de médio prazo intacta; o recuo testa o suporte de <strong>R$ 345</strong>. Acima de R$ 355 retoma o caminho das máximas; abaixo de R$ 342 alivia mais.</p>
+        <div class="niveis">
+          <span class="n"><b>Suporte</b>345 / 342</span>
+          <span class="n"><b>Resistência</b>355 / 367</span>
+          <span class="n"><b>Recorde</b>R$ 367</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 CURVA FUTURA -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2>O que a B3 está precificando</h2></div>
+    <p class="sec-sub">A curva futura desconta os meses mais próximos (jul–ago) e fica mais firme a partir de setembro, rumo ao pico sazonal de novembro. Parte do mercado considera os contratos curtos "pessimistas demais".</p>
+    <div class="asset">
+      <div class="chart-card">
+        <div class="chead"><span class="t">Curva futura · B3 (ajuste) · R$/@</span></div>
+        <div class="chart-box"><canvas id="chCurva"></canvas></div>
+        <div class="chart-foot">Valores aproximados (meados de junho). A linha pontilhada marca o físico atual.</div>
+      </div>
+      <div class="analise">
+        <p class="tagline">Por que os meses curtos descontam</p>
+        <p>Os contratos de <strong>julho e agosto</strong> negociam abaixo do físico (julho chegou a ~R$ 20/@ de desconto). O motivo é a <strong>proximidade do limite da cota da China</strong> sem tarifa adicional — estimado para fechar entre agosto e setembro — somada à maior oferta de animais na seca. A partir de setembro, a curva firma.</p>
+        <p>O contraponto: a oferta global de carne é restrita, as exportações renovam recordes e a entressafra aperta a disponibilidade. Por isso, há quem leia a ponta curta como exageradamente pessimista — espaço para <strong>surpresa altista</strong> se a China seguir comprando.</p>
+        <p class="tagline">Para o produtor</p>
+        <p>A curva descontada é uma <strong>oportunidade de hedge seletivo</strong>: travar parte nos meses mais firmes (set em diante) e manter exposição ao repique da entressafra.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 TENDÊNCIA JUL/AGO/SET -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Tendência mês a mês — jul · ago · set</h2></div>
+    <p class="sec-sub">A entressafra ganha corpo ao longo do trimestre. O viés sai de neutro em julho para claramente firme em setembro. Faixas indicativas para a arroba (CEPEA/SP).</p>
+    <div class="meses">
+      <div class="mes m1">
+        <h3>Julho</h3>
+        <div class="faixa">R$ 345 – 355</div>
+        <span class="vbadge">Viés neutro</span>
+        <div class="therm"><div class="scale"><span class="mark" style="left:48%"></span></div><div class="ends"><span>Baixa</span><span>Alta</span></div></div>
+        <p>Oferta de animais da seca e desconto futuro pesam no curtíssimo prazo, mas o piso é firme. Atenção à audiência da Seção 301 dos EUA (06/07) — carne deve ficar de fora.</p>
+      </div>
+      <div class="mes m2">
+        <h3>Agosto</h3>
+        <div class="faixa">R$ 350 – 362</div>
+        <span class="vbadge">Viés levemente altista</span>
+        <div class="therm"><div class="scale"><span class="mark" style="left:58%"></span></div><div class="ends"><span>Baixa</span><span>Alta</span></div></div>
+        <p>Entressafra aperta a oferta e sustenta a arroba. Curinga: o possível fechamento da cota da China, que pode oscilar o ritmo de embarques.</p>
+      </div>
+      <div class="mes m3">
+        <h3>Setembro</h3>
+        <div class="faixa">R$ 355 – 372</div>
+        <span class="vbadge">Viés altista</span>
+        <div class="therm"><div class="scale"><span class="mark" style="left:67%"></span></div><div class="ends"><span>Baixa</span><span>Alta</span></div></div>
+        <p>Oferta mais restrita e demanda firme (interna + externa) rumo ao pico sazonal de out–nov. Em ano de retenção, picos de R$ 380 não estão descartados.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 GANGORRA -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">05</span><h2>A gangorra do trimestre</h2></div>
+    <p class="sec-sub">O que joga a favor e o que joga contra a arroba entre julho e setembro.</p>
+    <div class="balanca">
+      <div class="bcol up">
+        <h4>▲ Forças de alta</h4>
+        <ul>
+          <li><b>Entressafra:</b> clima seco reduz a oferta de boi terminado conforme o trimestre avança.</li>
+          <li><b>Exportação recorde:</b> embarques em máximas; China importando muito mais que em 2025.</li>
+          <li><b>Ciclo de retenção:</b> bezerro em alta sinaliza menos animais para abate à frente.</li>
+          <li><b>Demanda interna:</b> Copa e gastos de ano eleitoral aquecem o consumo no curto prazo.</li>
+          <li><b>EUA:</b> carne dos EUA em preço recorde puxa a procura pelo produto brasileiro.</li>
+        </ul>
+      </div>
+      <div class="bcol dn">
+        <h4>▼ Forças de baixa / riscos</h4>
+        <ul>
+          <li><b>Cota da China:</b> proximidade do limite sem tarifa (fim previsto ago–set) pode frear embarques.</li>
+          <li><b>Oferta da seca:</b> descarte de animais no "fim das águas" pressiona o curtíssimo prazo.</li>
+          <li><b>Tarifas EUA (Seção 301):</b> audiência em 06/07 — carne deve ser exceção, mas há incerteza.</li>
+          <li><b>Margem do frigorífico:</b> custo da arroba +13% no ano limita o repasse ao consumidor.</li>
+          <li><b>El Niño:</b> eleva incertezas para pastagem e produção no 2º semestre.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 RADAR -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Radar dos próximos dois dias</h2></div>
+    <p class="sec-sub">Segunda (22) e terça (23): mercado físico acompanhando escalas de abate e câmbio. O dólar firme pós-Fed é, neste caso, um <b>aliado</b> da arroba — melhora a competitividade da carne exportada.</p>
+    <div class="agenda">
+      <ul class="timeline">
+        <li class="hot">
+          <div class="when">Segunda · 22/06</div>
+          <div class="what">Escalas de abate e ritmo de embarque</div>
+          <div class="desc">Escalas apertadas seguem dando poder de barganha ao pecuarista. Atenção ao ritmo diário de exportação e ao quanto falta para a cota da China.</div>
+        </li>
+        <li>
+          <div class="when">Terça · 23/06</div>
+          <div class="what">Câmbio a favor da carne</div>
+          <div class="desc">Dólar firme (máxima de 1 ano pós-Fed) encarece a carne brasileira lá fora em moeda local, mas melhora a receita do exportador — suporte indireto à arroba.</div>
+        </li>
+        <li>
+          <div class="when">06/07</div>
+          <div class="what">Audiência da Seção 301 (EUA × Brasil)</div>
+          <div class="desc">Prazo de eventual medida em 15/07. A carne bovina figura entre as exceções à tarifa proposta — mas é o principal evento a monitorar.</div>
+        </li>
+        <li>
+          <div class="when">Ago–Set</div>
+          <div class="what">Fechamento da cota da China</div>
+          <div class="desc">Quando a cota sem tarifa adicional se esgotar, o ritmo de embarques pode oscilar — o grande balizador do 2º semestre.</div>
+        </li>
+      </ul>
+      <div>
+        <div class="macro-card">
+          <h4>Exportação no comando</h4>
+          <p>China respondendo por <span class="stat">+80%</span> em valor (mai) e embarques in natura recordes. É o motor que enxuga a oferta interna e sustenta a arroba.</p>
+        </div>
+        <div class="macro-card">
+          <h4>Câmbio</h4>
+          <p>Dólar firme (<span class="stat">~R$ 5,11</span>) após o Fed favorece a receita de exportação de carne — vetor de suporte para o boi.</p>
+        </div>
+        <div class="macro-card">
+          <h4>Custo & reposição</h4>
+          <p>Bezerro caro e milho/soja pressionados desenham margens apertadas no confinamento; reposição é o ponto de atenção do pecuarista.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 SÍNTESE -->
+<section>
+  <div class="wrap">
+    <div class="sintese">
+      <div class="sec-head"><span class="sec-num" style="color:var(--ocre)">07</span><h2>Leitura do estrategista</h2></div>
+      <p class="sec-sub">O fio condutor e o que fazer com a boiada.</p>
+      <p class="read">O boi vive um <strong>ciclo virtuoso</strong>: retenção de fêmeas, exportação recorde e entressafra à frente formam um tripé de sustentação raro. O recuo de junho é sazonal — não muda a tendência. A B3 desconta os meses curtos por causa da <strong>cota da China</strong>, e é justamente aí que pode morar a oportunidade: se a China seguir comprando, a ponta curta sobe. A leitura para o trimestre é de <strong>viés firme e crescente</strong> — julho mais morno, agosto firmando, setembro puxando rumo ao pico de novembro. O risco real não é o preço do boi, e sim a <strong>margem</strong>: bezerro caro e custo alto exigem disciplina na reposição e no confinamento.</p>
+      <div class="acao-produtor">
+        <div class="t">O que observar na sua fazenda</div>
+        <ul>
+          <li><b>Quem tem boi pronto:</b> a firmeza da entressafra favorece quem segura para ago–set; aproveitar a força sem perseguir topo.</li>
+          <li><b>Hedge na B3:</b> a curva descontada permite travar parte nos vencimentos mais firmes (set em diante), protegendo margem sem abrir mão do repique.</li>
+          <li><b>Reposição:</b> bezerro caro pede conta fechada — calcular o boi gordo futuro travado contra o custo de reposição antes de comprar.</li>
+          <li><b>Monitorar:</b> ritmo da cota da China, audiência da Seção 301 (06/07) e câmbio — os três gatilhos do trimestre.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="nota">
+      <b>Notas metodológicas e fontes.</b> Preços referem-se ao Indicador do Boi Gordo CEPEA/ESALQ (referência São Paulo, arroba à vista). A série histórica e a curva futura usam médias e valores de ajuste aproximados, ilustrativos da tendência; faixas mensais são projeções indicativas, não garantia de preço. Conteúdo informativo e educacional — não constitui recomendação de compra, venda ou operação em mercado futuro. Fontes: CEPEA/ESALQ, B3, Datagro, Farmnews, Money Times (HN Agro), Portal DBO, CNN Brasil, Secex/ABIEC. Elaborado em 22/06/2026.
+    </div>
+  </div>
+</section>
+
+<footer class="cred">
+  <div class="wrap">
+    <div class="assin">Análise e Construção</div>
+    <div class="cred-grid">
+      <div>
+        <p class="name">Dr. Sidney Souza</p>
+        <p class="role">Economista e Adm. Agrícola</p>
+        <p class="role">Estrategista Econômico do Produtor</p>
+        <p class="desc">Especialista em economia da fazenda e gestão de risco no agro.</p>
+        <p class="desc">Transformamos dados da fazenda em decisões econômicas.</p>
+        <p class="desc">Ajudamos produtores a entender se o mercado sustenta seu negócio.</p>
+        <p class="tagit">“Do dado ao caixa da fazenda.”</p>
+      </div>
+      <div class="contatos">
+        <div><a href="https://ruralinai-commits.github.io/ruralin-site/" target="_blank" rel="noopener">ruralin-site</a></div>
+        <div>@ruralin.ai</div>
+        <div><a href="mailto:sidneyagro@gmail.com">sidneyagro@gmail.com</a></div>
+        <div>(64) 9 9226-6886</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const sub='#415045', grid='rgba(195,184,158,.35)';
+  const verde='#2C7A4B', barro='#B8462E', petro='#15585E', ocre='#C28A2C', tinta='#18231C';
+  Chart.defaults.font.family="'IBM Plex Mono', monospace";
+  Chart.defaults.font.size=11;
+  Chart.defaults.color=sub;
+
+  /* Histórico boi (R$/@) */
+  new Chart(document.getElementById('chHist'),{type:'line',
+    data:{labels:['Jan/24','Abr/24','Jul/24','Out/24','Jan/25','Abr/25','Jul/25','Out/25','Jan/26','Abr/26','Jun/26'],
+      datasets:[{data:[232,228,240,300,322,316,313,328,332,367,347],borderColor:verde,borderWidth:2.6,
+        pointBackgroundColor:'#FBF8F0',pointBorderColor:verde,pointBorderWidth:2,pointRadius:3,pointHoverRadius:5,tension:.3,fill:true,
+        backgroundColor:(ctx)=>{const c=ctx.chart.ctx;const g=c.createLinearGradient(0,0,0,250);g.addColorStop(0,'rgba(44,122,75,.22)');g.addColorStop(1,'rgba(44,122,75,0)');return g;}}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'#18231C',padding:10,displayColors:false,callbacks:{label:(t)=>'R$ '+t.parsed.y+'/@'}}},
+      scales:{x:{grid:{display:false},border:{color:grid},ticks:{color:sub,maxRotation:0,font:{size:9.5}}},
+        y:{grid:{color:grid},border:{display:false},ticks:{color:sub,callback:(v)=>'R$ '+v}}},
+      animation:{duration:800}}});
+
+  /* Curva futura B3 + físico */
+  const labelsF=['Físico','Jul','Ago','Set','Out','Nov','Dez'];
+  const curva=[null,338,343,348,352,355,351];
+  const fisico=labelsF.map(()=>347);
+  new Chart(document.getElementById('chCurva'),{type:'line',
+    data:{labels:labelsF,datasets:[
+      {label:'Curva B3 (ajuste)',data:curva,borderColor:petro,borderWidth:2.8,spanGaps:false,
+        pointBackgroundColor:'#FBF8F0',pointBorderColor:petro,pointBorderWidth:2,pointRadius:4,pointHoverRadius:6,tension:.3,fill:true,
+        backgroundColor:(ctx)=>{const c=ctx.chart.ctx;const g=c.createLinearGradient(0,0,0,250);g.addColorStop(0,'rgba(21,88,94,.20)');g.addColorStop(1,'rgba(21,88,94,0)');return g;}},
+      {label:'Físico atual (R$ 347)',data:fisico,borderColor:ocre,borderWidth:2,borderDash:[7,5],pointRadius:0,fill:false,tension:0},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{intersect:false,mode:'index'},
+      plugins:{legend:{position:'top',labels:{usePointStyle:true,pointStyleWidth:18,boxHeight:6,padding:12,color:sub,font:{size:11}}},
+        tooltip:{backgroundColor:'#18231C',padding:10,displayColors:false,callbacks:{label:(t)=>t.parsed.y==null?'':t.dataset.label.split(' (')[0]+': R$ '+t.parsed.y}}},
+      scales:{x:{grid:{display:false},border:{color:grid},ticks:{color:sub}},
+        y:{min:325,max:365,grid:{color:grid},border:{display:false},ticks:{color:sub,callback:(v)=>'R$ '+v}}},
+      animation:{duration:800}}});
+</script>
+</body>
+</html>
