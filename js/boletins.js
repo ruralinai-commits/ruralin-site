@@ -28,10 +28,17 @@
 window.BOLETINS = [
 
   {
+    arquivo: "boi-jul-ago-set-2026.html",
+    data: "Informativo do Boi Gordo",
+    titulo: "Panorama para jul-ago-set",
+    categoria: "Boletim"
+  },
+
+  {
     arquivo: "info-insumos-26-27.html",
     data: "Informativo de Insumos",
     titulo: "Panorama de preços e disponibilidade de insumos",
-    categoria: "Insumos"
+    categoria: "Boletim"
   },
 
   {
