@@ -28,6 +28,13 @@
 window.BOLETINS = [
 
   {
+    arquivo: "info-junho-22-26.html",
+    data: "22 a 26 jun. 2026",
+    titulo: "Boletim de Mercado — Soja, Milho e Boi",
+    categoria: "Boletim"
+  },
+
+  {
     arquivo: "boi-jul-ago-set-2026.html",
     data: "Informativo do Boi Gordo",
     titulo: "Panorama para jul-ago-set",
