@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar Agro · Série Junho–Julho 2026 · Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E211B; --ink-2:#163026;
+    --paper:#EDEAE1; --paper-2:#F5F3EC;
+    --text:#1B241E; --muted:#6C6B5D;
+    --line:#CAC6B6; --gold:#C9A24E;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--text);font-family:"Newsreader",Georgia,serif;
+    font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 22px 80px}
+  .mono{font-family:"Space Mono",monospace}
+
+  /* masthead */
+  .masthead{background:var(--ink);color:var(--paper);margin:0;padding:40px 22px 34px}
+  .masthead .inner{max-width:1120px;margin:0 auto}
+  .brandline{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;
+    font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.16em;color:var(--gold)}
+  .brandline b{color:var(--paper)}
+  h1.title{font-family:"Archivo";font-weight:900;font-size:clamp(48px,10vw,120px);line-height:.88;
+    letter-spacing:-.02em;margin:16px 0 6px;color:var(--paper)}
+  h1.title span{color:var(--gold)}
+  .subtitle{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--gold)}
+  .mh-stats{display:flex;gap:28px;flex-wrap:wrap;margin-top:26px;padding-top:20px;border-top:1px solid rgba(201,162,78,.28)}
+  .mh-stats .s{font-family:"Space Mono",monospace}
+  .mh-stats .s .n{font-family:"Archivo";font-weight:800;font-size:22px;color:var(--paper)}
+  .mh-stats .s .l{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-top:2px}
+
+  /* intro */
+  .intro{padding:46px 0 8px;max-width:78ch}
+  .intro .eyebrow{font-family:"Space Mono";font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#9a7a2c;
+    display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .intro .eyebrow::before{content:"";width:26px;height:2px;background:var(--gold);display:inline-block}
+  .intro p{margin-bottom:12px}
+  .intro strong{font-weight:600;color:var(--ink)}
+
+  /* grid */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+  @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.grid{grid-template-columns:1fr}}
+
+  a.card{display:block;text-decoration:none;color:inherit;background:var(--paper-2);
+    border:1px solid var(--line);border-radius:3px;border-top:5px solid var(--ac,#888);
+    padding:20px 20px 18px;position:relative;overflow:hidden;
+    transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease}
+  a.card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(14,33,27,.16)}
+  a.card::after{content:"";position:absolute;top:0;right:0;width:80px;height:80px;
+    background:radial-gradient(circle at top right, var(--ac), transparent 70%);opacity:.16}
+  .card .ktag{font-family:"Space Mono";font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ac);font-weight:700}
+  .card h2{font-family:"Archivo";font-weight:900;font-size:30px;letter-spacing:-.02em;color:var(--ink);
+    margin:6px 0 10px;line-height:1}
+  .card .bias{display:inline-block;font-family:"Space Mono";font-size:10.5px;letter-spacing:.05em;
+    padding:3px 9px;border-radius:20px;background:rgba(14,33,27,.06);color:#3a463f;margin-bottom:12px;
+    border:1px solid var(--line)}
+  .card .desc{font-size:15.5px;line-height:1.42;color:#333;min-height:64px}
+  .card .metric{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+    margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+  .card .metric .m{font-family:"Archivo";font-weight:800;font-size:17px;color:var(--ink)}
+  .card .metric .chg{font-family:"Space Mono";font-size:12px}
+  .card .open{font-family:"Space Mono";font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ac);font-weight:700;margin-top:14px;display:flex;align-items:center;gap:6px}
+  .down{color:#b0492e}.up{color:#2f7d4f}.flat{color:#8a7a2c}
+
+  /* how to use */
+  .howto{margin-top:40px;background:var(--ink);color:var(--paper);border-left:5px solid var(--gold);
+    padding:22px 24px;border-radius:3px}
+  .howto .q{font-family:"Space Mono";font-size:11px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
+  .howto p{color:var(--paper);max-width:82ch;margin-bottom:0;font-size:15.5px}
+  .howto strong{color:var(--gold)}
+
+  /* credentials */
+  .creds{background:var(--ink);color:var(--paper);margin:48px -22px -80px;padding:48px 22px 56px}
+  .creds .inner{max-width:1120px;margin:0 auto}
+  .creds .sig{font-family:"Space Mono";font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+  .creds .nm{font-family:"Archivo";font-weight:900;font-size:34px;color:var(--paper);letter-spacing:-.01em}
+  .creds .role{font-family:"Newsreader";font-size:16px;color:var(--gold);margin-top:2px}
+  .creds ul{list-style:none;margin:18px 0 22px;max-width:70ch}
+  .creds ul li{padding:6px 0;border-top:1px solid rgba(201,162,78,.2);font-size:16px;color:var(--paper)}
+  .creds ul li:first-child{border-top:none}
+  .creds .contact{font-family:"Space Mono";font-size:13px;letter-spacing:.04em;color:var(--gold);
+    display:flex;flex-wrap:wrap;gap:8px 20px;padding-top:18px;border-top:2px solid var(--gold)}
+  .creds .contact a{color:var(--gold);text-decoration:none}
+  .disc{font-family:"Space Mono";font-size:11px;line-height:1.6;color:var(--muted);margin-top:24px;max-width:92ch}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="inner">
+    <div class="brandline">
+      <span><b>RURALIN.AI</b> · INTELIGÊNCIA ECONÔMICA DA FAZENDA</span>
+      <span>SÉRIE JUNHO 2026 · VIÉS PARA JULHO</span>
+    </div>
+    <h1 class="title">RADAR<span>·</span>AGRO</h1>
+    <div class="subtitle">Portal da Série &nbsp;/&nbsp; Boletins por Cultura &nbsp;/&nbsp; Fechamento 30·jun·2026</div>
+    <div class="mh-stats">
+      <div class="s"><div class="n">8</div><div class="l">culturas</div></div>
+      <div class="s"><div class="n">30·jun</div><div class="l">fechamento</div></div>
+      <div class="s"><div class="n">jul/26</div><div class="l">janela de análise</div></div>
+      <div class="s"><div class="n">1</div><div class="l">portal · toque e acesse</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="intro">
+    <div class="eyebrow">Como navegar</div>
+    <p>Este é o <strong>ponto de entrada</strong> da série de junho/2026. Cada cartão abre o boletim completo da cultura — com preço, relação com as variáveis de mercado, situação dos prêmios, gráficos, leitura técnica, cenários e o viés para julho. Toque no cartão desejado.</p>
+    <p>Abaixo de cada título, o <strong>viés de julho</strong> em uma linha, para uma leitura rápida antes de abrir o relatório.</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- SOJA -->
+    <a class="card" href="radar-soja-junho-julho.html" style="--ac:#D39B18">
+      <div class="ktag">Grão · Exportação</div>
+      <h2>Soja</h2>
+      <span class="bias">Julho · neutro-baixista, saca defendida</span>
+      <div class="desc">Chicago perdeu ~6% no mês, mas prêmio firme e real fraco blindaram a receita da fazenda. Risco: sustentação do prêmio no 2º semestre.</div>
+      <div class="metric"><span class="m">CBOT US$ 11,10/bu</span><span class="chg down">▼ 5,8% mês</span></div>
+      <div class="open">Abrir boletim →</div>
+    </a>
+
+    <!-- MILHO -->
+    <a class="card" href="radar-milho-junho-julho.html" style="--ac:#E3A81C">
+      <div class="ktag">Grão · Doméstico + Export</div>
+      <h2>Milho</h2>
+      <span class="bias">Julho · lateral-baixista, piso de demanda</span>
+      <div class="desc">Colheita da safrinha pressiona e o FOB cedeu, mas etanol e ração sustentam o chão. Curinga: clima da safrinha.</div>
+      <div class="metric"><span class="m">CBOT US$ 4,17/bu</span><span class="chg down">▼ ~7% mês</span></div>
+      <div class="open">Abrir boletim →</div>
+    </a>
+
+    <!-- BOI -->
+    <a class="card" href="radar-boi-gordo-junho-julho.html" style="--ac:#C0733A">
+      <div class="ktag">Pecuária · Proteína</div>
+      <h2>Boi Gordo</h2>
+      <span class="bias">Julho · pressão no curto, ciclo no médio</span>
+      <div class="desc">Cota da China cheia e férias de frigorífico pressionam a arroba; oferta restrita do ciclo virado sustenta. Relação boi/bezerro em recorde.</div>
+      <div class="metric"><span class="m">Arroba R$ 334/@</span><span class="chg down">▼ 4,4% mês</span></div>
+      <div class="open">Abrir boletim →</div>
+    </a>
+
+    <!-- ALGODÃO -->
+    <a class="card" href="radar-algodao-junho-julho.html" style="--ac:#5E82A6">
+      <div class="ktag">Fibra · Exportação</div>
+      <h2>Algodão</h2>
+      <span class="bias">Julho · lateral-baixista, piso de export</span>
+      <div class="desc">Pluma recuou após 4 altas; ICE fraca e poliéster barato pesaram. Exportação recorde e prêmio de qualidade dão o piso.</div>
+      <div class="metric"><span class="m">Cepea R$ 7,55/lp</span><span class="chg down">▼ ~7% mês</span></div>
+      <div class="open">Abrir boletim →</div>
+    </a>
+
+    <!-- TRIGO -->
+    <a class="card" href="radar-trigo-junho-julho.html" style="--ac:#B8983C">
+      <div class="ktag">Grão · Importação</div>
+      <h2>Trigo</h2>
+      <span class="bias">Julho · CBOT fraca, Brasil firme</span>
+      <div class="desc">Chicago caiu, mas o interno subiu: paridade de importação, real fraco e área −20% sustentam o produtor. Curinga: geada no Sul.</div>
+      <div class="metric"><span class="m">Saco R$ 70,50</span><span class="chg up">▲ firme</span></div>
+      <div class="open">Abrir boletim →</div>
+    </a>
+
+    <!-- FEIJÃO -->
+    <a class="card" href="radar-feijao-junho-julho.html" style="--ac:#7E5064">
+      <div class="ktag">Grão · Doméstico</div>
+      <h2>Feijão</h2>
+      <span class="bias">Julho · acomodação, cor 9 e preto firmes</span>
+      <div class="desc">Rali histórico esfriou com a 2ª safra; o carioca comum cedeu, mas o prêmio de cor e o preto resistem. 3ª safra do Cerrado (GO) chega em julho.</div>
+      <div class="metric"><span class="m">Carioca 8 · R$ 300/sc</span><span class="chg down">▼ ~11% mês</span></div>
+      <div class="open">Abrir boletim →</div>
+    </a>
+
+    <!-- CAFÉ -->
+    <a class="card" href="radar-cafe-junho-julho.html" style="--ac:#7A5230">
+      <div class="ktag">Perene · Exportação</div>
+      <h2>Café</h2>
+      <span class="bias">Julho · volátil, risco assimétrico p/ cima</span>
+      <div class="desc">Colheita recorde x estoques ICE mínimos. Geada de julho é o maior curinga altista; tarifaço EUA (15/jul) é o risco de demanda.</div>
+      <div class="metric"><span class="m">Arábica R$ 1.480/sc</span><span class="chg flat">ICE US$ 2,70</span></div>
+      <div class="open">Abrir boletim →</div>
+    </a>
+
+    <!-- LEITE -->
+    <a class="card" href="radar-leite-junho-julho.html" style="--ac:#7E97A6">
+      <div class="ktag">Pecuária · Doméstico</div>
+      <h2>Leite</h2>
+      <span class="bias">Julho · preço ao produtor, custos e margem</span>
+      <div class="desc">Boletim da atividade leiteira: preço ao produtor, custo de produção, relação de troca e margem. Abra para a análise completa do mês.</div>
+      <div class="metric"><span class="m">Boletim completo</span><span class="chg flat">ver dados</span></div>
+      <div class="open">Abrir boletim →</div>
+    </a>
+
+  </div>
+
+  <div class="howto">
+    <div class="q">Instrução de uso</div>
+    <p>Mantenha este arquivo (<strong>index / portal</strong>) na <strong>mesma pasta</strong> dos oito boletins <span class="mono">radar-*-junho-julho.html</span>. Ao enviar ao cliente, envie a pasta completa (ou hospede-a): este portal é a porta de entrada, e cada cartão abre o relatório da cultura. Os links usam caminho relativo, então funcionam offline, direto do navegador.</p>
+  </div>
+
+</div>
+
+<div class="creds">
+  <div class="inner">
+    <div class="sig">Análise e Construção</div>
+    <div class="nm">Dr. Sidney Souza</div>
+    <div class="role">Economista e Adm. Agrícola · Estrategista Econômico do Produtor</div>
+    <ul>
+      <li>Especialista em economia da fazenda e gestão de risco no agro</li>
+      <li>Transformamos dados da fazenda em decisões econômicas</li>
+      <li>Ajudamos produtores a entender se o mercado sustenta seu negócio</li>
+    </ul>
+    <div class="contact">
+      <a href="https://ruralinai-commits.github.io/ruralin-site/" target="_blank">ruralinai-commits.github.io/ruralin-site</a>
+      <span>@ruralin.ai</span>
+      <a href="mailto:sidneyagro@gmail.com">sidneyagro@gmail.com</a>
+      <span>(64) 9 9226-6886</span>
+    </div>
+    <p class="disc">Portal de acesso à série Radar Agro de junho/2026. Os boletins têm caráter analítico e educacional; preços e cotações referem-se ao fechamento de junho/2026 a partir de fontes públicas (Cepea/Esalq, B3, CME/CBOT, ICE, Conab, USDA, Anea, Abiec, Cecafé, Scot, Safras & Mercado, Reuters e imprensa econômica). Os cenários são hipóteses de trabalho e não constituem recomendação de compra ou venda.</p>
+  </div>
+</div>
+
+</body>
+</html>
