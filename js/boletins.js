@@ -28,6 +28,13 @@
 window.BOLETINS = [
 
   {
+    arquivo: "info-usda-30-06.html",
+    data: "30 jun. 2026",
+    titulo: "Resposta do Mercado ao USDA",
+    categoria: "Boletim"
+  },
+
+  {
     arquivo: "info-junho-22-26.html",
     data: "22 a 26 jun. 2026",
     titulo: "Boletim de Mercado — Soja, Milho e Boi",
