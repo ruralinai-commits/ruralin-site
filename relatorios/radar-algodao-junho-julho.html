@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar Agro · Algodão · Junho 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --ink:#0E211B;
+    --ink-2:#163026;
+    --paper:#ECEBE4;
+    --paper-2:#F5F4EE;
+    --text:#1B241E;
+    --muted:#6C6B5D;
+    --gold:#5E82A6;         /* denim / textile signal */
+    --gold-soft:#A9C2DC;
+    --bull:#2F7D4F;
+    --bear:#B24428;
+    --line:#C9C6BA;
+    --line-dk:rgba(169,194,220,.24);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--text);font-family:"Newsreader",Georgia,serif;
+    font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px 90px}
+  .mono{font-family:"Space Mono",monospace}
+
+  .masthead{background:var(--ink);color:var(--paper);margin:0 -22px;padding:34px 22px 0}
+  .masthead .inner{max-width:1080px;margin:0 auto}
+  .brandline{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;
+    font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.16em;color:var(--gold-soft)}
+  .brandline b{color:var(--paper)}
+  h1.title{font-family:"Archivo";font-weight:900;font-size:clamp(44px,9vw,104px);line-height:.9;
+    letter-spacing:-.02em;margin:14px 0 4px;color:var(--paper)}
+  h1.title span{color:var(--gold)}
+  .subtitle{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--gold-soft);padding-bottom:22px}
+
+  .ribbon{margin:0 -22px;background:var(--ink-2);border-top:1px solid var(--line-dk);border-bottom:3px solid var(--gold)}
+  .ribbon .inner{max-width:1080px;margin:0 auto;padding:14px 22px;display:grid;grid-template-columns:repeat(6,1fr);gap:2px}
+  .tick{padding:4px 12px 4px 0}
+  .tick .k{font-family:"Space Mono";font-size:10px;letter-spacing:.14em;color:var(--gold-soft);text-transform:uppercase}
+  .tick .v{font-family:"Archivo";font-weight:800;font-size:20px;color:var(--paper);line-height:1.15;margin-top:3px}
+  .tick .d{font-family:"Space Mono";font-size:11px;margin-top:1px}
+  .up{color:#8FD6A6}.down{color:#ED9C86}.flat{color:var(--gold-soft)}
+  @media(max-width:760px){.ribbon .inner{grid-template-columns:repeat(2,1fr);gap:10px 8px}}
+
+  section{padding:52px 0 6px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:"Space Mono";font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);
+    display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--gold);display:inline-block}
+  h2{font-family:"Archivo";font-weight:800;font-size:clamp(26px,4vw,38px);line-height:1.05;
+    letter-spacing:-.015em;color:var(--ink);margin-bottom:18px}
+  h3{font-family:"Archivo";font-weight:700;font-size:20px;color:var(--ink);margin:22px 0 8px;letter-spacing:-.01em}
+  p{margin-bottom:14px;max-width:74ch}
+  .lead{font-size:20px;line-height:1.5}
+  strong{font-weight:600;color:var(--ink)}
+  .hl{background:linear-gradient(transparent 62%,var(--gold-soft) 62%);padding:0 1px}
+
+  .card{background:var(--paper-2);border:1px solid var(--line);border-radius:2px;padding:22px 20px 18px;margin:22px 0}
+  .card .cap{font-family:"Space Mono";font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .chart-box{position:relative;height:320px}
+  .chart-box.sm{height:180px}
+
+  .regs{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:18px 0 6px}
+  .reg{background:var(--ink);color:var(--paper);border-radius:2px;padding:12px 12px 13px}
+  .reg.on{background:var(--gold);color:#08151f}
+  .reg .p{font-family:"Space Mono";font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.85}
+  .reg .r{font-family:"Archivo";font-weight:800;font-size:19px;margin-top:5px}
+  .reg .s{font-family:"Space Mono";font-size:10px;opacity:.75;margin-top:1px}
+  @media(max-width:760px){.regs{grid-template-columns:repeat(2,1fr)}}
+
+  .rel{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+  .rel .item{border-left:3px solid var(--gold);padding:2px 0 2px 16px}
+  .rel .item h4{font-family:"Archivo";font-weight:700;font-size:15px;letter-spacing:.02em;margin-bottom:3px;
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .rel .item p{font-size:15.5px;margin-bottom:0;color:#333}
+  .pill{font-family:"Space Mono";font-size:10px;padding:2px 7px;border-radius:20px;letter-spacing:.06em}
+  .pill.b{background:rgba(178,68,40,.14);color:var(--bear)}
+  .pill.g{background:rgba(47,125,79,.15);color:var(--bull)}
+  .pill.n{background:rgba(94,130,166,.18);color:#3c5f82}
+  @media(max-width:760px){.rel{grid-template-columns:1fr}}
+
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:20px 0}
+  .facts .f{background:var(--paper-2);padding:16px 14px}
+  .facts .f .n{font-family:"Archivo";font-weight:900;font-size:26px;color:var(--ink);letter-spacing:-.02em}
+  .facts .f .l{font-family:"Space Mono";font-size:10.5px;letter-spacing:.05em;color:var(--muted);text-transform:uppercase;margin-top:4px;line-height:1.35}
+  .facts .f .t{font-family:"Space Mono";font-size:11px;margin-top:6px}
+  @media(max-width:760px){.facts{grid-template-columns:repeat(2,1fr)}}
+
+  .prem-wrap{display:grid;grid-template-columns:1.02fr .98fr;gap:26px;align-items:center;margin-top:8px}
+  @media(max-width:760px){.prem-wrap{grid-template-columns:1fr}}
+
+  .dial{background:var(--ink);color:var(--paper);border-radius:3px;padding:26px 24px 30px;margin:22px 0 26px}
+  .dial .track{position:relative;height:8px;background:linear-gradient(90deg,var(--bear),#C7A24E,var(--bull));
+    border-radius:20px;margin:38px 8px 10px}
+  .dial .notch{position:absolute;top:50%;width:2px;height:20px;background:rgba(255,255,255,.35);transform:translateY(-50%)}
+  .dial .ptr{position:absolute;top:-30px;transform:translateX(-50%);text-align:center}
+  .dial .ptr .lab{font-family:"Space Mono";font-size:11px;letter-spacing:.1em;color:var(--gold-soft);white-space:nowrap}
+  .dial .ptr .arw{font-size:18px;color:var(--gold-soft);line-height:1}
+  .dial .ends{display:flex;justify-content:space-between;font-family:"Space Mono";font-size:11px;
+    letter-spacing:.14em;color:var(--gold-soft);text-transform:uppercase;margin:0 4px}
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:820px){.scen{grid-template-columns:1fr}}
+  .sc{border:1px solid var(--line);border-top:4px solid var(--muted);border-radius:2px;padding:18px 16px;background:var(--paper-2)}
+  .sc.bear{border-top-color:var(--bear)}.sc.base{border-top-color:var(--gold)}.sc.bull{border-top-color:var(--bull)}
+  .sc .tag{font-family:"Space Mono";font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .sc.bear .tag{color:var(--bear)}.sc.base .tag{color:#3c5f82}.sc.bull .tag{color:var(--bull)}
+  .sc h4{font-family:"Archivo";font-weight:800;font-size:19px;margin:4px 0 2px;color:var(--ink)}
+  .sc .prob{font-family:"Space Mono";font-size:11px;color:var(--muted);margin-bottom:10px}
+  .sc ul{list-style:none;font-size:14.5px;line-height:1.4}
+  .sc li{padding:5px 0;border-top:1px dotted var(--line);display:flex;gap:8px}
+  .sc li:first-child{border-top:none}
+  .sc li b{font-family:"Space Mono";font-size:11px;color:var(--muted);min-width:64px;display:inline-block;text-transform:uppercase}
+  .sc .price{margin-top:12px;background:var(--ink);color:var(--paper);border-radius:2px;padding:10px 12px}
+  .sc .price .cb{font-family:"Archivo";font-weight:800;font-size:16px}
+  .sc .price .sk{font-family:"Space Mono";font-size:11px;color:var(--gold-soft);margin-top:2px}
+
+  .watch{margin-top:14px}
+  .w{display:grid;grid-template-columns:120px 1fr;gap:18px;padding:16px 0;border-top:1px solid var(--line)}
+  .w:first-child{border-top:none}
+  .w .when{font-family:"Space Mono";font-size:12px;color:var(--gold);letter-spacing:.04em;padding-top:2px}
+  .w .when b{display:block;font-family:"Archivo";font-weight:800;font-size:15px;color:var(--ink);letter-spacing:0}
+  .w .body h4{font-family:"Archivo";font-weight:700;font-size:16.5px;color:var(--ink);margin-bottom:3px}
+  .w .body p{font-size:15px;margin-bottom:0;color:#333;max-width:70ch}
+  @media(max-width:600px){.w{grid-template-columns:1fr;gap:4px}}
+
+  .tech{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+  .tech .lv{background:var(--paper-2);border:1px solid var(--line);border-radius:2px;padding:14px}
+  .tech .lv .k{font-family:"Space Mono";font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .tech .lv .v{font-family:"Archivo";font-weight:900;font-size:24px;margin-top:4px}
+  .tech .lv.r .v{color:var(--bear)}.tech .lv.s .v{color:var(--bull)}.tech .lv.p .v{color:var(--gold)}
+  @media(max-width:600px){.tech{grid-template-columns:1fr}}
+
+  .callout{background:var(--ink);color:var(--paper);border-left:5px solid var(--gold);padding:22px 24px;margin:26px 0;border-radius:2px}
+  .callout p{color:var(--paper);max-width:78ch;margin-bottom:0}
+  .callout strong{color:var(--gold-soft);font-weight:700}
+  .callout .q{font-family:"Space Mono";font-size:11px;letter-spacing:.2em;color:var(--gold-soft);text-transform:uppercase;margin-bottom:8px}
+
+  .creds{background:var(--ink);color:var(--paper);margin:60px -22px -90px;padding:48px 22px 56px}
+  .creds .inner{max-width:1080px;margin:0 auto}
+  .creds .sig{font-family:"Space Mono";font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+  .creds .nm{font-family:"Archivo";font-weight:900;font-size:34px;color:var(--paper);letter-spacing:-.01em}
+  .creds .role{font-family:"Newsreader";font-size:16px;color:var(--gold-soft);margin-top:2px}
+  .creds ul{list-style:none;margin:18px 0 22px;max-width:70ch}
+  .creds ul li{padding:6px 0;border-top:1px solid rgba(169,194,220,.2);font-size:16px;color:var(--paper)}
+  .creds ul li:first-child{border-top:none}
+  .creds .contact{font-family:"Space Mono";font-size:13px;letter-spacing:.04em;color:var(--gold-soft);
+    display:flex;flex-wrap:wrap;gap:8px 20px;padding-top:18px;border-top:2px solid var(--gold)}
+  .creds .contact a{color:var(--gold-soft);text-decoration:none}
+  .disc{font-family:"Space Mono";font-size:11px;line-height:1.6;color:var(--muted);margin-top:26px;max-width:90ch}
+  .note{font-family:"Space Mono";font-size:11.5px;color:var(--muted);margin-top:6px}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="inner">
+    <div class="brandline">
+      <span><b>RURALIN.AI</b> · INTELIGÊNCIA ECONÔMICA DA FAZENDA</span>
+      <span>EDIÇÃO Nº 06D/2026 · FECHAMENTO 30·JUN·2026</span>
+    </div>
+    <h1 class="title">RADAR<span>·</span>AGRO</h1>
+    <div class="subtitle">Algodão &nbsp;/&nbsp; Boletim de Junho 2026 &nbsp;/&nbsp; Pluma · ICE · Prêmio · Exportação · Cenários</div>
+  </div>
+</div>
+
+<div class="ribbon">
+  <div class="inner">
+    <div class="tick"><div class="k">Cepea pluma (8d)</div><div class="v">R$ 7,55/lp</div><div class="d down mono">▼ ~7% mês</div></div>
+    <div class="tick"><div class="k">ICE NY (dez)</div><div class="v">76,5 ¢/lb</div><div class="d down mono">▼ ~3% mês</div></div>
+    <div class="tick"><div class="k">Dólar (R$/US$)</div><div class="v">5,18</div><div class="d down mono">▲ 2,8% mês</div></div>
+    <div class="tick"><div class="k">Exportação 2026</div><div class="v">3,36 Mt</div><div class="d up mono">▲ recorde</div></div>
+    <div class="tick"><div class="k">Safra 25/26</div><div class="v">4,0 Mt</div><div class="d flat mono">2ª maior da história</div></div>
+    <div class="tick"><div class="k">Comercializ. 25/26</div><div class="v">30%</div><div class="d down mono">▼ 13pp abaixo média</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- LEITURA DO MES -->
+  <section>
+    <div class="eyebrow">Leitura do mês</div>
+    <h2>O Brasil exporta como nunca — e mesmo assim a pluma recuou em junho</h2>
+    <p class="lead">Junho quebrou uma sequência: <span class="hl">após quatro meses de alta, a pluma recuou no mercado interno</span>. O indicador Cepea perdeu força e voltou a operar abaixo de R$ 8,00/lp, encerrando o mês na casa de R$ 7,55/lp — queda de cerca de 7% no acumulado. A pressão veio de três frentes: o <strong>enfraquecimento da ICE em Nova York</strong>, a paridade de exportação mais fraca e a <strong>indústria têxtil cautelosa</strong>, penando para vender manufaturados e repassar custos.</p>
+    <p>O paradoxo é que isso acontece no meio do semestre mais forte da história das exportações brasileiras. A Anea elevou a projeção de embarques de 2026 para <strong>3,36 milhões de toneladas — recorde</strong>, e a safra 25/26 foi revisada para 4,006 Mt, a segunda maior de todos os tempos, atrás só de 24/25. O Brasil é hoje o <strong>maior exportador global de pluma</strong>, com os EUA perdendo espaço. A colheita apenas começou (cerca de 3% da área), e o tempo seco favorece o avanço.</p>
+    <div class="callout">
+      <div class="q">Síntese do estrategista</div>
+      <p>O algodão vive uma tensão clássica de <strong>oferta forte contra demanda fraca</strong>. Do lado bom: exportação recorde, prêmio de qualidade da pluma brasileira e real fraco. Do lado ruim: safra cheia entrando na colheita, consumo têxtil global estagnado há uma década e o <strong>petróleo barato</strong> baixando o poliéster, fibra que concorre direto com o algodão. Junho foi ganho pela demanda fraca — mas o piso de exportação é robusto. O risco de julho não é a pluma de hoje; é a saúde da indústria têxtil e o preço do barril.</p>
+    </div>
+  </section>
+
+  <!-- PRECO -->
+  <section>
+    <div class="eyebrow">Preço · ICE & pluma Cepea</div>
+    <h2>Nova York enfraqueceu e puxou o mercado interno na esteira</h2>
+    <p>A ICE deslizou ao longo de junho, saindo da faixa dos 79 para ~76,5 centavos por libra — bem no meio da banda dos últimos 12 meses (60,7 a 88,9). O mercado interno caiu mais que a bolsa: além da paridade, pesaram a entrada da nova colheita, a cautela da indústria e a dificuldade histórica de casar preço e qualidade dos lotes no spot nacional.</p>
+    <div class="card">
+      <div class="cap"><span>ICE Futures · Algodão nº 2 · ¢US$/libra · junho 2026</span><span>fonte: ICE/CME · reconstrução indicativa</span></div>
+      <div class="chart-box"><canvas id="ice"></canvas></div>
+    </div>
+
+    <h3>A pluma em diferentes unidades</h3>
+    <p>O algodão confunde pela unidade. Abaixo, o indicador Cepea (pluma tipo 41-4, base São Paulo) convertido, mais as referências de bolsa e de safra.</p>
+    <div class="regs">
+      <div class="reg on"><div class="p">Cepea pluma · 8 dias</div><div class="r">R$ 7,55/lp</div><div class="s">indicador principal</div></div>
+      <div class="reg"><div class="p">Equivalente arroba</div><div class="r">R$ 249,70</div><div class="s">por @ (15 kg)</div></div>
+      <div class="reg"><div class="p">Equivalente quilo</div><div class="r">R$ 16,64</div><div class="s">por kg</div></div>
+      <div class="reg"><div class="p">ICE NY · dez</div><div class="r">76,5 ¢/lb</div><div class="s">Bolsa de N. York</div></div>
+      <div class="reg"><div class="p">Safra 25/26 · MT</div><div class="r">~70%</div><div class="s">da pluma nacional</div></div>
+      <div class="reg"><div class="p">Comercializado</div><div class="r">30%</div><div class="s">25/26 · Imea</div></div>
+    </div>
+    <p class="note">Conversões Cepea: de libra-peso para arroba, multiplicar por 33,069; para quilo, multiplicar por 2,2046. Fontes: Cepea/Esalq, Imea, ICE, Anea.</p>
+  </section>
+
+  <!-- VARIAVEIS -->
+  <section>
+    <div class="eyebrow">Pluma × variáveis de mercado</div>
+    <h2>O que mexeu com o algodão: ICE, petróleo/poliéster, câmbio e a indústria</h2>
+    <p>A pluma tem um concorrente que os grãos não têm: a fibra sintética, feita de petróleo. Por isso o barril importa tanto quanto a bolsa. Base 100 no início de junho.</p>
+    <div class="card">
+      <div class="cap"><span>Base 100 = 01·jun·2026 · desempenho relativo</span><span>fonte: ICE · Cepea · reconstrução indicativa</span></div>
+      <div class="chart-box"><canvas id="rel"></canvas></div>
+    </div>
+    <div class="rel">
+      <div class="item">
+        <h4>Petróleo / poliéster <span class="pill b">−20% · BAIXISTA</span></h4>
+        <p>O vetor silencioso. Brent caindo ~20% com a paz EUA–Irã barateia o poliéster, fibra que substitui o algodão. Petróleo no chão = pressão estrutural sobre a demanda por fibra natural.</p>
+      </div>
+      <div class="item">
+        <h4>ICE Nova York <span class="pill b">−3% · BAIXISTA</span></h4>
+        <p>A referência global cedeu no mês, arrastando a paridade de exportação e o indicador interno. Enquanto não retomar os 79–80 ¢/lb, o viés de curto prazo segue vendido.</p>
+      </div>
+      <div class="item">
+        <h4>Indústria têxtil <span class="pill b">DEMANDA FRACA</span></h4>
+        <p>Compradores cautelosos, dificuldade de repassar custos e vestuário sintético importado (remessas isentas) inundando o varejo. É o teto de demanda do momento.</p>
+      </div>
+      <div class="item">
+        <h4>Dólar (R$/US$) <span class="pill g">+2,8% · ALTISTA p/ export</span></h4>
+        <p>Real fraco (R$ 5,18) sustenta a paridade de exportação em real e é o principal amortecedor da queda da ICE — o motor do semestre recorde de embarques.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREMIOS -->
+  <section>
+    <div class="eyebrow">Prêmio da pluma & basis de exportação</div>
+    <h2>O prêmio de qualidade segura o Brasil — a demanda asiática é o que sustenta o preço</h2>
+    <div class="prem-wrap">
+      <div>
+        <p>A grande vantagem da pluma brasileira é o <strong>prêmio de qualidade</strong>: a fibra ganhou a preferência da indústria asiática e, historicamente, o mercado interno chega a se descolar da ICE para cima, sustentado pela demanda firme e por prêmios positivos. Em junho, porém, o basis de exportação enfraqueceu junto com a bolsa — a paridade cedeu e o descolamento perdeu força.</p>
+        <p>A diversificação de destinos é a blindagem estratégica. De janeiro a maio, a <strong>China liderou com ~400 mil toneladas</strong>, seguida de Bangladesh, Turquia, Paquistão, Vietnã e Índia. Espalhar a fibra por vários compradores asiáticos reduz a dependência de qualquer um deles — algo que a pecuária e a soja, muito concentradas na China, invejam.</p>
+      </div>
+      <div class="card" style="margin:0">
+        <div class="cap"><span>Destinos da pluma BR · jan–mai 2026 · mil t</span><span>fonte: gov. BR / Anea</span></div>
+        <div class="chart-box sm"><canvas id="prem"></canvas></div>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="q">Onde mora o risco — e a oportunidade</div>
+      <p>O ponto de atenção é duplo. Primeiro, a <strong>comercialização atrasada</strong>: só 30% da safra 25/26 está vendida, 13 pontos abaixo da média histórica — o produtor segurou por causa dos preços baixos, e agora colhe com muito a vender. Segundo, a <strong>China maior produtora</strong>: se colher safra própria maior, importa menos, e o principal comprador desacelera. Do lado bom, o real fraco e o prêmio de qualidade dão fôlego. A leitura: vender atrasado num mercado de oferta cheia exige casar cada lote com repiques de ICE e de dólar.</p>
+    </div>
+  </section>
+
+  <!-- FUNDAMENTOS -->
+  <section>
+    <div class="eyebrow">Fundamentos · safra & comércio</div>
+    <h2>Os números que fecharam o mês</h2>
+    <p>O quadro é de oferta abundante — no Brasil e no mundo — encontrando demanda têxtil morna. Recorde de exportação de um lado; estoques globais subindo e comercialização atrasada do outro.</p>
+    <div class="facts">
+      <div class="f"><div class="n">4,006 Mt</div><div class="l">Safra pluma BR 25/26 · Anea</div><div class="t flat">2ª maior da história</div></div>
+      <div class="f"><div class="n">3,36 Mt</div><div class="l">Exportação BR 2026 · projeção</div><div class="t up">▲ recorde · maior exportador</div></div>
+      <div class="f"><div class="n">16,77 Mt</div><div class="l">Estoques mundiais 25/26 · USDA</div><div class="t down">▲ 4% · oferta folgada</div></div>
+      <div class="f"><div class="n">30%</div><div class="l">Comercializado 25/26 · Imea</div><div class="t down">▼ 13pp abaixo da média</div></div>
+    </div>
+    <p>O detalhe do estrategista: mesmo com a safra revisada para cima, a Anea derrubou o estoque de passagem de fim de junho para 708 mil toneladas — sinal de que os <strong>embarques estão drenando a oferta rápido</strong>. É o que impede uma queda mais dura de preço apesar da safra cheia. O consumo global, porém, segue estável há uma década — o teto estrutural da fibra natural.</p>
+  </section>
+
+  <!-- CENARIOS -->
+  <section>
+    <div class="eyebrow">Cenários · Julho 2026</div>
+    <h2>Três roteiros para o próximo mês</h2>
+    <p>O cenário-base para julho é de <strong>lateralização com viés baixista no curto prazo</strong> — colheita entrando, ICE fraca e poliéster barato — com piso dado pela exportação recorde e pelo real fraco. O ponteiro marca a leitura central.</p>
+    <div class="dial">
+      <div class="ends"><span>◄ Baixista</span><span>Base</span><span>Altista ►</span></div>
+      <div class="track">
+        <div class="notch" style="left:20%"></div>
+        <div class="notch" style="left:50%"></div>
+        <div class="notch" style="left:80%"></div>
+        <div class="ptr" style="left:42%"><div class="lab">LEITURA CENTRAL JUL</div><div class="arw">▼</div></div>
+      </div>
+    </div>
+    <div class="scen">
+      <div class="sc bear">
+        <div class="tag">Cenário 1</div>
+        <h4>Baixista</h4>
+        <div class="prob">probabilidade ~30%</div>
+        <ul>
+          <li><b>ICE</b> Rompe suporte com estoques globais cheios</li>
+          <li><b>China</b> Safra própria maior reduz importação</li>
+          <li><b>Fibra</b> Poliéster barato + têxtil fraco pressionam</li>
+        </ul>
+        <div class="price">
+          <div class="cb">ICE 68–72 ¢/lb</div>
+          <div class="sk">Cepea R$ 6,8–7,3/lp</div>
+        </div>
+      </div>
+      <div class="sc base">
+        <div class="tag">Cenário 2 · base</div>
+        <h4>Lateral-baixista</h4>
+        <div class="prob">probabilidade ~45%</div>
+        <ul>
+          <li><b>Oferta</b> Colheita pressiona, mas export drena estoque</li>
+          <li><b>Prêmio</b> Qualidade BR sustenta o basis</li>
+          <li><b>Câmbio</b> R$ 5,15–5,30 defende a paridade</li>
+        </ul>
+        <div class="price">
+          <div class="cb">ICE 72–78 ¢/lb</div>
+          <div class="sk">Cepea R$ 7,3–7,7/lp</div>
+        </div>
+      </div>
+      <div class="sc bull">
+        <div class="tag">Cenário 3</div>
+        <h4>Altista</h4>
+        <div class="prob">probabilidade ~25%</div>
+        <ul>
+          <li><b>Petróleo</b> Reescalada no Irã reergue o poliéster</li>
+          <li><b>Ásia</b> Recomposição de estoques têxteis</li>
+          <li><b>Câmbio</b> Real a R$ 5,35 turbina a exportação</li>
+        </ul>
+        <div class="price">
+          <div class="cb">ICE 78–84 ¢/lb</div>
+          <div class="sk">Cepea R$ 7,7–8,3/lp</div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Faixas indicativas de trabalho, não recomendação de compra ou venda. O preço da pluma em real é função de ICE × prêmio/basis × câmbio × demanda têxtil.</p>
+  </section>
+
+  <!-- TECNICA -->
+  <section>
+    <div class="eyebrow">Leitura do grafista</div>
+    <h2>ICE no meio da banda, com gatilho de reversão em 79 ¢/lb</h2>
+    <p>Tecnicamente, a ICE opera no miolo do range de 12 meses (60,7–88,9), abaixo da média móvel de curto prazo. O suporte relevante está em 72 ¢/lb; enquanto não recuperar 79 com convicção, o viés de curtíssimo prazo é lateral-baixista. O que segura o piso é o fundamento de exportação, não o gráfico.</p>
+    <div class="card">
+      <div class="cap"><span>ICE · algodão · ¢/lb · zonas técnicas de junho</span><span>suporte / resistências · reconstrução indicativa</span></div>
+      <div class="chart-box"><canvas id="tech-chart"></canvas></div>
+    </div>
+    <p class="note">A ICE encerrou junho em ~76,5 ¢/lb, no terço médio-inferior da banda, acima do suporte de 72 e abaixo do gatilho de reversão em 79.</p>
+    <div class="tech">
+      <div class="lv r"><div class="k">Resistência 2</div><div class="v">84 ¢/lb</div></div>
+      <div class="lv r"><div class="k">Resistência 1 · gatilho</div><div class="v">79 ¢/lb</div></div>
+      <div class="lv s"><div class="k">Suporte · piso do mês</div><div class="v">72 ¢/lb</div></div>
+    </div>
+    <p style="margin-top:16px">Para o produtor: com 70% da safra ainda por vender e o mercado de oferta cheia, <strong>não é hora de vender no fundo</strong>, e sim de escalonar vendas casando com repiques de ICE e de dólar. Travar câmbio em picos de real fraco pode valer mais do que perseguir a bolsa — o Rabobank projeta o dólar a R$ 5,35 no fim do ano, o que joga a favor de quem tem pluma para embarcar.</p>
+  </section>
+
+  <!-- WATCHLIST -->
+  <section>
+    <div class="eyebrow">No radar de julho · macro & geopolítica</div>
+    <h2>O que fica de olho</h2>
+    <div class="watch">
+      <div class="w">
+        <div class="when">CONTÍNUO<b>Petróleo/poliéster</b></div>
+        <div class="body"><h4>Barril barato pressiona a fibra natural</h4>
+        <p>O poliéster é o concorrente direto do algodão. Com o Brent ~20% abaixo do pico da guerra, a fibra sintética fica mais competitiva. Uma reescalada no Irã reergue o petróleo — e, com ele, o algodão. É o curinga de dois gumes do mês.</p></div>
+      </div>
+      <div class="w">
+        <div class="when">15·JUL<b>Tarifaço EUA</b></div>
+        <div class="body"><h4>Decisão da Seção 301 contra o Brasil</h4>
+        <p>Os EUA avaliam tarifa de 25% ao Brasil (etanol, digital, desmatamento) e 12,5% sobre 54 países. O algodão não é o alvo principal, mas a tensão comercial mexe com o câmbio e o apetite a risco — vetor macro a monitorar.</p></div>
+      </div>
+      <div class="w">
+        <div class="when">CONTÍNUO<b>China</b></div>
+        <div class="body"><h4>Safra chinesa maior pode reduzir importação</h4>
+        <p>A China é a maior produtora, consumidora e compradora. Se colher mais em casa, importa menos — e o principal destino desacelera. Acompanhar o ritmo de compras chinesas é acompanhar o piso da demanda.</p></div>
+      </div>
+      <div class="w">
+        <div class="when">29·JUL<b>Fed & câmbio</b></div>
+        <div class="body"><h4>Fed sob Warsh e o dólar a R$ 5,35 (Rabobank)</h4>
+        <p>Juro americano alto por mais tempo sustenta o dólar forte — favorável à exportação de pluma em real. O real fraco é o principal aliado do algodão brasileiro no 2º semestre.</p></div>
+      </div>
+      <div class="w">
+        <div class="when">COMERCIAL<b>Vendas atrasadas</b></div>
+        <div class="body"><h4>Só 30% da 25/26 comercializado (−13pp)</h4>
+        <p>O produtor segurou por causa dos preços e agora colhe com muito a vender. Fluxo de vendas represado + colheita entrando é uma combinação que pesa na formação de preço de curto prazo.</p></div>
+      </div>
+      <div class="w">
+        <div class="when">MÉDIO PRAZO<b>El Niño</b></div>
+        <div class="body"><h4>El Niño superforte e a safra 26/27</h4>
+        <p>Projetado como o mais intenso desde 1950, adiciona risco ao plantio 26/27 (fim do ano) e ao clima do 2º semestre. Vetor de médio prazo para o planejamento da próxima temporada.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCLUSAO -->
+  <section style="border-bottom:none">
+    <div class="eyebrow">Percepção para julho</div>
+    <h2>A tendência que carrego para o mês</h2>
+    <p class="lead">Entro em julho com <strong>viés lateral-baixista no curto prazo e piso de exportação robusto</strong>. A colheita entrando, a ICE fraca, o poliéster barato e a indústria têxtil cautelosa formam o teto; o semestre recorde de embarques, o prêmio de qualidade da pluma brasileira e o real fraco formam o piso. É um mercado de oferta cheia contra demanda morna — que não desaba porque a exportação drena o estoque rápido.</p>
+    <p>O jogo de julho será decidido por duas cartas fora da lavoura: <strong>o preço do petróleo</strong> (via poliéster) e <strong>o câmbio</strong> (via paridade de exportação). Para o cotonicultor, o recado é de disciplina comercial: com 70% da safra ainda por vender, escalonar as vendas e travar câmbio nos picos de real fraco vale mais do que apostar numa recuperação rápida da bolsa. Gestão de risco, não adivinhação — sobretudo num ano de oferta abundante.</p>
+  </section>
+
+</div>
+
+<div class="creds">
+  <div class="inner">
+    <div class="sig">Análise e Construção</div>
+    <div class="nm">Dr. Sidney Souza</div>
+    <div class="role">Economista e Adm. Agrícola · Estrategista Econômico do Produtor</div>
+    <ul>
+      <li>Especialista em economia da fazenda e gestão de risco no agro</li>
+      <li>Transformamos dados da fazenda em decisões econômicas</li>
+      <li>Ajudamos produtores a entender se o mercado sustenta seu negócio</li>
+    </ul>
+    <div class="contact">
+      <a href="https://ruralinai-commits.github.io/ruralin-site/" target="_blank">ruralinai-commits.github.io/ruralin-site</a>
+      <span>@ruralin.ai</span>
+      <a href="mailto:sidneyagro@gmail.com">sidneyagro@gmail.com</a>
+      <span>(64) 9 9226-6886</span>
+    </div>
+    <p class="disc">Documento de caráter analítico e educacional. Preços, prêmios e câmbio referem-se ao fechamento de junho/2026 e séries reconstruídas de forma indicativa a partir de fontes públicas (Cepea/Esalq, ICE, Anea, Abrapa, Imea, Conab, USDA, Rabobank, Reuters, Notícias Agrícolas e imprensa econômica). As faixas de cenário são hipóteses de trabalho e não constituem recomendação de compra ou venda. Decisões de comercialização e hedge devem considerar o custo de produção e o fluxo de caixa individuais de cada fazenda.</p>
+  </div>
+</div>
+
+<script>
+const ink='#0E211B', gold='#5E82A6', bull='#2F7D4F', bear='#B24428', muted='#6C6B5D', grid='rgba(27,36,30,.10)';
+Chart.defaults.font.family="'Space Mono', monospace";
+Chart.defaults.font.size=11;
+Chart.defaults.color=muted;
+
+// 1) ICE junho
+new Chart(document.getElementById('ice'),{
+  type:'line',
+  data:{
+    labels:['01','05','08','10','12','15','17','19','22','24','26','29','30'],
+    datasets:[{
+      label:'ICE (¢/lb)',
+      data:[79.0,78.2,77.5,76.8,76.0,75.2,75.8,76.2,75.5,76.0,76.8,76.2,76.5],
+      borderColor:ink, backgroundColor:'rgba(94,130,166,.12)',
+      borderWidth:2.5, tension:.3, fill:true,
+      pointRadius:(c)=>c.dataIndex===12?4:0,
+      pointBackgroundColor:gold, pointBorderColor:ink
+    }]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:(c)=>c.parsed.y.toFixed(1)+' ¢/lb'}}},
+    scales:{y:{grid:{color:grid},ticks:{callback:(v)=>v+'¢'}},
+      x:{grid:{display:false},title:{display:true,text:'JUNHO 2026',color:muted,font:{size:10}}}}}
+});
+
+// 2) Relativos base 100
+new Chart(document.getElementById('rel'),{
+  type:'line',
+  data:{
+    labels:['01','06','11','16','21','26','30'],
+    datasets:[
+      {label:'Pluma Cepea',data:[100,98,96,94.5,93.8,93.2,93.0],borderColor:gold,borderWidth:2.6,tension:.3,pointRadius:0},
+      {label:'ICE NY',data:[100,98.8,97.5,96.5,96.0,97.0,96.8],borderColor:ink,borderWidth:1.8,tension:.3,pointRadius:0,borderDash:[2,2]},
+      {label:'Brent',data:[100,96,88,83,80.5,79.5,80.0],borderColor:bear,borderWidth:2.2,tension:.3,pointRadius:0,borderDash:[5,3]},
+      {label:'Dólar R$/US$',data:[100,100.6,101.4,102.0,102.4,102.6,102.8],borderColor:bull,borderWidth:2.2,tension:.3,pointRadius:0}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{legend:{position:'bottom',labels:{boxWidth:14,padding:14,font:{size:11}}}},
+    scales:{y:{grid:{color:grid}},
+      x:{grid:{display:false},title:{display:true,text:'JUNHO 2026 · BASE 100',color:muted,font:{size:10}}}}}
+});
+
+// 3) Destinos exportacao (barras)
+new Chart(document.getElementById('prem'),{
+  type:'bar',
+  data:{
+    labels:['China','Bangladesh','Turquia','Paquistão','Vietnã','Índia'],
+    datasets:[{
+      data:[400,284,218,202,186,127],
+      backgroundColor:[gold,'#6f93b4','#7f9fbd','#8fabc6','#9fb8cf','#afc4d8'],
+      borderRadius:3, barPercentage:.78
+    }]
+  },
+  options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:(c)=>c.parsed.x+' mil t'}}},
+    scales:{x:{grid:{color:grid},ticks:{callback:(v)=>v+'kt'}},y:{grid:{display:false},ticks:{font:{size:11}}}}}
+});
+
+// 4) Tecnica
+(function(){
+  const days=['01','05','08','10','12','15','17','19','22','24','26','29','30'];
+  const px=[79.0,78.2,77.5,76.8,76.0,75.2,75.8,76.2,75.5,76.0,76.8,76.2,76.5];
+  const flat=(v)=>days.map(()=>v);
+  new Chart(document.getElementById('tech-chart'),{
+    type:'line',
+    data:{labels:days,datasets:[
+      {label:'Resistência 2 · 84',data:flat(84),borderColor:bear,borderWidth:1.4,borderDash:[7,4],pointRadius:0,tension:0},
+      {label:'Resistência 1 · 79 (gatilho)',data:flat(79),borderColor:bear,borderWidth:1.4,borderDash:[3,3],pointRadius:0,tension:0},
+      {label:'ICE (¢/lb)',data:px,borderColor:ink,backgroundColor:'rgba(94,130,166,.12)',
+        borderWidth:2.8,tension:.3,fill:true,
+        pointRadius:(c)=>c.dataIndex===px.length-1?5:0,pointBackgroundColor:gold,pointBorderColor:ink},
+      {label:'Suporte · 72 (piso)',data:flat(72),borderColor:bull,borderWidth:1.6,borderDash:[7,4],pointRadius:0,tension:0}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{legend:{position:'bottom',labels:{boxWidth:14,padding:12,font:{size:11}}},
+        tooltip:{callbacks:{label:(c)=>c.dataset.label+': '+c.parsed.y.toFixed(1)+' ¢'}}},
+      scales:{y:{min:70,max:86,grid:{color:grid},ticks:{callback:(v)=>v+'¢'}},
+        x:{grid:{display:false},title:{display:true,text:'JUNHO 2026',color:muted,font:{size:10}}}}}
+  });
+})();
+</script>
+</body>
+</html>
