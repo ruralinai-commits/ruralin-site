@@ -28,6 +28,13 @@
 window.BOLETINS = [
 
   {
+    arquivo: "portalagro.html",
+    data: "01 jul. 2026",
+    titulo: "O mês fechou. Já está no ar o balanço de junho e o que esperar de julho.",
+    categoria: "Radar"
+  },
+
+  {
     arquivo: "info-usda-30-06.html",
     data: "30 jun. 2026",
     titulo: "Resposta do Mercado ao USDA",
