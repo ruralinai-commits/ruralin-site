@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar Agro · Feijão · Junho 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --ink:#0E211B;
+    --ink-2:#163026;
+    --paper:#EDEAE2;
+    --paper-2:#F5F3EC;
+    --text:#1B241E;
+    --muted:#6C6B5D;
+    --gold:#7E5064;         /* feijão-preto / plum signal */
+    --gold-soft:#B993A6;
+    --bull:#2F7D4F;
+    --bear:#B24428;
+    --line:#CAC6B8;
+    --line-dk:rgba(185,147,166,.26);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--text);font-family:"Newsreader",Georgia,serif;
+    font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px 90px}
+  .mono{font-family:"Space Mono",monospace}
+
+  .masthead{background:var(--ink);color:var(--paper);margin:0 -22px;padding:34px 22px 0}
+  .masthead .inner{max-width:1080px;margin:0 auto}
+  .brandline{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;
+    font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.16em;color:var(--gold-soft)}
+  .brandline b{color:var(--paper)}
+  h1.title{font-family:"Archivo";font-weight:900;font-size:clamp(44px,9vw,104px);line-height:.9;
+    letter-spacing:-.02em;margin:14px 0 4px;color:var(--paper)}
+  h1.title span{color:var(--gold-soft)}
+  .subtitle{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--gold-soft);padding-bottom:22px}
+
+  .ribbon{margin:0 -22px;background:var(--ink-2);border-top:1px solid var(--line-dk);border-bottom:3px solid var(--gold)}
+  .ribbon .inner{max-width:1080px;margin:0 auto;padding:14px 22px;display:grid;grid-template-columns:repeat(6,1fr);gap:2px}
+  .tick{padding:4px 12px 4px 0}
+  .tick .k{font-family:"Space Mono";font-size:10px;letter-spacing:.14em;color:var(--gold-soft);text-transform:uppercase}
+  .tick .v{font-family:"Archivo";font-weight:800;font-size:20px;color:var(--paper);line-height:1.15;margin-top:3px}
+  .tick .d{font-family:"Space Mono";font-size:11px;margin-top:1px}
+  .up{color:#8FD6A6}.down{color:#ED9C86}.flat{color:var(--gold-soft)}
+  @media(max-width:760px){.ribbon .inner{grid-template-columns:repeat(2,1fr);gap:10px 8px}}
+
+  section{padding:52px 0 6px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:"Space Mono";font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);
+    display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--gold);display:inline-block}
+  h2{font-family:"Archivo";font-weight:800;font-size:clamp(26px,4vw,38px);line-height:1.05;
+    letter-spacing:-.015em;color:var(--ink);margin-bottom:18px}
+  h3{font-family:"Archivo";font-weight:700;font-size:20px;color:var(--ink);margin:22px 0 8px;letter-spacing:-.01em}
+  p{margin-bottom:14px;max-width:74ch}
+  .lead{font-size:20px;line-height:1.5}
+  strong{font-weight:600;color:var(--ink)}
+  .hl{background:linear-gradient(transparent 62%,var(--gold-soft) 62%);padding:0 1px}
+
+  .card{background:var(--paper-2);border:1px solid var(--line);border-radius:2px;padding:22px 20px 18px;margin:22px 0}
+  .card .cap{font-family:"Space Mono";font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .chart-box{position:relative;height:320px}
+  .chart-box.sm{height:190px}
+
+  .regs{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:18px 0 6px}
+  .reg{background:var(--ink);color:var(--paper);border-radius:2px;padding:12px 12px 13px}
+  .reg.on{background:var(--gold);color:#f7f0f3}
+  .reg .p{font-family:"Space Mono";font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.85}
+  .reg .r{font-family:"Archivo";font-weight:800;font-size:18px;margin-top:5px}
+  .reg .s{font-family:"Space Mono";font-size:10px;opacity:.78;margin-top:1px}
+  @media(max-width:760px){.regs{grid-template-columns:repeat(2,1fr)}}
+
+  .rel{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+  .rel .item{border-left:3px solid var(--gold);padding:2px 0 2px 16px}
+  .rel .item h4{font-family:"Archivo";font-weight:700;font-size:15px;letter-spacing:.02em;margin-bottom:3px;
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .rel .item p{font-size:15.5px;margin-bottom:0;color:#333}
+  .pill{font-family:"Space Mono";font-size:10px;padding:2px 7px;border-radius:20px;letter-spacing:.06em}
+  .pill.b{background:rgba(178,68,40,.14);color:var(--bear)}
+  .pill.g{background:rgba(47,125,79,.15);color:var(--bull)}
+  .pill.n{background:rgba(126,80,100,.18);color:#5e3a4a}
+  @media(max-width:760px){.rel{grid-template-columns:1fr}}
+
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:20px 0}
+  .facts .f{background:var(--paper-2);padding:16px 14px}
+  .facts .f .n{font-family:"Archivo";font-weight:900;font-size:26px;color:var(--ink);letter-spacing:-.02em}
+  .facts .f .l{font-family:"Space Mono";font-size:10.5px;letter-spacing:.05em;color:var(--muted);text-transform:uppercase;margin-top:4px;line-height:1.35}
+  .facts .f .t{font-family:"Space Mono";font-size:11px;margin-top:6px}
+  @media(max-width:760px){.facts{grid-template-columns:repeat(2,1fr)}}
+
+  .prem-wrap{display:grid;grid-template-columns:1.02fr .98fr;gap:26px;align-items:center;margin-top:8px}
+  @media(max-width:760px){.prem-wrap{grid-template-columns:1fr}}
+
+  .dial{background:var(--ink);color:var(--paper);border-radius:3px;padding:26px 24px 30px;margin:22px 0 26px}
+  .dial .track{position:relative;height:8px;background:linear-gradient(90deg,var(--bear),#C7A24E,var(--bull));
+    border-radius:20px;margin:38px 8px 10px}
+  .dial .notch{position:absolute;top:50%;width:2px;height:20px;background:rgba(255,255,255,.35);transform:translateY(-50%)}
+  .dial .ptr{position:absolute;top:-30px;transform:translateX(-50%);text-align:center}
+  .dial .ptr .lab{font-family:"Space Mono";font-size:11px;letter-spacing:.1em;color:var(--gold-soft);white-space:nowrap}
+  .dial .ptr .arw{font-size:18px;color:var(--gold-soft);line-height:1}
+  .dial .ends{display:flex;justify-content:space-between;font-family:"Space Mono";font-size:11px;
+    letter-spacing:.14em;color:var(--gold-soft);text-transform:uppercase;margin:0 4px}
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:820px){.scen{grid-template-columns:1fr}}
+  .sc{border:1px solid var(--line);border-top:4px solid var(--muted);border-radius:2px;padding:18px 16px;background:var(--paper-2)}
+  .sc.bear{border-top-color:var(--bear)}.sc.base{border-top-color:var(--gold)}.sc.bull{border-top-color:var(--bull)}
+  .sc .tag{font-family:"Space Mono";font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .sc.bear .tag{color:var(--bear)}.sc.base .tag{color:#5e3a4a}.sc.bull .tag{color:var(--bull)}
+  .sc h4{font-family:"Archivo";font-weight:800;font-size:19px;margin:4px 0 2px;color:var(--ink)}
+  .sc .prob{font-family:"Space Mono";font-size:11px;color:var(--muted);margin-bottom:10px}
+  .sc ul{list-style:none;font-size:14.5px;line-height:1.4}
+  .sc li{padding:5px 0;border-top:1px dotted var(--line);display:flex;gap:8px}
+  .sc li:first-child{border-top:none}
+  .sc li b{font-family:"Space Mono";font-size:11px;color:var(--muted);min-width:64px;display:inline-block;text-transform:uppercase}
+  .sc .price{margin-top:12px;background:var(--ink);color:var(--paper);border-radius:2px;padding:10px 12px}
+  .sc .price .cb{font-family:"Archivo";font-weight:800;font-size:16px}
+  .sc .price .sk{font-family:"Space Mono";font-size:11px;color:var(--gold-soft);margin-top:2px}
+
+  .watch{margin-top:14px}
+  .w{display:grid;grid-template-columns:120px 1fr;gap:18px;padding:16px 0;border-top:1px solid var(--line)}
+  .w:first-child{border-top:none}
+  .w .when{font-family:"Space Mono";font-size:12px;color:var(--gold);letter-spacing:.04em;padding-top:2px}
+  .w .when b{display:block;font-family:"Archivo";font-weight:800;font-size:15px;color:var(--ink);letter-spacing:0}
+  .w .body h4{font-family:"Archivo";font-weight:700;font-size:16.5px;color:var(--ink);margin-bottom:3px}
+  .w .body p{font-size:15px;margin-bottom:0;color:#333;max-width:70ch}
+  @media(max-width:600px){.w{grid-template-columns:1fr;gap:4px}}
+
+  .tech{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+  .tech .lv{background:var(--paper-2);border:1px solid var(--line);border-radius:2px;padding:14px}
+  .tech .lv .k{font-family:"Space Mono";font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .tech .lv .v{font-family:"Archivo";font-weight:900;font-size:24px;margin-top:4px}
+  .tech .lv.r .v{color:var(--bear)}.tech .lv.s .v{color:var(--bull)}.tech .lv.p .v{color:var(--gold)}
+  @media(max-width:600px){.tech{grid-template-columns:1fr}}
+
+  .callout{background:var(--ink);color:var(--paper);border-left:5px solid var(--gold);padding:22px 24px;margin:26px 0;border-radius:2px}
+  .callout p{color:var(--paper);max-width:78ch;margin-bottom:0}
+  .callout strong{color:var(--gold-soft);font-weight:700}
+  .callout .q{font-family:"Space Mono";font-size:11px;letter-spacing:.2em;color:var(--gold-soft);text-transform:uppercase;margin-bottom:8px}
+
+  .creds{background:var(--ink);color:var(--paper);margin:60px -22px -90px;padding:48px 22px 56px}
+  .creds .inner{max-width:1080px;margin:0 auto}
+  .creds .sig{font-family:"Space Mono";font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:16px}
+  .creds .nm{font-family:"Archivo";font-weight:900;font-size:34px;color:var(--paper);letter-spacing:-.01em}
+  .creds .role{font-family:"Newsreader";font-size:16px;color:var(--gold-soft);margin-top:2px}
+  .creds ul{list-style:none;margin:18px 0 22px;max-width:70ch}
+  .creds ul li{padding:6px 0;border-top:1px solid rgba(185,147,166,.22);font-size:16px;color:var(--paper)}
+  .creds ul li:first-child{border-top:none}
+  .creds .contact{font-family:"Space Mono";font-size:13px;letter-spacing:.04em;color:var(--gold-soft);
+    display:flex;flex-wrap:wrap;gap:8px 20px;padding-top:18px;border-top:2px solid var(--gold)}
+  .creds .contact a{color:var(--gold-soft);text-decoration:none}
+  .disc{font-family:"Space Mono";font-size:11px;line-height:1.6;color:var(--muted);margin-top:26px;max-width:90ch}
+  .note{font-family:"Space Mono";font-size:11.5px;color:var(--muted);margin-top:6px}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="inner">
+    <div class="brandline">
+      <span><b>RURALIN.AI</b> · INTELIGÊNCIA ECONÔMICA DA FAZENDA</span>
+      <span>EDIÇÃO Nº 06F/2026 · FECHAMENTO 30·JUN·2026</span>
+    </div>
+    <h1 class="title">RADAR<span>·</span>AGRO</h1>
+    <div class="subtitle">Feijão &nbsp;/&nbsp; Boletim de Junho 2026 &nbsp;/&nbsp; Carioca · Preto · Safras · Qualidade · Cenários</div>
+  </div>
+</div>
+
+<div class="ribbon">
+  <div class="inner">
+    <div class="tick"><div class="k">Carioca nota 9+</div><div class="v">R$ 390</div><div class="d down mono">▼ ~9% jun</div></div>
+    <div class="tick"><div class="k">Carioca nota 8</div><div class="v">R$ 300</div><div class="d down mono">▼ ~11% jun</div></div>
+    <div class="tick"><div class="k">Feijão preto</div><div class="v">R$ 300</div><div class="d up mono">▲ firme</div></div>
+    <div class="tick"><div class="k">Carioca ao produtor 2026</div><div class="v">+85–90%</div><div class="d up mono">até maio</div></div>
+    <div class="tick"><div class="k">2ª safra (safrinha)</div><div class="v">entrando</div><div class="d down mono">acomodação</div></div>
+    <div class="tick"><div class="k">3ª safra Cerrado (GO)</div><div class="v">jul</div><div class="d down mono">próxima oferta</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- LEITURA DO MES -->
+  <section>
+    <div class="eyebrow">Leitura do mês</div>
+    <h2>O rali histórico de 2026 encontrou a safrinha — e finalmente esfriou</h2>
+    <p class="lead">O feijão é o mais brasileiro da série: mercado <strong>essencialmente doméstico</strong>, sem dólar, sem bolsa de Chicago, sem China. Aqui o preço é feito de <span class="hl">clima, calendário de safras e qualidade do grão</span>. E, depois de um primeiro semestre explosivo — o carioca ao produtor subiu entre 85% e 90% até maio, recorde histórico —, junho foi o mês da virada: a entrada da <strong>2ª safra (safrinha)</strong> trouxe a acomodação. O carioca de padrão superior recuou 9,01% e o intermediário 11,24% no mês.</p>
+    <p>Não foi uma queda de todos os tipos, e essa é a nuance. O <strong>feijão preto seguiu firme</strong>, sustentado pelo encerramento da colheita no Paraná e pela oferta restrita de melhor qualidade. E o carioca "cor 9" — o grão de escurecimento lento — sumiu das ofertas: produtores seguraram os melhores lotes, mantendo indicações entre R$ 380 e R$ 400 a saca. Ou seja: o que caiu foi a média; a qualidade continuou premiada.</p>
+    <div class="callout">
+      <div class="q">Síntese do estrategista</div>
+      <p>No feijão, o mercado externo não manda — quem manda é a <strong>oferta da próxima safra</strong> e a <strong>cor do grão</strong>. Junho marcou o topo do ciclo de alta com a chegada da safrinha, mas dois amortecedores impedem o tombo: o <strong>custo de produção elevado</strong>, que funciona como piso, e a <strong>demanda inelástica</strong> de um alimento básico. O risco de julho não é externo; é a 3ª safra irrigada do Cerrado, que começa a colher e traz a próxima onda de oferta.</p>
+    </div>
+  </section>
+
+  <!-- PRECO -->
+  <section>
+    <div class="eyebrow">Preço · carioca & preto</div>
+    <h2>Duas trajetórias no mesmo mês: carioca cedeu, preto resistiu</h2>
+    <p>O gráfico mostra a divergência de junho. O carioca intermediário deslizou com a entrada da safrinha, enquanto o preto se manteve firme com a oferta restrita da colheita paranaense se encerrando. O mercado físico ficou de <strong>baixa liquidez</strong>: compradores cautelosos adiando decisões, produtores segurando os melhores lotes.</p>
+    <div class="card">
+      <div class="cap"><span>Feijão · R$ por saca de 60 kg · junho 2026</span><span>fonte: Cepea · mercado físico · reconstrução indicativa</span></div>
+      <div class="chart-box"><canvas id="preco"></canvas></div>
+    </div>
+
+    <h3>O mapa da qualidade — onde o valor realmente está</h3>
+    <p>No feijão, a "praça" que mais importa não é a geografia, é a <strong>nota de cor</strong>. Um carioca cor 9 vale muito mais que um cor 7 — o spread de qualidade é o coração da formação de preço.</p>
+    <div class="regs">
+      <div class="reg on"><div class="p">Carioca cor 9+</div><div class="r">R$ 390</div><div class="s">extra · escasso</div></div>
+      <div class="reg"><div class="p">Carioca 8,5</div><div class="r">R$ 330</div><div class="s">pedidas</div></div>
+      <div class="reg"><div class="p">Carioca 8 · MG</div><div class="r">R$ 310</div><div class="s">melhor aparência</div></div>
+      <div class="reg"><div class="p">Carioca 8 · PR</div><div class="r">R$ 290</div><div class="s">grão escurecido</div></div>
+      <div class="reg"><div class="p">Carioca 7–7,5</div><div class="r">R$ 260</div><div class="s">padrão fraco</div></div>
+      <div class="reg"><div class="p">Feijão preto</div><div class="r">R$ 300</div><div class="s">firme</div></div>
+    </div>
+    <p class="note">Valores por saca de 60 kg, referências de fechamento de junho/2026. Fontes: Cepea/Esalq, Cepea/CNA, mercado físico (zona cerealista).</p>
+  </section>
+
+  <!-- VARIAVEIS -->
+  <section>
+    <div class="eyebrow">Preço × variáveis de mercado</div>
+    <h2>O que mexeu com o feijão: safra, qualidade, custo e o prato do brasileiro</h2>
+    <p>Diferente dos outros mercados da série, o feijão praticamente ignora dólar, petróleo e bolsas internacionais — o Brasil é autossuficiente e um player pequeno no mundo. O gráfico mostra o rali de 2026 e a virada de junho.</p>
+    <div class="card">
+      <div class="cap"><span>Carioca × preto · base 100 = jan/2026 · ao produtor</span><span>fonte: Cepea/CNA · reconstrução indicativa</span></div>
+      <div class="chart-box"><canvas id="ytd"></canvas></div>
+    </div>
+    <div class="rel">
+      <div class="item">
+        <h4>Calendário de safras <span class="pill b">2ª/3ª SAFRA · BAIXISTA</span></h4>
+        <p>A entrada da safrinha em junho e a 3ª safra irrigada do Cerrado (colheita em julho) são a principal força de baixa. É oferta nova chegando após a entressafra que sustentou o rali.</p>
+      </div>
+      <div class="item">
+        <h4>Qualidade / clima <span class="pill n">O DIVISOR DE PREÇO</span></h4>
+        <p>Chuva na colheita escurece o grão e derruba a nota — Sul e Sudoeste de MG perderam qualidade e recuaram. Cor 9 vira ouro; cor 7 vira commodity barata. O clima define de que lado o lote cai.</p>
+      </div>
+      <div class="item">
+        <h4>Custo de produção <span class="pill g">PISO NATURAL</span></h4>
+        <p>Fertilizantes e defensivos caros embutem um piso: o produtor não vende abaixo do custo sem prejuízo. É o que impede a acomodação de virar despencada.</p>
+      </div>
+      <div class="item">
+        <h4>Demanda do consumidor <span class="pill g">INELÁSTICA</span></h4>
+        <p>Feijão é básico da dieta (~18 kg/hab/ano). A demanda quase não cai mesmo com preço alto — mas o carioca +41% no varejo pesou na cesta básica e na inflação de alimentos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREMIOS / QUALIDADE -->
+  <section>
+    <div class="eyebrow">Prêmio de qualidade & spread de cor</div>
+    <h2>O "prêmio" do feijão está na cor do grão — e ele é enorme</h2>
+    <div class="prem-wrap">
+      <div>
+        <p>Nos grãos de exportação, o prêmio é pago no porto. No feijão, o prêmio é pago pela <strong>cor</strong>. Um carioca cor 9 ou superior — de escurecimento lento, aparência clara — chega a valer <strong>R$ 130 a R$ 140 por saca a mais</strong> que um cor 7 do mesmo mercado. É um dos maiores spreads de qualidade do agro brasileiro, e ele se ampliou em junho: com os melhores lotes escassos, o topo se descolou da base.</p>
+        <p>Esse prêmio recompensa quem investe em <strong>manejo, secagem e armazenagem</strong>. Produtores com câmara fria seguram o grão de qualidade para a entressafra, quando a escassez de cor 9 se acentua. É a jogada mais rentável do mercado — transformar qualidade em prêmio no tempo certo.</p>
+      </div>
+      <div class="card" style="margin:0">
+        <div class="cap"><span>Preço por nota de cor · carioca · R$/saca</span><span>fonte: mercado físico · indicativo</span></div>
+        <div class="chart-box sm"><canvas id="prem"></canvas></div>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="q">Onde mora o risco — e a oportunidade</div>
+      <p>O risco de curto prazo é claro: a <strong>3ª safra irrigada do Cerrado</strong>, com boas condições de lavoura, começa a colher em julho e amplia a oferta — pressão adicional sobre a média do carioca. A oportunidade também: como o <strong>prêmio de cor 9 tende a resistir</strong> mesmo em mercado de baixa, quem produz qualidade sofre menos. A leitura para o produtor é de venda parcelada e seletiva — soltar o padrão comum agora e guardar o cor 9 para a entressafra.</p>
+    </div>
+  </section>
+
+  <!-- FUNDAMENTOS -->
+  <section>
+    <div class="eyebrow">Fundamentos · safra & consumo</div>
+    <h2>Os números que fecharam o mês</h2>
+    <p>O quadro de 2026 é de oferta apertada por quebras e área menor, encontrando uma demanda que não recua. O rali foi de escassez; a acomodação de junho é de recomposição de oferta.</p>
+    <div class="facts">
+      <div class="f"><div class="n">~3,2 Mt</div><div class="l">Safra feijão BR 2026 · Conab</div><div class="t flat">carioca ~70% do total</div></div>
+      <div class="f"><div class="n">−10 a 15%</div><div class="l">Produtividade em áreas-chave</div><div class="t down">quebra vs expectativa</div></div>
+      <div class="f"><div class="n">+85–90%</div><div class="l">Carioca ao produtor · jan–mai</div><div class="t up">recorde · +41% no varejo</div></div>
+      <div class="f"><div class="n">−9 a 11%</div><div class="l">Carioca em junho (super/interm.)</div><div class="t down">▼ entrada da safrinha</div></div>
+    </div>
+    <p>O detalhe do estrategista: o feijão é <strong>blindado da volatilidade externa</strong> pela autossuficiência — o que protege o mercado interno de choques globais, mas também tira a válvula de escape da exportação em caso de superoferta. Por isso o ciclo é doméstico e afiado: quando falta, dispara; quando a safra chega, acomoda. Tudo depende do próximo talhão colhido.</p>
+  </section>
+
+  <!-- CENARIOS -->
+  <section>
+    <div class="eyebrow">Cenários · Julho 2026</div>
+    <h2>Três roteiros para o próximo mês</h2>
+    <p>O cenário-base para julho é de <strong>acomodação continuada no carioca comum</strong> (3ª safra do Cerrado chegando) com o preto mais firme e o prêmio de cor 9 resistente. Custo de produção e demanda seguram o piso. O ponteiro marca a leitura central.</p>
+    <div class="dial">
+      <div class="ends"><span>◄ Baixista</span><span>Base</span><span>Altista ►</span></div>
+      <div class="track">
+        <div class="notch" style="left:20%"></div>
+        <div class="notch" style="left:50%"></div>
+        <div class="notch" style="left:80%"></div>
+        <div class="ptr" style="left:42%"><div class="lab">LEITURA CENTRAL JUL</div><div class="arw">▼</div></div>
+      </div>
+    </div>
+    <div class="scen">
+      <div class="sc bear">
+        <div class="tag">Cenário 1</div>
+        <h4>Baixista</h4>
+        <div class="prob">probabilidade ~30%</div>
+        <ul>
+          <li><b>Oferta</b> Cerrado irrigado + safrinha abundantes e de qualidade</li>
+          <li><b>Demanda</b> Compradores recuam após estocarem no rali</li>
+          <li><b>Clima</b> Colheita seca preserva a cor e joga oferta</li>
+        </ul>
+        <div class="price">
+          <div class="cb">Carioca 8: R$ 250–280</div>
+          <div class="sk">Preto R$ 260–290 · cor 9 R$ 350–380</div>
+        </div>
+      </div>
+      <div class="sc base">
+        <div class="tag">Cenário 2 · base</div>
+        <h4>Acomodação</h4>
+        <div class="prob">probabilidade ~50%</div>
+        <ul>
+          <li><b>Oferta</b> Cerrado chega, mas gradual; safrinha média</li>
+          <li><b>Custo</b> Piso de produção evita quedas bruscas</li>
+          <li><b>Cor 9</b> Prêmio de qualidade resiste à baixa</li>
+        </ul>
+        <div class="price">
+          <div class="cb">Carioca 8: R$ 280–310</div>
+          <div class="sk">Preto R$ 290–320 · cor 9 R$ 360–400</div>
+        </div>
+      </div>
+      <div class="sc bull">
+        <div class="tag">Cenário 3</div>
+        <h4>Altista</h4>
+        <div class="prob">probabilidade ~20%</div>
+        <ul>
+          <li><b>Clima</b> Geada/chuva na safrinha reduz volume e cor</li>
+          <li><b>Cerrado</b> Atraso na colheita irrigada segura oferta</li>
+          <li><b>Demanda</b> Renda em recuperação aquece o consumo</li>
+        </ul>
+        <div class="price">
+          <div class="cb">Carioca 8: R$ 310–345</div>
+          <div class="sk">Preto R$ 320–360 · cor 9 R$ 400+</div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Faixas indicativas de trabalho, não recomendação de compra ou venda. O preço do feijão é função de oferta de safra × nota de cor × custo de produção × demanda doméstica.</p>
+  </section>
+
+  <!-- TECNICA -->
+  <section>
+    <div class="eyebrow">Leitura do grafista</div>
+    <h2>Carioca acomodando na zona dos R$ 300, com suporte de custo em R$ 290</h2>
+    <p>Sem bolsa de referência, a "análise técnica" do feijão é a leitura de suportes de mercado físico. O carioca nota 8 recuou do topo (~R$ 340) para a região de R$ 300, buscando o suporte de custo em torno de R$ 290. Enquanto não perder esse piso, a acomodação é ordenada; a retomada de R$ 320 exigiria um susto de oferta (clima ou atraso do Cerrado).</p>
+    <div class="card">
+      <div class="cap"><span>Carioca nota 8 · R$/saca · zonas de junho</span><span>suporte / resistências · reconstrução indicativa</span></div>
+      <div class="chart-box"><canvas id="tech-chart"></canvas></div>
+    </div>
+    <p class="note">O carioca nota 8 encerrou junho em ~R$ 302, próximo do suporte de custo em R$ 290 e abaixo do gatilho de reação em R$ 320.</p>
+    <div class="tech">
+      <div class="lv r"><div class="k">Resistência 2</div><div class="v">R$ 345</div></div>
+      <div class="lv r"><div class="k">Resistência 1 · gatilho</div><div class="v">R$ 320</div></div>
+      <div class="lv s"><div class="k">Suporte · custo</div><div class="v">R$ 290</div></div>
+    </div>
+    <p style="margin-top:16px">Para o produtor: a estratégia do mês é <strong>venda parcelada e seletiva</strong>. Solte o padrão comum enquanto o Cerrado ainda não jogou toda a oferta, e guarde o cor 9 (se tiver câmara fria) para a entressafra, quando o prêmio de qualidade se acentua. Num mercado sem bolsa para travar, a disciplina de escalonar vendas é o próprio hedge.</p>
+  </section>
+
+  <!-- WATCHLIST -->
+  <section>
+    <div class="eyebrow">No radar de julho · o que fica de olho</div>
+    <h2>O que fica de olho</h2>
+    <div class="watch">
+      <div class="w">
+        <div class="when">INÍCIO JUL<b>3ª safra Cerrado</b></div>
+        <div class="body"><h4>Colheita irrigada de Goiás entra em cena</h4>
+        <p>As áreas irrigadas do Cerrado, com boas condições de lavoura, começam a colher em julho e trazem a próxima onda de oferta de carioca. É o principal vetor de curto prazo — e um mercado que o produtor goiano acompanha de perto.</p></div>
+      </div>
+      <div class="w">
+        <div class="when">JUN–AGO<b>Safrinha (2ª safra)</b></div>
+        <div class="body"><h4>Volume e qualidade definem o 2º semestre</h4>
+        <p>A safra de inverno recompõe os estoques. Se vier abundante e de boa cor, pressiona; se decepcionar (PR foi a preocupação), prolonga os preços firmes. A janela climática estreita é o fator de risco.</p></div>
+      </div>
+      <div class="w">
+        <div class="when">CLIMA<b>Geada & chuva</b></div>
+        <div class="body"><h4>O clima que faz e desfaz a cor</h4>
+        <p>Geada reduz volume; chuva na colheita escurece o grão e derruba a nota — como já ocorreu no Sul de Minas. A qualidade da safra em campo depende diretamente do tempo das próximas semanas.</p></div>
+      </div>
+      <div class="w">
+        <div class="when">CUSTO<b>Insumos</b></div>
+        <div class="body"><h4>Fertilizante e defensivo como piso</h4>
+        <p>O custo elevado de produção embute um piso natural nas cotações. Enquanto os insumos não recuarem, o produtor tem argumento para resistir a preços que não cubram o custo — o que sustenta o mercado na baixa.</p></div>
+      </div>
+      <div class="w">
+        <div class="when">CONSUMO<b>Renda & inflação</b></div>
+        <div class="body"><h4>Cesta básica e o prato do brasileiro</h4>
+        <p>O feijão pesou na inflação de alimentos no 1º semestre (+41% no varejo). A recuperação lenta da renda das famílias tende a sustentar a demanda de um alimento acessível — mas o preço alto começa a ser fiscalizado no varejo.</p></div>
+      </div>
+      <div class="w">
+        <div class="when">ESTRUTURAL<b>Autossuficiência</b></div>
+        <div class="body"><h4>Mercado blindado do externo — para o bem e para o mal</h4>
+        <p>Sem grande exportação ou importação, o feijão não sofre choques globais, mas também não tem válvula de escape em caso de superoferta. O ciclo é 100% doméstico: falta e dispara, sobra e acomoda.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCLUSAO -->
+  <section style="border-bottom:none">
+    <div class="eyebrow">Percepção para julho</div>
+    <h2>A tendência que carrego para o mês</h2>
+    <p class="lead">Entro em julho com <strong>viés de acomodação para o carioca comum e firmeza para o preto e para o cor 9</strong>. A 3ª safra irrigada do Cerrado e a safrinha trazem oferta nova, o que segura o teto do carioca médio; do outro lado, o custo de produção e a demanda inelástica impedem a queda de virar tombo. É o fim natural de um rali de escassez que já foi longe demais — mais correção do que reversão.</p>
+    <p>O jogo de julho é todo doméstico e se decide no campo: <strong>o volume e a cor da nova safra</strong>. Para o produtor — sobretudo o goiano, que colhe agora o irrigado do Cerrado —, o recado é de disciplina: vender parcelado, soltar o padrão comum antes que a oferta pese, e guardar a qualidade para a entressafra. Sem bolsa para travar preço, a gestão de estoque e a venda escalonada são o hedge do feijoeiro. Gestão de risco, não adivinhação — como em todo mês.</p>
+  </section>
+
+</div>
+
+<div class="creds">
+  <div class="inner">
+    <div class="sig">Análise e Construção</div>
+    <div class="nm">Dr. Sidney Souza</div>
+    <div class="role">Economista e Adm. Agrícola · Estrategista Econômico do Produtor</div>
+    <ul>
+      <li>Especialista em economia da fazenda e gestão de risco no agro</li>
+      <li>Transformamos dados da fazenda em decisões econômicas</li>
+      <li>Ajudamos produtores a entender se o mercado sustenta seu negócio</li>
+    </ul>
+    <div class="contact">
+      <a href="https://ruralinai-commits.github.io/ruralin-site/" target="_blank">ruralinai-commits.github.io/ruralin-site</a>
+      <span>@ruralin.ai</span>
+      <a href="mailto:sidneyagro@gmail.com">sidneyagro@gmail.com</a>
+      <span>(64) 9 9226-6886</span>
+    </div>
+    <p class="disc">Documento de caráter analítico e educacional. Preços por saca de 60 kg referem-se ao fechamento de junho/2026 e séries reconstruídas de forma indicativa a partir de fontes públicas (Cepea/Esalq, Cepea/CNA, Conab, IBGE, mercado físico e imprensa econômica). As faixas de cenário e as notas de cor são referências de trabalho e não constituem recomendação de compra ou venda. Decisões de comercialização e armazenagem devem considerar o custo de produção e o fluxo de caixa individuais de cada fazenda.</p>
+  </div>
+</div>
+
+<script>
+const ink='#0E211B', gold='#7E5064', bull='#2F7D4F', bear='#B24428', muted='#6C6B5D', grid='rgba(27,36,30,.10)';
+Chart.defaults.font.family="'Space Mono', monospace";
+Chart.defaults.font.size=11;
+Chart.defaults.color=muted;
+
+// 1) Preco junho: carioca x preto
+new Chart(document.getElementById('preco'),{
+  type:'line',
+  data:{
+    labels:['01','03','05','08','10','12','15','18','22','24','26','29','30'],
+    datasets:[
+      {label:'Carioca 8,5 (R$/sc)',data:[340,338,334,328,322,318,314,310,307,305,303,302,302],
+        borderColor:gold,backgroundColor:'rgba(126,80,100,.10)',borderWidth:2.6,tension:.3,fill:true,
+        pointRadius:(c)=>c.dataIndex===12?4:0,pointBackgroundColor:gold,pointBorderColor:ink},
+      {label:'Preto (R$/sc)',data:[298,299,300,300,300,301,301,302,302,303,303,304,304],
+        borderColor:ink,borderWidth:2,tension:.3,pointRadius:0,borderDash:[4,3]}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{legend:{position:'bottom',labels:{boxWidth:14,padding:14,font:{size:11}}},
+      tooltip:{callbacks:{label:(c)=>c.dataset.label+': R$ '+c.parsed.y}}},
+    scales:{y:{grid:{color:grid},ticks:{callback:(v)=>'R$'+v}},
+      x:{grid:{display:false},title:{display:true,text:'JUNHO 2026',color:muted,font:{size:10}}}}}
+});
+
+// 2) YTD base 100
+new Chart(document.getElementById('ytd'),{
+  type:'line',
+  data:{
+    labels:['Jan','Fev','Mar','Abr','Mai','Jun'],
+    datasets:[
+      {label:'Carioca',data:[100,125,148,170,188,171],borderColor:gold,borderWidth:2.8,tension:.3,pointRadius:3,pointBackgroundColor:ink},
+      {label:'Preto',data:[100,120,132,142,151,150],borderColor:ink,borderWidth:2,tension:.3,pointRadius:0,borderDash:[4,3]}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{legend:{position:'bottom',labels:{boxWidth:14,padding:14,font:{size:11}}},
+      tooltip:{callbacks:{label:(c)=>c.dataset.label+': '+c.parsed.y+' (base 100)'}}},
+    scales:{y:{grid:{color:grid}},
+      x:{grid:{display:false},title:{display:true,text:'2026 · BASE 100 = JAN',color:muted,font:{size:10}}}}}
+});
+
+// 3) Premio de cor (barras)
+new Chart(document.getElementById('prem'),{
+  type:'bar',
+  data:{
+    labels:['Cor 9+','Cor 8,5','Cor 8','Cor 7,5','Cor 7','Preto'],
+    datasets:[{
+      data:[390,330,300,265,250,300],
+      backgroundColor:[gold,'#95707e','#a2808c','#b193a0','#c0a6b1','#31404a'],
+      borderRadius:3, barPercentage:.8
+    }]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:(c)=>'R$ '+c.parsed.y+'/saca'}}},
+    scales:{y:{grid:{color:grid},min:220,ticks:{callback:(v)=>'R$'+v}},x:{grid:{display:false},ticks:{font:{size:10}}}}}
+});
+
+// 4) Tecnica carioca
+(function(){
+  const days=['01','03','05','08','10','12','15','18','22','24','26','29','30'];
+  const px=[340,338,334,328,322,318,314,310,307,305,303,302,302];
+  const flat=(v)=>days.map(()=>v);
+  new Chart(document.getElementById('tech-chart'),{
+    type:'line',
+    data:{labels:days,datasets:[
+      {label:'Resistência 2 · 345',data:flat(345),borderColor:bear,borderWidth:1.4,borderDash:[7,4],pointRadius:0,tension:0},
+      {label:'Resistência 1 · 320 (gatilho)',data:flat(320),borderColor:bear,borderWidth:1.4,borderDash:[3,3],pointRadius:0,tension:0},
+      {label:'Carioca 8 (R$/sc)',data:px,borderColor:ink,backgroundColor:'rgba(126,80,100,.12)',
+        borderWidth:2.8,tension:.3,fill:true,
+        pointRadius:(c)=>c.dataIndex===px.length-1?5:0,pointBackgroundColor:gold,pointBorderColor:ink},
+      {label:'Suporte custo · 290',data:flat(290),borderColor:bull,borderWidth:1.6,borderDash:[7,4],pointRadius:0,tension:0}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{legend:{position:'bottom',labels:{boxWidth:14,padding:12,font:{size:11}}},
+        tooltip:{callbacks:{label:(c)=>c.dataset.label+': R$ '+c.parsed.y}}},
+      scales:{y:{min:280,max:352,grid:{color:grid},ticks:{callback:(v)=>'R$'+v}},
+        x:{grid:{display:false},title:{display:true,text:'JUNHO 2026',color:muted,font:{size:10}}}}}
+  });
+})();
+</script>
+</body>
+</html>
