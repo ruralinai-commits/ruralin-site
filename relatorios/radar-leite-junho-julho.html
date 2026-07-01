@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar Agro do Leite | Junho 2026 + Perspectivas Julho | Rural IN</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --amarelo:#2b6cb0;--amarelo-l:#5a93d4;--amarelo-xl:#c5dbf0;--amarelo-pale:#eef5fc;
+  --verde-s:#1a5c2a;--verde-l:#2d9e5f;--verde-xl:#52b788;
+  --marrom:#0f2438;--marrom-l:#234b73;
+  --cinza-esc:#1e1e2e;--cinza:#374151;--cinza-l:#6b7280;--cinza-xl:#f9fafb;
+  --azul:#1e40af;--azul-l:#3b82f6;
+  --vermelho:#991b1b;--vermelho-l:#ef4444;
+  --laranja:#c2410c;--laranja-l:#f97316;
+  --bg:#fafaf7;--sombra:0 4px 20px rgba(0,0,0,.08);--sombra2:0 8px 40px rgba(0,0,0,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--cinza);font-size:15px;line-height:1.6}
+.header{background:linear-gradient(135deg,#0a1828 0%,var(--marrom-l) 50%,var(--amarelo-l) 100%);position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.h-top{max-width:1100px;margin:0 auto;padding:32px 24px 26px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;position:relative;z-index:1}
+.logo-w{display:flex;align-items:center;gap:16px}
+.logo-svg{width:66px;height:66px;flex-shrink:0;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
+.logo-txt h1{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;line-height:1;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.3)}
+.logo-txt .sub{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--amarelo-xl);margin-top:5px}
+.h-meta{text-align:right}
+.h-meta .ed{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.h-meta .dt{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--amarelo-xl);font-weight:700;margin-top:4px}
+.h-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;justify-content:flex-end}
+.h-badge{font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:4px 10px;border-radius:20px;font-weight:700}
+.hb-up{background:rgba(34,197,94,.25);color:#4ade80;border:1px solid rgba(74,222,128,.4)}
+.hb-dn{background:rgba(239,68,68,.2);color:#f87171;border:1px solid rgba(248,113,113,.4)}
+.hb-nt{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.ticker{background:var(--cinza-esc);padding:11px 20px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;border-top:3px solid var(--amarelo-l)}
+.ticker span{font-family:'JetBrains Mono',monospace;font-size:.76rem;color:#e5e7eb;font-weight:600}
+.ticker .sep{color:rgba(255,255,255,.2)}.t-nt{color:var(--amarelo-l)!important}
+.hl-strip{background:linear-gradient(135deg,#0a1828,#0f2438);padding:18px 24px;text-align:center;border-bottom:2px solid var(--amarelo-l)}
+.hl-strip .hs-inner{max-width:1100px;margin:0 auto}
+.hl-strip h2{font-family:'Playfair Display',serif;font-size:1.45rem;color:#fff;font-weight:700}
+.hl-strip p{font-size:.85rem;color:rgba(255,255,255,.6);margin-top:5px}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+.section{padding:44px 0 32px}
+.sec-title{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.sec-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;background:var(--amarelo-l)}
+.sec-title h2{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--marrom-l);font-weight:700}
+.sec-title .ln{flex:1;height:2px;background:linear-gradient(90deg,var(--amarelo-l),transparent)}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--amarelo-l),transparent)}
+.placar{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:14px;margin-bottom:24px}
+.p-card{background:#fff;border-radius:14px;padding:18px 16px;box-shadow:var(--sombra);position:relative;overflow:hidden}
+.p-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.p-card.up::before{background:linear-gradient(90deg,#16a34a,#4ade80)}
+.p-card.dn::before{background:linear-gradient(90deg,#dc2626,#f87171)}
+.p-card.nt::before{background:linear-gradient(90deg,var(--amarelo),var(--amarelo-l))}
+.p-lbl{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--cinza-l);margin-bottom:5px}
+.p-val{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--cinza-esc);line-height:1}
+.p-sub{font-size:.74rem;color:var(--cinza-l);margin-top:5px}
+.p-var{font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;margin-top:5px}
+.v-up{color:#16a34a}.v-dn{color:#dc2626}.v-nt{color:var(--amarelo)}
+.p-src{font-size:.64rem;color:#ccc;margin-top:6px}
+.termometros{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px}
+.termo{background:#fff;border-radius:14px;padding:20px 16px;box-shadow:var(--sombra);text-align:center}
+.termo h4{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--cinza-l);margin-bottom:12px}
+.termo-body{display:flex;flex-direction:column;align-items:center;gap:8px}
+.termo-gauge{width:110px;height:70px}.termo-gauge svg{width:110px;height:70px}
+.termo-val{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--cinza-esc);margin-top:2px}
+.termo-desc{font-size:.75rem;color:var(--cinza-l);text-align:center;line-height:1.4}
+.chart-card{background:#fff;border-radius:14px;padding:22px;box-shadow:var(--sombra);margin-bottom:20px}
+.chart-card h3{font-family:'Playfair Display',serif;font-size:1rem;color:var(--marrom-l);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #f3f4f6}
+.chart-card .nf{font-size:.69rem;color:#bbb;font-style:italic;margin-top:8px}
+.abox{background:#fff;border-radius:14px;padding:22px 24px;box-shadow:var(--sombra);margin-bottom:18px;border-left:5px solid var(--amarelo-l)}
+.abox.verde{border-left-color:var(--verde-l)}.abox.vermelho{border-left-color:var(--vermelho-l)}.abox.azul{border-left-color:var(--azul-l)}
+.abox h3{font-family:'Playfair Display',serif;color:var(--marrom-l);font-size:1.05rem;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.abox.verde h3{color:var(--verde-s)}.abox.vermelho h3{color:var(--vermelho)}.abox.azul h3{color:var(--azul)}
+.abox p{color:var(--cinza);line-height:1.8;font-size:.9rem}.abox p+p{margin-top:8px}
+.al{border-radius:12px;padding:14px 18px;margin-bottom:14px;display:flex;align-items:flex-start;gap:12px;border:1px solid}
+.al.yellow{background:var(--amarelo-pale);border-color:rgba(43,108,176,.25)}
+.al.red{background:#fef2f2;border-color:rgba(239,68,68,.3)}
+.al.green{background:#f0fdf4;border-color:rgba(34,197,94,.3)}
+.al.blue{background:#eff6ff;border-color:rgba(59,130,246,.3)}
+.al .ai{font-size:1.4rem;flex-shrink:0;margin-top:1px}
+.al .at h4{font-size:.88rem;font-weight:700;margin-bottom:3px}
+.al.yellow .at h4{color:var(--marrom-l)}.al.red .at h4{color:var(--vermelho)}.al.green .at h4{color:var(--verde-s)}.al.blue .at h4{color:var(--azul)}
+.al .at p{font-size:.82rem;color:var(--cinza-l);line-height:1.6}
+.scen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:20px}
+.sc{border-radius:14px;padding:20px;border:2px solid}
+.sc.opt{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-color:#16a34a}
+.sc.neu{background:linear-gradient(135deg,#eef5fc,var(--amarelo-xl));border-color:var(--amarelo)}
+.sc.pes{background:linear-gradient(135deg,#fef2f2,#fee2e2);border-color:#dc2626}
+.sc-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.sc-dot{width:12px;height:12px;border-radius:50%}
+.sc.opt .sc-dot{background:#16a34a}.sc.neu .sc-dot{background:var(--amarelo)}.sc.pes .sc-dot{background:#dc2626}
+.sc h4{font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700}
+.sc.opt h4{color:#166534}.sc.neu h4{color:var(--marrom-l)}.sc.pes h4{color:var(--vermelho)}
+.sc ul{list-style:none;font-size:.83rem;color:var(--cinza);line-height:1.85}
+.sc ul li{display:flex;align-items:flex-start;gap:6px}.sc ul li::before{content:'›';font-weight:700;flex-shrink:0}
+.sc-prob{font-family:'JetBrains Mono',monospace;font-size:.7rem;margin-top:10px;padding:6px 10px;border-radius:6px;text-align:center;font-weight:700}
+.sc.opt .sc-prob{background:#dcfce7;color:#166534}.sc.neu .sc-prob{background:var(--amarelo-xl);color:var(--marrom-l)}.sc.pes .sc-prob{background:#fee2e2;color:var(--vermelho)}
+.geo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px}
+.geo-card{background:#fff;border-radius:12px;padding:16px;box-shadow:var(--sombra);display:flex;gap:12px;align-items:flex-start}
+.geo-flag{font-size:1.6rem;flex-shrink:0}
+.geo-info h5{font-weight:700;font-size:.85rem;color:var(--cinza-esc);margin-bottom:3px}
+.geo-info p{font-size:.78rem;color:var(--cinza-l);line-height:1.55}
+.geo-status{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.62rem;padding:2px 8px;border-radius:10px;margin-top:4px;font-weight:700}
+.gs-up{background:#dcfce7;color:#16a34a}.gs-dn{background:#fee2e2;color:#dc2626}.gs-nt{background:var(--amarelo-xl);color:var(--marrom-l)}
+.price-termo{background:#fff;border-radius:14px;padding:24px;box-shadow:var(--sombra);margin-bottom:20px}
+.price-termo h3{font-family:'Playfair Display',serif;font-size:1rem;color:var(--marrom-l);margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid #f3f4f6}
+.pt-bar{margin-bottom:14px}
+.pt-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:.82rem}
+.pt-label .pl-name{font-weight:600;color:var(--cinza)}
+.pt-label .pl-val{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.85rem}
+.pt-track{height:16px;background:#f3f4f6;border-radius:8px;overflow:hidden;position:relative}
+.pt-fill{height:100%;border-radius:8px;position:relative}
+.pt-marker{position:absolute;top:-4px;height:24px;width:3px;background:var(--cinza-esc);border-radius:2px;transform:translateX(-50%)}
+.pt-scale{display:flex;justify-content:space-between;margin-top:4px;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--cinza-l)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.percepcao{background:linear-gradient(135deg,#0a1828,var(--marrom-l));border-radius:16px;padding:32px;margin-bottom:20px;color:#fff}
+.percepcao h3{font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:14px;color:var(--amarelo-xl)}
+.percepcao p{font-size:.9rem;line-height:1.85;color:rgba(255,255,255,.85)}.percepcao p+p{margin-top:10px}
+.percepcao .quote{border-left:3px solid var(--amarelo-l);padding-left:16px;font-style:italic;margin-top:16px;color:var(--amarelo-xl);font-size:.92rem}
+.footer{background:var(--cinza-esc);color:#fff;padding:52px 24px 32px}
+.fi{max-width:1100px;margin:0 auto}
+.ft{display:flex;align-items:flex-start;gap:32px;flex-wrap:wrap;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:24px}
+.fl .brand{font-family:'Playfair Display',serif;font-size:1.85rem;font-weight:900;color:var(--amarelo-l)}
+.fl .brand span{color:#fff}.fl .tag{font-size:.78rem;color:rgba(255,255,255,.45);font-style:italic;margin-top:4px}
+.fc h4{font-family:'Playfair Display',serif;color:var(--amarelo-l);font-size:1.1rem;margin-bottom:8px}
+.fc p{font-size:.82rem;color:rgba(255,255,255,.7);line-height:1.9}.fc a{color:var(--amarelo-l);text-decoration:none}
+.fb{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:rgba(255,255,255,.27);letter-spacing:.8px;text-align:center;line-height:1.8}
+.hl{background:linear-gradient(transparent 60%,rgba(90,147,212,.45) 60%)}
+.badge-neon{font-family:'JetBrains Mono',monospace;font-size:.72rem;padding:5px 14px;border-radius:20px;font-weight:700;display:inline-block;margin:3px}
+.bn-gold{background:rgba(43,108,176,.12);color:var(--marrom-l);border:1px solid var(--amarelo)}
+.bn-dn{background:rgba(239,68,68,.12);color:#dc2626;border:1px solid rgba(248,113,113,.5)}
+.bn-green{background:rgba(34,197,94,.12);color:#16a34a;border:1px solid rgba(74,222,128,.5)}
+.bn-blue{background:rgba(59,130,246,.12);color:#1e40af;border:1px solid rgba(147,197,253,.6)}
+@media(max-width:720px){.g2{grid-template-columns:1fr}.logo-txt h1{font-size:1.55rem}.h-top{flex-direction:column;align-items:flex-start}.h-meta{text-align:left}.h-badges{justify-content:flex-start}.ft{flex-direction:column}.p-val{font-size:1.3rem}}
+@media print{body{background:#fff}.header,.footer,.percepcao,.hl-strip{-webkit-print-color-adjust:exact;print-color-adjust:exact}.section{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="h-top">
+    <div class="logo-w">
+      <svg class="logo-svg" viewBox="0 0 66 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="66" height="66" rx="13" fill="#5a93d4"/>
+        <text x="7" y="40" font-family="Georgia,serif" font-size="26" font-weight="900" fill="#0a1828">RI</text>
+        <rect x="6" y="46" width="54" height="3" rx="1.5" fill="#0a1828" opacity=".7"/>
+        <text x="6" y="60" font-family="Arial,sans-serif" font-size="7.5" font-weight="700" fill="#0a1828" letter-spacing="2">RURAL IN</text>
+      </svg>
+      <div class="logo-txt"><h1>Radar Agro do Leite</h1><div class="sub">Análise Mensal · Junho 2026 · Rural IN</div></div>
+    </div>
+    <div class="h-meta">
+      <div class="ed">PhD em Mercado Agro · Análise de Risco</div>
+      <div class="dt">Fechamento Junho 2026</div>
+      <div class="h-badges">
+        <span class="h-badge hb-nt">Preço no topo do ciclo</span>
+        <span class="h-badge hb-up">Custo deu trégua</span>
+        <span class="h-badge hb-dn">Dumping suspenso</span>
+      </div>
+    </div>
+  </div>
+  <div class="ticker">
+    <span>🥛 <span class="t-nt">Captado em junho:</span> <strong>R$ 2,6474/L</strong></span>
+    <span class="sep">|</span>
+    <span>📊 <span class="t-nt">Captado em maio:</span> <strong>R$ 2,6431/L</strong></span>
+    <span class="sep">|</span>
+    <span>🔝 <span class="t-nt">Pico (abril):</span> <strong>R$ 2,6584/L</strong></span>
+    <span class="sep">|</span>
+    <span>📉 <span class="t-nt">Custo (COE) maio:</span> <strong>−1,39%</strong></span>
+    <span class="sep">|</span>
+    <span>🚢 <span class="t-nt">Import. até maio:</span> <strong>1,02 bi L (recorde)</strong></span>
+    <span class="sep">|</span>
+    <span>💵 <span class="t-nt">Dólar:</span> <strong>R$ 5,02</strong></span>
+  </div>
+</header>
+
+<div class="hl-strip"><div class="hs-inner">
+  <h2>🥛 Fechamento de Junho 2026 + Perspectivas para Julho</h2>
+  <p>O rali de 4 meses estacionou · junho foi o teto do ciclo · o custo deu trégua · a Camex reconheceu o dumping mas suspendeu a tarifa · foco em GO e MG</p>
+</div></div>
+
+<div class="container">
+
+<!-- SEÇÃO 1: PLACAR -->
+<section class="section">
+  <div class="sec-title"><div class="sec-icon">💰</div><h2>Placar de Cotações — Fechamento Junho 2026</h2><div class="ln"></div></div>
+  <div class="placar">
+    <div class="p-card nt"><div class="p-lbl">Captado em junho — Média Brasil</div><div class="p-val">R$ 2,6474</div><div class="p-sub">por litro (pago em julho)</div><div class="p-var v-nt">◆ estável — o topo do ciclo</div><div class="p-src">Fonte: Cepea/Esalq-USP</div></div>
+    <div class="p-card dn"><div class="p-lbl">Captado em maio</div><div class="p-val">R$ 2,6431</div><div class="p-sub">por litro (pago em junho)</div><div class="p-var v-dn">▼ −0,6% vs abril (1º recuo)</div><div class="p-src">Fonte: Cepea/Esalq-USP</div></div>
+    <div class="p-card up"><div class="p-lbl">Pico do rali (abril)</div><div class="p-val">R$ 2,6584</div><div class="p-sub">4ª alta seguida (+10,4%)</div><div class="p-var v-up">▲ maior patamar de 2026</div><div class="p-src">Fonte: Cepea/Esalq-USP</div></div>
+    <div class="p-card up"><div class="p-lbl">Custo (COE) — maio</div><div class="p-val">−1,39%</div><div class="p-sub">1ª queda de 2026</div><div class="p-var v-up">▲ trégua na nutrição e mecanização</div><div class="p-src">Fonte: Cepea/Esalq-USP</div></div>
+    <div class="p-card dn"><div class="p-lbl">Captação ICAP-L</div><div class="p-val">−14,6%</div><div class="p-sub">acumulado em 2026</div><div class="p-var v-dn">▼ entressafra segura a oferta</div><div class="p-src">Fonte: Cepea/Esalq-USP</div></div>
+    <div class="p-card dn"><div class="p-lbl">Importações (até maio)</div><div class="p-val">1,02 bi L</div><div class="p-sub">equiv. leite (+10,5%)</div><div class="p-var v-dn">▼ recorde histórico p/ 5 meses</div><div class="p-src">Fonte: CNA / SECEX</div></div>
+  </div>
+
+  <div class="price-termo">
+    <h3>🌡️ Termômetro do Leite — o rali estacionou no topo (R$/litro)</h3>
+    <div class="pt-bar"><div class="pt-label"><span class="pl-name">🥛 Captado em junho (Média Brasil)</span><span class="pl-val" style="color:#2b6cb0">R$ 2,6474</span></div>
+      <div class="pt-track"><div class="pt-fill" style="width:60%;background:linear-gradient(90deg,#f59e0b,#2b6cb0)"></div><div class="pt-marker" style="left:64%"></div></div>
+      <div class="pt-scale"><span>R$ 2,00 (jan)</span><span style="font-weight:700;color:var(--cinza)">plateau ~R$ 2,64–2,66</span><span>R$ 2,80</span></div></div>
+    <div class="pt-bar"><div class="pt-label"><span class="pl-name">🔝 Pico do ciclo (abril)</span><span class="pl-val" style="color:#16a34a">R$ 2,6584</span></div>
+      <div class="pt-track"><div class="pt-fill" style="width:64%;background:linear-gradient(90deg,#f59e0b,#16a34a)"></div><div class="pt-marker" style="left:64%"></div></div>
+      <div class="pt-scale"><span>R$ 2,00</span><span style="font-weight:700;color:var(--cinza)">4ª alta seguida — maior de 2026</span><span>R$ 2,80</span></div></div>
+    <div class="pt-bar"><div class="pt-label"><span class="pl-name">📉 Custo Operacional Efetivo (COE)</span><span class="pl-val" style="color:#16a34a">−1,39% em maio</span></div>
+      <div class="pt-track"><div class="pt-fill" style="width:45%;background:linear-gradient(90deg,#16a34a,#f59e0b)"></div></div>
+      <div class="pt-scale"><span>alívio</span><span style="font-weight:700;color:var(--cinza)">1ª queda do ano — nutrição mais barata</span><span>pressão</span></div></div>
+    <div style="margin-top:10px;padding:12px;background:#f9fafb;border-radius:8px;font-size:.78rem;color:var(--cinza-l)">
+      <strong style="color:var(--marrom-l)">Leitura:</strong> depois de 4 altas seguidas, o preço <strong>estacionou no topo</strong> — maio recuou de leve e junho ficou estável em ~R$ 2,64. A boa notícia é que o <strong style="color:#16a34a">custo deu trégua em maio</strong> (1ª queda de 2026). Ou seja: o rali de preço perdeu força, mas o alívio de custo ajuda a preservar a margem que vinha sendo espremida.
+    </div>
+  </div>
+
+  <div class="chart-card"><h3>📈 Leite ao Produtor — Média Brasil em 2026 (R$/L): O Rali e o Topo</h3>
+    <canvas id="chartMaio" height="95"></canvas>
+    <p class="nf">Fonte: Cepea/Esalq-USP (valores líquidos nominais). Quatro altas (jan–abr) e estabilização em maio–junho. Elaboração: Rural IN — Dr. Sidney Souza.</p></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SEÇÃO 2: FATOS -->
+<section class="section">
+  <div class="sec-title"><div class="sec-icon">📰</div><h2>Os 6 Fatos que Moveram o Leite em Junho</h2><div class="ln"></div></div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px;margin-bottom:20px">
+    <div class="al yellow"><div class="ai">🔝</div><div class="at"><h4>1. O rali estacionou no topo</h4><p>Após 4 altas seguidas (pico em abril, R$ 2,6584), o preço perdeu força: <strong>maio recuou para R$ 2,6431</strong> e junho ficou estável em <strong>R$ 2,6474</strong>. A demanda enfraquecida travou novos repasses ao campo.</p></div></div>
+    <div class="al green"><div class="ai">📉</div><div class="at"><h4>2. O custo deu trégua</h4><p>O Custo Operacional Efetivo (COE) teve a <strong>primeira queda de 2026 em maio (−1,39%)</strong>, com baixas em nutrição animal e operações mecanizadas. No ano, o custo acumula alta de apenas 1,80% — alívio importante para a margem.</p></div></div>
+    <div class="al yellow"><div class="ai">🌾</div><div class="at"><h4>3. Captação ainda apertada</h4><p>O ICAP-L acumula <strong>queda de 14,6% em 2026</strong>. A entressafra e o baixo investimento seguem limitando a oferta — o que sustenta o preço no patamar atual, mesmo com a demanda fraca.</p></div></div>
+    <div class="al red"><div class="ai">⚖️</div><div class="at"><h4>4. Dumping reconhecido — mas suspenso</h4><p>A Camex <strong>confirmou o dumping</strong> do leite em pó da Argentina e do Uruguai (Gecex 907/2026), com tarifas que podem passar de 100%. Mas <strong>suspendeu a aplicação</strong> por "interesse público", temendo a inflação. Fica no limbo.</p></div></div>
+    <div class="al red"><div class="ai">🚢</div><div class="at"><h4>5. Importação bate recorde histórico</h4><p>Até maio, o Brasil importou <strong>1,02 bilhão de litros</strong> em lácteos (+10,5%), recorde para os cinco primeiros meses de um ano. Só em maio foram 226,21 mi L (+27,9% vs 2025). É o teto que segura o preço no campo.</p></div></div>
+    <div class="al blue"><div class="ai">🌦️</div><div class="at"><h4>6. El Niño acende o alerta</h4><p>O Cepea alertou que o <strong>El Niño eleva a incerteza</strong> para a produção pecuária em 2026. Com o outono-inverno, o pasto piora nas bacias de MG, GO e PR — o que pode manter a oferta apertada nos próximos meses.</p></div></div>
+  </div>
+  <div class="chart-card"><h3>📉 Variação Mensal do Custo (COE, %) em 2026 — A Trégua de Maio</h3>
+    <canvas id="chartCusto" height="88"></canvas>
+    <p class="nf">Fonte: Cepea/Esalq-USP. O COE subiu quatro meses e recuou 1,39% em maio (1ª queda do ano). Fevereiro de referência. Elaboração: Rural IN.</p></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SEÇÃO 3: ANÁLISE -->
+<section class="section">
+  <div class="sec-title"><div class="sec-icon">🔬</div><h2>Análise de Mercado — GO, MG e o Quadro Nacional</h2><div class="ln"></div></div>
+  <div class="termometros">
+    <div class="termo"><h4>Preço no campo</h4><div class="termo-body">
+      <svg viewBox="0 0 100 60" class="termo-gauge"><defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#ef4444"/><stop offset="50%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#16a34a"/></linearGradient></defs>
+      <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="url(#g1)" stroke-width="10" stroke-linecap="round"/><line x1="50" y1="50" x2="57" y2="21" stroke="#1e1e2e" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="5" fill="#1e1e2e"/></svg>
+      <div class="termo-val">58 / 100</div><div class="termo-desc">No topo do ciclo, mas o rali perdeu força</div></div></div>
+    <div class="termo"><h4>Disponibilidade de leite</h4><div class="termo-body">
+      <svg viewBox="0 0 100 60" class="termo-gauge"><defs><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#ef4444"/><stop offset="50%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#16a34a"/></linearGradient></defs>
+      <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="url(#g2)" stroke-width="10" stroke-linecap="round"/><line x1="50" y1="50" x2="34" y2="25" stroke="#1e1e2e" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="5" fill="#1e1e2e"/></svg>
+      <div class="termo-val">32 / 100</div><div class="termo-desc">Captação −14,6% no ano; entressafra restringe</div></div></div>
+    <div class="termo"><h4>Custo de produção</h4><div class="termo-body">
+      <svg viewBox="0 0 100 60" class="termo-gauge"><defs><linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#16a34a"/><stop offset="50%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#ef4444"/></linearGradient></defs>
+      <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="url(#g3)" stroke-width="10" stroke-linecap="round"/><line x1="50" y1="50" x2="55" y2="20" stroke="#1e1e2e" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="5" fill="#1e1e2e"/></svg>
+      <div class="termo-val">55 / 100</div><div class="termo-desc">Deu trégua em maio (−1,39%), mas alto no ano</div></div></div>
+    <div class="termo"><h4>Pressão de importação</h4><div class="termo-body">
+      <svg viewBox="0 0 100 60" class="termo-gauge"><defs><linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#16a34a"/><stop offset="50%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#ef4444"/></linearGradient></defs>
+      <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="url(#g4)" stroke-width="10" stroke-linecap="round"/><line x1="50" y1="50" x2="68" y2="26" stroke="#1e1e2e" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="5" fill="#1e1e2e"/></svg>
+      <div class="termo-val">70 / 100</div><div class="termo-desc">Recorde histórico; antidumping segue suspenso</div></div></div>
+    <div class="termo"><h4>Demanda interna</h4><div class="termo-body">
+      <svg viewBox="0 0 100 60" class="termo-gauge"><defs><linearGradient id="g5" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#ef4444"/><stop offset="50%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#16a34a"/></linearGradient></defs>
+      <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="url(#g5)" stroke-width="10" stroke-linecap="round"/><line x1="50" y1="50" x2="39" y2="22" stroke="#1e1e2e" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="5" fill="#1e1e2e"/></svg>
+      <div class="termo-val">38 / 100</div><div class="termo-desc">Varejo caro; leite liderou a inflação de alimentos</div></div></div>
+    <div class="termo"><h4>Margem do produtor</h4><div class="termo-body">
+      <svg viewBox="0 0 100 60" class="termo-gauge"><defs><linearGradient id="g6" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#ef4444"/><stop offset="50%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#16a34a"/></linearGradient></defs>
+      <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="url(#g6)" stroke-width="10" stroke-linecap="round"/><line x1="50" y1="50" x2="48" y2="20" stroke="#1e1e2e" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="5" fill="#1e1e2e"/></svg>
+      <div class="termo-val">48 / 100</div><div class="termo-desc">Melhor que 2025; trégua de custo ajuda</div></div></div>
+  </div>
+
+  <div class="g2">
+    <div class="abox verde">
+      <h3>🐄 Minas Gerais — O Gigante do Leite</h3>
+      <p><strong>Liderança nacional:</strong> Minas é o maior produtor do país e costuma registrar o <span class="hl">maior preço estadual</span> (foi R$ 2,2030/L na leitura de fevereiro, o topo entre os estados). Quando o preço mineiro se move, puxa a Média Brasil.</p>
+      <p><strong>Junho:</strong> a entressafra de outono-inverno pesa nas bacias do Triângulo, Sul de Minas e Zona da Mata, segurando a oferta. A Faemg tem defendido as medidas antidumping como principal ferramenta para equilibrar o mercado.</p>
+      <p><strong>Atenção:</strong> o El Niño pode agravar a pastagem mineira — sustenta o preço, mas encarece a nutrição e prejudica o rebanho.</p>
+    </div>
+    <div class="abox azul">
+      <h3>🌾 Goiás — O Polo Industrial do Centro-Oeste</h3>
+      <p><strong>Líder do ajuste:</strong> Goiás foi o estado com a maior alta mensal no início do ciclo (+9,61%), sinal do reequilíbrio mais intenso entre oferta e demanda. É um dos maiores produtores e abriga grandes laticínios.</p>
+      <p><strong>Força industrial:</strong> a presença de indústrias de peso intensifica a <span class="hl">disputa pelo leite cru</span> quando a oferta aperta — o que se traduz em preço competitivo ao produtor goiano, mesmo com o rali nacional estacionado.</p>
+      <p><strong>Atenção:</strong> como em MG, a entressafra do Centro-Oeste limita a oferta e o El Niño adiciona incerteza ao pasto.</p>
+    </div>
+  </div>
+
+  <div class="chart-card"><h3>🥛 Preço Líquido do Leite por Estado (R$/L) — Minas na Liderança</h3>
+    <canvas id="chartRegioes" height="82"></canvas>
+    <p class="nf">Fonte: Cepea/Esalq-USP (leitura de referência do 1º tri). MG, SP e PR acima da Média Brasil; SC, BA e RS abaixo. Elaboração: Rural IN.</p></div>
+  <div class="chart-card"><h3>🚢 Importações de Lácteos em 2026 (milhões de litros equiv-leite/mês)</h3>
+    <canvas id="chartImport" height="78"></canvas>
+    <p class="nf">Fonte: SECEX/Cepea. Volume elevado e persistente (recorde acumulado de 1,02 bi L até maio). Fevereiro de referência. Elaboração: Rural IN.</p></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SEÇÃO 4: MACRO / SETORIAL -->
+<section class="section">
+  <div class="sec-title"><div class="sec-icon">🌐</div><h2>Macro e Setorial — O que Pesa no Leite</h2><div class="ln"></div></div>
+  <div class="geo-grid">
+    <div class="geo-card"><div class="geo-flag">⚖️</div><div class="geo-info"><h5>Dumping / Camex</h5><p>Governo reconheceu o dumping do leite em pó de Argentina e Uruguai (tarifas de até &gt;100%), mas suspendeu a aplicação por "interesse público" (inflação). É o maior curinga regulatório do 2º semestre.</p><span class="geo-status gs-nt">No limbo</span></div></div>
+    <div class="geo-card"><div class="geo-flag">🚢</div><div class="geo-info"><h5>Importação (Mercosul)</h5><p>Recorde histórico: 1,02 bilhão de litros até maio (+10,5%). Com o real forte, o leite em pó importado segue barato e funciona como teto para o preço interno.</p><span class="geo-status gs-dn">Teto de preço</span></div></div>
+    <div class="geo-card"><div class="geo-flag">🌦️</div><div class="geo-info"><h5>El Niño / Pastagem</h5><p>O Cepea alerta para maior incerteza na produção. O outono-inverno já piora o pasto em MG, GO e PR; se o El Niño se intensificar, a oferta segue apertada — sustenta preço, mas eleva custo.</p><span class="geo-status gs-nt">Curinga</span></div></div>
+    <div class="geo-card"><div class="geo-flag">🛒</div><div class="geo-info"><h5>Consumo / Varejo</h5><p>O leite longa vida liderou a pressão inflacionária de alimentos (IGP-10/FGV +13,85% em maio). Preço alto na ponta + renda fraca limitam o consumo e travam novos repasses ao campo.</p><span class="geo-status gs-dn">Demanda fraca</span></div></div>
+    <div class="geo-card"><div class="geo-flag">🧀</div><div class="geo-info"><h5>Derivados no Atacado</h5><p>Em junho, sinais mistos: o leite em pó recuou (−2,2%, a R$ 30,93/kg), a muçarela subiu (+2,01%, a R$ 34,49/kg) e o UHT ficou estável (R$ 4,35/L). Reflete a dificuldade de repassar o custo.</p><span class="geo-status gs-nt">Misto</span></div></div>
+    <div class="geo-card"><div class="geo-flag">🌽</div><div class="geo-info"><h5>Custo de Ração (milho/soja)</h5><p>A queda de nutrição e mecanização derrubou o COE em maio. Milho e soja comportados ajudam a aliviar o custo do concentrado — a boa notícia da margem no fim do semestre.</p><span class="geo-status gs-up">Alívio</span></div></div>
+  </div>
+  <div class="chart-card"><h3>🧀 Derivados Lácteos no Atacado Paulista — Variação de Junho (%)</h3>
+    <canvas id="chartDerivados" height="78"></canvas>
+    <p class="nf">Fonte: Cepea/OCB. Movimentos distintos: pó em queda, muçarela em alta, UHT estável. Elaboração: Rural IN.</p></div>
+  <div class="chart-card"><h3>🥛 Produção de Leite por Estado (Brasil) — Participação Aproximada (%)</h3>
+    <canvas id="chartShare" height="75"></canvas>
+    <p class="nf">Minas Gerais lidera com folga; Goiás entre os maiores do Centro-Oeste. Valores aproximados. Fonte: IBGE (referência). Elaboração: Rural IN.</p></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SEÇÃO 5: PERSPECTIVAS JULHO -->
+<section class="section">
+  <div class="sec-title"><div class="sec-icon">🔭</div><h2>Perspectivas para Julho 2026 — Cenários</h2><div class="ln"></div></div>
+  <div style="margin-bottom:16px;display:flex;flex-wrap:wrap;gap:8px">
+    <span class="badge-neon bn-gold">🥛 Média Brasil: R$ 2,50–2,80/L</span>
+    <span class="badge-neon bn-blue">⚖️ Camex: a decisão que muda o jogo</span>
+    <span class="badge-neon bn-dn">🚢 Importação recorde = teto</span>
+    <span class="badge-neon bn-green">📉 Custo comportado</span>
+    <span class="badge-neon bn-gold">🌦️ El Niño / pasto: o curinga</span>
+  </div>
+  <div class="scen-grid">
+    <div class="sc opt"><div class="sc-header"><div class="sc-dot"></div><h4>🟢 Cenário de Alta</h4></div>
+      <ul><li><span>Camex aplica o antidumping</span></li><li><span>El Niño agrava o pasto e aperta a oferta</span></li><li><span>Importação recua; disputa por leite cru</span></li><li><span>Média Brasil volta a subir: R$ 2,68–2,80/L</span></li></ul>
+      <div class="sc-prob">Prob. 30% — Tarifa + clima</div></div>
+    <div class="sc neu"><div class="sc-header"><div class="sc-dot"></div><h4>🟡 Cenário Base (mais provável)</h4></div>
+      <ul><li><span>Preço lateraliza no topo</span></li><li><span>Demanda fraca encontra oferta ainda baixa</span></li><li><span>Média Brasil: R$ 2,60–2,66/L</span></li><li><span>Custo segue comportado</span></li></ul>
+      <div class="sc-prob">Prob. 45% — Plateau sustentado</div></div>
+    <div class="sc pes"><div class="sc-header"><div class="sc-dot"></div><h4>🔴 Cenário de Baixa</h4></div>
+      <ul><li><span>Antidumping segue suspenso</span></li><li><span>Importação recorde pressiona</span></li><li><span>Produção reage e consumo fraco pesa</span></li><li><span>Média Brasil recua: R$ 2,50–2,58/L</span></li></ul>
+      <div class="sc-prob">Prob. 25% — Importação + demanda</div></div>
+  </div>
+  <div class="chart-card"><h3>🎯 Projeção do Preço ao Produtor — Julho 2026 por Cenário (R$/L)</h3>
+    <canvas id="chartProjecao" height="85"></canvas>
+    <p class="nf">Elaboração: Rural IN — Dr. Sidney Souza. Faixas conforme a decisão da Camex, o El Niño, as importações e a demanda.</p></div>
+  <div class="percepcao">
+    <h3>🧭 Percepção do Analista para Julho — Dr. Sidney Souza</h3>
+    <p>Junho fechou uma página importante: <span class="hl" style="background:linear-gradient(transparent 60%,rgba(90,147,212,.55) 60%)">o rali de quatro meses acabou</span>. O preço, que vinha subindo forte desde janeiro, encontrou o teto em abril (R$ 2,6584) e estacionou — maio recuou de leve e junho ficou estável em R$ 2,6474. Não foi surpresa: quando o leite fica caro demais na gôndola e o consumidor perde poder de compra, a cadeia inteira trava. A demanda foi o freio.</p>
+    <p>A boa notícia veio do custo. Depois de subir o ano inteiro, o COE recuou 1,39% em maio — a primeira queda de 2026, puxada por nutrição e mecanização mais baratas. Para o produtor de GO e MG, isso é ouro: mesmo com o preço parado, uma margem que estava sendo espremida ganha um respiro. É a hora de fazer caixa e travar custo.</p>
+    <p>O grande curinga de julho, no entanto, não está no clima nem na gôndola — está em <strong>Brasília</strong>. A Camex reconheceu oficialmente o dumping do leite em pó argentino e uruguaio, com tarifas que podem passar de 100%, mas <span class="hl">suspendeu a aplicação por medo da inflação</span>. Essa é a decisão mais importante do semestre para o setor: se a tarifa entrar em vigor, a importação recorde (1,02 bilhão de litros até maio) recua e o preço no campo ganha sustentação; se ficar no limbo, o leite em pó barato segue sendo o teto.</p>
+    <p>Minha leitura para julho é de <strong>preço lateral, no topo, com viés dependente de Brasília e do clima</strong>. O cenário base é a Média Brasil entre R$ 2,60 e R$ 2,66. Os dois gatilhos de alta são a aplicação do antidumping e um El Niño que agrave o pasto; o gatilho de baixa é a combinação de importação recorde com demanda fraca. O produtor não deve contar com um novo rali — deve consolidar o que ganhou e proteger a margem.</p>
+    <div class="quote">"O ciclo de alta do leite fez seu trabalho: tirou o produtor do vermelho de 2025. Agora o jogo mudou de fase. Em julho, não se ganha mais com o preço subindo — ganha-se com custo baixo, produtividade e qualidade. E fica de olho na Camex: a caneta do governo sobre o antidumping vale mais, hoje, do que qualquer previsão de tempo."</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SEÇÃO 6: RECOMENDAÇÕES -->
+<section class="section">
+  <div class="sec-title"><div class="sec-icon">✅</div><h2>Recomendações Práticas para o Produtor</h2><div class="ln"></div></div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:24px">
+    <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:var(--sombra);border-top:4px solid var(--amarelo)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:1.5rem">🎯</span><h4 style="font-family:'Playfair Display',serif;font-size:.98rem;color:var(--marrom-l)">Não conte com nova alta</h4></div>
+      <p style="font-size:.84rem;color:var(--cinza);line-height:1.75">O rali acabou e o preço está no topo. Planeje o caixa com a cotação no patamar atual (~R$ 2,64), não em um novo salto. Negocie contratos e bonificação por volume/qualidade agora, enquanto a oferta ainda está apertada e o preço firme.</p></div>
+    <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:var(--sombra);border-top:4px solid #16a34a">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:1.5rem">🌽</span><h4 style="font-family:'Playfair Display',serif;font-size:.98rem;color:var(--verde-s)">Aproveite a trégua do custo</h4></div>
+      <p style="font-size:.84rem;color:var(--cinza);line-height:1.75">O COE caiu em maio e milho/soja estão comportados. É a janela para antecipar a compra de concentrado e garantir silagem/volumoso. Travar o custo da nutrição agora protege a margem quando o preço do leite ceder.</p></div>
+    <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:var(--sombra);border-top:4px solid var(--azul-l)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:1.5rem">📊</span><h4 style="font-family:'Playfair Display',serif;font-size:.98rem;color:var(--azul)">Produtividade e qualidade</h4></div>
+      <p style="font-size:.84rem;color:var(--cinza);line-height:1.75">Com o preço parado, a margem vem da eficiência. Invista em produzir na entressafra (confinamento/semi) e cuide da qualidade (CCS/CBT, resfriamento): a bonificação por leite de qualidade é receita extra que não depende da cotação.</p></div>
+    <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:var(--sombra);border-top:4px solid var(--vermelho-l)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:1.5rem">📡</span><h4 style="font-family:'Playfair Display',serif;font-size:.98rem;color:var(--vermelho)">O que monitorar em julho</h4></div>
+      <p style="font-size:.84rem;color:var(--cinza);line-height:1.75"><strong>1.</strong> Decisão da Camex sobre o antidumping.<br><strong>2.</strong> El Niño e a condição do pasto (MG, GO, PR).<br><strong>3.</strong> Volume de importação do Mercosul.<br><strong>4.</strong> Demanda e preço no varejo.<br><strong>5.</strong> Câmbio (real forte barateia a importação).</p></div>
+  </div>
+
+  <div class="chart-card"><h3>🚦 Semáforo do Leite — Indicadores-Chave no Fechamento de Junho 2026</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:12px">
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px"><span style="width:12px;height:12px;border-radius:50%;background:#f59e0b;flex-shrink:0"></span><div><strong style="font-size:.85rem">Preço no campo</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">R$2,6474 — lateralizou no topo</span></div></div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px"><span style="width:12px;height:12px;border-radius:50%;background:#16a34a;flex-shrink:0"></span><div><strong style="font-size:.85rem">Minas Gerais</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">maior preço estadual — o gigante</span></div></div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px"><span style="width:12px;height:12px;border-radius:50%;background:#16a34a;flex-shrink:0"></span><div><strong style="font-size:.85rem">Goiás</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">polo industrial — disputa firme</span></div></div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px"><span style="width:12px;height:12px;border-radius:50%;background:#16a34a;flex-shrink:0"></span><div><strong style="font-size:.85rem">Custo (COE)</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">−1,39% em maio — trégua</span></div></div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px"><span style="width:12px;height:12px;border-radius:50%;background:#f59e0b;flex-shrink:0"></span><div><strong style="font-size:.85rem">Captação (oferta)</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">−14,6% no ano — apertada</span></div></div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px"><span style="width:12px;height:12px;border-radius:50%;background:#ef4444;flex-shrink:0"></span><div><strong style="font-size:.85rem">Importações</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">1,02 bi L — recorde</span></div></div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px"><span style="width:12px;height:12px;border-radius:50%;background:#f59e0b;flex-shrink:0"></span><div><strong style="font-size:.85rem">Dumping (Camex)</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">reconhecido, mas suspenso</span></div></div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#f9fafb;border-radius:10px"><span style="width:12px;height:12px;border-radius:50%;background:#ef4444;flex-shrink:0"></span><div><strong style="font-size:.85rem">Demanda/varejo</strong><br><span style="font-size:.73rem;color:var(--cinza-l)">fraca — leite caro na ponta</span></div></div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<footer class="footer">
+  <div class="fi">
+    <div class="ft">
+      <div class="fl"><div class="brand">Rural<span> IN</span></div><div class="tag">Inteligência Econômica para o Produtor Rural</div>
+        <p style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:10px;max-width:260px;line-height:1.7">Transformamos dados da fazenda em decisões econômicas. Ajudamos produtores a entender se o mercado sustenta seu negócio.</p></div>
+      <div class="fc"><h4>Análise e Construção</h4>
+        <p><strong>Dr. Sidney Souza</strong><br>Economista e Adm. Agrícola<br>Estrategista Econômico do Produtor<br>Especialista em economia da fazenda e gestão de risco no agro<br>Transformamos dados da fazenda em decisões econômicas<br>Ajudamos produtores a entender se o mercado sustenta seu negócio<br><br>
+        🌐 <a href="https://ruralinai-commits.github.io/ruralin-site/" target="_blank">ruralinai-commits.github.io/ruralin-site</a><br>📱 @ruralin.ai<br>✉ <a href="mailto:sidneyagro@gmail.com">sidneyagro@gmail.com</a><br>📞 (64) 9 9226-6886</p></div>
+    </div>
+    <div class="fb">
+      RADAR AGRO DO LEITE · EDIÇÃO JUNHO 2026 + PERSPECTIVAS JULHO · RURAL IN · TODOS OS DIREITOS RESERVADOS<br>
+      ANÁLISE COM CARÁTER INFORMATIVO E ESTRATÉGICO. NÃO CONSTITUI RECOMENDAÇÃO FORMAL DE INVESTIMENTO.<br>
+      FONTES: CEPEA/ESALQ-USP · IBGE · SECEX · CNA · CAMEX/MDIC · FAEMG SENAR · OCB · CANAL RURAL · CNN BRASIL · MILKPOINT · FGV
+    </div>
+  </div>
+</footer>
+
+<script>
+Chart.defaults.color='#6b7280';Chart.defaults.borderColor='rgba(0,0,0,.06)';
+Chart.defaults.font.family="'Inter',system-ui,sans-serif";
+const am='#2b6cb0',amL='#5a93d4',verde='#16a34a',verm='#dc2626',azul='#1e40af',azulL='#3b82f6';
+
+new Chart(document.getElementById('chartMaio'),{type:'line',
+ data:{labels:['Jan','Fev','Mar','Abr','Mai','Jun/26'],
+  datasets:[{label:'Leite Média Brasil (R$/L)',data:[2.0216,2.1464,2.3924,2.6584,2.6431,2.6474],
+   borderColor:am,backgroundColor:'rgba(43,108,176,.12)',borderWidth:3,tension:.3,fill:true,pointRadius:5,
+   pointBackgroundColor:['#5a93d4','#5a93d4','#5a93d4','#16a34a','#dc2626','#2b6cb0']}]},
+ options:{responsive:true,plugins:{legend:{position:'top',labels:{usePointStyle:true,padding:14}},
+  tooltip:{callbacks:{label:c=>'R$ '+c.raw.toFixed(4)+'/L'}}},
+  scales:{y:{min:1.9,ticks:{callback:v=>'R$ '+v.toFixed(2)},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false}}}}});
+
+new Chart(document.getElementById('chartCusto'),{type:'bar',
+ data:{labels:['Jan','Fev*','Mar','Abr','Mai'],
+  datasets:[{label:'Variação do COE (%)',data:[1.32,0.5,0.46,1.10,-1.39],
+   backgroundColor:c=>c.raw<0?'rgba(22,163,74,.8)':'rgba(220,38,38,.6)',borderRadius:6}]},
+ options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>(c.raw>0?'+':'')+c.raw+'%'}}},
+  scales:{y:{ticks:{callback:v=>v+'%'},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false}}}}});
+
+new Chart(document.getElementById('chartRegioes'),{type:'bar',
+ data:{labels:['Minas Gerais','São Paulo','Paraná','Média Brasil','Bahia','Rio G. Sul','Sta. Catarina'],
+  datasets:[{label:'Preço líquido (R$/L)',data:[2.2030,2.1963,2.1600,2.1464,2.0967,2.0962,2.0727],
+   backgroundColor:['rgba(22,163,74,.85)','rgba(43,108,176,.8)','rgba(90,147,212,.75)','rgba(30,64,175,.7)','rgba(180,180,180,.55)','rgba(180,180,180,.5)','rgba(180,180,180,.45)'],borderRadius:6}]},
+ options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'R$ '+c.raw.toFixed(4)+'/L'}}},
+  scales:{y:{min:2.0,ticks:{callback:v=>'R$ '+v.toFixed(2)},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
+
+new Chart(document.getElementById('chartImport'),{type:'bar',
+ data:{labels:['Jan','Fev*','Mar','Abr','Mai'],
+  datasets:[{label:'Importação (mi L EqL)',data:[178.53,183,242.65,218.38,226.21],
+   backgroundColor:['rgba(90,147,212,.6)','rgba(90,147,212,.6)','rgba(220,38,38,.8)','rgba(43,108,176,.7)','rgba(220,38,38,.75)'],borderRadius:6}]},
+ options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+' mi L'}}},
+  scales:{y:{ticks:{callback:v=>v},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false}}}}});
+
+new Chart(document.getElementById('chartDerivados'),{type:'bar',
+ data:{labels:['Leite em pó','Muçarela','UHT'],
+  datasets:[{label:'Variação junho (%)',data:[-2.2,2.01,0.04],
+   backgroundColor:['rgba(220,38,38,.7)','rgba(22,163,74,.7)','rgba(90,147,212,.7)'],borderRadius:6}]},
+ options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>(c.raw>0?'+':'')+c.raw+'%'}}},
+  scales:{y:{ticks:{callback:v=>v+'%'},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false}}}}});
+
+new Chart(document.getElementById('chartShare'),{type:'doughnut',
+ data:{labels:['Minas Gerais','Paraná','Rio Grande do Sul','Goiás','Santa Catarina','São Paulo','Outros'],
+  datasets:[{data:[26,13,12,11,10,7,21],
+   backgroundColor:['rgba(22,163,74,.8)','rgba(43,108,176,.8)','rgba(90,147,212,.7)','rgba(245,158,11,.8)','rgba(59,130,246,.55)','rgba(120,120,200,.55)','rgba(180,180,180,.5)'],
+   borderWidth:2,borderColor:'#fff'}]},
+ options:{responsive:true,plugins:{legend:{position:'right',labels:{usePointStyle:true,padding:11,font:{size:11}}},tooltip:{callbacks:{label:c=>c.label+': ~'+c.raw+'%'}}}}});
+
+new Chart(document.getElementById('chartProjecao'),{type:'bar',
+ data:{labels:['1ª sem jul','2ª sem jul','3ª sem jul','4ª sem jul'],
+  datasets:[
+   {label:'Baixa',data:[2.58,2.55,2.53,2.50],backgroundColor:'rgba(220,38,38,.55)',borderRadius:6},
+   {label:'Base',data:[2.64,2.63,2.63,2.64],backgroundColor:'rgba(43,108,176,.85)',borderRadius:6},
+   {label:'Alta',data:[2.66,2.70,2.75,2.80],backgroundColor:'rgba(22,163,74,.6)',borderRadius:6}]},
+ options:{responsive:true,plugins:{legend:{position:'top',labels:{usePointStyle:true,padding:14}},
+  tooltip:{callbacks:{label:c=>c.dataset.label+': R$ '+c.raw.toFixed(2)+'/L'}}},
+  scales:{y:{min:2.4,ticks:{callback:v=>'R$ '+v.toFixed(2)},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false}}}}});
+</script>
+</body>
+</html>
