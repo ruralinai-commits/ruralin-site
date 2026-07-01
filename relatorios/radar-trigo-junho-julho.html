@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar Agro · Trigo · Junho 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --ink:#0E211B;
+    --ink-2:#163026;
+    --paper:#EEEBDF;
+    --paper-2:#F6F4EA;
+    --text:#1B241E;
+    --muted:#6C6B5D;
+    --gold:#B8983C;         /* wheat / straw signal */
+    --gold-soft:#D9C27C;
+    --bull:#2F7D4F;
+    --bear:#B24428;
+    --line:#CAC6B4;
+    --line-dk:rgba(217,194,124,.24);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--text);font-family:"Newsreader",Georgia,serif;
+    font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px 90px}
+  .mono{font-family:"Space Mono",monospace}
+
+  .masthead{background:var(--ink);color:var(--paper);margin:0 -22px;padding:34px 22px 0}
+  .masthead .inner{max-width:1080px;margin:0 auto}
+  .brandline{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;
+    font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.16em;color:var(--gold-soft)}
+  .brandline b{color:var(--paper)}
+  h1.title{font-family:"Archivo";font-weight:900;font-size:clamp(44px,9vw,104px);line-height:.9;
+    letter-spacing:-.02em;margin:14px 0 4px;color:var(--paper)}
+  h1.title span{color:var(--gold)}
+  .subtitle{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--gold-soft);padding-bottom:22px}
+
+  .ribbon{margin:0 -22px;background:var(--ink-2);border-top:1px solid var(--line-dk);border-bottom:3px solid var(--gold)}
+  .ribbon .inner{max-width:1080px;margin:0 auto;padding:14px 22px;display:grid;grid-template-columns:repeat(6,1fr);gap:2px}
+  .tick{padding:4px 12px 4px 0}
+  .tick .k{font-family:"Space Mono";font-size:10px;letter-spacing:.14em;color:var(--gold-soft);text-transform:uppercase}
+  .tick .v{font-family:"Archivo";font-weight:800;font-size:20px;color:var(--paper);line-height:1.15;margin-top:3px}
+  .tick .d{font-family:"Space Mono";font-size:11px;margin-top:1px}
+  .up{color:#8FD6A6}.down{color:#ED9C86}.flat{color:var(--gold-soft)}
+  @media(max-width:760px){.ribbon .inner{grid-template-columns:repeat(2,1fr);gap:10px 8px}}
+
+  section{padding:52px 0 6px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:"Space Mono";font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);
+    display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--gold);display:inline-block}
+  h2{font-family:"Archivo";font-weight:800;font-size:clamp(26px,4vw,38px);line-height:1.05;
+    letter-spacing:-.015em;color:var(--ink);margin-bottom:18px}
+  h3{font-family:"Archivo";font-weight:700;font-size:20px;color:var(--ink);margin:22px 0 8px;letter-spacing:-.01em}
+  p{margin-bottom:14px;max-width:74ch}
+  .lead{font-size:20px;line-height:1.5}
+  strong{font-weight:600;color:var(--ink)}
+  .hl{background:linear-gradient(transparent 62%,var(--gold-soft) 62%);padding:0 1px}
+
+  .card{background:var(--paper-2);border:1px solid var(--line);border-radius:2px;padding:22px 20px 18px;margin:22px 0}
+  .card .cap{font-family:"Space Mono";font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .chart-box{position:relative;height:320px}
+  .chart-box.sm{height:180px}
+
+  .regs{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:18px 0 6px}
+  .reg{background:var(--ink);color:var(--paper);border-radius:2px;padding:12px 12px 13px}
+  .reg.on{background:var(--gold);color:#1c1704}
+  .reg .p{font-family:"Space Mono";font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.85}
+  .reg .r{font-family:"Archivo";font-weight:800;font-size:18px;margin-top:5px}
+  .reg .s{font-family:"Space Mono";font-size:10px;opacity:.75;margin-top:1px}
+  @media(max-width:760px){.regs{grid-template-columns:repeat(2,1fr)}}
+
+  .rel{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+  .rel .item{border-left:3px solid var(--gold);padding:2px 0 2px 16px}
+  .rel .item h4{font-family:"Archivo";font-weight:700;font-size:15px;letter-spacing:.02em;margin-bottom:3px;
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .rel .item p{font-size:15.5px;margin-bottom:0;color:#333}
+  .pill{font-family:"Space Mono";font-size:10px;padding:2px 7px;border-radius:20px;letter-spacing:.06em}
+  .pill.b{background:rgba(178,68,40,.14);color:var(--bear)}
+  .pill.g{background:rgba(47,125,79,.15);color:var(--bull)}
+  .pill.n{background:rgba(184,152,60,.2);color:#6f5a12}
+  @media(max-width:760px){.rel{grid-template-columns:1fr}}
+
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:20px 0}
+  .facts .f{background:var(--paper-2);padding:16px 14px}
+  .facts .f .n{font-family:"Archivo";font-weight:900;font-size:26px;color:var(--ink);letter-spacing:-.02em}
+  .facts .f .l{font-family:"Space Mono";font-size:10.5px;letter-spacing:.05em;color:var(--muted);text-transform:uppercase;margin-top:4px;line-height:1.35}
+  .facts .f .t{font-family:"Space Mono";font-size:11px;margin-top:6px}
+  @media(max-width:760px){.facts{grid-template-columns:repeat(2,1fr)}}
+
+  .prem-wrap{display:grid;grid-template-columns:1.02fr .98fr;gap:26px;align-items:center;margin-top:8px}
+  @media(max-width:760px){.prem-wrap{grid-template-columns:1fr}}
+
+  .dial{background:var(--ink);color:var(--paper);border-radius:3px;padding:26px 24px 30px;margin:22px 0 26px}
+  .dial .track{position:relative;height:8px;background:linear-gradient(90deg,var(--bear),var(--gold),var(--bull));
+    border-radius:20px;margin:38px 8px 10px}
+  .dial .notch{position:absolute;top:50%;width:2px;height:20px;background:rgba(255,255,255,.35);transform:translateY(-50%)}
+  .dial .ptr{position:absolute;top:-30px;transform:translateX(-50%);text-align:center}
+  .dial .ptr .lab{font-family:"Space Mono";font-size:11px;letter-spacing:.1em;color:var(--gold-soft);white-space:nowrap}
+  .dial .ptr .arw{font-size:18px;color:var(--gold-soft);line-height:1}
+  .dial .ends{display:flex;justify-content:space-between;font-family:"Space Mono";font-size:11px;
+    letter-spacing:.14em;color:var(--gold-soft);text-transform:uppercase;margin:0 4px}
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:820px){.scen{grid-template-columns:1fr}}
+  .sc{border:1px solid var(--line);border-top:4px solid var(--muted);border-radius:2px;padding:18px 16px;background:var(--paper-2)}
+  .sc.bear{border-top-color:var(--bear)}.sc.base{border-top-color:var(--gold)}.sc.bull{border-top-color:var(--bull)}
+  .sc .tag{font-family:"Space Mono";font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .sc.bear .tag{color:var(--bear)}.sc.base .tag{color:#6f5a12}.sc.bull .tag{color:var(--bull)}
+  .sc h4{font-family:"Archivo";font-weight:800;font-size:19px;margin:4px 0 2px;color:var(--ink)}
+  .sc .prob{font-family:"Space Mono";font-size:11px;color:var(--muted);margin-bottom:10px}
+  .sc ul{list-style:none;font-size:14.5px;line-height:1.4}
+  .sc li{padding:5px 0;border-top:1px dotted var(--line);display:flex;gap:8px}
+  .sc li:first-child{border-top:none}
+  .sc li b{font-family:"Space Mono";font-size:11px;color:var(--muted);min-width:64px;display:inline-block;text-transform:uppercase}
+  .sc .price{margin-top:12px;background:var(--ink);color:var(--paper);border-radius:2px;padding:10px 12px}
+  .sc .price .cb{font-family:"Archivo";font-weight:800;font-size:16px}
+  .sc .price .sk{font-family:"Space Mono";font-size:11px;color:var(--gold-soft);margin-top:2px}
+
+  .watch{margin-top:14px}
+  .w{display:grid;grid-template-columns:120px 1fr;gap:18px;padding:16px 0;border-top:1px solid var(--line)}
+  .w:first-child{border-top:none}
+  .w .when{font-family:"Space Mono";font-size:12px;color:var(--gold);letter-spacing:.04em;padding-top:2px}
+  .w .when b{display:block;font-family:"Archivo";font-weight:800;font-size:15px;color:var(--ink);letter-spacing:0}
+  .w .body h4{font-family:"Archivo";font-weight:700;font-size:16.5px;color:var(--ink);margin-bottom:3px}
+  .w .body p{font-size:15px;margin-bottom:0;color:#333;max-width:70ch}
+  @media(max-width:600px){.w{grid-template-columns:1fr;gap:4px}}
+
+  .tech{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+  .tech .lv{background:var(--paper-2);border:1px solid var(--line);border-radius:2px;padding:14px}
+  .tech .lv .k{font-family:"Space Mono";font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .tech .lv .v{font-family:"Archivo";font-weight:900;font-size:24px;margin-top:4px}
+  .tech .lv.r .v{color:var(--bear)}.tech .lv.s .v{color:var(--bull)}.tech .lv.p .v{color:var(--gold)}
+  @media(max-width:600px){.tech{grid-template-columns:1fr}}
+
+  .callout{background:var(--ink);color:var(--paper);border-left:5px solid var(--gold);padding:22px 24px;margin:26px 0;border-radius:2px}
+  .callout p{color:var(--paper);max-width:78ch;margin-bottom:0}
+  .callout strong{color:var(--gold-soft);font-weight:700}
+  .callout .q{font-family:"Space Mono";font-size:11px;letter-spacing:.2em;color:var(--gold-soft);text-transform:uppercase;margin-bottom:8px}
+
+  .creds{background:var(--ink);color:var(--paper);margin:60px -22px -90px;padding:48px 22px 56px}
+  .creds .inner{max-width:1080px;margin:0 auto}
+  .creds .sig{font-family:"Space Mono";font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+  .creds .nm{font-family:"Archivo";font-weight:900;font-size:34px;color:var(--paper);letter-spacing:-.01em}
+  .creds .role{font-family:"Newsreader";font-size:16px;color:var(--gold-soft);margin-top:2px}
+  .creds ul{list-style:none;margin:18px 0 22px;max-width:70ch}
+  .creds ul li{padding:6px 0;border-top:1px solid rgba(217,194,124,.2);font-size:16px;color:var(--paper)}
+  .creds ul li:first-child{border-top:none}
+  .creds .contact{font-family:"Space Mono";font-size:13px;letter-spacing:.04em;color:var(--gold-soft);
+    display:flex;flex-wrap:wrap;gap:8px 20px;padding-top:18px;border-top:2px solid var(--gold)}
+  .creds .contact a{color:var(--gold-soft);text-decoration:none}
+  .disc{font-family:"Space Mono";font-size:11px;line-height:1.6;color:var(--muted);margin-top:26px;max-width:90ch}
+  .note{font-family:"Space Mono";font-size:11.5px;color:var(--muted);margin-top:6px}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="inner">
+    <div class="brandline">
+      <span><b>RURALIN.AI</b> · INTELIGÊNCIA ECONÔMICA DA FAZENDA</span>
+      <span>EDIÇÃO Nº 06E/2026 · FECHAMENTO 30·JUN·2026</span>
+    </div>
+    <h1 class="title">RADAR<span>·</span>AGRO</h1>
+    <div class="subtitle">Trigo &nbsp;/&nbsp; Boletim de Junho 2026 &nbsp;/&nbsp; CBOT · Paridade · Plantio · Geada · Cenários</div>
+  </div>
+</div>
+
+<div class="ribbon">
+  <div class="inner">
+    <div class="tick"><div class="k">CBOT trigo (set)</div><div class="v">US$ 5,88</div><div class="d down mono">▼ ~3% mês</div></div>
+    <div class="tick"><div class="k">Saco 60kg · RS/PR</div><div class="v">R$ 70,50</div><div class="d up mono">▲ firme</div></div>
+    <div class="tick"><div class="k">Dólar (R$/US$)</div><div class="v">5,18</div><div class="d down mono">▲ 2,8% mês</div></div>
+    <div class="tick"><div class="k">Plantio safra 2026</div><div class="v">75%</div><div class="d up mono">▲ acima da média (64%)</div></div>
+    <div class="tick"><div class="k">Área 2026 BR</div><div class="v">−20%</div><div class="d up mono">sustenta preço</div></div>
+    <div class="tick"><div class="k">Importação 25/26</div><div class="v">6,7 Mt</div><div class="d flat mono">Conab · dependência</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- LEITURA DO MES -->
+  <section>
+    <div class="eyebrow">Leitura do mês</div>
+    <h2>Chicago caiu, o trigo brasileiro subiu: o mês em que a lógica se inverteu</h2>
+    <p class="lead">O trigo é a exceção da série. Enquanto soja, milho, boi e algodão são commodities de <strong>exportação</strong>, o Brasil é <strong>importador líquido</strong> de trigo — e isso muda tudo. Em junho, a CBOT recuou para abaixo de US$ 6,00/bushel (fechando ~US$ 5,88, cerca de −3% no mês), pressionada pela colheita do Hemisfério Norte e pela trégua EUA–Irã. E, ainda assim, <span class="hl">o trigo no Brasil seguiu firme</span>, com o saco de 60 kg em R$ 70–71 no RS e no PR.</p>
+    <p>O descolamento tem três pernas: o <strong>real fraco</strong>, que encarece o trigo importado e puxa a paridade para cima; a <strong>redução de mais de 20% na área plantada</strong> desta safra, que aperta a oferta futura; e a <strong>falta de produto de qualidade</strong> da safra velha. Ao mesmo tempo, o plantio da safra 2026 avança rápido — 75% da área, acima da média histórica de 64% — com boa umidade de solo.</p>
+    <div class="callout">
+      <div class="q">Síntese do estrategista</div>
+      <p>No trigo, o produtor brasileiro é defendido pela fraqueza do próprio país: como dependemos de importar 6,7 milhões de toneladas, o preço interno se ancora na <strong>paridade de importação</strong>, não em Chicago. Com o real fraco e a área encolhendo, essa paridade sobe mesmo com a bolsa caindo. O risco de julho não está no preço de hoje; está na <strong>geada</strong> — o inverno no Sul é a única força capaz de mexer forte com a safra em formação.</p>
+    </div>
+  </section>
+
+  <!-- PRECO -->
+  <section>
+    <div class="eyebrow">Preço · CBOT & mercado físico</div>
+    <h2>A bolsa cedeu na colheita do Norte; o físico brasileiro ficou lento, mas sustentado</h2>
+    <p>Em Chicago, o trigo trabalhou abaixo de US$ 6,00 boa parte do mês, tocando US$ 5,85 antes de leves recuperações técnicas. A pressão veio da colheita de inverno nos EUA (Kansas, Oklahoma, Texas) e da boa oferta global. No Brasil, o mercado físico segue de <strong>baixa liquidez</strong> — moinhos abastecidos, compras concentradas em setembro e na safra nova — com vendedores mantendo pedidas acima das ofertas.</p>
+    <div class="card">
+      <div class="cap"><span>CBOT · Trigo · US$/bushel · junho 2026</span><span>fonte: CME/CBOT · reconstrução indicativa</span></div>
+      <div class="chart-box"><canvas id="cbot"></canvas></div>
+    </div>
+
+    <h3>Mercado físico — o mapa do trigo</h3>
+    <p>Os preços variam por qualidade e mercado: o balcão do produtor no Sul, o trigo pão FOB para o moinho, e a safra nova já negociada a termo para novembro.</p>
+    <div class="regs">
+      <div class="reg on"><div class="p">RS · saco 60kg</div><div class="r">R$ 70,50</div><div class="s">balcão · firme</div></div>
+      <div class="reg"><div class="p">PR · saco 60kg</div><div class="r">R$ 70,50</div><div class="s">balcão · firme</div></div>
+      <div class="reg"><div class="p">Trigo pão · FOB</div><div class="r">R$ 1.465/t</div><div class="s">moinho</div></div>
+      <div class="reg"><div class="p">Safra nova (nov)</div><div class="r">R$ 1.250/t</div><div class="s">FOB · a termo</div></div>
+      <div class="reg"><div class="p">CBOT · set</div><div class="r">US$ 5,88</div><div class="s">por bushel</div></div>
+      <div class="reg"><div class="p">Plantio 2026 BR</div><div class="r">75%</div><div class="s">Conab · &gt; média</div></div>
+    </div>
+    <p class="note">Referências de fechamento de junho/2026. Fontes: CEEMA, Cepea/Esalq, Deral/Seab-PR, Conab, CME/CBOT.</p>
+  </section>
+
+  <!-- VARIAVEIS -->
+  <section>
+    <div class="eyebrow">Trigo × variáveis de mercado</div>
+    <h2>O que mexeu com o trigo: colheita do Norte, câmbio e o prêmio de risco que sumiu</h2>
+    <p>Para o trigo, a bolsa lá fora e o câmbio aqui dentro puxam em direções opostas — e em junho o câmbio venceu no mercado físico. Base 100 no início do mês.</p>
+    <div class="card">
+      <div class="cap"><span>Base 100 = 01·jun·2026 · desempenho relativo</span><span>fonte: CBOT · ICE · B3 · reconstrução indicativa</span></div>
+      <div class="chart-box"><canvas id="rel"></canvas></div>
+    </div>
+    <div class="rel">
+      <div class="item">
+        <h4>Colheita Hemisfério Norte <span class="pill b">BAIXISTA · vetor nº 1</span></h4>
+        <p>A entrada da colheita de inverno nos EUA e a boa oferta global (Rússia, Ucrânia) foram o que mais pesou sobre a CBOT. É pressão sazonal clássica de junho–agosto.</p>
+      </div>
+      <div class="item">
+        <h4>Dólar (R$/US$) <span class="pill g">+2,8% · ALTISTA p/ interno</span></h4>
+        <p>Aqui o real fraco tem efeito inverso ao dos grãos de exportação: encarece o trigo importado, eleva a paridade e <strong>sustenta o preço doméstico</strong>. É o motor do descolamento.</p>
+      </div>
+      <div class="item">
+        <h4>Petróleo / risco geopolítico <span class="pill b">−20% · trégua Irã</span></h4>
+        <p>A paz EUA–Irã derrubou o prêmio de risco que sustentava as commodities agrícolas em geral. Menos tensão global = menos suporte especulativo ao trigo em Chicago.</p>
+      </div>
+      <div class="item">
+        <h4>Área plantada BR <span class="pill n">−20% · ALTISTA estrutural</span></h4>
+        <p>Preços baixos em 2025 desestimularam o plantio. Menos área nesta safra = menos oferta doméstica à frente, mais um pilar de sustentação do preço interno.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREMIOS / PARIDADE -->
+  <section>
+    <div class="eyebrow">Paridade de importação & basis</div>
+    <h2>O "prêmio" do trigo é ao contrário: quem defende o produtor é a conta da importação</h2>
+    <div class="prem-wrap">
+      <div>
+        <p>Nos grãos de exportação, o prêmio é pago no porto para <strong>tirar</strong> o produto do país. No trigo, a lógica inverte: o preço interno é ancorado no <strong>custo de trazer trigo de fora</strong> — sobretudo da Argentina, principal fornecedora. Quando o real enfraquece, importar fica mais caro, e o trigo nacional ganha espaço para subir. Foi exatamente o que aconteceu em junho: o gráfico mostra a CBOT caindo enquanto o balcão brasileiro seguiu firme.</p>
+        <p>Esse descolamento é a assinatura do mercado tritícola brasileiro. A dependência estrutural — <strong>importação de 6,7 Mt em 25/26</strong>, com disponibilidade interna acima de 16 Mt — significa que o preço ao produtor do Sul é, na prática, o preço de reposição do importado. Um escudo natural contra a queda da bolsa, desde que o câmbio coopere.</p>
+      </div>
+      <div class="card" style="margin:0">
+        <div class="cap"><span>Descolamento · CBOT × trigo BR · base 100 jun</span><span>fonte: CBOT · CEEMA · indicativo</span></div>
+        <div class="chart-box sm"><canvas id="prem"></canvas></div>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="q">Onde mora o risco — e a oportunidade</div>
+      <p>O escudo cambial tem um calcanhar: se o <strong>real se valorizar</strong>, a paridade de importação cai e o trigo nacional perde o suporte que o descolou de Chicago. E há o outro lado da safra em formação: uma <strong>geada no Sul</strong> reduziria a produção da nova safra — dolorosa para quem for atingido, mas altista para o preço de quem escapar. A leitura: o produtor está numa posição incomum de força relativa, mas ela depende de duas variáveis que ele não controla — o câmbio e o clima de inverno.</p>
+    </div>
+  </section>
+
+  <!-- FUNDAMENTOS -->
+  <section>
+    <div class="eyebrow">Fundamentos · safra & comércio</div>
+    <h2>Os números que fecharam o mês</h2>
+    <p>O quadro é de oferta global folgada (colheita do Norte) contra uma oferta doméstica que encolhe (menos área) e uma dependência de importação que se aprofunda.</p>
+    <div class="facts">
+      <div class="f"><div class="n">75%</div><div class="l">Plantio safra 2026 BR · Conab</div><div class="t up">acima da média de 64%</div></div>
+      <div class="f"><div class="n">−20%</div><div class="l">Área plantada BR 2026</div><div class="t up">▲ altista p/ preço interno</div></div>
+      <div class="f"><div class="n">6,7 Mt</div><div class="l">Importação BR 25/26 · Conab</div><div class="t flat">dependência preservada</div></div>
+      <div class="f"><div class="n">&gt;16 Mt</div><div class="l">Disponibilidade interna 25/26</div><div class="t flat">oferta + importação</div></div>
+    </div>
+    <p>O detalhe do estrategista: a Ucrânia revisou sua safra 2026 para baixo, mas ela ainda é a <strong>maior desde 2022</strong> — ou seja, o Mar Negro segue abastecido, o que limita o teto da CBOT. Para o Brasil, o vetor decisivo não é a oferta global (que é ampla), e sim o <strong>câmbio e a geada</strong>: as duas variáveis que definem se o preço interno se sustenta.</p>
+  </section>
+
+  <!-- CENARIOS -->
+  <section>
+    <div class="eyebrow">Cenários · Julho 2026</div>
+    <h2>Três roteiros para o próximo mês</h2>
+    <p>O cenário-base para julho é de <strong>CBOT lateral-baixista</strong> (colheita do Norte pesando) e <strong>trigo brasileiro sustentado</strong> pela paridade de importação e pelo câmbio. O ponteiro marca a leitura central; o curinga é a geada.</p>
+    <div class="dial">
+      <div class="ends"><span>◄ Baixista</span><span>Base</span><span>Altista ►</span></div>
+      <div class="track">
+        <div class="notch" style="left:20%"></div>
+        <div class="notch" style="left:50%"></div>
+        <div class="notch" style="left:80%"></div>
+        <div class="ptr" style="left:48%"><div class="lab">LEITURA CENTRAL JUL</div><div class="arw">▼</div></div>
+      </div>
+    </div>
+    <div class="scen">
+      <div class="sc bear">
+        <div class="tag">Cenário 1</div>
+        <h4>Baixista</h4>
+        <div class="prob">probabilidade ~30%</div>
+        <ul>
+          <li><b>CBOT</b> Colheita do Norte confirma boa safra global</li>
+          <li><b>Câmbio</b> Real se valoriza e derruba a paridade</li>
+          <li><b>Clima BR</b> Inverno ameno, sem geada relevante</li>
+        </ul>
+        <div class="price">
+          <div class="cb">CBOT US$ 5,40–5,70</div>
+          <div class="sk">Saco RS/PR R$ 64–69</div>
+        </div>
+      </div>
+      <div class="sc base">
+        <div class="tag">Cenário 2 · base</div>
+        <h4>CBOT fraca, BR firme</h4>
+        <div class="prob">probabilidade ~50%</div>
+        <ul>
+          <li><b>CBOT</b> Pressão de colheita x Mar Negro incerto</li>
+          <li><b>Interno</b> Paridade + área −20% sustentam o físico</li>
+          <li><b>Câmbio</b> R$ 5,15–5,30 mantém o descolamento</li>
+        </ul>
+        <div class="price">
+          <div class="cb">CBOT US$ 5,70–6,00</div>
+          <div class="sk">Saco RS/PR R$ 68–73</div>
+        </div>
+      </div>
+      <div class="sc bull">
+        <div class="tag">Cenário 3</div>
+        <h4>Altista</h4>
+        <div class="prob">probabilidade ~20%</div>
+        <ul>
+          <li><b>Geada</b> Frente fria atinge a safra nova no Sul</li>
+          <li><b>Mar Negro</b> Reescalada Rússia–Ucrânia tensiona</li>
+          <li><b>Câmbio</b> Real a R$ 5,30+ eleva a paridade</li>
+        </ul>
+        <div class="price">
+          <div class="cb">CBOT US$ 6,00–6,40</div>
+          <div class="sk">Saco RS/PR R$ 73–80</div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Faixas indicativas de trabalho, não recomendação de compra ou venda. O preço interno é função de paridade de importação (CBOT/Argentina × câmbio) × oferta doméstica × geada.</p>
+  </section>
+
+  <!-- TECNICA -->
+  <section>
+    <div class="eyebrow">Leitura do grafista</div>
+    <h2>CBOT testando os US$ 5,85, com gatilho de reversão em US$ 6,05</h2>
+    <p>Tecnicamente, a CBOT trabalha coladas nos US$ 5,85, região de suporte relevante. Perder esse piso abre espaço para o alvo baixista; segurá-lo, somado a qualquer susto de geada no Sul ou de Mar Negro, aciona a recuperação. Enquanto não recuperar US$ 6,05 com convicção, o viés de curtíssimo prazo permanece vendido/lateral.</p>
+    <div class="card">
+      <div class="cap"><span>CBOT · trigo · US$/bushel · zonas técnicas de junho</span><span>suporte / resistências · reconstrução indicativa</span></div>
+      <div class="chart-box"><canvas id="tech-chart"></canvas></div>
+    </div>
+    <p class="note">A CBOT encerrou junho em ~US$ 5,88, próxima do suporte de US$ 5,75 e abaixo do gatilho de reversão em US$ 6,05.</p>
+    <div class="tech">
+      <div class="lv r"><div class="k">Resistência 2</div><div class="v">US$ 6,25</div></div>
+      <div class="lv r"><div class="k">Resistência 1 · gatilho</div><div class="v">US$ 6,05</div></div>
+      <div class="lv s"><div class="k">Suporte · piso do mês</div><div class="v">US$ 5,75</div></div>
+    </div>
+    <p style="margin-top:16px">Para o triticultor: o mercado físico está lento e os moinhos abastecidos, mas o câmbio joga a favor. <strong>Manter pedidas firmes faz sentido enquanto o real sustentar a paridade</strong> — a pressa de vender safra velha num mercado ilíquido raramente premia. E ficar de olho no termômetro: a geada é o único gatilho capaz de dar prêmio à safra nova de quem escapar dela.</p>
+  </section>
+
+  <!-- WATCHLIST -->
+  <section>
+    <div class="eyebrow">No radar de julho · macro & geopolítica</div>
+    <h2>O que fica de olho</h2>
+    <div class="watch">
+      <div class="w">
+        <div class="when">INVERNO<b>Geada no Sul</b></div>
+        <div class="body"><h4>O swing doméstico da safra em formação</h4>
+        <p>Julho é auge do inverno no RS e PR, com a lavoura em desenvolvimento. Uma frente fria com geada nas regiões produtoras é o único fator capaz de mexer forte com a safra 2026 — dolorosa para o atingido, altista para o preço.</p></div>
+      </div>
+      <div class="w">
+        <div class="when">CONTÍNUO<b>Mar Negro</b></div>
+        <div class="body"><h4>Rússia e Ucrânia, o curinga eterno do trigo</h4>
+        <p>A Ucrânia revisou a safra 2026 para baixo, mas ela é a maior desde 2022 — Mar Negro abastecido limita o teto da CBOT. Qualquer reescalada logística ou militar na região é gatilho altista imediato.</p></div>
+      </div>
+      <div class="w">
+        <div class="when">CÂMBIO<b>Dólar & paridade</b></div>
+        <div class="body"><h4>Real fraco é o escudo do produtor</h4>
+        <p>O preço interno se ancora na paridade de importação. Real fraco (Fed em 29/jul, dólar firme) sustenta o trigo nacional; uma valorização do real derrubaria o descolamento de Chicago. É a variável-chave a monitorar.</p></div>
+      </div>
+      <div class="w">
+        <div class="when">JUN–AGO<b>Colheita do Norte</b></div>
+        <div class="body"><h4>Pressão sazonal sobre a CBOT</h4>
+        <p>A colheita de inverno nos EUA e a oferta de Rússia/UE seguem pesando sobre Chicago no trimestre. É o vetor que mantém o teto da bolsa baixo — e distante do físico brasileiro.</p></div>
+      </div>
+      <div class="w">
+        <div class="when">ARGENTINA<b>Fornecedor nº 1</b></div>
+        <div class="body"><h4>A âncora da paridade de importação</h4>
+        <p>Como principal origem do trigo importado pelo Brasil, os preços e a safra argentina definem, na prática, o piso de reposição do trigo nacional. Acompanhar Buenos Aires é acompanhar o custo do nosso pão.</p></div>
+      </div>
+      <div class="w">
+        <div class="when">SET–NOV<b>El Niño & qualidade</b></div>
+        <div class="body"><h4>Chuva na colheita ameaça o padrão da pluma</h4>
+        <p>O El Niño intenso eleva o risco de chuva excessiva na colheita do Sul (set–nov), problema recorrente que derruba a qualidade e amplia a dependência de trigo importado de melhor padrão.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCLUSAO -->
+  <section style="border-bottom:none">
+    <div class="eyebrow">Percepção para julho</div>
+    <h2>A tendência que carrego para o mês</h2>
+    <p class="lead">Entro em julho com <strong>viés lateral-baixista para a CBOT e sustentado para o trigo brasileiro</strong>. A colheita do Hemisfério Norte e o Mar Negro abastecido mantêm a bolsa pressionada; do lado de cá, o real fraco, a área 20% menor e a dependência de importação blindam o preço ao produtor do Sul. É o raro caso em que a fraqueza estrutural do país (importar trigo) vira força relativa para quem o produz.</p>
+    <p>O jogo de julho tem duas cartas que não estão na lavoura: <strong>o câmbio</strong> (que sustenta a paridade) e <strong>a geada</strong> (que pode dar prêmio à safra nova). Para o triticultor, o recado é de paciência comercial: mercado ilíquido, moinhos abastecidos e pedidas firmes — não há por que vender no fundo enquanto o real defende a paridade. E monitorar o termômetro do inverno mais do que a tela de Chicago. Gestão de risco, como sempre, vale mais que adivinhação.</p>
+  </section>
+
+</div>
+
+<div class="creds">
+  <div class="inner">
+    <div class="sig">Análise e Construção</div>
+    <div class="nm">Dr. Sidney Souza</div>
+    <div class="role">Economista e Adm. Agrícola · Estrategista Econômico do Produtor</div>
+    <ul>
+      <li>Especialista em economia da fazenda e gestão de risco no agro</li>
+      <li>Transformamos dados da fazenda em decisões econômicas</li>
+      <li>Ajudamos produtores a entender se o mercado sustenta seu negócio</li>
+    </ul>
+    <div class="contact">
+      <a href="https://ruralinai-commits.github.io/ruralin-site/" target="_blank">ruralinai-commits.github.io/ruralin-site</a>
+      <span>@ruralin.ai</span>
+      <a href="mailto:sidneyagro@gmail.com">sidneyagro@gmail.com</a>
+      <span>(64) 9 9226-6886</span>
+    </div>
+    <p class="disc">Documento de caráter analítico e educacional. Preços, paridades e câmbio referem-se ao fechamento de junho/2026 e séries reconstruídas de forma indicativa a partir de fontes públicas (Cepea/Esalq, CEEMA, Deral/Seab-PR, Conab, CME/CBOT, Reuters, Notícias Agrícolas e imprensa econômica). As faixas de cenário são hipóteses de trabalho e não constituem recomendação de compra ou venda. Decisões de comercialização e hedge devem considerar o custo de produção e o fluxo de caixa individuais de cada fazenda.</p>
+  </div>
+</div>
+
+<script>
+const ink='#0E211B', gold='#B8983C', bull='#2F7D4F', bear='#B24428', muted='#6C6B5D', grid='rgba(27,36,30,.10)';
+Chart.defaults.font.family="'Space Mono', monospace";
+Chart.defaults.font.size=11;
+Chart.defaults.color=muted;
+
+// 1) CBOT junho
+new Chart(document.getElementById('cbot'),{
+  type:'line',
+  data:{
+    labels:['01','03','05','08','10','12','15','18','22','24','26','29','30'],
+    datasets:[{
+      label:'CBOT (US$/bu)',
+      data:[6.06,6.02,5.99,5.94,5.99,5.90,5.87,6.05,5.95,5.85,5.83,5.86,5.88],
+      borderColor:ink, backgroundColor:'rgba(184,152,60,.12)',
+      borderWidth:2.5, tension:.3, fill:true,
+      pointRadius:(c)=>c.dataIndex===12?4:0,
+      pointBackgroundColor:gold, pointBorderColor:ink
+    }]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:(c)=>'US$ '+c.parsed.y.toFixed(2)}}},
+    scales:{y:{grid:{color:grid},ticks:{callback:(v)=>'$'+v.toFixed(2)}},
+      x:{grid:{display:false},title:{display:true,text:'JUNHO 2026',color:muted,font:{size:10}}}}}
+});
+
+// 2) Relativos base 100
+new Chart(document.getElementById('rel'),{
+  type:'line',
+  data:{
+    labels:['01','06','11','16','21','26','30'],
+    datasets:[
+      {label:'CBOT trigo',data:[100,98.8,97.5,96.9,98,96.2,97.0],borderColor:gold,borderWidth:2.6,tension:.3,pointRadius:0},
+      {label:'Dólar R$/US$',data:[100,100.6,101.4,102.0,102.4,102.6,102.8],borderColor:bull,borderWidth:2.2,tension:.3,pointRadius:0},
+      {label:'Brent',data:[100,96,88,83,80.5,79.5,80.0],borderColor:bear,borderWidth:2.2,tension:.3,pointRadius:0,borderDash:[5,3]}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{legend:{position:'bottom',labels:{boxWidth:14,padding:14,font:{size:11}}}},
+    scales:{y:{grid:{color:grid}},
+      x:{grid:{display:false},title:{display:true,text:'JUNHO 2026 · BASE 100',color:muted,font:{size:10}}}}}
+});
+
+// 3) Descolamento CBOT x Trigo BR
+new Chart(document.getElementById('prem'),{
+  type:'line',
+  data:{
+    labels:['01','06','11','16','21','26','30'],
+    datasets:[
+      {label:'Trigo BR (balcão)',data:[100,100.3,100.6,101.0,101.2,101.4,101.5],borderColor:gold,borderWidth:2.8,tension:.3,pointRadius:0,
+        backgroundColor:'rgba(184,152,60,.14)',fill:true},
+      {label:'CBOT trigo',data:[100,98.8,97.5,96.9,98,96.2,97.0],borderColor:bear,borderWidth:2,tension:.3,pointRadius:0,borderDash:[4,3]}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{legend:{position:'bottom',labels:{boxWidth:14,padding:10,font:{size:10}}}},
+    scales:{y:{grid:{color:grid}},x:{grid:{display:false}}}}
+});
+
+// 4) Tecnica
+(function(){
+  const days=['01','03','05','08','10','12','15','18','22','24','26','29','30'];
+  const px=[6.06,6.02,5.99,5.94,5.99,5.90,5.87,6.05,5.95,5.85,5.83,5.86,5.88];
+  const flat=(v)=>days.map(()=>v);
+  new Chart(document.getElementById('tech-chart'),{
+    type:'line',
+    data:{labels:days,datasets:[
+      {label:'Resistência 2 · 6,25',data:flat(6.25),borderColor:bear,borderWidth:1.4,borderDash:[7,4],pointRadius:0,tension:0},
+      {label:'Resistência 1 · 6,05 (gatilho)',data:flat(6.05),borderColor:bear,borderWidth:1.4,borderDash:[3,3],pointRadius:0,tension:0},
+      {label:'CBOT (US$/bu)',data:px,borderColor:ink,backgroundColor:'rgba(184,152,60,.12)',
+        borderWidth:2.8,tension:.3,fill:true,
+        pointRadius:(c)=>c.dataIndex===px.length-1?5:0,pointBackgroundColor:gold,pointBorderColor:ink},
+      {label:'Suporte · 5,75 (piso)',data:flat(5.75),borderColor:bull,borderWidth:1.6,borderDash:[7,4],pointRadius:0,tension:0}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{legend:{position:'bottom',labels:{boxWidth:14,padding:12,font:{size:11}}},
+        tooltip:{callbacks:{label:(c)=>c.dataset.label+': US$ '+c.parsed.y.toFixed(2)}}},
+      scales:{y:{min:5.6,max:6.4,grid:{color:grid},ticks:{callback:(v)=>'$'+v.toFixed(2)}},
+        x:{grid:{display:false},title:{display:true,text:'JUNHO 2026',color:muted,font:{size:10}}}}}
+  });
+})();
+</script>
+</body>
+</html>
