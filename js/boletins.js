@@ -28,6 +28,13 @@
 window.BOLETINS = [
 
   {
+    arquivo: "info-mercado-03-jul.html",
+    data: "03 jul. 2026",
+    titulo: "Boletim Semanal de Soja, Milho, Boi e Dólar",
+    categoria: "Boletim"
+  },
+
+  {
     arquivo: "portalagro.html",
     data: "01 jul. 2026",
     titulo: "O mês fechou. Já está no ar o balanço de junho e o que esperar de julho.",
