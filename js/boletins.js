@@ -28,6 +28,13 @@
 window.BOLETINS = [
 
   {
+    arquivo: "info-13-22-jul.html",
+    data: "22 jul. 2026",
+    titulo: "Boletim Semanal de Soja, Milho, Boi e Dólar",
+    categoria: "Boletim"
+  },
+
+  {
     arquivo: "info-mercado-03-jul.html",
     data: "03 jul. 2026",
     titulo: "Boletim Semanal de Soja, Milho, Boi e Dólar",
