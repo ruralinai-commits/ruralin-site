@@ -28,6 +28,13 @@
 window.BOLETINS = [
 
   {
+    arquivo: "info-10-14-ago.html",
+    data: "15 ago. 2026",
+    titulo: "Boletim Semanal de Soja, Milho, Boi e Dólar",
+    categoria: "Boletim"
+  },
+
+  {
     arquivo: "info-12-ago-wasde.html",
     data: "12 ago. 2026",
     titulo: "O veredito do WASDE",
